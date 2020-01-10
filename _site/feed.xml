@@ -5,7 +5,7 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://192.168.222.143:4000/</link>
     <description>mingzzi's blog</description>
-    <pubDate>Fri, 10 Jan 2020 13:35:58 +0900</pubDate>
+    <pubDate>Fri, 10 Jan 2020 17:29:48 +0900</pubDate>
     
       <item>
         <title>[Database-DB2] 새로운 User 생성 및 권한 부여하기</title>

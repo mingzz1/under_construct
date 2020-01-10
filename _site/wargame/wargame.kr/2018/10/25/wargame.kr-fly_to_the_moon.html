@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[Wargame.kr] fly to the moon 문제풀이 | mingzzi</title>
+	<meta name="description" content="다음 문제는 fly to the moon 이다.이 문제는 Javascript 문제이다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/wargame/wargame.kr/2018/10/25/wargame.kr-fly_to_the_moon.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[Wargame.kr] fly to the moon 문제풀이</h1>
+    
+    <p class="meta">
+      October 25, 2018
+      
+    </p>
+  </header>
+  <section class="post-content"><p>다음 문제는 <code class="highlighter-rouge">fly to the moon</code> 이다.</p>
+
+<p>이 문제는 Javascript 문제이다.</p>
+
+<!--more-->
+
+<p>문제 정보는 다음과 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>javascript game.
+
+can you clear with bypass prevent cheating system?
+</code></pre></div></div>
+
+<p>문제에 접속하면 정보대로 Javascript로 구현 된 게임이 있다.</p>
+
+<p><img src="/images/wargame.kr/fly_to_the_moon/fly_01.png" alt="" /></p>
+
+<p>비행기가 하나 있고 이 비행기가 벽을 피해서 날아야 하는 게임이다.</p>
+
+<p>심지어 게임을 좀 해 보면 양쪽 벽이 점점 줄어든다.</p>
+
+<p>벽에 닿으면 죽게 되는데, 그 때 아래와 같은 화면을 확인할 수 있다.</p>
+
+<p><img src="/images/wargame.kr/fly_to_the_moon/fly_02.png" alt="" /></p>
+
+<p><code class="highlighter-rouge">31337</code> 점을 획득하라고 한다.</p>
+
+<p>그런데 아까 말했듯이 조금만 게임해도 벽이 점점 줄어들기 때문에 <code class="highlighter-rouge">31337</code> 점을 얻는 것은 불가능 해 보인다.</p>
+
+<p>게임을 하면서 <code class="highlighter-rouge">proxy</code>로 잡아보면, 죽을 때 <code class="highlighter-rouge">high-scores.php</code>에 <code class="highlighter-rouge">token</code>과 현재 나의 <code class="highlighter-rouge">score</code>를 보내는 것을 확인할 수 있다.</p>
+
+<p>그래서 일단 소스코드를 확인 해 보았다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">eval</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span><span class="nx">a</span><span class="p">,</span><span class="nx">c</span><span class="p">,</span><span class="nx">k</span><span class="p">,</span><span class="nx">e</span><span class="p">,</span><span class="nx">d</span><span class="p">){</span><span class="nx">e</span><span class="o">=</span><span class="kd">function</span><span class="p">(</span><span class="nx">c</span><span class="p">){</span><span class="k">return</span> <span class="nx">c</span><span class="p">};</span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="s1">''</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^/</span><span class="p">,</span><span class="nb">String</span><span class="p">)){</span><span class="k">while</span><span class="p">(</span><span class="nx">c</span><span class="o">--</span><span class="p">){</span><span class="nx">d</span><span class="p">[</span><span class="nx">c</span><span class="p">]</span><span class="o">=</span><span class="nx">k</span><span class="p">[</span><span class="nx">c</span><span class="p">]</span><span class="o">||</span><span class="nx">c</span><span class="p">}</span><span class="nx">k</span><span class="o">=</span><span class="p">[</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span><span class="k">return</span> <span class="nx">d</span><span class="p">[</span><span class="nx">e</span><span class="p">]}];</span><span class="nx">e</span><span class="o">=</span><span class="kd">function</span><span class="p">(){</span><span class="k">return</span><span class="s1">'</span><span class="err">\\</span><span class="s1">w+'</span><span class="p">};</span><span class="nx">c</span><span class="o">=</span><span class="mi">1</span><span class="p">};</span><span class="k">while</span><span class="p">(</span><span class="nx">c</span><span class="o">--</span><span class="p">){</span><span class="k">if</span><span class="p">(</span><span class="nx">k</span><span class="p">[</span><span class="nx">c</span><span class="p">]){</span><span class="nx">p</span><span class="o">=</span><span class="nx">p</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s1">'</span><span class="err">\\</span><span class="s1">b'</span><span class="o">+</span><span class="nx">e</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span><span class="o">+</span><span class="s1">'</span><span class="err">\\</span><span class="s1">b'</span><span class="p">,</span><span class="s1">'g'</span><span class="p">),</span><span class="nx">k</span><span class="p">[</span><span class="nx">c</span><span class="p">])}}</span><span class="k">return</span> <span class="nx">p</span><span class="p">}(</span><span class="s1">'76 58=["</span><span class="err">\\</span><span class="s1">89</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">68</span><span class="err">\\</span><span class="s1">68</span><span class="err">\\</span><span class="s1">154</span><span class="err">\\</span><span class="s1">68</span><span class="err">\\</span><span class="s1">67</span><span class="err">\\</span><span class="s1">92</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">71","</span><span class="err">\\</span><span class="s1">70</span><span class="err">\\</span><span class="s1">74</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">70</span><span class="err">\\</span><span class="s1">89</span><span class="err">\\</span><span class="s1">136</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">86</span><span class="err">\\</span><span class="s1">59","</span><span class="err">\\</span><span class="s1">81</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">118</span><span class="err">\\</span><span class="s1">70</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">71</span><span class="err">\\</span><span class="s1">59","</span><span class="err">\\</span><span class="s1">124</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">70</span><span class="err">\\</span><span class="s1">118</span><span class="err">\\</span><span class="s1">70</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">71</span><span class="err">\\</span><span class="s1">59","</span><span class="err">\\</span><span class="s1">69</span><span class="err">\\</span><span class="s1">74</span><span class="err">\\</span><span class="s1">71</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">89</span><span class="err">\\</span><span class="s1">98</span><span class="err">\\</span><span class="s1">78</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">68","</span><span class="err">\\</span><span class="s1">97</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">84</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">74</span><span class="err">\\</span><span class="s1">98</span><span class="err">\\</span><span class="s1">78</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">68","</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">104</span><span class="err">\\</span><span class="s1">148</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">70</span><span class="err">\\</span><span class="s1">63","</span><span class="err">\\</span><span class="s1">159</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">90</span><span class="err">\\</span><span class="s1">70</span><span class="err">\\</span><span class="s1">74</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">67</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">81</span><span class="err">\\</span><span class="s1">155</span><span class="err">\\</span><span class="s1">90</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">86</span><span class="err">\\</span><span class="s1">90</span><span class="err">\\</span><span class="s1">92</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">78</span><span class="err">\\</span><span class="s1">90</span><span class="err">\\</span><span class="s1">70</span><span class="err">\\</span><span class="s1">67</span><span class="err">\\</span><span class="s1">64","</span><span class="err">\\</span><span class="s1">97</span><span class="err">\\</span><span class="s1">67</span><span class="err">\\</span><span class="s1">71</span><span class="err">\\</span><span class="s1">64","</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">86</span><span class="err">\\</span><span class="s1">86</span><span class="err">\\</span><span class="s1">69</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">136</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">86</span><span class="err">\\</span><span class="s1">63","</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">78</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">68","</span><span class="err">\\</span><span class="s1">81</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">170</span><span class="err">\\</span><span class="s1">68</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">85</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">124</span><span class="err">\\</span><span class="s1">92</span><span class="err">\\</span><span class="s1">142</span><span class="err">\\</span><span class="s1">84","</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">77","","</span><span class="err">\\</span><span class="s1">77</span><span class="err">\\</span><span class="s1">112","</span><span class="err">\\</span><span class="s1">70</span><span class="err">\\</span><span class="s1">69</span><span class="err">\\</span><span class="s1">69","</span><span class="err">\\</span><span class="s1">84</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">69</span><span class="err">\\</span><span class="s1">77</span><span class="err">\\</span><span class="s1">68</span><span class="err">\\</span><span class="s1">67</span><span class="err">\\</span><span class="s1">92","</span><span class="err">\\</span><span class="s1">104</span><span class="err">\\</span><span class="s1">68</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">70</span><span class="err">\\</span><span class="s1">89","</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">67</span><span class="err">\\</span><span class="s1">70</span><span class="err">\\</span><span class="s1">74","</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">85</span><span class="err">\\</span><span class="s1">81</span><span class="err">\\</span><span class="s1">107</span><span class="err">\\</span><span class="s1">68</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">86</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">111</span><span class="err">\\</span><span class="s1">97</span><span class="err">\\</span><span class="s1">67</span><span class="err">\\</span><span class="s1">68</span><span class="err">\\</span><span class="s1">68","</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">85</span><span class="err">\\</span><span class="s1">81</span><span class="err">\\</span><span class="s1">107</span><span class="err">\\</span><span class="s1">71</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">81</span><span class="err">\\</span><span class="s1">74</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">111</span><span class="err">\\</span><span class="s1">97</span><span class="err">\\</span><span class="s1">67</span><span class="err">\\</span><span class="s1">68</span><span class="err">\\</span><span class="s1">68","</span><span class="err">\\</span><span class="s1">91</span><span class="err">\\</span><span class="s1">74</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">81</span><span class="err">\\</span><span class="s1">74</span><span class="err">\\</span><span class="s1">111</span><span class="err">\\</span><span class="s1">69</span><span class="err">\\</span><span class="s1">70</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">71</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">69","</span><span class="err">\\</span><span class="s1">71</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">85</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">103</span><span class="err">\\</span><span class="s1">59","</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">67</span><span class="err">\\</span><span class="s1">104</span><span class="err">\\</span><span class="s1">68</span><span class="err">\\</span><span class="s1">59","</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">59","</span><span class="err">\\</span><span class="s1">84</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">103</span><span class="err">\\</span><span class="s1">91</span><span class="err">\\</span><span class="s1">69</span><span class="err">\\</span><span class="s1">70</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">71</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">111</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">67</span><span class="err">\\</span><span class="s1">104</span><span class="err">\\</span><span class="s1">68</span><span class="err">\\</span><span class="s1">59","</span><span class="err">\\</span><span class="s1">70</span><span class="err">\\</span><span class="s1">68</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">70</span><span class="err">\\</span><span class="s1">89","</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">112</span><span class="err">\\</span><span class="s1">63","</span><span class="err">\\</span><span class="s1">69</span><span class="err">\\</span><span class="s1">77</span><span class="err">\\</span><span class="s1">67</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">91</span><span class="err">\\</span><span class="s1">69</span><span class="err">\\</span><span class="s1">70</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">71</span><span class="err">\\</span><span class="s1">59","</span><span class="err">\\</span><span class="s1">68</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">86</span><span class="err">\\</span><span class="s1">63","</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">85</span><span class="err">\\</span><span class="s1">81</span><span class="err">\\</span><span class="s1">91</span><span class="err">\\</span><span class="s1">69</span><span class="err">\\</span><span class="s1">74</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">77","</span><span class="err">\\</span><span class="s1">69</span><span class="err">\\</span><span class="s1">68</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">97","</span><span class="err">\\</span><span class="s1">86</span><span class="err">\\</span><span class="s1">67</span><span class="err">\\</span><span class="s1">84</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">142</span><span class="err">\\</span><span class="s1">64","</span><span class="err">\\</span><span class="s1">104</span><span class="err">\\</span><span class="s1">67</span><span class="err">\\</span><span class="s1">70</span><span class="err">\\</span><span class="s1">89</span><span class="err">\\</span><span class="s1">81</span><span class="err">\\</span><span class="s1">71</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">78</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">84</span><span class="err">\\</span><span class="s1">149</span><span class="err">\\</span><span class="s1">77</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">69</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">64","</span><span class="err">\\</span><span class="s1">168</span><span class="err">\\</span><span class="s1">167</span><span class="err">\\</span><span class="s1">164</span><span class="err">\\</span><span class="s1">90","</span><span class="err">\\</span><span class="s1">84</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">103</span><span class="err">\\</span><span class="s1">91</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">78</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">68","</span><span class="err">\\</span><span class="s1">71</span><span class="err">\\</span><span class="s1">67</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">84</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">85","</span><span class="err">\\</span><span class="s1">86</span><span class="err">\\</span><span class="s1">68</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">71","</span><span class="err">\\</span><span class="s1">78</span><span class="err">\\</span><span class="s1">77</span><span class="err">\\</span><span class="s1">84</span><span class="err">\\</span><span class="s1">67</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">98</span><span class="err">\\</span><span class="s1">78</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">68</span><span class="err">\\</span><span class="s1">143</span><span class="err">\\</span><span class="s1">150","</span><span class="err">\\</span><span class="s1">86</span><span class="err">\\</span><span class="s1">67</span><span class="err">\\</span><span class="s1">84</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">151</span><span class="err">\\</span><span class="s1">78</span><span class="err">\\</span><span class="s1">63","</span><span class="err">\\</span><span class="s1">154</span><span class="err">\\</span><span class="s1">151</span><span class="err">\\</span><span class="s1">118</span><span class="err">\\</span><span class="s1">98","</span><span class="err">\\</span><span class="s1">74</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">81</span><span class="err">\\</span><span class="s1">74</span><span class="err">\\</span><span class="s1">149</span><span class="err">\\</span><span class="s1">69</span><span class="err">\\</span><span class="s1">70</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">71</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">69</span><span class="err">\\</span><span class="s1">107</span><span class="err">\\</span><span class="s1">77</span><span class="err">\\</span><span class="s1">74</span><span class="err">\\</span><span class="s1">77","</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">89</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">146","</span><span class="err">\\</span><span class="s1">169</span><span class="err">\\</span><span class="s1">69</span><span class="err">\\</span><span class="s1">70</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">71</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">146","</span><span class="err">\\</span><span class="s1">67</span><span class="err">\\</span><span class="s1">148</span><span class="err">\\</span><span class="s1">67</span><span class="err">\\</span><span class="s1">112","</span><span class="err">\\</span><span class="s1">74</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">85</span><span class="err">\\</span><span class="s1">68","</span><span class="err">\\</span><span class="s1">77</span><span class="err">\\</span><span class="s1">91</span><span class="err">\\</span><span class="s1">97</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">68</span><span class="err">\\</span><span class="s1">70</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">85</span><span class="err">\\</span><span class="s1">59","</span><span class="err">\\</span><span class="s1">78</span><span class="err">\\</span><span class="s1">77</span><span class="err">\\</span><span class="s1">84</span><span class="err">\\</span><span class="s1">67</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">98</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">89</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">143</span><span class="err">\\</span><span class="s1">150","</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">74</span><span class="err">\\</span><span class="s1">112</span><span class="err">\\</span><span class="s1">155</span><span class="err">\\</span><span class="s1">90</span><span class="err">\\</span><span class="s1">152</span><span class="err">\\</span><span class="s1">74</span><span class="err">\\</span><span class="s1">71</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">69</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">67</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">90</span><span class="err">\\</span><span class="s1">145</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">92</span><span class="err">\\</span><span class="s1">67","</span><span class="err">\\</span><span class="s1">85</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">78</span><span class="err">\\</span><span class="s1">69</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">103</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">71","</span><span class="err">\\</span><span class="s1">91</span><span class="err">\\</span><span class="s1">70</span><span class="err">\\</span><span class="s1">74</span><span class="err">\\</span><span class="s1">71</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">69</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">67</span><span class="err">\\</span><span class="s1">64","</span><span class="err">\\</span><span class="s1">85</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">78</span><span class="err">\\</span><span class="s1">69</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">78</span><span class="err">\\</span><span class="s1">63","</span><span class="err">\\</span><span class="s1">71</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">67</span><span class="err">\\</span><span class="s1">84</span><span class="err">\\</span><span class="s1">92","</span><span class="err">\\</span><span class="s1">152</span><span class="err">\\</span><span class="s1">74</span><span class="err">\\</span><span class="s1">71</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">69</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">66</span><span class="err">\\</span><span class="s1">67</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">90</span><span class="err">\\</span><span class="s1">145</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">92</span><span class="err">\\</span><span class="s1">67","</span><span class="err">\\</span><span class="s1">77</span><span class="err">\\</span><span class="s1">67</span><span class="err">\\</span><span class="s1">81</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">175","</span><span class="err">\\</span><span class="s1">85</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">78</span><span class="err">\\</span><span class="s1">69</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">85</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">103</span><span class="err">\\</span><span class="s1">59","</span><span class="err">\\</span><span class="s1">63</span><span class="err">\\</span><span class="s1">61</span><span class="err">\\</span><span class="s1">89</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">64</span><span class="err">\\</span><span class="s1">107</span><span class="err">\\</span><span class="s1">77</span><span class="err">\\</span><span class="s1">74</span><span class="err">\\</span><span class="s1">77","</span><span class="err">\\</span><span class="s1">81</span><span class="err">\\</span><span class="s1">59</span><span class="err">\\</span><span class="s1">63"];62 119(){76 174=73;76 108=93;62 141(){108=173;79 93};62 130(){79 108};73[58[0]]=62(){141();79 93};73[58[1]]=62(){79 130()};76 116=0;62 131(){79 116};62 133(){72(108){116++};79 93};73[58[2]]=62(){79 131()};73[58[3]]=62(){133();79 93};76 123=161;62 138(){123-=20;79 93};62 144(){79 123};73[58[4]]=62(){138();79 93};73[58[5]]=62(){79 144()}};76 95=0;76 110=0;76 134=125;76 75=117;76 94=117;76 101=0;76 102=0;76 99=0;76 96=0;82=106 127(20);88=106 127(20);62 153(){87=106 119();72(58[6]==135 105){105[58[8]](58[7])};110=121[58[11]](58[10])[58[9]];134+=110;65=0;122(65=0;65&lt;20;65++){82[65]=80;88[65]=137};$(58[19])[58[18]](62(83){65=83*25;$(73)[58[15]](58[12],58[13]+65+58[14]);$(73)[58[15]](58[16],58[17])});$(58[20])[58[18]](62(83){65=83*25;$(73)[58[15]](58[12],58[13]+65+58[14]);$(73)[58[15]](58[16],58[17])});$(58[25])[58[26]](62(){$(58[23])[58[22]](58[21]);$(58[25])[58[15]](58[16],58[24]);132();114()})};62 132(){87=106 119();72(58[6]==135 105){105[58[8]](58[7])};75=117;101=0;102=0;99=0;$(58[28])[58[27]](58[13]+0);$(58[30])[58[15]](58[29],75+58[14]);65=0;122(65=0;65&lt;20;65++){82[65]=80;88[65]=137};$(58[30])[58[32]](58[31]);$(58[19])[58[18]](62(83){65=83*25;$(73)[58[15]](58[12],58[13]+65+58[14]);$(73)[58[15]](58[16],58[17])});$(58[20])[58[18]](62(83){65=83*25;$(73)[58[15]](58[12],58[13]+65+58[14]);$(73)[58[15]](58[16],58[17])})};62 114(){95=95+2;72(95&gt;20){95=0};$(58[35])[58[15]](58[33],58[34]+95+58[14]);72(75+32&lt;125){72(75+46&lt;94){75+=4}109{72(75+16&lt;94){75+=2}}};72(75&gt;0){72(75-14&gt;94){75-=4}109{72(75+16&gt;94){75-=2}}};$(58[30])[58[15]](58[29],75+58[14]);102++;72(102&gt;60){102=0;96=126[58[37]](126[58[36]]()*2)};72(82[0]&lt;10){96=1}109{72(88[0]&gt;166){96=0}};65=0;122(65=20;65&gt;0;65--){82[65]=82[65-1];88[65]=88[65-1]};72(96==0){82[0]-=3};72(96==1){82[0]+=3};88[0]=82[0]+87[58[5]]();$(58[19])[58[18]](62(83){$(73)[58[15]](58[29],58[13]+82[83]+58[14])});$(58[20])[58[18]](62(83){$(73)[58[15]](58[29],58[13]+88[83]+58[14])});72(87[58[5]]()&gt;=120){99++;72(99&gt;100){99=0;87[58[4]]();82[0]+=10}};101++;72(101&gt;20){101=0;87.165();$(58[28])[58[27]](58[13]+87[58[2]]())};72(75&lt;=82[18]+20||75+32&gt;=88[18]){87[58[0]]()};72(87[58[1]]()){158(58[38],10)}109{$(58[30])[58[39]](58[31]);$(58[19])[58[15]](58[16],58[24]);$(58[20])[58[15]](58[16],58[24]);$[58[44]]({171:58[40],156:58[41],162:58[42]+115+58[43]+87[58[2]](),157:62(113){147(113)}})}};62 160(){79};62 147(113){$(58[25])[58[45]](113);$(58[25])[58[15]](58[16],58[17])};$(121)[58[52]](62(){$(58[46])[58[15]](58[16],58[17]);140();163(58[47],172);$(58[46])[58[26]](62(){$(58[46])[58[15]](58[16],58[24]);153();114()});$(58[50])[58[49]](62(){$(73)[58[45]](58[48])});$(58[50])[58[51]](62(){$(73)[58[45]](139)})});76 139=58[53];$(121)[58[55]](62(129){94=129[58[54]]-110});76 115=58[13];62 140(){$[58[57]](58[56],62(128){115=128})};'</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">176</span><span class="p">,</span><span class="s1">'||||||||||||||||||||||||||||||||||||||||||||||||||||||||||_0x32bb|x65||x6F|function|x74|x6E|y|x69|x61|x6C|x73|x63|x72|if|this|x68|ship_x|var|x70|x75|return||x67|left_wall|_0x8618x16|x64|x6D|x66|BTunnelGame|right_wall|x6B|x20|x23|x79|true|pos_x|bg_val|t_state|x77|x54|c_w||c_s|c_r|x76|x62|console|new|x2E|_0x8618x3|else|rail_left|x5F|x78|_0x8618x19|updateTunnel|token|_0x8618x6|234|x53|secureGame||document|for|_0x8618x9|x42|500|Math|Array|_0x8618x20|_0x8618x1d|_0x8618x5|_0x8618x7|restartTunnel|_0x8618x8|rail_right|typeof|x4C|400|_0x8618xa|temp|updateToken|_0x8618x4|x49|x28|_0x8618xb|x4D|x3D|showHighScores|x6A|x2D|x29|x4F|x43|initTunnel|x50|x2C|url|success|setTimeout|x44|scoreUpdate|320|data|setInterval|x25|BincScore|470|x30|x35|x26|x45|type|10000|false|_0x8618x2|x58'</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">'|'</span><span class="p">),</span><span class="mi">0</span><span class="p">,{}))</span>
+</code></pre></div></div>
+
+<p>이 코드가 <code class="highlighter-rouge">Javascript</code> 코드만 확인 해 본 것이다.</p>
+
+<p>너무 복잡해서 이 상태로는 분석을 못할 것 같아 <a href="https://beautifier.io/">JS Beautifier</a>를 사용했다.</p>
+
+<p>이 페이지에 소스코드를 넣고 <code class="highlighter-rouge">Beautify JavaScript or HTML</code> 버튼을 누르면 이쁘게 정리된 코드를 확인할 수 있다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">secureGame</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">_0x8618x2</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">_0x8618x3</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+    <span class="kd">function</span> <span class="nx">_0x8618x4</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">_0x8618x3</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="k">return</span> <span class="kc">true</span>
+    <span class="p">};</span>
+
+    <span class="kd">function</span> <span class="nx">_0x8618x5</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">_0x8618x3</span>
+    <span class="p">};</span>
+    <span class="k">this</span><span class="p">[</span><span class="s1">'killPlayer'</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">_0x8618x4</span><span class="p">();</span>
+        <span class="k">return</span> <span class="kc">true</span>
+    <span class="p">};</span>
+    <span class="k">this</span><span class="p">[</span><span class="s1">'checkLife'</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">_0x8618x5</span><span class="p">()</span>
+    <span class="p">};</span>
+    <span class="kd">var</span> <span class="nx">_0x8618x6</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="kd">function</span> <span class="nx">_0x8618x7</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">_0x8618x6</span>
+    <span class="p">};</span>
+
+    <span class="kd">function</span> <span class="nx">_0x8618x8</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">_0x8618x3</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">_0x8618x6</span><span class="o">++</span>
+        <span class="p">};</span>
+        <span class="k">return</span> <span class="kc">true</span>
+    <span class="p">};</span>
+    <span class="k">this</span><span class="p">[</span><span class="s1">'getScore'</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">_0x8618x7</span><span class="p">()</span>
+    <span class="p">};</span>
+    <span class="k">this</span><span class="p">[</span><span class="s1">'BincScore'</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">_0x8618x8</span><span class="p">();</span>
+        <span class="k">return</span> <span class="kc">true</span>
+    <span class="p">};</span>
+    <span class="kd">var</span> <span class="nx">_0x8618x9</span> <span class="o">=</span> <span class="mi">320</span><span class="p">;</span>
+
+    <span class="kd">function</span> <span class="nx">_0x8618xa</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">_0x8618x9</span> <span class="o">-=</span> <span class="mi">20</span><span class="p">;</span>
+        <span class="k">return</span> <span class="kc">true</span>
+    <span class="p">};</span>
+
+    <span class="kd">function</span> <span class="nx">_0x8618xb</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">_0x8618x9</span>
+    <span class="p">};</span>
+    <span class="k">this</span><span class="p">[</span><span class="s1">'shrinkTunnel'</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">_0x8618xa</span><span class="p">();</span>
+        <span class="k">return</span> <span class="kc">true</span>
+    <span class="p">};</span>
+    <span class="k">this</span><span class="p">[</span><span class="s1">'widthTunnel'</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">_0x8618xb</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">bg_val</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">rail_left</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">rail_right</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">ship_x</span> <span class="o">=</span> <span class="mi">234</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">pos_x</span> <span class="o">=</span> <span class="mi">234</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">c_s</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">c_r</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">c_w</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">t_state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nx">left_wall</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+<span class="nx">right_wall</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">initTunnel</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">BTunnelGame</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">secureGame</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="s1">'object'</span> <span class="o">==</span> <span class="k">typeof</span> <span class="nx">console</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">[</span><span class="s1">'warn'</span><span class="p">](</span><span class="s1">'Do cheating, if you can'</span><span class="p">)</span>
+    <span class="p">};</span>
+    <span class="nx">rail_left</span> <span class="o">=</span> <span class="nb">document</span><span class="p">[</span><span class="s1">'getElementById'</span><span class="p">](</span><span class="s1">'tunnel'</span><span class="p">)[</span><span class="s1">'offsetLeft'</span><span class="p">];</span>
+    <span class="nx">rail_right</span> <span class="o">+=</span> <span class="nx">rail_left</span><span class="p">;</span>
+    <span class="nx">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">y</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">;</span> <span class="nx">y</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">left_wall</span><span class="p">[</span><span class="nx">y</span><span class="p">]</span> <span class="o">=</span> <span class="mi">80</span><span class="p">;</span>
+        <span class="nx">right_wall</span><span class="p">[</span><span class="nx">y</span><span class="p">]</span> <span class="o">=</span> <span class="mi">400</span>
+    <span class="p">};</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'img.left_wall'</span><span class="p">)[</span><span class="s1">'each'</span><span class="p">](</span><span class="kd">function</span><span class="p">(</span><span class="nx">_0x8618x16</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">y</span> <span class="o">=</span> <span class="nx">_0x8618x16</span> <span class="o">*</span> <span class="mi">25</span><span class="p">;</span>
+        <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">)[</span><span class="s1">'css'</span><span class="p">](</span><span class="s1">'top'</span><span class="p">,</span> <span class="s1">''</span> <span class="o">+</span> <span class="nx">y</span> <span class="o">+</span> <span class="s1">'px'</span><span class="p">);</span>
+        <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">)[</span><span class="s1">'css'</span><span class="p">](</span><span class="s1">'display'</span><span class="p">,</span> <span class="s1">'block'</span><span class="p">)</span>
+    <span class="p">});</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'img.right_wall'</span><span class="p">)[</span><span class="s1">'each'</span><span class="p">](</span><span class="kd">function</span><span class="p">(</span><span class="nx">_0x8618x16</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">y</span> <span class="o">=</span> <span class="nx">_0x8618x16</span> <span class="o">*</span> <span class="mi">25</span><span class="p">;</span>
+        <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">)[</span><span class="s1">'css'</span><span class="p">](</span><span class="s1">'top'</span><span class="p">,</span> <span class="s1">''</span> <span class="o">+</span> <span class="nx">y</span> <span class="o">+</span> <span class="s1">'px'</span><span class="p">);</span>
+        <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">)[</span><span class="s1">'css'</span><span class="p">](</span><span class="s1">'display'</span><span class="p">,</span> <span class="s1">'block'</span><span class="p">)</span>
+    <span class="p">});</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'div#score_table'</span><span class="p">)[</span><span class="s1">'click'</span><span class="p">](</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">'table'</span><span class="p">)[</span><span class="s1">'remove'</span><span class="p">](</span><span class="s1">'#high_scores'</span><span class="p">);</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">'div#score_table'</span><span class="p">)[</span><span class="s1">'css'</span><span class="p">](</span><span class="s1">'display'</span><span class="p">,</span> <span class="s1">'none'</span><span class="p">);</span>
+        <span class="nx">restartTunnel</span><span class="p">();</span>
+        <span class="nx">updateTunnel</span><span class="p">()</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">restartTunnel</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">BTunnelGame</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">secureGame</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="s1">'object'</span> <span class="o">==</span> <span class="k">typeof</span> <span class="nx">console</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">[</span><span class="s1">'warn'</span><span class="p">](</span><span class="s1">'Do cheating, if you can'</span><span class="p">)</span>
+    <span class="p">};</span>
+    <span class="nx">ship_x</span> <span class="o">=</span> <span class="mi">234</span><span class="p">;</span>
+    <span class="nx">c_s</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">c_r</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">c_w</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'span#score'</span><span class="p">)[</span><span class="s1">'text'</span><span class="p">](</span><span class="s1">''</span> <span class="o">+</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'img#ship'</span><span class="p">)[</span><span class="s1">'css'</span><span class="p">](</span><span class="s1">'left'</span><span class="p">,</span> <span class="nx">ship_x</span> <span class="o">+</span> <span class="s1">'px'</span><span class="p">);</span>
+    <span class="nx">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">y</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">;</span> <span class="nx">y</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">left_wall</span><span class="p">[</span><span class="nx">y</span><span class="p">]</span> <span class="o">=</span> <span class="mi">80</span><span class="p">;</span>
+        <span class="nx">right_wall</span><span class="p">[</span><span class="nx">y</span><span class="p">]</span> <span class="o">=</span> <span class="mi">400</span>
+    <span class="p">};</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'img#ship'</span><span class="p">)[</span><span class="s1">'fadeIn'</span><span class="p">](</span><span class="s1">'slow'</span><span class="p">);</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'img.left_wall'</span><span class="p">)[</span><span class="s1">'each'</span><span class="p">](</span><span class="kd">function</span><span class="p">(</span><span class="nx">_0x8618x16</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">y</span> <span class="o">=</span> <span class="nx">_0x8618x16</span> <span class="o">*</span> <span class="mi">25</span><span class="p">;</span>
+        <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">)[</span><span class="s1">'css'</span><span class="p">](</span><span class="s1">'top'</span><span class="p">,</span> <span class="s1">''</span> <span class="o">+</span> <span class="nx">y</span> <span class="o">+</span> <span class="s1">'px'</span><span class="p">);</span>
+        <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">)[</span><span class="s1">'css'</span><span class="p">](</span><span class="s1">'display'</span><span class="p">,</span> <span class="s1">'block'</span><span class="p">)</span>
+    <span class="p">});</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'img.right_wall'</span><span class="p">)[</span><span class="s1">'each'</span><span class="p">](</span><span class="kd">function</span><span class="p">(</span><span class="nx">_0x8618x16</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">y</span> <span class="o">=</span> <span class="nx">_0x8618x16</span> <span class="o">*</span> <span class="mi">25</span><span class="p">;</span>
+        <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">)[</span><span class="s1">'css'</span><span class="p">](</span><span class="s1">'top'</span><span class="p">,</span> <span class="s1">''</span> <span class="o">+</span> <span class="nx">y</span> <span class="o">+</span> <span class="s1">'px'</span><span class="p">);</span>
+        <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">)[</span><span class="s1">'css'</span><span class="p">](</span><span class="s1">'display'</span><span class="p">,</span> <span class="s1">'block'</span><span class="p">)</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">updateTunnel</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">bg_val</span> <span class="o">=</span> <span class="nx">bg_val</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">bg_val</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">bg_val</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="p">};</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'div#tunnel'</span><span class="p">)[</span><span class="s1">'css'</span><span class="p">](</span><span class="s1">'background-position'</span><span class="p">,</span> <span class="s1">'50% '</span> <span class="o">+</span> <span class="nx">bg_val</span> <span class="o">+</span> <span class="s1">'px'</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">ship_x</span> <span class="o">+</span> <span class="mi">32</span> <span class="o">&lt;</span> <span class="mi">500</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">ship_x</span> <span class="o">+</span> <span class="mi">46</span> <span class="o">&lt;</span> <span class="nx">pos_x</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">ship_x</span> <span class="o">+=</span> <span class="mi">4</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">ship_x</span> <span class="o">+</span> <span class="mi">16</span> <span class="o">&lt;</span> <span class="nx">pos_x</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">ship_x</span> <span class="o">+=</span> <span class="mi">2</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">ship_x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">ship_x</span> <span class="o">-</span> <span class="mi">14</span> <span class="o">&gt;</span> <span class="nx">pos_x</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">ship_x</span> <span class="o">-=</span> <span class="mi">4</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">ship_x</span> <span class="o">+</span> <span class="mi">16</span> <span class="o">&gt;</span> <span class="nx">pos_x</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">ship_x</span> <span class="o">-=</span> <span class="mi">2</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'img#ship'</span><span class="p">)[</span><span class="s1">'css'</span><span class="p">](</span><span class="s1">'left'</span><span class="p">,</span> <span class="nx">ship_x</span> <span class="o">+</span> <span class="s1">'px'</span><span class="p">);</span>
+    <span class="nx">c_r</span><span class="o">++</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">c_r</span> <span class="o">&gt;</span> <span class="mi">60</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">c_r</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="nx">t_state</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">[</span><span class="s1">'floor'</span><span class="p">](</span><span class="nb">Math</span><span class="p">[</span><span class="s1">'random'</span><span class="p">]()</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="p">};</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">left_wall</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">t_state</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">right_wall</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">470</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">t_state</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+    <span class="nx">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">y</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span> <span class="nx">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">y</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">left_wall</span><span class="p">[</span><span class="nx">y</span><span class="p">]</span> <span class="o">=</span> <span class="nx">left_wall</span><span class="p">[</span><span class="nx">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+        <span class="nx">right_wall</span><span class="p">[</span><span class="nx">y</span><span class="p">]</span> <span class="o">=</span> <span class="nx">right_wall</span><span class="p">[</span><span class="nx">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="p">};</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">t_state</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">left_wall</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">3</span>
+    <span class="p">};</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">t_state</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">left_wall</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">3</span>
+    <span class="p">};</span>
+    <span class="nx">right_wall</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">left_wall</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nx">BTunnelGame</span><span class="p">[</span><span class="s1">'widthTunnel'</span><span class="p">]();</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'img.left_wall'</span><span class="p">)[</span><span class="s1">'each'</span><span class="p">](</span><span class="kd">function</span><span class="p">(</span><span class="nx">_0x8618x16</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">)[</span><span class="s1">'css'</span><span class="p">](</span><span class="s1">'left'</span><span class="p">,</span> <span class="s1">''</span> <span class="o">+</span> <span class="nx">left_wall</span><span class="p">[</span><span class="nx">_0x8618x16</span><span class="p">]</span> <span class="o">+</span> <span class="s1">'px'</span><span class="p">)</span>
+    <span class="p">});</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'img.right_wall'</span><span class="p">)[</span><span class="s1">'each'</span><span class="p">](</span><span class="kd">function</span><span class="p">(</span><span class="nx">_0x8618x16</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">)[</span><span class="s1">'css'</span><span class="p">](</span><span class="s1">'left'</span><span class="p">,</span> <span class="s1">''</span> <span class="o">+</span> <span class="nx">right_wall</span><span class="p">[</span><span class="nx">_0x8618x16</span><span class="p">]</span> <span class="o">+</span> <span class="s1">'px'</span><span class="p">)</span>
+    <span class="p">});</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">BTunnelGame</span><span class="p">[</span><span class="s1">'widthTunnel'</span><span class="p">]()</span> <span class="o">&gt;=</span> <span class="mi">120</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">c_w</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">c_w</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">c_w</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="nx">BTunnelGame</span><span class="p">[</span><span class="s1">'shrinkTunnel'</span><span class="p">]();</span>
+            <span class="nx">left_wall</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">10</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+    <span class="nx">c_s</span><span class="o">++</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">c_s</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">c_s</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="nx">BTunnelGame</span><span class="p">.</span><span class="nx">BincScore</span><span class="p">();</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">'span#score'</span><span class="p">)[</span><span class="s1">'text'</span><span class="p">](</span><span class="s1">''</span> <span class="o">+</span> <span class="nx">BTunnelGame</span><span class="p">[</span><span class="s1">'getScore'</span><span class="p">]())</span>
+    <span class="p">};</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">ship_x</span> <span class="o">&lt;=</span> <span class="nx">left_wall</span><span class="p">[</span><span class="mi">18</span><span class="p">]</span> <span class="o">+</span> <span class="mi">20</span> <span class="o">||</span> <span class="nx">ship_x</span> <span class="o">+</span> <span class="mi">32</span> <span class="o">&gt;=</span> <span class="nx">right_wall</span><span class="p">[</span><span class="mi">18</span><span class="p">])</span> <span class="p">{</span>
+        <span class="nx">BTunnelGame</span><span class="p">[</span><span class="s1">'killPlayer'</span><span class="p">]()</span>
+    <span class="p">};</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">BTunnelGame</span><span class="p">[</span><span class="s1">'checkLife'</span><span class="p">]())</span> <span class="p">{</span>
+        <span class="nx">setTimeout</span><span class="p">(</span><span class="s1">'updateTunnel()'</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">'img#ship'</span><span class="p">)[</span><span class="s1">'fadeOut'</span><span class="p">](</span><span class="s1">'slow'</span><span class="p">);</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">'img.left_wall'</span><span class="p">)[</span><span class="s1">'css'</span><span class="p">](</span><span class="s1">'display'</span><span class="p">,</span> <span class="s1">'none'</span><span class="p">);</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">'img.right_wall'</span><span class="p">)[</span><span class="s1">'css'</span><span class="p">](</span><span class="s1">'display'</span><span class="p">,</span> <span class="s1">'none'</span><span class="p">);</span>
+        <span class="nx">$</span><span class="p">[</span><span class="s1">'ajax'</span><span class="p">]({</span>
+            <span class="na">type</span><span class="p">:</span> <span class="s1">'POST'</span><span class="p">,</span>
+            <span class="na">url</span><span class="p">:</span> <span class="s1">'high-scores.php'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="s1">'token='</span> <span class="o">+</span> <span class="nx">token</span> <span class="o">+</span> <span class="s1">'&amp;score='</span> <span class="o">+</span> <span class="nx">BTunnelGame</span><span class="p">[</span><span class="s1">'getScore'</span><span class="p">](),</span>
+            <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">_0x8618x19</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">showHighScores</span><span class="p">(</span><span class="nx">_0x8618x19</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">scoreUpdate</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">showHighScores</span><span class="p">(</span><span class="nx">_0x8618x19</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'div#score_table'</span><span class="p">)[</span><span class="s1">'html'</span><span class="p">](</span><span class="nx">_0x8618x19</span><span class="p">);</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'div#score_table'</span><span class="p">)[</span><span class="s1">'css'</span><span class="p">](</span><span class="s1">'display'</span><span class="p">,</span> <span class="s1">'block'</span><span class="p">)</span>
+<span class="p">};</span>
+<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">)[</span><span class="s1">'ready'</span><span class="p">](</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'p#welcome'</span><span class="p">)[</span><span class="s1">'css'</span><span class="p">](</span><span class="s1">'display'</span><span class="p">,</span> <span class="s1">'block'</span><span class="p">);</span>
+    <span class="nx">updateToken</span><span class="p">();</span>
+    <span class="nx">setInterval</span><span class="p">(</span><span class="s1">'updateToken()'</span><span class="p">,</span> <span class="mi">10000</span><span class="p">);</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'p#welcome'</span><span class="p">)[</span><span class="s1">'click'</span><span class="p">](</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">'p#welcome'</span><span class="p">)[</span><span class="s1">'css'</span><span class="p">](</span><span class="s1">'display'</span><span class="p">,</span> <span class="s1">'none'</span><span class="p">);</span>
+        <span class="nx">initTunnel</span><span class="p">();</span>
+        <span class="nx">updateTunnel</span><span class="p">()</span>
+    <span class="p">});</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'#christian'</span><span class="p">)[</span><span class="s1">'mouseover'</span><span class="p">](</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">)[</span><span class="s1">'html'</span><span class="p">](</span><span class="s1">'thx, Christian Montoya'</span><span class="p">)</span>
+    <span class="p">});</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'#christian'</span><span class="p">)[</span><span class="s1">'mouseout'</span><span class="p">](</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">)[</span><span class="s1">'html'</span><span class="p">](</span><span class="nx">temp</span><span class="p">)</span>
+    <span class="p">})</span>
+<span class="p">});</span>
+<span class="kd">var</span> <span class="nx">temp</span> <span class="o">=</span> <span class="s1">'Christian Montoya'</span><span class="p">;</span>
+<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">)[</span><span class="s1">'mousemove'</span><span class="p">](</span><span class="kd">function</span><span class="p">(</span><span class="nx">_0x8618x1d</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">pos_x</span> <span class="o">=</span> <span class="nx">_0x8618x1d</span><span class="p">[</span><span class="s1">'pageX'</span><span class="p">]</span> <span class="o">-</span> <span class="nx">rail_left</span>
+<span class="p">});</span>
+<span class="kd">var</span> <span class="nx">token</span> <span class="o">=</span> <span class="s1">''</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">updateToken</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">[</span><span class="s1">'get'</span><span class="p">](</span><span class="s1">'token.php'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">_0x8618x20</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">token</span> <span class="o">=</span> <span class="nx">_0x8618x20</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>소스코드를 살펴보면 <code class="highlighter-rouge">high-scores.php</code>에 <code class="highlighter-rouge">token</code>과 <code class="highlighter-rouge">score</code>를 <code class="highlighter-rouge">POST</code> 방식으로 전송하는 부분을 찾을 수 있다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nx">BTunnelGame</span><span class="p">[</span><span class="s1">'checkLife'</span><span class="p">]())</span> <span class="p">{</span>
+  <span class="nx">setTimeout</span><span class="p">(</span><span class="s1">'updateTunnel()'</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'img#ship'</span><span class="p">)[</span><span class="s1">'fadeOut'</span><span class="p">](</span><span class="s1">'slow'</span><span class="p">);</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'img.left_wall'</span><span class="p">)[</span><span class="s1">'css'</span><span class="p">](</span><span class="s1">'display'</span><span class="p">,</span> <span class="s1">'none'</span><span class="p">);</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'img.right_wall'</span><span class="p">)[</span><span class="s1">'css'</span><span class="p">](</span><span class="s1">'display'</span><span class="p">,</span> <span class="s1">'none'</span><span class="p">);</span>
+  <span class="nx">$</span><span class="p">[</span><span class="s1">'ajax'</span><span class="p">]({</span>
+    <span class="na">type</span><span class="p">:</span> <span class="s1">'POST'</span><span class="p">,</span>
+    <span class="na">url</span><span class="p">:</span> <span class="s1">'high-scores.php'</span><span class="p">,</span>
+    <span class="na">data</span><span class="p">:</span> <span class="s1">'token='</span> <span class="o">+</span> <span class="nx">token</span> <span class="o">+</span> <span class="s1">'&amp;score='</span> <span class="o">+</span> <span class="nx">BTunnelGame</span><span class="p">[</span><span class="s1">'getScore'</span><span class="p">](),</span>
+    <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">_0x8618x19</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">showHighScores</span><span class="p">(</span><span class="nx">_0x8618x19</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">data: </code>부분을 보면 <code class="highlighter-rouge">score</code>의 값으로 <code class="highlighter-rouge">BTunnelGame['getScore']()</code> 함수의 결과를 전송 해 준다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* ... */</span>
+
+<span class="kd">var</span> <span class="nx">_0x8618x6</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="cm">/* ... */</span>
+
+<span class="kd">function</span> <span class="nx">_0x8618x7</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">_0x8618x6</span>
+<span class="p">};</span>
+
+<span class="cm">/* ... */</span>
+
+<span class="k">this</span><span class="p">[</span><span class="s1">'getScore'</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">_0x8618x7</span><span class="p">()</span>
+<span class="p">};</span>
+
+<span class="cm">/* ... */</span>
+
+<span class="kd">function</span> <span class="nx">initTunnel</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">BTunnelGame</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">secureGame</span><span class="p">();</span>
+<span class="cm">/* ... */</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>위의 부분을 살펴보면, <code class="highlighter-rouge">BTunnelGame['getScore']()</code> 함수는 현재 나의 점수를 의미한다는 것을 알 수 있다.</p>
+
+<p>때문에 만약 이 소스코드를 수정하여 <code class="highlighter-rouge">BTunnelGame['getScore']()</code> 대신에 <code class="highlighter-rouge">31337</code>의 값을 넣어준 후, 게임에서 죽으면 점수가 <code class="highlighter-rouge">31337</code>로 <code class="highlighter-rouge">high-scores.php</code>에 전송될 것이다.</p>
+
+<p>이를 테스트 해 보기 위해 소스코드를 모두 복사한 후 점수 전송 부분만 아래처럼 바꾸어서 Chrome 개발자도구의 Console에 입력 했다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nx">BTunnelGame</span><span class="p">[</span><span class="s1">'checkLife'</span><span class="p">]())</span> <span class="p">{</span>
+  <span class="nx">setTimeout</span><span class="p">(</span><span class="s1">'updateTunnel()'</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'img#ship'</span><span class="p">)[</span><span class="s1">'fadeOut'</span><span class="p">](</span><span class="s1">'slow'</span><span class="p">);</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'img.left_wall'</span><span class="p">)[</span><span class="s1">'css'</span><span class="p">](</span><span class="s1">'display'</span><span class="p">,</span> <span class="s1">'none'</span><span class="p">);</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'img.right_wall'</span><span class="p">)[</span><span class="s1">'css'</span><span class="p">](</span><span class="s1">'display'</span><span class="p">,</span> <span class="s1">'none'</span><span class="p">);</span>
+  <span class="nx">$</span><span class="p">[</span><span class="s1">'ajax'</span><span class="p">]({</span>
+    <span class="na">type</span><span class="p">:</span> <span class="s1">'POST'</span><span class="p">,</span>
+    <span class="na">url</span><span class="p">:</span> <span class="s1">'high-scores.php'</span><span class="p">,</span>
+    <span class="na">data</span><span class="p">:</span> <span class="s1">'token='</span> <span class="o">+</span> <span class="nx">token</span> <span class="o">+</span> <span class="s1">'&amp;score='</span> <span class="o">+</span> <span class="mi">31337</span><span class="p">,</span>
+    <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">_0x8618x19</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">showHighScores</span><span class="p">(</span><span class="nx">_0x8618x19</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><img src="/images/wargame.kr/fly_to_the_moon/fly_03.png" alt="" /></p>
+
+<p>위와 같이 <code class="highlighter-rouge">Console</code> 창에 입력한 후 게임을 플레이 하다가 죽으면 아래와 같이 flag를 얻을 수 있다.</p>
+
+<p><img src="/images/wargame.kr/fly_to_the_moon/fly_04.png" alt="" /></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FLAG : D566E48378558D07CAFAF1564950482F29F64BAC 
+</code></pre></div></div>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#Wargame.kr">#Wargame.kr</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/wargame/wargame.kr/2018/10/25/wargame.kr-fly_to_the_moon.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/wargame/wargame.kr/2018/10/24/wargame.kr-WTF_CODE.html">
+        [Wargame.kr] WTF_CODE 문제풀이
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/wargame/wargame.kr/2018/10/26/wargame.kr-md5_password.html">
+        [Wargame.kr] md5 password 문제풀이
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

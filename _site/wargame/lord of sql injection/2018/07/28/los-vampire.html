@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[Lord of SQL Injection] LoS - vampire 문제풀이 | mingzzi</title>
+	<meta name="description" content="이번 문제도 역시 간단하게 풀 수 있었다.일단 소스코드가 짧으니 문제가 더 간단하게 느껴지는 것 같다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/wargame/lord%20of%20sql%20injection/2018/07/28/los-vampire.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[Lord of SQL Injection] LoS - vampire 문제풀이</h1>
+    
+    <p class="meta">
+      July 28, 2018
+      
+    </p>
+  </header>
+  <section class="post-content"><p>이번 문제도 역시 간단하게 풀 수 있었다.</p>
+
+<p>일단 소스코드가 짧으니 문제가 더 간단하게 느껴지는 것 같다.</p>
+
+<!--more-->
+
+<p>코드는 다음과 같다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>----------------------------------------------------------------
+query : select id from prob_vampire where id=''
+----------------------------------------------------------------
+
+<span class="cp">&lt;?php</span> 
+  <span class="k">include</span> <span class="s2">"./config.php"</span><span class="p">;</span> 
+  <span class="nx">login_chk</span><span class="p">();</span> 
+  <span class="nx">dbconnect</span><span class="p">();</span> 
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/\'/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">id</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span>
+  <span class="nv">$_GET</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="nb">strtolower</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">id</span><span class="p">]);</span>
+  <span class="nv">$_GET</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str_replace</span><span class="p">(</span><span class="s2">"admin"</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">id</span><span class="p">]);</span> 
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select id from prob_vampire where id='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span> 
+  <span class="k">echo</span> <span class="s2">"&lt;hr&gt;query : &lt;strong&gt;</span><span class="si">{</span><span class="nv">$query</span><span class="si">}</span><span class="s2">&lt;/strong&gt;&lt;hr&gt;&lt;br&gt;"</span><span class="p">;</span> 
+  <span class="nv">$result</span> <span class="o">=</span> <span class="o">@</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">));</span> 
+  <span class="k">if</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'admin'</span><span class="p">)</span> <span class="nx">solve</span><span class="p">(</span><span class="s2">"vampire"</span><span class="p">);</span> 
+  <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span> 
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>처음에 문제를 보고 <code class="highlighter-rouge">troll</code> 문제랑 같은 문제인 줄 알았다.</p>
+
+<p>그런데 이번 문제에서는 <code class="highlighter-rouge">ereg()</code> 함수가 사라지고 <code class="highlighter-rouge">strtolower()</code>과 <code class="highlighter-rouge">str_replace()</code> 함수가 생겼다.</p>
+
+<p>함수 이름에서도 알 수 있다시피 <code class="highlighter-rouge">strtolower()</code> 함수는 문자열의 대문자를 소문자로 바꾸어주는 함수이고, <code class="highlighter-rouge">str_replace()</code> 함수는 특정 문자열을 내가 지정한 문자열로 바꾸어 주는 함수이다.</p>
+
+<p>문제에서는 <code class="highlighter-rouge">GET</code> 방식으로 받아 온 값에서 <code class="highlighter-rouge">admin</code>이라는 문자를 <code class="highlighter-rouge">공백</code>으로 바꾸어 준다.</p>
+
+<p>그런데 이 <code class="highlighter-rouge">str_replace()</code> 함수에는 한가지 단점(?)이 있는데, 전체 문자열 전체를 한번만 검사하고 재검사는 하지 않는다는 것이다.</p>
+
+<p>만약에 <code class="highlighter-rouge">str_replace("admin", "", $var)</code>라고 구현한다면 아래와 같이 문자열이 있을 경우 결과는 다음과 같다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># before</span>
+
+<span class="nv">$var</span> <span class="o">=</span> <span class="s2">"admin phpmyadmin administrator."</span>
+
+<span class="c1">#after</span>
+
+<span class="nv">$var</span> <span class="o">=</span> <span class="s2">" phpmy istrator."</span>
+</code></pre></div></div>
+
+<p>그런데 만약 <code class="highlighter-rouge">adadminmin</code> 라는 문자열이 있다면 가운데의 <code class="highlighter-rouge">admin</code>만 필터링 되어 사라지고 앞의 <code class="highlighter-rouge">ad</code>와 뒤의 <code class="highlighter-rouge">min</code>이 합쳐져 다시 <code class="highlighter-rouge">admin</code>이라는 단어를 만들 수 있게 된다.</p>
+
+<p>역시나 주소창에 아래처럼 입력했더니 문제를 풀 수 있었다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?id=adadminmin
+</code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>------------------------------------------------------------------------
+query : select id from prob_vampire where id='admin'
+------------------------------------------------------------------------
+
+VAMPIRE Clear!
+<span class="cp">&lt;?php</span> 
+  <span class="k">include</span> <span class="s2">"./config.php"</span><span class="p">;</span> 
+  <span class="nx">login_chk</span><span class="p">();</span> 
+  <span class="nx">dbconnect</span><span class="p">();</span> 
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/\'/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">id</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span>
+  <span class="nv">$_GET</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="nb">strtolower</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">id</span><span class="p">]);</span>
+  <span class="nv">$_GET</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str_replace</span><span class="p">(</span><span class="s2">"admin"</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">id</span><span class="p">]);</span> 
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select id from prob_vampire where id='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span> 
+  <span class="k">echo</span> <span class="s2">"&lt;hr&gt;query : &lt;strong&gt;</span><span class="si">{</span><span class="nv">$query</span><span class="si">}</span><span class="s2">&lt;/strong&gt;&lt;hr&gt;&lt;br&gt;"</span><span class="p">;</span> 
+  <span class="nv">$result</span> <span class="o">=</span> <span class="o">@</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">));</span> 
+  <span class="k">if</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'admin'</span><span class="p">)</span> <span class="nx">solve</span><span class="p">(</span><span class="s2">"vampire"</span><span class="p">);</span> 
+  <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span> 
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">VAMPIRE Clear!!</code></p>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#Lord of SQL Injection">#Lord of SQL Injection</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/wargame/lord%20of%20sql%20injection/2018/07/28/los-vampire.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2018/07/27/los-troll.html">
+        [Lord of SQL Injection] LoS - troll 문제풀이
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/ctf/2018/2018/07/29/ctf-isitdtu2018-iz.html">
+        [ISITDTU 2018] IZ Write up
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

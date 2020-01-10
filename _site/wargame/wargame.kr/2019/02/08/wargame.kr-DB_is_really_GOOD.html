@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[Wargame.kr] DB is really GOOD 문제풀이 | mingzzi</title>
+	<meta name="description" content="오랜만에 다시 Wargame.kr을 풀어보았다.이번 문제는 DB is really GOOD이다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/wargame/wargame.kr/2019/02/08/wargame.kr-DB_is_really_GOOD.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[Wargame.kr] DB is really GOOD 문제풀이</h1>
+    
+    <p class="meta">
+      February 8, 2019
+      
+    </p>
+  </header>
+  <section class="post-content"><p>오랜만에 다시 <code class="highlighter-rouge">Wargame.kr</code>을 풀어보았다.</p>
+
+<p>이번 문제는 <code class="highlighter-rouge">DB is really GOOD</code>이다.</p>
+
+<!--more-->
+
+<p>문제 정보는 다음과 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>What kind of this Database?
+
+you have to find correlation between user name and database.
+</code></pre></div></div>
+
+<p>홈페이지에 들어가면 아래와 같이 <code class="highlighter-rouge">USER</code>의 명을 정할 수 있는 창이 있다.</p>
+
+<p><img src="/images/wargame.kr/DB_is_really_GOOD/db_01.png" alt="" /></p>
+
+<p>그리고 여기에 아무런 값이나 입력하면, 그 값이 내 <code class="highlighter-rouge">USER</code> 명이 되며, 메모를 입력할 수 있는 창이 나타난다.</p>
+
+<p><img src="/images/wargame.kr/DB_is_really_GOOD/db_02.png" alt="" /></p>
+
+<p>메모를 입력하면 하단에 내가 입력 한 메모들이 나오게 된다.</p>
+
+<p><img src="/images/wargame.kr/DB_is_really_GOOD/db_03.png" alt="" /></p>
+
+<p>난 처음에 이 메모를 입력하는 부분에서 <code class="highlighter-rouge">SQL Injection</code>이 터진다고 생각 해 이 부분으로 삽질을 했었다 ㅠㅠ</p>
+
+<p>그런데 다시 문제 정보를 보니, <code class="highlighter-rouge">user name</code>과 <code class="highlighter-rouge">database</code>의 연관 관계를 생각하라고 해서 다시 첫 번째 페이지로 돌아와 확인을 해 보았다.</p>
+
+<p>먼저 첫 번째 페이지의 소스코드는 다음과 같다.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;head&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">text=</span><span class="s">"javascript"</span><span class="nt">&gt;</span>
+<span class="kd">function</span> <span class="nx">fschk</span><span class="p">(</span><span class="nx">f</span><span class="p">){</span>
+ <span class="k">if</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">user_id</span><span class="p">.</span><span class="nx">value</span><span class="o">==</span><span class="s2">"admin"</span><span class="p">){</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="s2">"dont access with 'admin'"</span><span class="p">);</span>
+  <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;style&gt;</span>
+	<span class="nt">body</span> <span class="p">{</span><span class="nl">width</span><span class="p">:</span><span class="m">100%</span><span class="p">;</span> <span class="nl">height</span><span class="p">:</span><span class="m">100%</span><span class="p">;</span> <span class="nl">padding</span><span class="p">:</span><span class="m">0</span><span class="p">;</span> <span class="nl">margin</span><span class="p">:</span><span class="m">0</span><span class="p">;}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">'width:400px; margin:50 auto; text-align:center;'</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;h2&gt;</span>BLUEMEMO SYSTEM <span class="nt">&lt;sub&gt;</span>0.53 beta<span class="nt">&lt;/sub&gt;&lt;/h2&gt;</span>
+ <span class="nt">&lt;form</span> <span class="na">method=</span><span class="s">"post"</span> <span class="na">action=</span><span class="s">"memo.php"</span> <span class="na">onsubmit=</span><span class="s">"return fschk(this);"</span><span class="nt">&gt;</span>
+ USER <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">'text'</span> <span class="na">maxlength=</span><span class="s">16</span> <span class="na">size=</span><span class="s">16</span> <span class="na">name=</span><span class="s">'user_id'</span> <span class="nt">/&gt;</span> <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">'submit'</span> <span class="na">value=</span><span class="s">'LOGIN'</span> <span class="nt">/&gt;</span>
+ <span class="nt">&lt;/form&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">user_id</code>의 값이 <code class="highlighter-rouge">admin</code>일 경우 <code class="highlighter-rouge">dont access with 'admin'</code>이라는 <code class="highlighter-rouge">alert</code> 창을 띄우고, 만약 <code class="highlighter-rouge">admin</code>이 아니라면 로그인 처리가 된다.</p>
+
+<p>그래서 일단 <code class="highlighter-rouge">USER</code> 창에 아무거나 입력해서 뭔가 변화를 볼 수 있는 문자를 찾아보았다.</p>
+
+<p>문제 이름이 <code class="highlighter-rouge">DB is really GOOD</code>이라서 <code class="highlighter-rouge">SQL Injection</code>이라고 생각 해 <code class="highlighter-rouge">SQL Injection</code>에 사용하는 특수문자들을 넣어봤는데, 그냥 그대로 잘 입력되었다.</p>
+
+<p>그런데 <code class="highlighter-rouge">.</code>을 입력하니 <code class="highlighter-rouge">_</code>로 바뀌는 것을 확인할 수 있었다.</p>
+
+<p><img src="/images/wargame.kr/DB_is_really_GOOD/db_04.png" alt="" /></p>
+
+<p><img src="/images/wargame.kr/DB_is_really_GOOD/db_05.png" alt="" /></p>
+
+<p>그래서 다른 특수문자들도 다 입력을 해 보았더니 <code class="highlighter-rouge">,.&lt;&gt;/?</code>라고 입력 했을 때 아래와 같은 에러가 발생하는 것을 확인할 수 있었다.</p>
+
+<p><img src="/images/wargame.kr/DB_is_really_GOOD/db_06.png" alt="" /></p>
+
+<p><img src="/images/wargame.kr/DB_is_really_GOOD/db_07.png" alt="" /></p>
+
+<p><code class="highlighter-rouge">open('./db/wkrm_,_&lt;&gt;/...')</code>와 <code class="highlighter-rouge">__construct('./db/wkrm_,_&lt;&gt;/...')</code> 함수 실행에서 문제가생겼다는 건데, 데이터베이스 파일을 오픈할 수 없다고 한다.</p>
+
+<p>그럼 <code class="highlighter-rouge">./db/wkrm_[USERNAME]/...</code>에 각 사용자의 데이터베이스 파일이 저장 되는 것 같았다.</p>
+
+<p>그래서 정확히 오류를 야기한 문자와 뒤에 <code class="highlighter-rouge">...</code>으로 표시 된 부분의 정확한 경로를 알기 위해 하나하나 문자를 입력 해 보았다.</p>
+
+<p>그 결과, <code class="highlighter-rouge">/</code>를 입력했을 때 동일한 오류가 발생하는 것을 알 수 있었다.</p>
+
+<p>그런데 생각해보니까 경로에 문제가 생긴 것이라면 <code class="highlighter-rouge">/</code>가 가장 유력했었다 ㅋㅋㅋ</p>
+
+<p><img src="/images/wargame.kr/DB_is_really_GOOD/db_08.png" alt="" /></p>
+
+<p>쨌든 데이터베이스 파일의 완전한 경로는 <code class="highlighter-rouge">./db/wkrm_[USERNAME].db</code>라는 것을 알 수 있었다.</p>
+
+<p>그럼 이제 데이터베이스 파일을 확인해야 하는데, 어떤 사용자의 파일을 확인해야 하는가가 문제이다.</p>
+
+<p>아까 확인한 소스코드에 <code class="highlighter-rouge">admin</code>에 대한 필터링이 걸려 있으므로, <code class="highlighter-rouge">admin</code>이라는 <code class="highlighter-rouge">user</code>는 항상 존재한다는 것을 유추할 수 있다.</p>
+
+<p>때문에 <code class="highlighter-rouge">./db/wkrm_admin.db</code> 파일에 접근 해 보았더니, <code class="highlighter-rouge">wkrm_admin.db</code> 파일을 다운받을 수 있었다.</p>
+
+<p><code class="highlighter-rouge">.db</code> 파일을 어떻게 열지 잠깐 고민하다가 그냥 <code class="highlighter-rouge">HexEditor</code>로 열어 보았다.</p>
+
+<p><img src="/images/wargame.kr/DB_is_really_GOOD/db_09.png" alt="" /></p>
+
+<p>그랬더니 아래에 <code class="highlighter-rouge">./dhkdndlswmdzltng.php</code>에 플래그가 있다는 문자를 확인할 수 있었다.</p>
+
+<p>해당 경로로 접속 해 보니 플래그가 적혀있었다 ㅎ</p>
+
+<p><img src="/images/wargame.kr/DB_is_really_GOOD/db_10.png" alt="" /></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FLAG : 577465fa90a0a13ebbb23782e0fa91c7a8340ad0 
+</code></pre></div></div>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#Wargame.kr">#Wargame.kr</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/wargame/wargame.kr/2019/02/08/wargame.kr-DB_is_really_GOOD.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/ctf/2019/2019/01/24/ctf-insomnihack2019-l33t-hoster.html">
+        [Insomni'hack 2019] l33t-hoster Write up(미완성)
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/wargame/pwnable.kr/2019/02/11/pwnable.kr-cmd1.html">
+        [Pwnable.kr] Toddler's Bottle - cmd1 문제풀이
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

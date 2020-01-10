@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[Wargame.kr] login filtering 문제풀이 | mingzzi</title>
+	<meta name="description" content="매일 한 문제씩 푼다고 했는데 작심삼일도 못했다.갑자기 일이 많아져서 뭔가 여유가 없다.그래도 문제는 꾸준히 풀어야하니 오늘 잠깐 짬 났을때 하나 풀어 보았다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/wargame/wargame.kr/2018/10/23/wargame.kr-login_filtering.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[Wargame.kr] login filtering 문제풀이</h1>
+    
+    <p class="meta">
+      October 23, 2018
+      
+    </p>
+  </header>
+  <section class="post-content"><p>매일 한 문제씩 푼다고 했는데 작심삼일도 못했다.</p>
+
+<p>갑자기 일이 많아져서 뭔가 여유가 없다.</p>
+
+<p>그래도 문제는 꾸준히 풀어야하니 오늘 잠깐 짬 났을때 하나 풀어 보았다.</p>
+
+<!--more-->
+
+<p>문제 정보는 다음과 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>I have accounts. but, it's blocked.
+
+can you login bypass filtering?
+</code></pre></div></div>
+
+<p>문제에 접속하면 로그인 화면이 하나 있고 소스코드를 볼 수 있게 되어있다.</p>
+
+<p>소스코드는 다음과 같다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'view-source'</span><span class="p">]))</span> <span class="p">{</span>
+    <span class="nb">show_source</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+    <span class="k">exit</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="cm">/*
+create table user(
+ idx int auto_increment primary key,
+ id char(32),
+ ps char(32)
+);
+*/</span>
+
+ <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'id'</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'ps'</span><span class="p">])){</span>
+  <span class="k">include</span><span class="p">(</span><span class="s2">"../lib.php"</span><span class="p">);</span> <span class="c1"># include for auth_code function.</span>
+
+  <span class="nb">mysql_connect</span><span class="p">(</span><span class="s2">"localhost"</span><span class="p">,</span><span class="s2">"login_filtering"</span><span class="p">,</span><span class="s2">"login_filtering_pz"</span><span class="p">);</span>
+  <span class="nb">mysql_select_db</span> <span class="p">(</span><span class="s2">"login_filtering"</span><span class="p">);</span>
+  <span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"set names utf8"</span><span class="p">);</span>
+
+  <span class="nv">$key</span> <span class="o">=</span> <span class="nx">auth_code</span><span class="p">(</span><span class="s2">"login filtering"</span><span class="p">);</span>
+
+  <span class="nv">$id</span> <span class="o">=</span> <span class="nb">mysql_real_escape_string</span><span class="p">(</span><span class="nb">trim</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]));</span>
+  <span class="nv">$ps</span> <span class="o">=</span> <span class="nb">mysql_real_escape_string</span><span class="p">(</span><span class="nb">trim</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'ps'</span><span class="p">]));</span>
+
+  <span class="nv">$row</span><span class="o">=</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"select * from user where id='</span><span class="nv">$id</span><span class="s2">' and ps=md5('</span><span class="nv">$ps</span><span class="s2">')"</span><span class="p">));</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$row</span><span class="p">[</span><span class="s1">'id'</span><span class="p">])){</span>
+   <span class="k">if</span><span class="p">(</span><span class="nv">$id</span><span class="o">==</span><span class="s1">'guest'</span> <span class="o">||</span> <span class="nv">$id</span><span class="o">==</span><span class="s1">'blueh4g'</span><span class="p">){</span>
+    <span class="k">echo</span> <span class="s2">"your account is blocked"</span><span class="p">;</span>
+   <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"login ok"</span><span class="o">.</span><span class="s2">"&lt;br /&gt;"</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="s2">"Password : "</span><span class="o">.</span><span class="nv">$key</span><span class="p">;</span>
+   <span class="p">}</span>
+  <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+   <span class="k">echo</span> <span class="s2">"wrong.."</span><span class="p">;</span>
+  <span class="p">}</span>
+ <span class="p">}</span>
+<span class="cp">?&gt;</span>
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;style&gt;</span>
+ <span class="o">*</span> <span class="p">{</span><span class="nl">margin</span><span class="p">:</span><span class="m">0</span><span class="p">;</span> <span class="nl">padding</span><span class="p">:</span><span class="m">0</span><span class="p">;}</span>
+ <span class="nt">body</span> <span class="p">{</span><span class="nl">background-color</span><span class="p">:</span><span class="m">#ddd</span><span class="p">;}</span>
+ <span class="nf">#mdiv</span> <span class="p">{</span><span class="nl">width</span><span class="p">:</span><span class="m">200px</span><span class="p">;</span> <span class="nl">text-align</span><span class="p">:</span><span class="nb">center</span><span class="p">;</span> <span class="nl">margin</span><span class="p">:</span><span class="m">50px</span> <span class="nb">auto</span><span class="p">;}</span>
+ <span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=</span><span class="nt">text</span><span class="o">],</span><span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=[</span><span class="nt">password</span><span class="o">]</span> <span class="p">{</span><span class="nl">width</span><span class="p">:</span><span class="m">100px</span><span class="p">;}</span>
+ <span class="nt">td</span> <span class="p">{</span><span class="nl">text-align</span><span class="p">:</span><span class="nb">center</span><span class="p">;}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;form</span> <span class="na">method=</span><span class="s">"post"</span> <span class="na">action=</span><span class="s">"./"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"mdiv"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;table&gt;</span>
+<span class="nt">&lt;tr&gt;&lt;td&gt;</span>ID<span class="nt">&lt;/td&gt;&lt;td&gt;&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"id"</span> <span class="nt">/&gt;&lt;/td&gt;&lt;/tr&gt;</span>
+<span class="nt">&lt;tr&gt;&lt;td&gt;</span>PW<span class="nt">&lt;/td&gt;&lt;td&gt;&lt;input</span> <span class="na">type=</span><span class="s">"password"</span> <span class="na">name=</span><span class="s">"ps"</span> <span class="nt">/&gt;&lt;/td&gt;&lt;/tr&gt;</span>
+<span class="nt">&lt;tr&gt;&lt;td</span> <span class="na">colspan=</span><span class="s">"2"</span><span class="nt">&gt;&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"login"</span> <span class="nt">/&gt;&lt;/td&gt;&lt;/tr&gt;</span>
+<span class="nt">&lt;/table&gt;</span>
+ <span class="nt">&lt;div&gt;&lt;a</span> <span class="na">href=</span><span class="s">'?view-source'</span><span class="nt">&gt;</span>get source<span class="nt">&lt;/a&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="c">&lt;!--
+
+you have blocked accounts.
+
+guest / guest
+blueh4g / blueh4g1234ps
+
+--&gt;</span>
+</code></pre></div></div>
+
+<p>이 문제 풀면서 느낀건데 뭔가 난 아직 문제를 많이 안풀어봐서 그런건지, 아니면 센스가 부족한건지…</p>
+
+<p>다른 시각이 필요한데 그걸 잘 못본다 ㅠㅠ</p>
+
+<p>일단 처음에는 <code class="highlighter-rouge">SQL Injection</code> 문제인 줄 알았다.</p>
+
+<p>인터넷을 찾아보니 <code class="highlighter-rouge">mysql_real_escape_string</code> 함수를 <code class="highlighter-rouge">bypass</code> 할 수 있다는 글이 있어서 <code class="highlighter-rouge">bypass</code> 해서 다른 계정으로 로그인을 하면 되는 줄 알았다.</p>
+
+<p>그런데 등잔밑이 어둡다더니 취약점은 <code class="highlighter-rouge">if</code> 구문이었다.</p>
+
+<p><code class="highlighter-rouge">if</code> 문을 살펴보면 다음과 같다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$row</span><span class="p">[</span><span class="s1">'id'</span><span class="p">])){</span>
+   <span class="k">if</span><span class="p">(</span><span class="nv">$id</span><span class="o">==</span><span class="s1">'guest'</span> <span class="o">||</span> <span class="nv">$id</span><span class="o">==</span><span class="s1">'blueh4g'</span><span class="p">){</span>
+    <span class="k">echo</span> <span class="s2">"your account is blocked"</span><span class="p">;</span>
+   <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"login ok"</span><span class="o">.</span><span class="s2">"&lt;br /&gt;"</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="s2">"Password : "</span><span class="o">.</span><span class="nv">$key</span><span class="p">;</span>
+   <span class="p">}</span>
+  <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+   <span class="k">echo</span> <span class="s2">"wrong.."</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+
+<p>만약 쿼리를 실행 한 결과가 있다면, 해당 <code class="highlighter-rouge">id</code>가 <code class="highlighter-rouge">guest</code> 혹은 <code class="highlighter-rouge">blueh4g</code> 이라면 <code class="highlighter-rouge">your account is blocked</code>을 출력 해 준다.</p>
+
+<p>그런데 이 때, <code class="highlighter-rouge">==</code>를 사용하며 비교 대상은 쿼리 결과로 나온 <code class="highlighter-rouge">$row['id']</code>가 아니라 내가 입력 한 <code class="highlighter-rouge">$id</code>이다.</p>
+
+<p>MySQL에서는 대소문자를 구분하지 않기 때문에 만약 내가 <code class="highlighter-rouge">$id</code>의 값으로 <code class="highlighter-rouge">Guest</code>를 입력 하더라도 <code class="highlighter-rouge">id</code>가 <code class="highlighter-rouge">guest</code>인 행을 얻어낼 수 있다.</p>
+
+<p>그렇지만 <code class="highlighter-rouge">if($id=='guest' || $id=='blueh4g')</code> 구문에서 <code class="highlighter-rouge">$id</code>는 내가 입력 한 <code class="highlighter-rouge">Guest</code>일 테니, 조건문에 들어가지 않을 수 있다.</p>
+
+<p><code class="highlighter-rouge">SQL Injection</code>인 줄 알았는데!!!</p>
+
+<p><code class="highlighter-rouge">ID</code> 자리에 <code class="highlighter-rouge">Guest</code>를, <code class="highlighter-rouge">PW</code> 자리에 <code class="highlighter-rouge">guest</code>를 입력하면 문제를 풀 수 있다.</p>
+
+<p>너무 허무하다… ㅠㅠ</p>
+
+<p><img src="/images/wargame.kr/login_filtering/login_filtering_01.png" alt="" /></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FLAG : 9783333beeb385184e9def185bc99ec81d72254b
+</code></pre></div></div>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#Wargame.kr">#Wargame.kr</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/wargame/wargame.kr/2018/10/23/wargame.kr-login_filtering.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/wargame/wargame.kr/2018/10/17/wargame.kr-QR_CODE_PUZZLE.html">
+        [Wargame.kr] QR CODE PUZZLE 문제풀이
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/wargame/wargame.kr/2018/10/24/wargame.kr-WTF_CODE.html">
+        [Wargame.kr] WTF_CODE 문제풀이
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

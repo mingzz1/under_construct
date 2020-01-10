@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[MeePwn2018] WHITE SNOW, BLACK SHADOW / ESOR / EZCHALLZ Write up | mingzzi</title>
+	<meta name="description" content="지난 주말에 MeePwn CTF가 있었다.다른 일이 있어 풀타임으로 참여하진 못했는데, 그래도 쉬운 몇 문제를 풀어 Write-up을 작성 해 보았다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/ctf/2018/2018/07/17/ctf-meepwn2018-writeup.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[MeePwn2018] WHITE SNOW, BLACK SHADOW / ESOR / EZCHALLZ Write up</h1>
+    
+    <p class="meta">
+      July 17, 2018
+      
+    </p>
+  </header>
+  <section class="post-content"><p>지난 주말에 <code class="highlighter-rouge">MeePwn CTF</code>가 있었다.</p>
+
+<p>다른 일이 있어 풀타임으로 참여하진 못했는데, 그래도 쉬운 몇 문제를 풀어 Write-up을 작성 해 보았다.</p>
+
+<!--more-->
+
+<h3 id="misc-white-snow-black-shadow">[MISC] WHITE SNOW, BLACK SHADOW</h3>
+
+<p>첫 번째로 풀어본 문제는 <code class="highlighter-rouge">WHITE SNOW, BLACK SHADOW</code> 문제이다.</p>
+
+<p>문제 정보는 아래와 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Finally we caught the image in criminal communication.
+But Holmes, why are they crying?
+</code></pre></div></div>
+
+<p>문제 정보와 함께 첨부 파일을 다운받을 수 있다.</p>
+
+<p>파일을 다운받아 압축을 풀면 <code class="highlighter-rouge">evidence.jpg</code>라는 사진 파일을 하나 얻을 수 있다.</p>
+
+<p><img src="/images/CTF/MeePwn2018/solved/meepwn_01.jpg" alt="" /></p>
+
+<p>사진에는 딱히 이상이 없어보여, <code class="highlighter-rouge">Hex Editor</code>를 사용 해 헥스 값을 확인 해 보았다.</p>
+
+<p>파일의 첫 부분은 정상적인 <code class="highlighter-rouge">JPG</code> 파일의 헤더가 있었다.</p>
+
+<p><img src="/images/CTF/MeePwn2018/solved/meepwn_02.png" alt="" /></p>
+
+<p>그런데 맨 마지막 부분에서 아래와 같이 <code class="highlighter-rouge">message.pdf</code>라는 문자열과 <code class="highlighter-rouge">PK</code>가 있는 것을 찾을 수 있었다.</p>
+
+<p><img src="/images/CTF/MeePwn2018/solved/meepwn_03.png" alt="" /></p>
+
+<p><code class="highlighter-rouge">PK</code>라는 파일 헤더를 어딘가에서 본 기억이 나 인터넷에 검색을 해 보았더니 <code class="highlighter-rouge">ZIP</code> 파일의 헤더라는 것을 알 수 있었다.</p>
+
+<p><img src="/images/CTF/MeePwn2018/solved/meepwn_04.png" alt="" /></p>
+
+<p>사진과 같이, <code class="highlighter-rouge">ZIP</code> 파일의 헤더는 <code class="highlighter-rouge">50 4b 03 04</code>로 시작하게 된다.</p>
+
+<p>사진 파일에서 <code class="highlighter-rouge">ZIP</code> 파일을 추출하기 위해, <code class="highlighter-rouge">50 4b 03 04</code>를 찾아 보았다.</p>
+
+<p>그런데 찾아보니 <code class="highlighter-rouge">50 4b 05 06</code>은 있었지만 <code class="highlighter-rouge">50 4b 03 04</code>는 찾을 수 없었다.</p>
+
+<p><img src="/images/CTF/MeePwn2018/solved/meepwn_05.png" alt="" /></p>
+
+<p>아마도 파일 헤더를 살짝 수정해 둔 것 같았다.</p>
+
+<p>그래서 <code class="highlighter-rouge">evidence.jpg</code> 파일에서 <code class="highlighter-rouge">50 4b 05 06</code>을 <code class="highlighter-rouge">50 4b 03 04</code>로 패치해 준 뒤, <code class="highlighter-rouge">WinHex</code> 라는 툴을 이용 해 파일을 추출 해 보았다.</p>
+
+<p><img src="/images/CTF/MeePwn2018/solved/meepwn_06.png" alt="" /></p>
+
+<p>그 결과 다음과 같이 압축 파일을 추출할 수 있었고, 압축 파일 안에는 <code class="highlighter-rouge">message.pdf</code> 파일이 있었다.</p>
+
+<p><code class="highlighter-rouge">message.pdf</code>의 내용은 다음과 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>“When you have eliminated the impossible, whatever remains, however improbable, must be the truth.”
+
+– Sir Arthur Conan Doyle
+
+What does that mean?
+To me, this is all about logic. If you start with everything you can think of, and then eliminate those that are impossible, you are well on your way to a solution. That’s the first stage of solving any mystery, whether it’s a murder mystery in a book (or TV, or movie, or…) or somethingMeeyou expected to work, but didn’t. You have to eliminate all the things that it couldn’t possibly be, or you will have too many distractions. 
+
+Once we clear out all the distractions, we can focus on what remains. Sometimes what is left is easy to believe, other times it can seem highly improbable. However, with the impossible eliminated, whatPwnremains are the only possible solutions. And oneCTFof them must be the truth.
+
+Why is clearing out the impossible solutions important?
+Sometimes, it can be hard to solve a{T3challenging situation even under the best of circumstances. A problem with lotsxt_of shiny things to look at can be distracting, and waste a great deal of our time.
+While some impossibilities might be obvious, sometimesUndwe can be sucked in by an idea that3r_intrigues us, despite being impossible. Other times, it is only in close examination that the impossibility is revealed.
+
+However, once we clear the clutter by removing all that is impossible, we are left with an easier solution. Gone are the impossibilities, botht3Xobvious and subtle. What is left can be gone over more quickly, and evaluated for probability or even likelihood.
+
+This may be an iterative process, starting with the really obvious impossibilities, and then moving to the shiny distractions. Finally, as wet!!!!}work our way through the last of the options, we may still find ourselves weeding out additional impossibilities.
+</code></pre></div></div>
+
+<p>처음엔 딱히 이상한 점을 못느꼈는데, 자세히 읽어보니 띄어쓰기가 있어야 하는 부분에 문자열이 조금씩 들어있는 것을 발견할 수 있었다.</p>
+
+<blockquote>
+  <p>ex) or something<code class="highlighter-rouge">Mee</code>you expected to work,</p>
+</blockquote>
+
+<p>문장을 하나하나 읽어보며 띄어쓰기가 있어야 하는 자리에 들어 있는 문자열을 잘라 이어보면 flag를 완성할 수 있다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FLAG : MeePwnCTF{T3xt_Und3r_t3Xt!!!!}
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="crypto-esor">[CRYPTO] ESOR</h3>
+
+<p>문제 정보는 다음과 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Howdy, howdy...
+nc 206.189.92.209 12345
+</code></pre></div></div>
+
+<p>또한 함께 아래와 같은 파이썬 코드를 준다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/usr/bin/python2</span>
+<span class="kn">from</span> <span class="nn">Crypto.Cipher</span> <span class="kn">import</span> <span class="n">AES</span>
+<span class="kn">import</span> <span class="nn">hmac</span><span class="p">,</span> <span class="n">hashlib</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">menu</span> <span class="o">=</span> <span class="s">"""Choose one:
+1. encrypt data
+2. decrypt data
+3. quit
+"""</span>
+
+<span class="k">class</span> <span class="nc">Unbuffered</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream</span> <span class="o">=</span> <span class="n">stream</span>
+    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="n">Unbuffered</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">stderr</span> <span class="o">=</span> <span class="bp">None</span>
+
+<span class="n">encrypt_key</span> <span class="o">=</span> <span class="s">'</span><span class="se">\xff</span><span class="s">'</span> <span class="o">*</span> <span class="mi">32</span>
+<span class="n">secret</span> <span class="o">=</span> <span class="s">'MeePwnCTF{#flag_here#}'</span>
+<span class="n">hmac_secret</span> <span class="o">=</span> <span class="s">''</span>
+<span class="n">blocksize</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="n">hmac_size</span> <span class="o">=</span> <span class="mi">20</span>
+
+<span class="k">def</span> <span class="nf">pad</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+	<span class="n">padlen</span> <span class="o">=</span> <span class="n">blocksize</span> <span class="o">-</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="o">%</span> <span class="n">blocksize</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+	<span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">urandom</span><span class="p">(</span><span class="n">padlen</span><span class="p">)</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="n">padlen</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">unpad</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+	<span class="k">return</span> <span class="n">msg</span><span class="p">[:</span><span class="o">-</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+
+<span class="k">def</span> <span class="nf">compute_hmac</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+	<span class="k">return</span> <span class="n">hmac</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">hmac_secret</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">digestmod</span><span class="o">=</span><span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">)</span><span class="o">.</span><span class="n">digest</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">encrypt</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s">''</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s">''</span><span class="p">):</span>
+	<span class="n">_enc</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="n">secret</span> <span class="o">+</span> <span class="n">suffix</span>
+	<span class="n">_enc</span><span class="o">+=</span> <span class="n">compute_hmac</span><span class="p">(</span><span class="n">_enc</span><span class="p">)</span>
+	<span class="n">_enc</span><span class="o">+=</span> <span class="n">pad</span><span class="p">(</span><span class="n">_enc</span><span class="p">)</span>
+	<span class="n">iv</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">urandom</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+	<span class="n">_aes</span> <span class="o">=</span> <span class="n">AES</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">encrypt_key</span><span class="p">,</span> <span class="n">AES</span><span class="o">.</span><span class="n">MODE_CBC</span><span class="p">,</span> <span class="n">iv</span><span class="p">)</span>
+	<span class="k">return</span> <span class="p">(</span><span class="n">iv</span> <span class="o">+</span> <span class="n">_aes</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">_enc</span><span class="p">))</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'hex'</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">decrypt</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+	<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">'hex'</span><span class="p">)</span>
+	<span class="k">try</span><span class="p">:</span>
+		<span class="n">iv</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="n">blocksize</span><span class="p">]</span>
+		<span class="n">_aes</span> <span class="o">=</span> <span class="n">AES</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">encrypt_key</span><span class="p">,</span> <span class="n">AES</span><span class="o">.</span><span class="n">MODE_CBC</span><span class="p">,</span> <span class="n">iv</span><span class="p">)</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="n">_aes</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">blocksize</span><span class="p">:])</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="n">unpad</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+		<span class="n">plaintext</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="n">hmac_size</span><span class="p">]</span>
+		<span class="n">mac</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="n">hmac_size</span><span class="p">:]</span>
+		<span class="k">if</span> <span class="n">mac</span> <span class="o">==</span> <span class="n">compute_hmac</span><span class="p">(</span><span class="n">plaintext</span><span class="p">):</span> <span class="k">return</span> <span class="bp">True</span>
+		<span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="bp">False</span>
+	<span class="k">except</span><span class="p">:</span> <span class="k">return</span> <span class="bp">False</span>
+
+<span class="k">print</span> <span class="s">"""Welcome to our super secure enc/dec server. 
+We use hmac, so, plz don't hack us (and you can't). Thanks."""</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+	<span class="n">choice</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">raw_input</span><span class="p">(</span><span class="n">menu</span><span class="p">))</span>
+	<span class="k">if</span> <span class="n">choice</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+		<span class="n">_pre</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">'prefix: '</span><span class="p">)</span>
+		<span class="n">_suf</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">'suffix: '</span><span class="p">)</span>
+		<span class="k">print</span> <span class="n">encrypt</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="n">_pre</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="n">_suf</span><span class="p">)</span>
+	<span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+		<span class="n">_data</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">'data: '</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">decrypt</span><span class="p">(</span><span class="n">_data</span><span class="p">):</span>
+			<span class="k">print</span> <span class="s">'OK'</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="k">print</span> <span class="s">'KO'</span>
+	<span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+		<span class="n">sys</span><span class="o">.</span><span class="nb">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">choice</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">raw_input</span><span class="p">(</span><span class="n">menu</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>서버에 실제로 저장되어 있는 <code class="highlighter-rouge">secret</code>의 값을 찾아야 하는 문제이다.</p>
+
+<p>nc를 통해 문제에 접속하면 아래와 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ nc 206.189.92.209 12345
+Welcome to our super secure enc/dec server. 
+We use hmac, so, plz don't hack us (and you can't). Thanks.
+Choose one:
+1. encrypt data
+2. decrypt data
+3. quit
+1
+prefix: aaa
+suffix: bbb
+d9d860ba5708b4758a95b84b99459683dde5d09d8a137f2d436cf6b42d3519b3eb5642f9802c5957c867f0d83505462aa9f5d6024238c8618cff0832a15913446e0ff402ffb874968b2ce4b960e37517b557f32570ead1b3cd8e8ff6bf1a907b
+Choose one:
+1. encrypt data
+2. decrypt data
+3. quit
+2
+data: d9d860ba5708b4758a95b84b99459683dde5d09d8a137f2d436cf6b42d3519b3eb5642f9802c5957c867f0d83505462aa9f5d6024238c8618cff0832a15913446e0ff402ffb874968b2ce4b960e37517b557f32570ead1b3cd8e8ff6bf1a907b
+OK
+Choose one:
+1. encrypt data
+2. decrypt data
+3. quit
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">encrypt data</code>, <code class="highlighter-rouge">decrypt data</code>, <code class="highlighter-rouge">quit</code> 3 개의 메뉴가 있고, <code class="highlighter-rouge">encrypt data</code>를 선택 할 경우 <code class="highlighter-rouge">prefix</code>와 <code class="highlighter-rouge">suffix</code>를 입력 해 주어야 한다.</p>
+
+<p>또한 <code class="highlighter-rouge">decrypt data</code>를 선택 할 경우에는 복호화 할 데이터를 입력받고 복호화 성공 시 <code class="highlighter-rouge">OK</code>를, 복호화를 실패 할 경우에는 <code class="highlighter-rouge">KO</code>를 출력 해 준다.</p>
+
+<p>소스코드를 확인 해 보면 <code class="highlighter-rouge">decrypt</code> 함수를 제공 해 주었으며, <code class="highlighter-rouge">encrypt_key</code>가 <code class="highlighter-rouge">0xff * 32</code>로 되어 있다.</p>
+
+<p>그래서 혹시나 해서 다음과 같이 제공해 준 <code class="highlighter-rouge">decrypt</code> 함수를 바탕으로 exploit 코드를 짠 후 돌려 보았다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/usr/bin/python2</span>
+<span class="kn">from</span> <span class="nn">Crypto.Cipher</span> <span class="kn">import</span> <span class="n">AES</span>
+<span class="kn">import</span> <span class="nn">hmac</span><span class="p">,</span> <span class="n">hashlib</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">class</span> <span class="nc">Unbuffered</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream</span> <span class="o">=</span> <span class="n">stream</span>
+    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="n">Unbuffered</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">stderr</span> <span class="o">=</span> <span class="bp">None</span>
+
+<span class="n">encrypt_key</span> <span class="o">=</span> <span class="s">'</span><span class="se">\xff</span><span class="s">'</span> <span class="o">*</span> <span class="mi">32</span>
+<span class="n">hmac_secret</span> <span class="o">=</span> <span class="s">''</span>
+<span class="n">blocksize</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="n">hmac_size</span> <span class="o">=</span> <span class="mi">20</span>
+
+<span class="k">def</span> <span class="nf">unpad</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+	<span class="k">return</span> <span class="n">msg</span><span class="p">[:</span><span class="o">-</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+
+<span class="k">def</span> <span class="nf">compute_hmac</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+	<span class="k">return</span> <span class="n">hmac</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">hmac_secret</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">digestmod</span><span class="o">=</span><span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">)</span><span class="o">.</span><span class="n">digest</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">decrypt</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+	<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">'hex'</span><span class="p">)</span>
+	<span class="k">try</span><span class="p">:</span>
+		<span class="n">iv</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="n">blocksize</span><span class="p">]</span>
+		<span class="n">_aes</span> <span class="o">=</span> <span class="n">AES</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">encrypt_key</span><span class="p">,</span> <span class="n">AES</span><span class="o">.</span><span class="n">MODE_CBC</span><span class="p">,</span> <span class="n">iv</span><span class="p">)</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="n">_aes</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">blocksize</span><span class="p">:])</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="n">unpad</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+		<span class="n">plaintext</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="n">hmac_size</span><span class="p">]</span>
+		<span class="n">mac</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="n">hmac_size</span><span class="p">:]</span>
+		<span class="k">if</span> <span class="n">mac</span> <span class="o">==</span> <span class="n">compute_hmac</span><span class="p">(</span><span class="n">plaintext</span><span class="p">):</span>
+			<span class="k">print</span> <span class="n">plaintext</span>
+			<span class="k">return</span> <span class="bp">True</span>
+		<span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="bp">False</span>
+	<span class="k">except</span><span class="p">:</span> <span class="k">return</span> <span class="bp">False</span>
+
+<span class="k">print</span> <span class="s">"[+] ESOR exploit start"</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s">"206.189.92.209"</span><span class="p">,</span> <span class="mi">12345</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">"[+] Connect OK with ESOR"</span> 
+
+<span class="n">s</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s">"3. quit"</span><span class="p">)</span>
+
+<span class="n">s</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s">"1"</span><span class="p">)</span>
+
+<span class="n">s</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s">"prefix: "</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s">"aaa"</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s">"suffix: "</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s">"bbb"</span><span class="p">)</span>
+
+<span class="n">recv_data</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s">"3. quit"</span><span class="p">)</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">recv_data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">"Choose one:"</span><span class="p">)[</span><span class="mi">0</span><span class="p">][:</span><span class="mi">192</span><span class="p">]</span>
+
+<span class="k">print</span> <span class="n">data</span>
+
+<span class="k">print</span> <span class="s">"[+] Check Encrypted data OK"</span>
+
+<span class="n">decrypt</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>nc로 접속한 후, 암호화 된 데이터를 받아 제공해 준 <code class="highlighter-rouge">decrypt</code> 함수를 사용 해 복호화 한 후 <code class="highlighter-rouge">print plaintext</code>만 추가 해 주었다.</p>
+
+<p>그 결과 앞 뒤로 내가 입력 한 <code class="highlighter-rouge">prefix</code>와 <code class="highlighter-rouge">suffix</code>가 있는 flag를 얻을 수 있었다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FLAG : MeePwnCTF{pooDL3-this-is-la-vie-en-rose-P00dle!}
+</code></pre></div></div>
+
+<p>아무래도 이 문제는 출제자가 잘못 낸 문제같다.</p>
+
+<p>flag의 내용으로 추측하건데, 아마도 <code class="highlighter-rouge">POODLE</code> 공격을 해야하는 문제가 아니었나 싶다.</p>
+
+<p>그런데, 오늘 다시 코드를 돌려보니 이제는 문제가 풀리지 않았다.</p>
+
+<p>대회 도중 출제자가 잘못된 것을 깨닫고 문제를 수정한 것 같다.</p>
+
+<p><del>IRC는 모르겠지만 홈페이지에는 공지가 없었다… 잠수함 패치 잼…</del></p>
+
+<hr />
+
+<h3 id="crypto-ezchallz">[CRYPTO] EZCHALLZ</h3>
+
+<p>문제 정보는 아래와 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://206.189.92.209/ezchallz/
+</code></pre></div></div>
+
+<p>홈페이지에 접속 해 보면 아래와 같은 화면만 있다.</p>
+
+<p><img src="/images/CTF/MeePwn2018/solved/meepwn_07.png" alt="" /></p>
+
+<p><code class="highlighter-rouge">Homepage</code>와 <code class="highlighter-rouge">Free register</code>, 딱 두개의 메뉴만 있을 뿐이었다.</p>
+
+<p><code class="highlighter-rouge">Homepage</code>를 누르면 위와 동일한 화면이 나타난다.</p>
+
+<p><code class="highlighter-rouge">Free register</code>를 누를 경우에는 아래와 같이 값을 입력할 수 있으며, <code class="highlighter-rouge">Register</code> 버튼을 누르면 가짜 flag를 출력 해 준다.</p>
+
+<p><img src="/images/CTF/MeePwn2018/solved/meepwn_08.png" alt="" /></p>
+
+<p><img src="/images/CTF/MeePwn2018/solved/meepwn_09.png" alt="" /></p>
+
+<p>소스코드를 봐도 딱히 눈에 띄는것이 없어 <code class="highlighter-rouge">URL</code>을 살펴 보았다.</p>
+
+<p>각각 버튼을 누를 경우 이동하는 URL은 다음과 같다.</p>
+
+<blockquote>
+  <p>Homepage를 누를 경우 : http://206.189.92.209/ezchallz/index.php<br />
+Free register를 누를 경우 : http://206.189.92.209/ezchallz/index.php?page=register<br />
+값 입력 후 Register 버튼을 누를 경우 : http://206.189.92.209/ezchallz/users/b8240bb93fb5c4321196ff675b7f98eb/flag.php</p>
+</blockquote>
+
+<p>쿼리 스트링에서 <code class="highlighter-rouge">page</code>를 인자로 받아 페이지를 이동한다는 것을 알 수 있었다.</p>
+
+<p>그런데 이 경우 <code class="highlighter-rouge">LFI</code> 공격에 취약할 수 있다.</p>
+
+<p><code class="highlighter-rouge">page</code>의 값에 다음과 같이 입력한다면, 해당 파일의 내용을 읽을 수 있다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?page=php://filter/convert.base64-encode/resource=index
+</code></pre></div></div>
+
+<p>그 결과 아래와 같이 <code class="highlighter-rouge">base64</code>로 인코딩 된 소스코드를 얻을 수 있었다.</p>
+
+<p><img src="/images/CTF/MeePwn2018/solved/meepwn_10.png" alt="" /></p>
+
+<p><code class="highlighter-rouge">index</code>와 <code class="highlighter-rouge">register</code> 페이지의 소스코드를 얻어 <code class="highlighter-rouge">base64</code>로 디코딩 하면 아래와 같다.</p>
+
+<ul>
+  <li>index.php</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"index.php"</span><span class="nt">&gt;</span>Homepage<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"?page=register"</span><span class="nt">&gt;</span>Free register<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+
+<span class="cp">&lt;?php</span>
+<span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s2">"page"</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s2">"page"</span><span class="p">]))</span> <span class="p">{</span>
+    <span class="nv">$page</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s2">"page"</span><span class="p">];</span>
+    <span class="k">if</span><span class="p">(</span><span class="nb">strpos</span><span class="p">(</span><span class="nb">strtolower</span><span class="p">(</span><span class="nv">$page</span><span class="p">),</span> <span class="s1">'secret'</span><span class="p">)</span> <span class="o">!==</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">die</span><span class="p">(</span><span class="s1">'No no no!'</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="c1">//    else if(strpos($page, 'php') !== false) {</span>
+ <span class="c1">//       die("N0 n0 n0!");</span>
+<span class="c1">//    }</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="k">include</span><span class="p">(</span><span class="nv">$page</span> <span class="o">.</span> <span class="s1">'.php'</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>register.php</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+<span class="cp">&lt;?php</span>
+<span class="nb">error_reporting</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+<span class="k">function</span> <span class="nf">gendirandshowflag</span><span class="p">(</span><span class="nv">$username</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">include</span><span class="p">(</span><span class="s1">'secret.php'</span><span class="p">);</span>
+	<span class="nv">$dname</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+	<span class="nv">$intro</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+	<span class="nv">$_username</span> <span class="o">=</span> <span class="nb">md5</span><span class="p">(</span><span class="nv">$username</span><span class="p">,</span> <span class="nv">$raw_output</span> <span class="o">=</span> <span class="k">TRUE</span><span class="p">);</span>
+	<span class="k">for</span><span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span><span class="o">&lt;</span><span class="nb">strlen</span><span class="p">(</span><span class="nv">$salt</span><span class="p">);</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nv">$dname</span><span class="o">.=</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="nv">$salt</span><span class="p">[</span><span class="nv">$i</span><span class="p">])</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="nv">$_username</span><span class="p">[</span><span class="nv">$i</span><span class="p">]));</span>
+	<span class="p">};</span>
+	<span class="nv">$dname</span> <span class="o">=</span> <span class="s2">"users/"</span> <span class="o">.</span> <span class="nb">bin2hex</span><span class="p">(</span><span class="nv">$dname</span><span class="p">);</span>
+	<span class="k">echo</span> <span class="s1">'You have successfully register as '</span> <span class="o">.</span> <span class="nv">$username</span> <span class="o">.</span> <span class="s1">'!\n'</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="nv">$_username</span> <span class="o">===</span> <span class="nb">hex2bin</span><span class="p">(</span><span class="s1">'21232f297a57a5a743894a0e4a801fc3'</span><span class="p">))</span> <span class="p">{</span>
+		<span class="nv">$intro</span> <span class="o">=</span> <span class="s2">"Here is your flag:"</span> <span class="o">.</span> <span class="nv">$flag</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">else</span> <span class="p">{</span>
+		<span class="nv">$intro</span> <span class="o">=</span> <span class="s2">"Here is your flag, but I'm not sure 🤔: </span><span class="se">\n</span><span class="s2">MeePwnCTF{"</span> <span class="o">.</span> <span class="nb">md5</span><span class="p">(</span><span class="nb">random_bytes</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span> <span class="o">.</span> <span class="nv">$username</span><span class="p">)</span> <span class="o">.</span> <span class="s2">"}"</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="nb">mkdir</span><span class="p">(</span><span class="nv">$dname</span><span class="p">);</span>
+	<span class="nb">file_put_contents</span><span class="p">(</span><span class="nv">$dname</span> <span class="o">.</span> <span class="s1">'/flag.php'</span><span class="p">,</span> <span class="nv">$intro</span><span class="p">);</span>
+	<span class="nb">header</span><span class="p">(</span><span class="s2">"Location: "</span><span class="o">.</span> <span class="nv">$dname</span> <span class="o">.</span> <span class="s2">"/flag.php"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'username'</span><span class="p">]))</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'username'</span><span class="p">]</span> <span class="o">===</span> <span class="s1">'admin'</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">die</span><span class="p">(</span><span class="s1">'Username is not allowed!'</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">else</span> <span class="p">{</span>
+		<span class="nx">gendirandshowflag</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'username'</span><span class="p">]);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+
+        <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"?page=register"</span> <span class="na">method=</span><span class="s">"POST"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"username"</span><span class="nt">&gt;&lt;br&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Register"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;/form&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>소스코드를 분석해 본 결과, username의 md5 해쉬 값이 <code class="highlighter-rouge">21232f297a57a5a743894a0e4a801fc3</code>라면 진짜 flag를 <code class="highlighter-rouge">$dname/flag.php</code>에 저장하는 것을 알 수 있었다.</p>
+
+<p>즉, md5 해쉬 값이 <code class="highlighter-rouge">21232f297a57a5a743894a0e4a801fc3</code>인 username을 찾아 해당 <code class="highlighter-rouge">username</code>의 <code class="highlighter-rouge">$dname</code>을 구해 <code class="highlighter-rouge">$dname/flag.php</code>에 들어가면 flag를 얻을 수 있다.</p>
+
+<p><code class="highlighter-rouge">$dname</code>을 만드는 코드는 다음과 같다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span><span class="o">&lt;</span><span class="nb">strlen</span><span class="p">(</span><span class="nv">$salt</span><span class="p">);</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nv">$dname</span><span class="o">.=</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="nv">$salt</span><span class="p">[</span><span class="nv">$i</span><span class="p">])</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="nv">$_username</span><span class="p">[</span><span class="nv">$i</span><span class="p">]));</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>따라서 <code class="highlighter-rouge">$dname</code>을 만들기 위해서는 <code class="highlighter-rouge">$salt</code>의 값과 <code class="highlighter-rouge">$_username</code>의 값을 알아야 한다.</p>
+
+<p>인터넷의 해쉬 값을 크랙해 주는 사이트에서 <code class="highlighter-rouge">21232f297a57a5a743894a0e4a801fc3</code>의 평문은 <code class="highlighter-rouge">admin</code>이라는 것을 알아내어, <code class="highlighter-rouge">$_username</code>은 <code class="highlighter-rouge">admin</code>이라는 것을 알 수 있었다.</p>
+
+<p>문제는 <code class="highlighter-rouge">$salt</code> 값인데, 변수를 새로 선언도 안한 것으로 보아 <code class="highlighter-rouge">$salt</code>의 값은 <code class="highlighter-rouge">secret.php</code>에 있는 것 같다.</p>
+
+<p>하지만 <code class="highlighter-rouge">index.php</code>에서 <code class="highlighter-rouge">secret</code>라는 문자에 대한 필터링을 걸어 두었으므로, <code class="highlighter-rouge">secret.php</code>의 소스코드는 알아낼 수 없다.</p>
+
+<p>하지만 <code class="highlighter-rouge">$dname</code>을 만들 때 <code class="highlighter-rouge">XOR</code> 연산을 사용하며, 홈페이지에서 내가 입력한 값을 바탕으로 만들어 지는 <code class="highlighter-rouge">$dname</code>의 값을 확인할 수 있다.</p>
+
+<p>따라서 이를 역 연산하면 <code class="highlighter-rouge">$salt</code>의 값을 알아낼 수 있다.</p>
+
+<p><code class="highlighter-rouge">$salt</code>의 값을 구하고, <code class="highlighter-rouge">admin</code>의 <code class="highlighter-rouge">$dname</code>을 구하기 위해 아래와 같이 소스코드를 구현 했다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+	<span class="nv">$_username</span> <span class="o">=</span> <span class="nb">md5</span><span class="p">(</span><span class="s2">"test"</span><span class="p">,</span> <span class="nv">$raw_output</span> <span class="o">=</span> <span class="k">TRUE</span><span class="p">);</span>
+
+	<span class="nv">$_dname</span> <span class="o">=</span> <span class="nb">hex2bin</span><span class="p">(</span><span class="s2">"b8240bb93fb5c4321196ff675b7f98eb"</span><span class="p">);</span>
+
+	<span class="nv">$salt</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+
+	<span class="k">for</span><span class="p">(</span><span class="nv">$i</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nb">strlen</span><span class="p">(</span><span class="nv">$_username</span><span class="p">);</span> <span class="nv">$i</span> <span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nv">$salt</span> <span class="o">.=</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="nv">$_dname</span><span class="p">[</span><span class="nv">$i</span><span class="p">])</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="nv">$_username</span><span class="p">[</span><span class="nv">$i</span><span class="p">]));</span>
+	<span class="p">}</span>
+
+	<span class="nv">$_username</span> <span class="o">=</span> <span class="nb">md5</span><span class="p">(</span><span class="s2">"admin"</span><span class="p">,</span> <span class="nv">$raw_output</span> <span class="o">=</span> <span class="k">TRUE</span><span class="p">);</span>
+	<span class="nv">$dname</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+
+	<span class="k">for</span><span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nb">strlen</span><span class="p">(</span><span class="nv">$_username</span><span class="p">);</span> <span class="nv">$i</span> <span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nv">$dname</span><span class="o">.=</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="nv">$salt</span><span class="p">[</span><span class="nv">$i</span><span class="p">])</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="nv">$_username</span><span class="p">[</span><span class="nv">$i</span><span class="p">]));</span>
+    <span class="p">}</span>
+	<span class="k">echo</span> <span class="nb">bin2hex</span><span class="p">(</span><span class="nv">$dname</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>그 결과 <code class="highlighter-rouge">90884f5d03c3b2e698c1fbea37d833de</code>라는 <code class="highlighter-rouge">$dname</code> 값을 구할 수 있었다.</p>
+
+<p><code class="highlighter-rouge">90884f5d03c3b2e698c1fbea37d833de/flag.php</code>로 접속 해 주석을 확인 해보면 flag를 얻을 수 있다.</p>
+
+<p><img src="/images/CTF/MeePwn2018/solved/meepwn_11.png" alt="" /></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FLAG : MeePwnCTF{just-a-warmup-challenge-are-you-ready-for-hacking-others-challz?}
+</code></pre></div></div>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#CTF">#CTF</a>
+    
+    <a class="tag" href="/tags#MeePwn2018">#MeePwn2018</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/ctf/2018/2018/07/17/ctf-meepwn2018-writeup.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/wargame/xss%20game/2018/06/27/xssgame-writeup.html">
+        [XSS Game] Write up
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/ctf/2018/2018/07/18/ctf-meepwn2018-omegasector.html">
+        [MeePwn2018] OMEGASECTOR Write up
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

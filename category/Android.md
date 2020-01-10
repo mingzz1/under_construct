@@ -1,7 +1,7 @@
 ---
 layout: category
-title: Android/Android
-permalink: '/Android/Android'
+title: Pentesting/Android
+permalink: '/Pentest/Android'
 ---
 
 Another sample category page.

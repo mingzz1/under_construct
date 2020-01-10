@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[Linux] 소유권(Ownership) / 허가권(Permission) | mingzzi</title>
+	<meta name="description" content="리눅스 운영체제에서는 소유권(Ownership)과 허가권(Permission)을 가지고 있다.리눅스 운영체제를 사용하는데 있어 매우 중요한 개념이기 때문에 정리하려 한다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/development/basic/2018/02/15/linux-permission.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[Linux] 소유권(Ownership) / 허가권(Permission)</h1>
+    
+    <p class="meta">
+      February 15, 2018
+      
+    </p>
+  </header>
+  <section class="post-content"><p>리눅스 운영체제에서는 소유권(Ownership)과 허가권(Permission)을 가지고 있다.</p>
+
+<p>리눅스 운영체제를 사용하는데 있어 매우 중요한 개념이기 때문에 정리하려 한다.</p>
+
+<!--more-->
+
+<h3 id="허가권permission">허가권(Permission)</h3>
+
+<p>리눅스 운영체제에서 파일과 디렉토리 목록을 보기 위해 <code class="highlighter-rouge">ls</code> 명령어를 사용한다.</p>
+
+<p>이때, <code class="highlighter-rouge">-al</code> 옵션을 주어 전체 목록을 확인 해 보면 아래와 같은 형태를 확인할 수 있다.</p>
+
+<blockquote>
+  <p>-r-sr-x—  1 user guest   7322 Jun 11  2014 <code class="highlighter-rouge">file</code><br />
+-rw-r–r–  1 root   root  418 Jun 11  2014 <code class="highlighter-rouge">code.c</code><br />
+-r–r—–  1 user root   50 Jun 11  2014 <code class="highlighter-rouge">textFile</code></p>
+</blockquote>
+
+<p>여기서 앞의 r, w, x 형태로 나타난 부분이 바로 <code class="highlighter-rouge">허가권(Permission)</code> 이다.</p>
+
+<ul>
+  <li>-rwxrwxr-x : 파일 (맨 앞이 -)</li>
+  <li>drwxrwxr-x : 디렉토리 (맨 앞이 d)</li>
+</ul>
+
+<p>허가권에서 <code class="highlighter-rouge">r</code>, <code class="highlighter-rouge">w</code>, <code class="highlighter-rouge">x</code> 는 각각 <code class="highlighter-rouge">read(읽기)</code>, <code class="highlighter-rouge">write(쓰기)</code>, <code class="highlighter-rouge">execute(실행, 접근)</code> 을 의미한다.</p>
+
+<p><img src="/images/linux/permission/permission_01.png" alt="" /></p>
+
+<ul>
+  <li>File Type : 디렉토리와 파일을 구분</li>
+  <li>User : 소유자의 권한</li>
+  <li>Group : 소유 그룹의 권한</li>
+  <li>Others : 소유자나 소유 그룹에 포함되지 않는 사용자의 권한</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"><center>권한</center></th>
+      <th style="text-align: center"><center>표시</center></th>
+      <th style="text-align: right"><center>파일</center></th>
+      <th style="text-align: right"><center>디렉토리</center></th>
+      <th style="text-align: right"><center>Octal 값</center></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><center>읽기</center></td>
+      <td style="text-align: center"><center>r</center></td>
+      <td style="text-align: right"><center>파일을 읽고 복사 가능</center></td>
+      <td style="text-align: right"><center>ls 명령어를 통해 디렉토리의 목록 확인 가능</center></td>
+      <td style="text-align: right"><center>4</center></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><center>쓰기</center></td>
+      <td style="text-align: center"><center>w</center></td>
+      <td style="text-align: right"><center>파일의 내용 수정 가능</center></td>
+      <td style="text-align: right"><center>디렉토리에 파일을 추가 혹은 삭제 가능</center></td>
+      <td style="text-align: right"><center>2</center></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><center>실행</center></td>
+      <td style="text-align: center"><center>x</center></td>
+      <td style="text-align: right"><center>실행 가능한 파일을 실행 가능</center></td>
+      <td style="text-align: right"><center>cd 명령어로 디렉토리 접근 가능</center></td>
+      <td style="text-align: right"><center>1</center></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="소유권ownableship">소유권(Ownableship)</h3>
+
+<p>아래의 예시에서 파일의 허가권 옆에 <code class="highlighter-rouge">user</code>, <code class="highlighter-rouge">guest</code>, <code class="highlighter-rouge">root</code> 등으로 나타난 부분이 소유권이다.</p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">-r-sr-x---</code>  1 user guest   7322 Jun 11  2014 file<br />
+<code class="highlighter-rouge">-rw-r--r--</code>  1 root   root  418 Jun 11  2014 code.c<br />
+<code class="highlighter-rouge">-r--r-----</code>  1 user root   50 Jun 11  2014 textFile</p>
+</blockquote>
+
+<p>앞 부분이 해당 파일의 <code class="highlighter-rouge">소유자</code>이며, 뒷 부분은 <code class="highlighter-rouge">소유 그룹</code>이다.</p>
+
+<blockquote>
+  <p>-r-sr-x—  1 <code class="highlighter-rouge">user</code> <code class="highlighter-rouge">guest</code>   7322 Jun 11  2014 file</p>
+</blockquote>
+
+<p>위에서 <code class="highlighter-rouge">user</code>는 <code class="highlighter-rouge">file</code> 파일의 <code class="highlighter-rouge">소유자</code>이며, <code class="highlighter-rouge">guest</code>가 <code class="highlighter-rouge">file</code> 파일의 소유 그룹이 된다.</p>
+
+<h3 id="setuid--setgid">SetUID / SetGID</h3>
+
+<p>그런데 예시를 살펴 보면, 파일의 허가권에 x가 아닌 s가 나타나 있는 부분이 있다.</p>
+
+<blockquote>
+  <p>-r-<code class="highlighter-rouge">s</code>r-x—  1 user guest   7322 Jun 11  2014 file</p>
+</blockquote>
+
+<p>바로 <code class="highlighter-rouge">SetUID</code>가 설정되어 있는 것이다.</p>
+
+<ul>
+  <li>SetUID : 사용자가 사용을 할 때만 소유자의 권한으로 파일을 실행함</li>
+  <li>SetGID : 사용자가 사용을 할 때만 그룹의 권한으로 파일을 실행함<br />
+<em>표기는 x 대신 s를 사용</em></li>
+</ul>
+
+<p>위의 예시에서는 앞의 <code class="highlighter-rouge">User</code> 의 허가권 부분에 <code class="highlighter-rouge">SetUID</code>가 걸려 있다.</p>
+
+<p>따라서 <code class="highlighter-rouge">file</code>을 실행하는 동안에는 <code class="highlighter-rouge">user</code>의 권한으로 파일을 실행하게 된다.</p>
+
+<p>만약 파일의 소유자가 <code class="highlighter-rouge">root</code>인 파일에 <code class="highlighter-rouge">SetUID</code>가 걸려 있다면, 일반 사용자가 해당 파일을 실행하는 동안에는 <code class="highlighter-rouge">root</code>의 권한을 사용할 수 있다.</p>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#System">#System</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/development/basic/2018/02/15/linux-permission.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/wargame/pwnable.kr/2018/02/15/pwnable.kr-fd.html">
+        [Pwnable.kr] Toddler's Bottle - fd 문제풀이
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

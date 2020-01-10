@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>Javascript 난독화 기법 | mingzzi</title>
+	<meta name="description" content="요즘 난독화 된 Javascript를 자주 보게 되었다.그래서 Javascript의 난독화 기법을 몇 가지 정리 해 두려 한다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/development/web/2019/03/10/js-obfuscation.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">Javascript 난독화 기법</h1>
+    
+    <p class="meta">
+      March 10, 2019
+      
+    </p>
+  </header>
+  <section class="post-content"><p>요즘 난독화 된 Javascript를 자주 보게 되었다.</p>
+
+<p>그래서 Javascript의 난독화 기법을 몇 가지 정리 해 두려 한다.</p>
+
+<!--more-->
+
+<h2 id="난독화-방법">난독화 방법</h2>
+
+<ul>
+  <li>eval() 사용</li>
+</ul>
+
+<p><code class="highlighter-rouge">eval</code>는 문자열을 코드로 인식하게 해 주는 함수이다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>eval(1+2)
+&gt; 3
+
+eval("alert(1)")
+&gt; alert 창이 뜸
+</code></pre></div></div>
+
+<p>때문에 이를 활용하여 코드를 분석하기 어렵게 만들기도 한다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="s2">"document.write('</span><span class="err">\</span><span class="s2">x4d</span><span class="err">\</span><span class="s2">x41</span><span class="err">\</span><span class="s2">x44</span><span class="err">\</span><span class="s2">x48</span><span class="err">\</span><span class="s2">x41</span><span class="err">\</span><span class="s2">x54')"</span><span class="p">;</span>
+
+<span class="kr">eval</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>위의 코드를 입력하면 아래와 같이 <code class="highlighter-rouge">MADHAT</code>이 출력되는 것을 확인할 수 있다.</p>
+
+<p><img src="/images/js_obfuscation/obfuscation_01.png" alt="" /></p>
+
+<ul>
+  <li>Split</li>
+</ul>
+
+<p>두 번째 방법은 문자열을 다수의 변수에 나누어 적는 방법이다.</p>
+
+<p>이 후 다시 이 문자열을 합쳐 실행시킨다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="s2">"&lt;h"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="s2">"&lt;/h"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="s2">"M"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="s2">"1&gt;"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="s2">"AT"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="s2">"1&gt;"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">g</span> <span class="o">=</span> <span class="s2">"AD"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">h</span> <span class="o">=</span> <span class="s2">"H"</span><span class="p">;</span>
+
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">a</span> <span class="o">+</span> <span class="nx">f</span> <span class="o">+</span> <span class="nx">c</span> <span class="o">+</span> <span class="nx">g</span> <span class="o">+</span> <span class="nx">h</span> <span class="o">+</span> <span class="nx">e</span> <span class="o">+</span> <span class="nx">b</span> <span class="o">+</span> <span class="nx">d</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><img src="/images/js_obfuscation/obfuscation_02.png" alt="" /></p>
+
+<ul>
+  <li>Hexademical / Decimal 사용</li>
+</ul>
+
+<p><code class="highlighter-rouge">Hexademical</code>은 <code class="highlighter-rouge">16진수</code>를, <code class="highlighter-rouge">Decimal</code>은 <code class="highlighter-rouge">10진수</code>를 의미한다.</p>
+
+<p>어떤 문자열이 있을 때, 이를 알아보기 어렵게 16진수 혹은 10진수 값으로 바꾸어 입력할 수 있다.</p>
+
+<p>이 때, <code class="highlighter-rouge">String.fromCharCode</code> 혹은 <code class="highlighter-rouge">String.charCodeAt</code> 함수를 사용할 수 있다.</p>
+
+<p><code class="highlighter-rouge">String.fromCharCode</code>는 숫자를 문자로 변환하는 함수이고, <code class="highlighter-rouge">String.charCodeAt</code>은 특정 위치의 문자를 아스키코드의 숫자로 변환하는 함수이다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">'</span><span class="err">\</span><span class="s1">x4d</span><span class="err">\</span><span class="s1">x41</span><span class="err">\</span><span class="s1">x44</span><span class="err">\</span><span class="s1">x48</span><span class="err">\</span><span class="s1">x41</span><span class="err">\</span><span class="s1">x54</span><span class="err">\</span><span class="s1">x20'</span><span class="p">);</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="mh">0x4d</span><span class="p">,</span><span class="mh">0x41</span><span class="p">,</span><span class="mh">0x44</span><span class="p">,</span><span class="mh">0x48</span><span class="p">,</span><span class="mh">0x41</span><span class="p">,</span><span class="mh">0x54</span><span class="p">,</span><span class="mh">0x20</span><span class="p">));</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="mi">77</span><span class="p">,</span><span class="mi">65</span><span class="p">,</span><span class="mi">68</span><span class="p">,</span><span class="mi">72</span><span class="p">,</span><span class="mi">65</span><span class="p">,</span><span class="mi">84</span><span class="p">,</span><span class="mi">32</span><span class="p">));</span>
+
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="s2">"LADHAT"</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+</code></pre></div></div>
+
+<p><img src="/images/js_obfuscation/obfuscation_03.png" alt="" /></p>
+
+<ul>
+  <li>escape / unescape</li>
+</ul>
+
+<p><code class="highlighter-rouge">escape</code> 함수는 ASCII 형태의 문자열을 ISO Latin-1 형태로 변환해 주는 함수이다.</p>
+
+<p><code class="highlighter-rouge">unescape</code> 함수는 그와 반대로 반환 해 준다.</p>
+
+<p><code class="highlighter-rouge">알파벳과 숫자, *, @, -, _, +, /</code> 를 제외한 특수문자만 해당된다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">escape</span><span class="p">(</span><span class="s2">"MADHAT!@#$%^&amp;*"</span><span class="p">));</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">" "</span><span class="p">);</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">unescape</span><span class="p">(</span><span class="s2">"MADHAT%21@%23%24%25%5E%26*"</span><span class="p">));</span>
+</code></pre></div></div>
+
+<p><img src="/images/js_obfuscation/obfuscation_04.png" alt="" /></p>
+
+<ul>
+  <li>XOR, +, - 등 연산</li>
+</ul>
+
+<p>문자열을 알아보기 어렵게 하기 위해서 연산을 사용하기도 한다.</p>
+
+<p>특정 문자를 아스키코드의 숫자로 바꾼 후, <code class="highlighter-rouge">XOR</code>, <code class="highlighter-rouge">+</code>, <code class="highlighter-rouge">-</code> 등의 연산을 통해서 원래의 문자로 변경하는 것이다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="mi">92</span> <span class="o">^</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">80</span> <span class="o">^</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">85</span> <span class="o">^</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">89</span> <span class="o">^</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">80</span> <span class="o">^</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">69</span> <span class="o">^</span> <span class="mi">17</span><span class="p">));</span>
+</code></pre></div></div>
+
+<p><img src="/images/js_obfuscation/obfuscation_05.png" alt="" /></p>
+
+<p>이 외에도, 함수 명이나 변수 명을 <code class="highlighter-rouge">_</code>, <code class="highlighter-rouge">__</code>, <code class="highlighter-rouge">___</code> 등으로 만들어 구분을 어렵게 하거나, 알파벳이 아닌 문자를 사용하는 방법도 있다.</p>
+
+<p>또한 띄어쓰기를 없애 소스코드를 한 덩어리로 만들어 읽기 어렵게 만들기도 한다.</p>
+
+<p>Javascript 코드를 분석할 때 난독화가 되어있다면 매우 분석하기가 어렵다.</p>
+
+<p>때문에 난독화를 풀어서 분석하는 것이 효율성 측면에서 더 좋을 수 있다.</p>
+
+<p>내가 난독화 된 코드를 분석할 때 사용하는 방법을 몇 가지 정리 해 보면 다음과 같다.</p>
+
+<h2 id="난독화-풀기">난독화 풀기</h2>
+
+<ul>
+  <li>JS beautifier</li>
+</ul>
+
+<p>띄어쓰기가 안되어 소스코드가 뭉쳐있어 함수와 변수의 구분이 안되는 것은 <a href="https://beautifier.io/">JS beautifier</a>를 사용하면 된다.</p>
+
+<p>위의 사이트에서 소스코드를 입력한 후, <code class="highlighter-rouge">Beautify Code</code> 버튼을 클릭하면 소스코드가 깔끔하게 정리되어 보인다.</p>
+
+<ul>
+  <li>텍스트 에디터</li>
+</ul>
+
+<p>함수 명이나 변수 명들이 <code class="highlighter-rouge">_</code>, <code class="highlighter-rouge">__</code> 혹은 <code class="highlighter-rouge">ll11</code>, <code class="highlighter-rouge">l1l1</code> 와 같이 구분하기 어렵게 선언되어 있는 경우가 있다.</p>
+
+<p>이 경우에는 텍스트 에디터를 사용 해 해당 변수 및 함수의 이름을 적절히 바꾸어 분석하면 조금 더 수월하게 분석할 수 있다.</p>
+
+<ul>
+  <li>Chrome 개발자도구의 Console</li>
+</ul>
+
+<p>난독화 된 문자열은 손으로 하나하나 해석하려면 시간이 오래 걸린다.</p>
+
+<p>그런데 경험 상, 문자열을 난독화 한다면 <code class="highlighter-rouge">String.fromCharCode</code> 등의 함수가 사용되어 결국 원래의 문자로 복구시킨다.</p>
+
+<p>이 때, 복구 된 문자를 확인하기 위해서 <code class="highlighter-rouge">Chrome 개발자도구</code>의 <code class="highlighter-rouge">Console</code>을 사용하면 좀 더 수월하게 확인할 수 있다.</p>
+
+<p>예를 들어 아래와 같은 코드가 있다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="mi">92</span> <span class="o">^</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">80</span> <span class="o">^</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">85</span> <span class="o">^</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">89</span> <span class="o">^</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">80</span> <span class="o">^</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">69</span> <span class="o">^</span> <span class="mi">17</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>이 때, a의 값을 알기 위해서 <code class="highlighter-rouge">Console</code>창에 <code class="highlighter-rouge">String.fromCharCode</code> 부분을 입력 하면 복구된 문자열을 확인할 수 있다.</p>
+
+<p><img src="/images/js_obfuscation/obfuscation_06.png" alt="" /></p>
+
+<p>지금 생각나는 것은 이정도인 것 같다.</p>
+
+<p>만약 앞으로 문제를 풀거나 분석을 하며 아이디어가 더 생긴다면 추가로 더 정리해두어야 겠다.</p>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Javascript">#Javascript</a>
+    
+    <a class="tag" href="/tags#Obfuscation">#Obfuscation</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/development/web/2019/03/10/js-obfuscation.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/wargame/pwnable.kr/2019/02/14/pwnable.kr-lotto.html">
+        [Pwnable.kr] Toddler's Bottle - lotto 문제풀이
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/ctf/2019/2019/04/08/shadow-cat-writeup.html">
+        [VolgaCTF2019] Shadow Cat Write up
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

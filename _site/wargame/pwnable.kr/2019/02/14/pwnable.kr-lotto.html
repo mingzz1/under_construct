@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[Pwnable.kr] Toddler's Bottle - lotto 문제풀이 | mingzzi</title>
+	<meta name="description" content="오늘은 lotto 문제이다.사실 원래는 input을 풀려고 하다가 일단 lotto를 먼저 풀었다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/wargame/pwnable.kr/2019/02/14/pwnable.kr-lotto.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[Pwnable.kr] Toddler's Bottle - lotto 문제풀이</h1>
+    
+    <p class="meta">
+      February 14, 2019
+      
+    </p>
+  </header>
+  <section class="post-content"><p>오늘은 <code class="highlighter-rouge">lotto</code> 문제이다.</p>
+
+<p>사실 원래는 <code class="highlighter-rouge">input</code>을 풀려고 하다가 일단 <code class="highlighter-rouge">lotto</code>를 먼저 풀었다.</p>
+
+<!--more-->
+
+<p>문제 접속 정보는 아래와 같다.</p>
+
+<ul>
+  <li>ssh lotto@pwnable.kr -p2222 (pw:guest)</li>
+</ul>
+
+<p>문제에 접속하면 3개의 파일을 확인할 수 있다.</p>
+
+<blockquote>
+  <p>-r–r—–  1 lotto_pwn root     55 Feb 18  2015 <code class="highlighter-rouge">flag</code><br />
+-r-sr-x—  1 lotto_pwn lotto 13081 Feb 18  2015 <code class="highlighter-rouge">lotto</code><br />
+-r–r–r–  1 root      root   1713 Feb 18  2015 <code class="highlighter-rouge">lotto.c</code></p>
+</blockquote>
+
+<p>다른 문제들이랑 동일하게 실행파일, 소스코드, flag 파일이 있다.</p>
+
+<p><code class="highlighter-rouge">lotto.c</code>의 내용은 다음과 같다.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;fcntl.h&gt;
+</span>
+<span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">submit</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>
+
+<span class="kt">void</span> <span class="n">play</span><span class="p">(){</span>
+	
+	<span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"Submit your 6 lotto bytes : "</span><span class="p">);</span>
+	<span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+
+	<span class="kt">int</span> <span class="n">r</span><span class="p">;</span>
+	<span class="n">r</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">submit</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+
+	<span class="n">printf</span><span class="p">(</span><span class="s">"Lotto Start!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="c1">//sleep(1);</span>
+
+	<span class="c1">// generate lotto numbers</span>
+	<span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">"/dev/urandom"</span><span class="p">,</span> <span class="n">O_RDONLY</span><span class="p">);</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">fd</span><span class="o">==-</span><span class="mi">1</span><span class="p">){</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"error. tell admin</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">lotto</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">lotto</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">6</span><span class="p">){</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"error2. tell admin</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">6</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+		<span class="n">lotto</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">lotto</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">%</span> <span class="mi">45</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>		<span class="c1">// 1 ~ 45</span>
+	<span class="p">}</span>
+	<span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+	
+	<span class="c1">// calculate lotto score</span>
+	<span class="kt">int</span> <span class="n">match</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">6</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+		<span class="k">for</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;</span><span class="mi">6</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>
+			<span class="k">if</span><span class="p">(</span><span class="n">lotto</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">submit</span><span class="p">[</span><span class="n">j</span><span class="p">]){</span>
+				<span class="n">match</span><span class="o">++</span><span class="p">;</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="c1">// win!</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">match</span> <span class="o">==</span> <span class="mi">6</span><span class="p">){</span>
+		<span class="n">system</span><span class="p">(</span><span class="s">"/bin/cat flag"</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">else</span><span class="p">{</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"bad luck...</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">help</span><span class="p">(){</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"- nLotto Rule -</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"nlotto is consisted with 6 random natural numbers less than 46</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"your goal is to match lotto numbers as many as you can</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"if you win lottery for *1st place*, you will get reward</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"for more details, follow the link below</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"http://www.nlotto.co.kr/counsel.do?method=playerGuide#buying_guide01</span><span class="se">\n\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"mathematical chance to win this game is known to be 1/8145060.</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[]){</span>
+
+	<span class="c1">// menu</span>
+	<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">menu</span><span class="p">;</span>
+
+	<span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+
+		<span class="n">printf</span><span class="p">(</span><span class="s">"- Select Menu -</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"1. Play Lotto</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"2. Help</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"3. Exit</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+
+		<span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">menu</span><span class="p">);</span>
+
+		<span class="k">switch</span><span class="p">(</span><span class="n">menu</span><span class="p">){</span>
+			<span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
+				<span class="n">play</span><span class="p">();</span>
+				<span class="k">break</span><span class="p">;</span>
+			<span class="k">case</span> <span class="mi">2</span><span class="p">:</span>
+				<span class="n">help</span><span class="p">();</span>
+				<span class="k">break</span><span class="p">;</span>
+			<span class="k">case</span> <span class="mi">3</span><span class="p">:</span>
+				<span class="n">printf</span><span class="p">(</span><span class="s">"bye</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+				<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+			<span class="k">default</span><span class="o">:</span>
+				<span class="n">printf</span><span class="p">(</span><span class="s">"invalid menu</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+				<span class="k">break</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>먼저 프로그램을 실행하면 메뉴가 3개가 있다.</p>
+
+<p><code class="highlighter-rouge">1</code>을 선택하면 로또 맞추기 게임을 할 수 있고, <code class="highlighter-rouge">2</code>를 선택하면 문제 풀이 방법을, <code class="highlighter-rouge">3</code>을 선택하면 프로그램을 종료시킨다.</p>
+
+<p><code class="highlighter-rouge">2</code>번을 선택했을 때 호출하는 <code class="highlighter-rouge">help()</code> 함수는 <code class="highlighter-rouge">printf()</code>로 문자열만을 출력한다.</p>
+
+<p>그래서 <code class="highlighter-rouge">1</code>을 선택했을 때 호출하는 <code class="highlighter-rouge">play()</code> 함수를 살펴보았다.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="n">play</span><span class="p">(){</span>
+	
+	<span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"Submit your 6 lotto bytes : "</span><span class="p">);</span>
+	<span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+
+	<span class="kt">int</span> <span class="n">r</span><span class="p">;</span>
+	<span class="n">r</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">submit</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+
+	<span class="n">printf</span><span class="p">(</span><span class="s">"Lotto Start!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="c1">//sleep(1);</span>
+
+	<span class="c1">// generate lotto numbers</span>
+	<span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">"/dev/urandom"</span><span class="p">,</span> <span class="n">O_RDONLY</span><span class="p">);</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">fd</span><span class="o">==-</span><span class="mi">1</span><span class="p">){</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"error. tell admin</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">lotto</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">lotto</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">6</span><span class="p">){</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"error2. tell admin</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">6</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+		<span class="n">lotto</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">lotto</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">%</span> <span class="mi">45</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>		<span class="c1">// 1 ~ 45</span>
+	<span class="p">}</span>
+	<span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+	
+	<span class="c1">// calculate lotto score</span>
+	<span class="kt">int</span> <span class="n">match</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">6</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+		<span class="k">for</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;</span><span class="mi">6</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>
+			<span class="k">if</span><span class="p">(</span><span class="n">lotto</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">submit</span><span class="p">[</span><span class="n">j</span><span class="p">]){</span>
+				<span class="n">match</span><span class="o">++</span><span class="p">;</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="c1">// win!</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">match</span> <span class="o">==</span> <span class="mi">6</span><span class="p">){</span>
+		<span class="n">system</span><span class="p">(</span><span class="s">"/bin/cat flag"</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">else</span><span class="p">{</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"bad luck...</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>먼저 <code class="highlighter-rouge">read()</code> 함수를 통해 표준 입력으로 6 byte를 입력 받아 <code class="highlighter-rouge">submit</code>에 저장한다.</p>
+
+<p>이 때, <code class="highlighter-rouge">submit</code> 변수는 <code class="highlighter-rouge">char</code> 형 변수이기 때문에 문자 형태로 저장된다.</p>
+
+<p>이 후 <code class="highlighter-rouge">fd</code>를 저장한 후 해당 <code class="highlighter-rouge">fd</code>에서 다시 6 byte를 입력 받아 <code class="highlighter-rouge">lotto</code> 변수에 저장한다.</p>
+
+<p><code class="highlighter-rouge">lotto</code> 변수 또한 <code class="highlighter-rouge">char</code> 형 이며, <code class="highlighter-rouge">1 ~ 45</code> 사이의 값을 가지도록 하기 위해 <code class="highlighter-rouge">(lotto[i] % 45) + 1</code>의 수식을 통해 연산을 한다.</p>
+
+<p>마지막으로 만약 <code class="highlighter-rouge">submit</code>과 <code class="highlighter-rouge">lotto</code>의 각 자리를 비교 해 값이 같다면 <code class="highlighter-rouge">match++</code>을 하고, 이 <code class="highlighter-rouge">match</code>의 값이 <code class="highlighter-rouge">6</code>이라면 <code class="highlighter-rouge">/bin/cat flag</code>를 실행시켜 플래그를 읽을 수 있게 된다.</p>
+
+<p>난 처음에 <code class="highlighter-rouge">fd</code> 부분에 초점을 맞췄었다.</p>
+
+<p>그런데 테스트 해 본 결과 <code class="highlighter-rouge">fd</code>의 값은 3이 나왔는데, 어떻게 해도 <code class="highlighter-rouge">fd</code>가 <code class="highlighter-rouge">3</code>일 때 입력 줄 수 있는 방법을 찾을 수가 없었다. ㅠㅠ</p>
+
+<p>그래서 다시 <code class="highlighter-rouge">lotto</code>와 <code class="highlighter-rouge">submit</code>을 비교하는 부분을 살펴봤는데, 내가 바보였다…</p>
+
+<p>소스코드를 다시 살펴보면 다음과 같다.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kt">int</span> <span class="n">match</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">6</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+		<span class="k">for</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;</span><span class="mi">6</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>
+			<span class="k">if</span><span class="p">(</span><span class="n">lotto</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">submit</span><span class="p">[</span><span class="n">j</span><span class="p">]){</span>
+				<span class="n">match</span><span class="o">++</span><span class="p">;</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">for</code> 문을 2번 실행하는데, 이 때 비교하는 부분을 예외처리를 하지 않아 반복문이 무조건 36번을 돌게 되어있다.</p>
+
+<p>그렇다면 같은 값으로 6 byte를 입력하고, 만약 <code class="highlighter-rouge">lotto</code>에 저장된 값이 하나라도 내가 입력 한 문자와 같다면 <code class="highlighter-rouge">match</code>가 6이 되어 문제를 풀 수 있을 것이다.</p>
+
+<p>한 가지 더 생각해야하는 부분이 있다.</p>
+
+<p><code class="highlighter-rouge">submit</code>과 <code class="highlighter-rouge">lotto</code> 변수는 <code class="highlighter-rouge">char</code> 형 변수이다.</p>
+
+<p>때문에 숫자를 입력하더라도 <code class="highlighter-rouge">char</code>형으로 저장되기 때문에 <code class="highlighter-rouge">0 ~ 9</code> 사이의 숫자를 입력한다면 이 값은 각각 아스키코드 값으로 <code class="highlighter-rouge">48 ~ 57</code>이 되기 때문에 <code class="highlighter-rouge">lotto</code>의 범위인 <code class="highlighter-rouge">1 ~ 45</code> 사이에 값이 되지 않는다.</p>
+
+<p>때문에 아스키코드의 10진수 값 중 <code class="highlighter-rouge">1 ~ 45</code> 사이의 문자 중 출력 가능 한 문자를 찾아 <code class="highlighter-rouge">submit</code>의 값으로 입력 해 주어야 <code class="highlighter-rouge">lotto</code>와 비교를 했을 때 같은 값이 나올 수 있다.</p>
+
+<p><code class="highlighter-rouge">33 ~ 45</code>까지가 출력 가능하며 문자로는 <code class="highlighter-rouge">!"#$%&amp;'()*+,-</code>이 된다.</p>
+
+<p>그래서 이 문자 중 아무거나 한개를 정해서 6개를 계속 입력 해 보았다.</p>
+
+<p>그러면 언젠가는 <code class="highlighter-rouge">lotto</code>에 저장된 값 중 한개가 내가 입력 한 값과 동일하게 될 것이고, 그렇다면 36번의 반복문에 의해 <code class="highlighter-rouge">match</code>의 값이 6이 되며 문제를 풀 수 있을 것이다.</p>
+
+<p>나는 <code class="highlighter-rouge">#</code>을 선택 해 입력 해 보았다.</p>
+
+<p>그 결과 무려 13번 만에 플래그를 얻을 수 있었다.</p>
+
+<p><img src="/images/pwnable.kr/lotto/lotto_01.PNG" alt="" /></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lotto@ubuntu:~$ ./lotto
+- Select Menu -
+1. Play Lotto
+2. Help
+3. Exit
+1
+Submit your 6 lotto bytes : ######
+Lotto Start!
+sorry mom... I FORGOT to check duplicate numbers... :(
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FLAG : sorry mom... I FORGOT to check duplicate numbers... :(
+</code></pre></div></div>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#Pwnable.kr">#Pwnable.kr</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/wargame/pwnable.kr/2019/02/14/pwnable.kr-lotto.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/wargame/pwnable.kr/2019/02/13/pwnable.kr-shellshock.html">
+        [Pwnable.kr] Toddler's Bottle - shellshock 문제풀이
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/development/web/2019/03/10/js-obfuscation.html">
+        Javascript 난독화 기법
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

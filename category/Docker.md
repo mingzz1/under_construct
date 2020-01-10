@@ -1,7 +1,7 @@
 ---
 layout: category
-title: Development Environment/Docker
-permalink: '/DE/Docker'
+title: Development/Docker
+permalink: '/Develop/Docker'
 ---
 
 Another sample category page.

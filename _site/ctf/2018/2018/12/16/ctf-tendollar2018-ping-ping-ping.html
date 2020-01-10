@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[TenDollar 2018] Ping! Ping! Ping! Write up | mingzzi</title>
+	<meta name="description" content="몇 주 전에 TenDollar 팀이 주최 한 CTF에 참여했다.한 3문제 정도 푼 것 같은데, 그 중에 Ping! Ping! Ping! 문제는 지금도 풀어볼 수 있어 이 문제에 대한 풀이를 적어두려 한다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/ctf/2018/2018/12/16/ctf-tendollar2018-ping-ping-ping.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[TenDollar 2018] Ping! Ping! Ping! Write up</h1>
+    
+    <p class="meta">
+      December 16, 2018
+      
+    </p>
+  </header>
+  <section class="post-content"><p>몇 주 전에 TenDollar 팀이 주최 한 CTF에 참여했다.</p>
+
+<p>한 3문제 정도 푼 것 같은데, 그 중에 <code class="highlighter-rouge">Ping! Ping! Ping!</code> 문제는 지금도 풀어볼 수 있어 이 문제에 대한 풀이를 적어두려 한다.</p>
+
+<!--more-->
+
+<p>문제 정보는 다음과 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ping! ping! ping!
+</code></pre></div></div>
+
+<p>첨부파일을 확인 해 보면, <code class="highlighter-rouge">pcapng</code> 파일이 있는 것을 확인할 수 있다.</p>
+
+<p><code class="highlighter-rouge">pcapng</code> 파일을 보면 두 IP가 <code class="highlighter-rouge">ICMP Request</code>, <code class="highlighter-rouge">ICMP Reply</code>를 주고받은 패킷이 있다.</p>
+
+<p>이에 데이터를 영역을 살펴보니, 아래와 같은 내용이 있었다.</p>
+
+<p><img src="/images/CTF/TenDollar2018/ping_ping_ping/ping_01.png" alt="" /></p>
+
+<p><code class="highlighter-rouge">PK</code>와 <code class="highlighter-rouge">Content_Types</code>라는 글자가 있는 것으로 보아 해당 파일은 <code class="highlighter-rouge">HWP</code>인 것 같았다.</p>
+
+<p>즉 이 <code class="highlighter-rouge">pcapng</code> 파일은 <code class="highlighter-rouge">HWP</code> 파일을 ICMP 프로토콜을 통해 전달 한 패킷을 캡처 한 것이라는 것을 알 수 있었다.</p>
+
+<p>전송 한 파일을 추출하기 위해서는 Python으로 아래와 같이 코드를 구현하면 된다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">dpkt</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+
+<span class="k">def</span> <span class="nf">inet_to_str</span><span class="p">(</span><span class="n">inet</span><span class="p">):</span>
+	<span class="k">try</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">socket</span><span class="o">.</span><span class="n">inet_ntop</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">inet</span><span class="p">)</span>
+	<span class="k">except</span> <span class="nb">ValueError</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">socket</span><span class="o">.</span><span class="n">inet_ntop</span><span class="p">(</span><span class="n">socketAF_INET6</span><span class="p">,</span> <span class="n">inet</span><span class="p">)</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">"ping_ping_ping.pcapng"</span><span class="p">)</span>
+
+<span class="n">pcap</span> <span class="o">=</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">pcap</span><span class="o">.</span><span class="n">Reader</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="n">f1</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">"extract.hwp"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span>
+
+<span class="n">newfile</span> <span class="o">=</span> <span class="s">""</span>
+
+<span class="k">for</span> <span class="n">timestamp</span><span class="p">,</span> <span class="n">buf</span> <span class="ow">in</span> <span class="n">pcap</span><span class="p">:</span>
+	<span class="n">eth</span> <span class="o">=</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">ethernet</span><span class="o">.</span><span class="n">Ethernet</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+
+	<span class="n">ip</span> <span class="o">=</span> <span class="n">eth</span><span class="o">.</span><span class="n">data</span>
+
+	<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ip</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">icmp</span><span class="o">.</span><span class="n">ICMP</span><span class="p">):</span>
+		<span class="n">icmp</span> <span class="o">=</span> <span class="n">ip</span><span class="o">.</span><span class="n">data</span>
+		
+		<span class="k">if</span> <span class="n">inet_to_str</span><span class="p">(</span><span class="n">ip</span><span class="o">.</span><span class="n">src</span><span class="p">)</span> <span class="o">==</span> <span class="s">"10.211.55.6"</span><span class="p">:</span>
+			<span class="n">newfile</span> <span class="o">+=</span> <span class="n">icmp</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">data</span>
+
+
+<span class="n">f1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">newfile</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>그런데 위의 코드를 실행하면 아래와 같은 오류가 발생한다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Traceback (most recent call last):
+  File "ex.py", line 12, in &lt;module&gt;
+    pcap = dpkt.pcap.Reader(f)
+  File "/usr/local/lib/python2.7/dist-packages/dpkt/pcap.py", line 251, in __init__
+    raise ValueError('invalid tcpdump header')
+ValueError: invalid tcpdump header
+</code></pre></div></div>
+
+<p>때문에 <code class="highlighter-rouge">pcapng</code> 파일을 아래의 명령어를 사용하여 <code class="highlighter-rouge">pcap</code> 파일로 변경 해 주어야 한다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>editcap -F libpcap -T ether ping_ping_ping.pcapng ping_ping_ping.pcap
+</code></pre></div></div>
+
+<p>이 후 다시 위의 코드를 아래와 같이 수정 해 실행시키면 <code class="highlighter-rouge">HWP</code> 파일을 얻을 수 있다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">dpkt</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+
+<span class="k">def</span> <span class="nf">inet_to_str</span><span class="p">(</span><span class="n">inet</span><span class="p">):</span>
+	<span class="k">try</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">socket</span><span class="o">.</span><span class="n">inet_ntop</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">inet</span><span class="p">)</span>
+	<span class="k">except</span> <span class="nb">ValueError</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">socket</span><span class="o">.</span><span class="n">inet_ntop</span><span class="p">(</span><span class="n">socketAF_INET6</span><span class="p">,</span> <span class="n">inet</span><span class="p">)</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">"ping_ping_ping.pcap"</span><span class="p">)</span>
+
+<span class="n">pcap</span> <span class="o">=</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">pcap</span><span class="o">.</span><span class="n">Reader</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="n">f1</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">"extract.hwp"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span>
+
+<span class="n">newfile</span> <span class="o">=</span> <span class="s">""</span>
+
+<span class="k">for</span> <span class="n">timestamp</span><span class="p">,</span> <span class="n">buf</span> <span class="ow">in</span> <span class="n">pcap</span><span class="p">:</span>
+	<span class="n">eth</span> <span class="o">=</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">ethernet</span><span class="o">.</span><span class="n">Ethernet</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+
+	<span class="n">ip</span> <span class="o">=</span> <span class="n">eth</span><span class="o">.</span><span class="n">data</span>
+
+	<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ip</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">icmp</span><span class="o">.</span><span class="n">ICMP</span><span class="p">):</span>
+		<span class="n">icmp</span> <span class="o">=</span> <span class="n">ip</span><span class="o">.</span><span class="n">data</span>
+		
+		<span class="k">if</span> <span class="n">inet_to_str</span><span class="p">(</span><span class="n">ip</span><span class="o">.</span><span class="n">src</span><span class="p">)</span> <span class="o">==</span> <span class="s">"10.211.55.6"</span><span class="p">:</span>
+			<span class="n">newfile</span> <span class="o">+=</span> <span class="n">icmp</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">data</span>
+
+
+<span class="n">f1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">newfile</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>그럼 결과로 <code class="highlighter-rouge">extract.hwp</code> 파일을 얻을 수 있고 해당 파일을 열면 아래와 같이 플래그를 확인할 수 있다.</p>
+
+<p><img src="/images/CTF/TenDollar2018/ping_ping_ping/ping_02.png" alt="" /></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>TDCTF{Do_you_know_about_the_icmp_protocol?}
+</code></pre></div></div>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#CTF">#CTF</a>
+    
+    <a class="tag" href="/tags#TenDollar2018">#TenDollar2018</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/ctf/2018/2018/12/16/ctf-tendollar2018-ping-ping-ping.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/ctf/2018/2018/11/19/ctf-ritsec2018-What-a-cute-dog.html">
+        [RITSEC 2018] What a cute dog! Write up
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/ctf/2018/2018/12/30/ctf-35c3ctf2018-php.html">
+        [35C3 CTF 2018] php Write up
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

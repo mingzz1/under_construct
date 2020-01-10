@@ -1,572 +1,1572 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
     <url>
-        <loc>http://localhost:4000/data%20science/adsp/2018/08/21/ADsP-9.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/data%20science/adsp/2018/08/21/ADsP-8.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/data%20science/adsp/2018/08/21/ADsP-7.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/data%20science/adsp/2018/08/20/ADsP-6.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/data%20science/adsp/2018/08/20/ADsP-5.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/data%20science/adsp/2018/08/20/ADsP-4.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/data%20science/adsp/2018/08/20/ADsP-3.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/data%20science/adsp/2018/08/20/ADsP-2.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/data%20science/adsp/2018/08/20/ADsP-1.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/data%20science/r%20programming/2018/08/15/R-4.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/data%20science/r%20programming/2018/08/15/R-3.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/data%20science/r%20programming/2018/08/15/R-2.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/data%20science/r%20programming/2018/08/15/R-1.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/data%20science/statistics/2018/08/14/statistics-3.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/data%20science/statistics/2018/08/14/statistics-2.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/data%20science/statistics/2018/08/14/statistics-1.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/python/crawler/2018/08/13/crawler-4.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/python/crawler/2018/08/13/crawler-3.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/data%20base/mysql/2018/08/13/mysql-1.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/development%20environment/github%20blog/2018/08/12/blog-8.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/python/crawler/2018/08/11/crawler-2.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/python/crawler/2018/08/11/crawler-1.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/python/django/development%20environment/docker/2018/08/09/django-docker-1.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/development%20environment/docker/2018/08/09/docker-2.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/development%20environment/git/2018/08/08/git-1.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/development%20environment/github%20blog/2018/08/07/blog-7.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/development%20environment/github%20blog/2018/08/07/blog-6.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/development%20environment/docker/2018/06/27/docker-1.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/development%20environment/ubuntu/2018/05/29/ubuntu-4.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/development%20environment/ubuntu/2018/05/28/ubuntu-3.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/python/tensorflow/development%20enviroment/docker/2018/05/25/tensorflow-3.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/python/tensorflow/2018/05/25/tensorflow-2.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/development%20environment/ubuntu/2018/05/24/ubuntu-2.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/development%20environment/ubuntu/2018/05/02/ubuntu-1.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/development%20environment/java/2018/05/02/java-1.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/python/tensorflow/2018/04/30/tensorflow-1.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/data%20science/machine%20learning/2018/04/13/ml-1.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/android/android/2018/01/19/android-6.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/android/android/2018/01/17/android-5.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/android/android/2018/01/17/android-4.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/android/android/2018/01/17/android-3.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/android/android/2018/01/03/android-2.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/android/android/2018/01/03/android-1.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/development%20environment/github%20blog/2018/01/01/blog-5.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/development%20environment/github%20blog/2018/01/01/blog-4.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/development%20environment/github%20blog/2018/01/01/blog-3.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/development%20environment/github%20blog/2018/01/01/blog-2.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/development%20environment/github%20blog/2018/01/01/blog-1.html</loc>
-    </url>
-    
+      <loc>http://192.168.222.143:4000/development/database/2020/01/07/database-db2_grant.html</loc>
+      
+        <lastmod>2020-01-07T00:00:00+09:00</lastmod>
+      
 
-    
-    
-    
-    <url>
-        <loc>http://localhost:4000/404.html</loc>
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/DS/ADsP</loc>
+      <loc>http://192.168.222.143:4000/development/database/2020/01/06/database-db2_query.html</loc>
+      
+        <lastmod>2020-01-06T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/Android/Android</loc>
+      <loc>http://192.168.222.143:4000/development/github%20blog/2020/01/06/jekyll-local_blog_setting.html</loc>
+      
+        <lastmod>2020-01-06T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/Python/Crawler</loc>
+      <loc>http://192.168.222.143:4000/development/database/2020/01/05/database-db2_install.html</loc>
+      
+        <lastmod>2020-01-05T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/Python/Django</loc>
+      <loc>http://192.168.222.143:4000/error/python/2019/12/15/frida-error.html</loc>
+      
+        <lastmod>2019-12-15T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/DE/Docker</loc>
+      <loc>http://192.168.222.143:4000/pentesting/ios/2019/12/10/iOS-jailbreak.html</loc>
+      
+        <lastmod>2019-12-10T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/DE/Git</loc>
+      <loc>http://192.168.222.143:4000/pentesting/ios/2019/12/10/iOS-initialize.html</loc>
+      
+        <lastmod>2019-12-10T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/DE/Github Blog</loc>
+      <loc>http://192.168.222.143:4000/ctf/2019/2019/10/15/ctf-poxx2019-quals.html</loc>
+      
+        <lastmod>2019-10-15T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/DE/Java</loc>
+      <loc>http://192.168.222.143:4000/ctf/2019/2019/10/15/ctf-cce2019.html</loc>
+      
+        <lastmod>2019-10-15T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/DS/ML</loc>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2019/08/07/los-incubus.html</loc>
+      
+        <lastmod>2019-08-07T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/DB/MYSQL</loc>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2019/08/06/los-siren.html</loc>
+      
+        <lastmod>2019-08-06T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/DS/R</loc>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2019/08/05/los-cerberus.html</loc>
+      
+        <lastmod>2019-08-05T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/DS/Statistics</loc>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2019/08/04/los-kraken.html</loc>
+      
+        <lastmod>2019-08-04T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/Python/Tensorflow</loc>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2019/08/03/los-mummy.html</loc>
+      
+        <lastmod>2019-08-03T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/DE/Ubuntu</loc>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2019/07/29/los-yeti.html</loc>
+      
+        <lastmod>2019-07-29T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/about/</loc>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2019/07/27/los-revenant.html</loc>
+      
+        <lastmod>2019-07-27T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/</loc>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2019/07/05/los-nessie.html</loc>
+      
+        <lastmod>2019-07-05T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/search.html</loc>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2019/07/04/los-poltergeist.html</loc>
+      
+        <lastmod>2019-07-04T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/tags.html</loc>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2019/07/03/los-banshee.html</loc>
+      
+        <lastmod>2019-07-03T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/category/Android%252FAndroid/</loc>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2019/06/19/los-manticore.html</loc>
+      
+        <lastmod>2019-06-19T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/category/Android%252FAndroid/page2.html</loc>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2019/06/18/los-chupacabra.html</loc>
+      
+        <lastmod>2019-06-18T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/category/Data+Base%252FMYSQL/</loc>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2019/06/17/los-cyclops.html</loc>
+      
+        <lastmod>2019-06-17T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/category/Data+Science%252FADsP/</loc>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2019/06/14/los-godzilla.html</loc>
+      
+        <lastmod>2019-06-14T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/category/Data+Science%252FADsP/page2.html</loc>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2019/06/13/los-death.html</loc>
+      
+        <lastmod>2019-06-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/category/Data+Science%252FMachine+Learning/</loc>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2019/06/12/los-cthulhu.html</loc>
+      
+        <lastmod>2019-06-12T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/category/Data+Science%252FR+programming/</loc>
+      <loc>http://192.168.222.143:4000/ctf/2019/2019/05/18/defcon2019-unplug.html</loc>
+      
+        <lastmod>2019-05-18T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/category/Data+Science%252FStatistics/</loc>
+      <loc>http://192.168.222.143:4000/pentesting/android/2019/04/21/Android-Analysis_1.html</loc>
+      
+        <lastmod>2019-04-21T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/category/Development+Enviroment%252FDocker/</loc>
+      <loc>http://192.168.222.143:4000/ctf/2019/2019/04/08/shadow-cat-writeup.html</loc>
+      
+        <lastmod>2019-04-08T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/category/Development+Environment%252FDocker/</loc>
+      <loc>http://192.168.222.143:4000/development/web/2019/03/10/js-obfuscation.html</loc>
+      
+        <lastmod>2019-03-10T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/category/Development+Environment%252FGit/</loc>
+      <loc>http://192.168.222.143:4000/wargame/pwnable.kr/2019/02/14/pwnable.kr-lotto.html</loc>
+      
+        <lastmod>2019-02-14T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/category/Development+Environment%252FGithub+Blog/</loc>
+      <loc>http://192.168.222.143:4000/wargame/pwnable.kr/2019/02/13/pwnable.kr-shellshock.html</loc>
+      
+        <lastmod>2019-02-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/category/Development+Environment%252FGithub+Blog/page2.html</loc>
+      <loc>http://192.168.222.143:4000/wargame/pwnable.kr/2019/02/12/pwnable.kr-cmd2.html</loc>
+      
+        <lastmod>2019-02-12T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/category/Development+Environment%252FJava/</loc>
+      <loc>http://192.168.222.143:4000/wargame/pwnable.kr/2019/02/11/pwnable.kr-cmd1.html</loc>
+      
+        <lastmod>2019-02-11T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/category/Development+Environment%252FUbuntu/</loc>
+      <loc>http://192.168.222.143:4000/wargame/wargame.kr/2019/02/08/wargame.kr-DB_is_really_GOOD.html</loc>
+      
+        <lastmod>2019-02-08T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/category/Python%252FCrawler/</loc>
+      <loc>http://192.168.222.143:4000/ctf/2019/2019/01/24/ctf-insomnihack2019-l33t-hoster.html</loc>
+      
+        <lastmod>2019-01-24T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/category/Python%252FDjango/</loc>
+      <loc>http://192.168.222.143:4000/ctf/2018/2018/12/30/ctf-35c3ctf2018-php.html</loc>
+      
+        <lastmod>2018-12-30T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/category/Python%252FTensorflow/</loc>
+      <loc>http://192.168.222.143:4000/ctf/2018/2018/12/16/ctf-tendollar2018-ping-ping-ping.html</loc>
+      
+        <lastmod>2018-12-16T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/blog/page2/</loc>
+      <loc>http://192.168.222.143:4000/ctf/2018/2018/11/19/ctf-ritsec2018-What-a-cute-dog.html</loc>
+      
+        <lastmod>2018-11-19T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/blog/page3/</loc>
+      <loc>http://192.168.222.143:4000/error/linux/2018/11/18/linux-network-interface.html</loc>
+      
+        <lastmod>2018-11-18T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/blog/page4/</loc>
+      <loc>http://192.168.222.143:4000/ctf/2018/2018/11/15/ctf-poxx2018-writeup.html</loc>
+      
+        <lastmod>2018-11-15T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/blog/page5/</loc>
+      <loc>http://192.168.222.143:4000/wargame/wargame.kr/2018/10/26/wargame.kr-md5_password.html</loc>
+      
+        <lastmod>2018-10-26T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/blog/page6/</loc>
+      <loc>http://192.168.222.143:4000/wargame/wargame.kr/2018/10/25/wargame.kr-fly_to_the_moon.html</loc>
+      
+        <lastmod>2018-10-25T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/blog/page7/</loc>
+      <loc>http://192.168.222.143:4000/wargame/wargame.kr/2018/10/24/wargame.kr-WTF_CODE.html</loc>
+      
+        <lastmod>2018-10-24T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/blog/page8/</loc>
+      <loc>http://192.168.222.143:4000/wargame/wargame.kr/2018/10/23/wargame.kr-login_filtering.html</loc>
+      
+        <lastmod>2018-10-23T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/blog/page9/</loc>
+      <loc>http://192.168.222.143:4000/wargame/wargame.kr/2018/10/17/wargame.kr-QR_CODE_PUZZLE.html</loc>
+      
+        <lastmod>2018-10-17T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/blog/page10/</loc>
+      <loc>http://192.168.222.143:4000/wargame/wargame.kr/2018/10/16/wargame.kr-flee_button.html</loc>
+      
+        <lastmod>2018-10-16T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/wargame.kr/2018/10/15/wargame.kr-already_got.html</loc>
+      
+        <lastmod>2018-10-15T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/ctf/2018/2018/10/07/ctf-hackover2018-i-love-heddha.html</loc>
+      
+        <lastmod>2018-10-07T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/development/web/2018/09/29/chrome-headless.html</loc>
+      
+        <lastmod>2018-09-29T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/09/19/los-alien.html</loc>
+      
+        <lastmod>2018-09-19T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/09/18/los-zombie.html</loc>
+      
+        <lastmod>2018-09-18T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/09/17/los-ouroboros.html</loc>
+      
+        <lastmod>2018-09-17T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/09/16/los-phantom.html</loc>
+      
+        <lastmod>2018-09-16T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/09/14/los-frankenstein.html</loc>
+      
+        <lastmod>2018-09-14T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/09/09/los-blue_dragon.html</loc>
+      
+        <lastmod>2018-09-09T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/09/08/los-red_dragon.html</loc>
+      
+        <lastmod>2018-09-08T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/pwnable.kr/2018/08/25/pwnable.kr-blukat.html</loc>
+      
+        <lastmod>2018-08-25T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/08/25/los-green_dragon.html</loc>
+      
+        <lastmod>2018-08-25T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/08/24/los-umaru.html</loc>
+      
+        <lastmod>2018-08-24T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/08/24/los-evil_wizard.html</loc>
+      
+        <lastmod>2018-08-24T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/08/23/los-hell_fire.html</loc>
+      
+        <lastmod>2018-08-23T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/08/22/los-dark_eyes.html</loc>
+      
+        <lastmod>2018-08-22T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/08/16/los-iron_golem.html</loc>
+      
+        <lastmod>2018-08-16T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/08/15/los-dragon.html</loc>
+      
+        <lastmod>2018-08-15T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/08/14/los-xavis.html</loc>
+      
+        <lastmod>2018-08-14T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/08/06/los-nightmare.html</loc>
+      
+        <lastmod>2018-08-06T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/08/05/los-succubus.html</loc>
+      
+        <lastmod>2018-08-05T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/08/04/los-zombie_assassin.html</loc>
+      
+        <lastmod>2018-08-04T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/08/03/los-assassin.html</loc>
+      
+        <lastmod>2018-08-03T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/08/02/los-giant.html</loc>
+      
+        <lastmod>2018-08-02T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/08/01/los-bugbear.html</loc>
+      
+        <lastmod>2018-08-01T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/07/31/los-darkknight.html</loc>
+      
+        <lastmod>2018-07-31T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/ctf/2018/2018/07/31/ctf-isitdtu2018-friss.html</loc>
+      
+        <lastmod>2018-07-31T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/07/30/los-golem.html</loc>
+      
+        <lastmod>2018-07-30T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/07/29/los-skeleton.html</loc>
+      
+        <lastmod>2018-07-29T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/ctf/2018/2018/07/29/ctf-isitdtu2018-iz.html</loc>
+      
+        <lastmod>2018-07-29T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/07/28/los-vampire.html</loc>
+      
+        <lastmod>2018-07-28T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/07/27/los-troll.html</loc>
+      
+        <lastmod>2018-07-27T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/07/26/los-orge.html</loc>
+      
+        <lastmod>2018-07-26T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/07/25/los-darkelf.html</loc>
+      
+        <lastmod>2018-07-25T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/07/24/los-wolfman.html</loc>
+      
+        <lastmod>2018-07-24T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/07/23/los-orc.html</loc>
+      
+        <lastmod>2018-07-23T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/07/22/los-goblin.html</loc>
+      
+        <lastmod>2018-07-22T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/07/21/los-cobolt.html</loc>
+      
+        <lastmod>2018-07-21T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/lord%20of%20sql%20injection/2018/07/20/los-gremlin.html</loc>
+      
+        <lastmod>2018-07-20T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/ctf/2018/2018/07/18/ctf-meepwn2018-omegasector.html</loc>
+      
+        <lastmod>2018-07-18T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/ctf/2018/2018/07/17/ctf-meepwn2018-writeup.html</loc>
+      
+        <lastmod>2018-07-17T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/xss%20game/2018/06/27/xssgame-writeup.html</loc>
+      
+        <lastmod>2018-06-27T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/pwnable.kr/2018/05/30/pwnable.kr-mistake.html</loc>
+      
+        <lastmod>2018-05-30T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/pwnable.kr/2018/05/29/pwnable.kr-random.html</loc>
+      
+        <lastmod>2018-05-29T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/ctf/2018/2018/05/27/ctf-rctf2018-rblog.html</loc>
+      
+        <lastmod>2018-05-27T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/ctf/2018/2018/05/23/ctf-rctf2018-amp.html</loc>
+      
+        <lastmod>2018-05-23T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/error/linux/2018/04/23/linux-dpkg_error.html</loc>
+      
+        <lastmod>2018-04-23T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/pwnable.kr/2018/02/21/pwnable.kr-flag.html</loc>
+      
+        <lastmod>2018-02-21T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/pwnable.kr/2018/02/19/pwnable.kr-bof.html</loc>
+      
+        <lastmod>2018-02-19T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/pwnable.kr/2018/02/17/pwnable.kr-col.html</loc>
+      
+        <lastmod>2018-02-17T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/wargame/pwnable.kr/2018/02/15/pwnable.kr-fd.html</loc>
+      
+        <lastmod>2018-02-15T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://192.168.222.143:4000/development/basic/2018/02/15/linux-permission.html</loc>
+      
+        <lastmod>2018-02-15T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
 </urlset>

@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[VolgaCTF2019] Shadow Cat Write up | mingzzi</title>
+	<meta name="description" content="지난 주말에 잠시 짬을 내어 VolgaCTF에 참여했다.원래 풀고싶었던 문제는 Head Hunter 였는데, 끝까지 Write-up이 올라오지 않아 결국 풀어볼 수가 없었다.대신 Shadow Cat이라는 문제를 풀어 보았다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/ctf/2019/2019/04/08/shadow-cat-writeup.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[VolgaCTF2019] Shadow Cat Write up</h1>
+    
+    <p class="meta">
+      April 8, 2019
+      
+    </p>
+  </header>
+  <section class="post-content"><p>지난 주말에 잠시 짬을 내어 <code class="highlighter-rouge">VolgaCTF</code>에 참여했다.</p>
+
+<p>원래 풀고싶었던 문제는 <code class="highlighter-rouge">Head Hunter</code> 였는데, 끝까지 <code class="highlighter-rouge">Write-up</code>이 올라오지 않아 결국 풀어볼 수가 없었다.</p>
+
+<p>대신 <code class="highlighter-rouge">Shadow Cat</code>이라는 문제를 풀어 보았다.</p>
+
+<!--more-->
+
+<p>문제 정보는 다음과 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>We only know that one used /etc/shadow file to encrypt important message for us.
+shadow.txt encrypted.txt
+</code></pre></div></div>
+
+<p>파일이 2개가 주어지는데, 내용은 각각 다음과 같다.</p>
+
+<ul>
+  <li>shadow.txt
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root:!:17792:0:99999:7:::
+daemon:*:17737:0:99999:7:::
+bin:*:17737:0:99999:7:::
+sys:*:17737:0:99999:7:::
+sync:*:17737:0:99999:7:::
+games:*:17737:0:99999:7:::
+man:*:17737:0:99999:7:::
+lp:*:17737:0:99999:7:::
+mail:*:17737:0:99999:7:::
+news:*:17737:0:99999:7:::
+uucp:*:17737:0:99999:7:::
+proxy:*:17737:0:99999:7:::
+www-data:*:17737:0:99999:7:::
+backup:*:17737:0:99999:7:::
+list:*:17737:0:99999:7:::
+irc:*:17737:0:99999:7:::
+gnats:*:17737:0:99999:7:::
+nobody:*:17737:0:99999:7:::
+systemd-network:*:17737:0:99999:7:::
+systemd-resolve:*:17737:0:99999:7:::
+syslog:*:17737:0:99999:7:::
+messagebus:*:17737:0:99999:7:::
+_apt:*:17737:0:99999:7:::
+uuidd:*:17737:0:99999:7:::
+avahi-autoipd:*:17737:0:99999:7:::
+usbmux:*:17737:0:99999:7:::
+dnsmasq:*:17737:0:99999:7:::
+rtkit:*:17737:0:99999:7:::
+cups-pk-helper:*:17737:0:99999:7:::
+speech-dispatcher:!:17737:0:99999:7:::
+whoopsie:*:17737:0:99999:7:::
+kernoops:*:17737:0:99999:7:::
+saned:*:17737:0:99999:7:::
+pulse:*:17737:0:99999:7:::
+avahi:*:17737:0:99999:7:::
+colord:*:17737:0:99999:7:::
+hplip:*:17737:0:99999:7:::
+geoclue:*:17737:0:99999:7:::
+gnome-initial-setup:*:17737:0:99999:7:::
+gdm:*:17737:0:99999:7:::
+jr:$6$jKcSVswg$AWA/PLZVcOcQb6404vSsjmyJzgtC97R3iRDXSOBshuYmCcDVDhaIS6C4fVZnOI6EGhaUnrUWK2Y3jYhQ4vcmu0:17792:0:99999:7:::
+vboxadd:!:17792::::::
+zerotier-one:!:17792::::::
+postgres:*:17793:0:99999:7:::
+postfix:*:17794:0:99999:7:::
+lightdm:*:17930:0:99999:7:::
+z:$6$AEqLtEqq$1ojEoCgug5dzqeNfjGNE9p5SZFwIul8uOFp9vMZEz50oiUXOVFW3lw1S0fuvFY5ggi5CfbfoWaMDr2bvtSNRC/:17930:0:99999:7:::
+a:$6$9Eg69bYI$q75YWUVWb4MYzkcExXukpt.VJ3fX458iZJm1ygpTLwX.CgroHpmeSG88By.zQmKyOHCvBHoA0Q001aBqbkVpg/:17930:0:99999:7:::
+x:$6$5TF0Txe3$APSNzUSjFmMbsmrkCS9qE84qfu4AI2dNEjqm2PRKgSjncBTI4lECXofQ8abdAtYX6tST6FGCgOdvLlDYQTCJx0:17930:0:99999:7:::
+q:$6$I3iqZL0m$nxHWvcLz7lg/ZKoKfX9dq5k0uqkOtKgLdyREAQxQkfPkVvbNHPfQaoCFfnXl1BoX1vgOcEDghVPvfRUrs6dGp1:17930:0:99999:7:::
+l:$6$n8iJWaW/$M1Od8seiEL6h3L.egHubBYAk.cd8/LUctESIm69/r.gvP0eqabusN5/D1rNu1qDHOkgRpHf8PWGSb8zoxrgrp1:17930:0:99999:7:::
+v:$6$GatagTHS$I1UfNfn3NGP5Vre0z7s3DGqFpjN5Pw2XhAHSw6ZSMwaMAsf8IteFedXovNlHLuIXvR9ezeya89XEOq2We7CcW1:17930:0:99999:7:::
+e:$6$ZO6YiExi$7DBV0zMIqf8iy.zVTL7gbHetCmJ3LL4ROEYG/UME4Tmym82vZYkFWjiNpCGapvF83QNJKFJOjkhXMgFLfkhza.:17930:0:99999:7:::
+f:$6$HXoF2OZ1$onkVfp52IRdd2OipQv3rPPsGr7QradAFTFnmXv5c9xkGy4xcgJFkoaSJzMQCtfWuU2FQ3BN3lyL47SyoIoPmy0:17930:0:99999:7:::
+b:$6$I9Uq9PRG$euVEYx5TR2lUFe/k7s0e8us8xgl7j/cbiYRnvba.eFfMSSPsm5I.gcShqOLqAa58m5VISomkPpHlJ1xLgCRxw/:17930:0:99999:7:::
+r:$6$J.qms5y0$YOMnlR0V.WQjqAyik3nU7TDdy8hZQZWfhF8CTJHJtd/0mrANrxBvULoXNiJnvX.yn5T3QBFu4wk3xrFye.uus1:17930:0:99999:7:::
+g:$6$b4GkIuzQ$j/prK.Jy304eu6W/NG0Yz4mHDOc3BavkYRBomdjVG.fAksRM/xIDRoWcKcJw66YZmVGcV51YkIwVZHVfA//KU.:17930:0:99999:7:::
+n:$6$f2QD.cIu$n70jbCSe0QVz7M48SVE2Z..IPDV0QjIfZ8D40oQOO9smt0ZeA2I0sSO927VIr1SJwupjZairVR0T/pKQ0QG3N1:17930:0:99999:7:::
+o:$6$qyBGOX79$OAvGVjmH69C.0ZfObcJ0DcKzoSWHhBBt9sPVjbIJtYmT4nV/TU/zCiKgCkSQaQJ.n.vTjAScdh9htzjBzTwOT/:17930:0:99999:7:::
+p:$6$EW1gOlyH$omuxKElrI3DeVoxrLet3OW3MfuFPwLwefVxOr62E.wo7szQ6.swTec1edCFiKnPc42XxMRGsrNJn36mkc2dgH/:17930:0:99999:7:::
+s:$6$TXxh4vV5$v1vF49YZQnonSZrKwBWNp7rpxIRoQY/ooEODqjsdwwdoY8sso.y/EOsoC3GFlpCLYnEY./n/1BuNID5njg0CV.:17930:0:99999:7:::
+c:$6$IYxRoIyR$eEmGTNPNd6HPQibc/UBdQ5zgR/dGQ1dtCuSl0lUmvmbrSKbYEf/SEDlX4fgP.JQXlyFqEgu4NOBiu2eozpAM.0:17930:0:99999:7:::
+w:$6$RmCyBroe$EovezmWQJVvQFGd6.ei2.SfzGJG22CsV47tTnyfKx30TbuG1VMgsk0de6NOQ04bKNML9fbuMu0Pw3TMf82zye1:17930:0:99999:7:::
+d:$6$..CK41Sn$36X19X0jrviLxVVk.KtR9zbHMML0mg1XzMNQgP7eOpGMF1JYSbZHAyReDhNVkm1WaNn3lfO2CsAww14fZZads1:17930:0:99999:7:::
+t:$6$zVFV5HoW$q9WyP6/D0kPL.n7s.FvPcOSRfvcUFQu5QMPps6VbQUD5RMozQsP14GtUiOa/H2V2pU6c6OxcgRqruaLejPaES1:17930:0:99999:7:::
+h:$6$S1RnJ8DK$F/FWFf9En/mn6YqZ67/gOnMT0WdSuaEyn2OArTJbG1IGHd0pUs9TiGDE9P.PhRB6XyHUgA5l/LBmBW8PpJg9M.:17930:0:99999:7:::
+m:$6$SqkKQRak$nZHDrq3vdnajdLzotrW3J9kYzUvzPaUrs6NZaKkkcVN0KiCfUhJfgM6WJvZjZR7hBGWkfIwhZymko7wtsq49s1:17930:0:99999:7:::
+k:$6$ZLCr2itT$tZ0.u7TsXPc3nAntIOepETGkhqfVG1IKaiuW0mAH5QROVuc7fonE43qEhUFT2LHMftYDdTQRAMHpRNMM8Yn1c1:17930:0:99999:7:::
+i:$6$ZlWmheB2$DBLJQPLVhhEdA/iATrOYiqFv4i5TcmBUSX6.tZDo63YP4dcdlAuBnFU65xXIRP1tpNsCS7kc6Fu6jPMS2F7aP1:17930:0:99999:7:::
+y:$6$rIoO6U2u$c5usMXbFP9S75qmDyBBWz1QZuyGH0MGq3mXN32kYipoL5XCFEHjmTRVcuZkmed5OzAopV0CgyA49QzILz5Rmq/:17930:0:99999:7:::
+j:$6$Gpavrajq$me1yxZQ0OiJFedrTmxFsyP5zwOePuFJmgujUWun0h5bCOIVeuJuaIUTDHGCYxkT6mw41BTjlx9c3QvdsG8o0o.:17930:0:99999:7:::
+u:$6$0w3EeszD$bUDQorjCKku1sjtCWMQfJ3ZRmsC5N.LN7CQnjvyCbcq5wSD33x2t/TVXA6jnjtajv8nIZc.Aj.oY80lm44Dhy0:17930:0:99999:7:::
+underscore:$6$RVUCQJFr$fsKkPUT9Pp5QlsZblSLJ4yKkfBxNMWN0TS.q7ticuEr/HQFdEbyiwK5JmaKKS9UDFzUsY6mhe1knnRbwy7K0s/:17930:0:99999:7:::
+</code></pre></div>    </div>
+  </li>
+  <li>encrypted.txt
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hajjzvajvzqyaqbendzvajvqauzarlapjzrkybjzenzuvczjvastlj
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><code class="highlighter-rouge">shadow.txt</code> 파일을 보면 <code class="highlighter-rouge">/etc/shadow</code> 파일의 형태와 비슷하다.</p>
+
+<p><code class="highlighter-rouge">/etc/shadow</code> 파일은 <code class="highlighter-rouge">root</code>만이 읽을 수 있는 파일이며, 시스템의 모든 사용자에 대한 해시값을 저장한다.</p>
+
+<p><code class="highlighter-rouge">/etc/shadow</code> 파일에서 각 값의 구조는 다음과 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jr:$6$jKcSVswg$AWA/PLZVcOcQb6404vSsjmyJzgtC97R3iRDXSOBshuYmCcDVDhaIS6C4fVZnOI6EGhaUnrUWK2Y3jYhQ4vcmu0:17792:0:99999:7:::
+
+Login Name:Encrypted:Last Changed:Minimum:Maximum:Warn:Inactive:Expire:Reserved
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">항목</th>
+      <th style="text-align: left">내용</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Login Name</td>
+      <td style="text-align: left">사용자 이름</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Encrypted</td>
+      <td style="text-align: left">패스워드를 암호화 시킨 값</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Last Changed</td>
+      <td style="text-align: left">1970년 1월 1일부터 패스워드가 수정된 날짜의 일 수 계산</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Minimum</td>
+      <td style="text-align: left">패스워드가 변경되기 전 최소 사용 일 수</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Maximum</td>
+      <td style="text-align: left">패스워드 변경 전 최대 사용 일 수</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Warn</td>
+      <td style="text-align: left">패스워드 사용 만기일 전 경고 메시지 제공 일 수</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Inactive</td>
+      <td style="text-align: left">로그인 접속 차단 일 수</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Expire</td>
+      <td style="text-align: left">로그인 사용 금지하는 일 수</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Reserved</td>
+      <td style="text-align: left">사용되지 않음</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>또한 <code class="highlighter-rouge">Encrypted</code>를 자세히 살펴 보면 <code class="highlighter-rouge">$</code>로 구분되는 것을 알 수 있다.</p>
+
+<p>이 값들은 다음과 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$HashId$salt$Hash Value
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">항목</th>
+      <th style="text-align: left">내용</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">HashId</td>
+      <td style="text-align: left">Hash 종류. $1 → MD5 / $5 → SHA256 / $6 → SHA512</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">salt</td>
+      <td style="text-align: left">hashing에 사용되는 값</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Hash Value</td>
+      <td style="text-align: left">HashId에 따른 hashing 방법과 salt를 가지고 hashing을 한 값</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>즉, 문제에서 제공한 <code class="highlighter-rouge">shadow.txt</code> 파일은 <code class="highlighter-rouge">SHA512</code>를 가지고 hashing을 수행했다는 것을 알 수 있다.</p>
+
+<p>그런데 다시 문제를 살펴보면, <code class="highlighter-rouge">encrypted.txt</code> 파일은 알파벳 소문자로 구성되어 있고, <code class="highlighter-rouge">shadow.txt</code> 파일에 <code class="highlighter-rouge">Login Name</code>을 보면, 알파벳 소문자들이 있다는 것을 확인할 수 있다.</p>
+
+<p>아마도 <code class="highlighter-rouge">shadow.txt</code> 파일에서 알파벳 소문자로 된 <code class="highlighter-rouge">user</code> 들의 패스워드를 크랙한 뒤, <code class="highlighter-rouge">encrypted.txt</code>를 복구하는 문제인 것 같다.</p>
+
+<p>일단 <code class="highlighter-rouge">shadow.txt</code> 파일에서 패스워드를 크랙하기 전에 불필요한 <code class="highlighter-rouge">user</code>를 정리 해 주었다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>z:$6$AEqLtEqq$1ojEoCgug5dzqeNfjGNE9p5SZFwIul8uOFp9vMZEz50oiUXOVFW3lw1S0fuvFY5ggi5CfbfoWaMDr2bvtSNRC/:17930:0:99999:7:::
+a:$6$9Eg69bYI$q75YWUVWb4MYzkcExXukpt.VJ3fX458iZJm1ygpTLwX.CgroHpmeSG88By.zQmKyOHCvBHoA0Q001aBqbkVpg/:17930:0:99999:7:::
+x:$6$5TF0Txe3$APSNzUSjFmMbsmrkCS9qE84qfu4AI2dNEjqm2PRKgSjncBTI4lECXofQ8abdAtYX6tST6FGCgOdvLlDYQTCJx0:17930:0:99999:7:::
+q:$6$I3iqZL0m$nxHWvcLz7lg/ZKoKfX9dq5k0uqkOtKgLdyREAQxQkfPkVvbNHPfQaoCFfnXl1BoX1vgOcEDghVPvfRUrs6dGp1:17930:0:99999:7:::
+l:$6$n8iJWaW/$M1Od8seiEL6h3L.egHubBYAk.cd8/LUctESIm69/r.gvP0eqabusN5/D1rNu1qDHOkgRpHf8PWGSb8zoxrgrp1:17930:0:99999:7:::
+v:$6$GatagTHS$I1UfNfn3NGP5Vre0z7s3DGqFpjN5Pw2XhAHSw6ZSMwaMAsf8IteFedXovNlHLuIXvR9ezeya89XEOq2We7CcW1:17930:0:99999:7:::
+e:$6$ZO6YiExi$7DBV0zMIqf8iy.zVTL7gbHetCmJ3LL4ROEYG/UME4Tmym82vZYkFWjiNpCGapvF83QNJKFJOjkhXMgFLfkhza.:17930:0:99999:7:::
+f:$6$HXoF2OZ1$onkVfp52IRdd2OipQv3rPPsGr7QradAFTFnmXv5c9xkGy4xcgJFkoaSJzMQCtfWuU2FQ3BN3lyL47SyoIoPmy0:17930:0:99999:7:::
+b:$6$I9Uq9PRG$euVEYx5TR2lUFe/k7s0e8us8xgl7j/cbiYRnvba.eFfMSSPsm5I.gcShqOLqAa58m5VISomkPpHlJ1xLgCRxw/:17930:0:99999:7:::
+r:$6$J.qms5y0$YOMnlR0V.WQjqAyik3nU7TDdy8hZQZWfhF8CTJHJtd/0mrANrxBvULoXNiJnvX.yn5T3QBFu4wk3xrFye.uus1:17930:0:99999:7:::
+g:$6$b4GkIuzQ$j/prK.Jy304eu6W/NG0Yz4mHDOc3BavkYRBomdjVG.fAksRM/xIDRoWcKcJw66YZmVGcV51YkIwVZHVfA//KU.:17930:0:99999:7:::
+n:$6$f2QD.cIu$n70jbCSe0QVz7M48SVE2Z..IPDV0QjIfZ8D40oQOO9smt0ZeA2I0sSO927VIr1SJwupjZairVR0T/pKQ0QG3N1:17930:0:99999:7:::
+o:$6$qyBGOX79$OAvGVjmH69C.0ZfObcJ0DcKzoSWHhBBt9sPVjbIJtYmT4nV/TU/zCiKgCkSQaQJ.n.vTjAScdh9htzjBzTwOT/:17930:0:99999:7:::
+p:$6$EW1gOlyH$omuxKElrI3DeVoxrLet3OW3MfuFPwLwefVxOr62E.wo7szQ6.swTec1edCFiKnPc42XxMRGsrNJn36mkc2dgH/:17930:0:99999:7:::
+s:$6$TXxh4vV5$v1vF49YZQnonSZrKwBWNp7rpxIRoQY/ooEODqjsdwwdoY8sso.y/EOsoC3GFlpCLYnEY./n/1BuNID5njg0CV.:17930:0:99999:7:::
+c:$6$IYxRoIyR$eEmGTNPNd6HPQibc/UBdQ5zgR/dGQ1dtCuSl0lUmvmbrSKbYEf/SEDlX4fgP.JQXlyFqEgu4NOBiu2eozpAM.0:17930:0:99999:7:::
+w:$6$RmCyBroe$EovezmWQJVvQFGd6.ei2.SfzGJG22CsV47tTnyfKx30TbuG1VMgsk0de6NOQ04bKNML9fbuMu0Pw3TMf82zye1:17930:0:99999:7:::
+d:$6$..CK41Sn$36X19X0jrviLxVVk.KtR9zbHMML0mg1XzMNQgP7eOpGMF1JYSbZHAyReDhNVkm1WaNn3lfO2CsAww14fZZads1:17930:0:99999:7:::
+t:$6$zVFV5HoW$q9WyP6/D0kPL.n7s.FvPcOSRfvcUFQu5QMPps6VbQUD5RMozQsP14GtUiOa/H2V2pU6c6OxcgRqruaLejPaES1:17930:0:99999:7:::
+h:$6$S1RnJ8DK$F/FWFf9En/mn6YqZ67/gOnMT0WdSuaEyn2OArTJbG1IGHd0pUs9TiGDE9P.PhRB6XyHUgA5l/LBmBW8PpJg9M.:17930:0:99999:7:::
+m:$6$SqkKQRak$nZHDrq3vdnajdLzotrW3J9kYzUvzPaUrs6NZaKkkcVN0KiCfUhJfgM6WJvZjZR7hBGWkfIwhZymko7wtsq49s1:17930:0:99999:7:::
+k:$6$ZLCr2itT$tZ0.u7TsXPc3nAntIOepETGkhqfVG1IKaiuW0mAH5QROVuc7fonE43qEhUFT2LHMftYDdTQRAMHpRNMM8Yn1c1:17930:0:99999:7:::
+i:$6$ZlWmheB2$DBLJQPLVhhEdA/iATrOYiqFv4i5TcmBUSX6.tZDo63YP4dcdlAuBnFU65xXIRP1tpNsCS7kc6Fu6jPMS2F7aP1:17930:0:99999:7:::
+y:$6$rIoO6U2u$c5usMXbFP9S75qmDyBBWz1QZuyGH0MGq3mXN32kYipoL5XCFEHjmTRVcuZkmed5OzAopV0CgyA49QzILz5Rmq/:17930:0:99999:7:::
+j:$6$Gpavrajq$me1yxZQ0OiJFedrTmxFsyP5zwOePuFJmgujUWun0h5bCOIVeuJuaIUTDHGCYxkT6mw41BTjlx9c3QvdsG8o0o.:17930:0:99999:7:::
+u:$6$0w3EeszD$bUDQorjCKku1sjtCWMQfJ3ZRmsC5N.LN7CQnjvyCbcq5wSD33x2t/TVXA6jnjtajv8nIZc.Aj.oY80lm44Dhy0:17930:0:99999:7:::
+underscore:$6$RVUCQJFr$fsKkPUT9Pp5QlsZblSLJ4yKkfBxNMWN0TS.q7ticuEr/HQFdEbyiwK5JmaKKS9UDFzUsY6mhe1knnRbwy7K0s/:17930:0:99999:7:::
+</code></pre></div></div>
+
+<p>정확히 27줄이 남는 것을 보니 <code class="highlighter-rouge">알파벳 소문자</code>와 <code class="highlighter-rouge">_</code>가 모두 들어있는 것 같다.</p>
+
+<p>이 값들을 크랙해야 하는데, <code class="highlighter-rouge">Hash</code>는 <code class="highlighter-rouge">단방향 암호화</code> 기법이기 때문에 <code class="highlighter-rouge">특정 단어</code>로 hashing을 수행한 뒤, 그 값과 <code class="highlighter-rouge">shadow.txt</code>에 저장된 값이 같은지 비교하는 방법으로 크랙해야 한다.</p>
+
+<p><code class="highlighter-rouge">특정 단어</code>가 무엇인지는 모르겠지만, <code class="highlighter-rouge">shadow.txt</code> 파일의 <code class="highlighter-rouge">user</code>에 <code class="highlighter-rouge">알파벳 소문자</code>와 <code class="highlighter-rouge">underscore</code>가 있다.</p>
+
+<p>때문에 <code class="highlighter-rouge">알파벳 소문자</code>와 <code class="highlighter-rouge">_</code>를 <code class="highlighter-rouge">shadow.txt</code>에 있는 <code class="highlighter-rouge">salt</code> 값과 함께 <code class="highlighter-rouge">SHA512</code> hashing을 수행 해 비교하고, <code class="highlighter-rouge">encrypted.txt</code>에 있는 각 글자를 <code class="highlighter-rouge">user</code>로 하여 해당 <code class="highlighter-rouge">user</code>의 <code class="highlighter-rouge">password</code>로 변경하도록 아래와 같이 코드를 구현 해 보았다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span> <span class="nn">crypt</span>
+
+<span class="n">dictionary</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">ascii_lowercase</span> <span class="o">+</span> <span class="s">"_"</span>
+
+<span class="k">def</span> <span class="nf">findPass</span><span class="p">(</span><span class="n">encrypted</span><span class="p">):</span>
+        <span class="n">salt</span> <span class="o">=</span> <span class="n">encrypted</span><span class="p">[:</span><span class="mi">11</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="p">:</span>
+                <span class="n">dict_enc</span> <span class="o">=</span> <span class="n">crypt</span><span class="o">.</span><span class="n">crypt</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">salt</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">dict_enc</span> <span class="o">==</span> <span class="n">encrypted</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="n">c</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">"shadow.txt"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span>
+<span class="n">shadow</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">enc</span> <span class="o">=</span> <span class="s">"hajjzvajvzqyaqbendzvajvqauzarlapjzrkybjzenzuvczjvastlj"</span>
+
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">shadow</span><span class="p">:</span>
+        <span class="n">user</span><span class="p">,</span> <span class="n">encrypted</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">":"</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">":"</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">user</span><span class="p">]</span> <span class="o">=</span> <span class="n">findPass</span><span class="p">(</span><span class="n">encrypted</span><span class="p">)</span>
+
+<span class="n">flag</span> <span class="o">=</span> <span class="s">"VolgaCTF{"</span>
+
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">enc</span><span class="p">:</span>
+        <span class="n">flag</span> <span class="o">=</span> <span class="n">flag</span> <span class="o">+</span> <span class="n">d</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
+
+<span class="n">flag</span> <span class="o">=</span> <span class="n">flag</span> <span class="o">+</span> <span class="s">"}"</span>
+
+<span class="k">print</span> <span class="n">flag</span>
+</code></pre></div></div>
+
+<p>이를 수행한 결과 다음과 같이 <code class="highlighter-rouge">flag</code>를 얻을 수 있었다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python ex.py 
+VolgaCTF{pass_hash_cracking_hashcat_always_lurks_in_the_shadows}
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FLAG : VolgaCTF{pass_hash_cracking_hashcat_always_lurks_in_the_shadows}
+</code></pre></div></div>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#VolgaCTF2019">#VolgaCTF2019</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/ctf/2019/2019/04/08/shadow-cat-writeup.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/development/web/2019/03/10/js-obfuscation.html">
+        Javascript 난독화 기법
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/pentesting/android/2019/04/21/Android-Analysis_1.html">
+        [Android] 안드로이드 어플리케이션 디컴파일 및 리패키징
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

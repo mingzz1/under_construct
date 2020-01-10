@@ -1,37 +1,37 @@
 # SITE CONFIGURATION
 baseurl:
-url: "https://devYurim.github.io"
+url: "https://mingzz1.github.io"
 
 # THEME-SPECIFIC CONFIGURATION
 theme_settings:
   # Meta
-  title: devYurim
+  title: mingzzi
   avatar: assets/img/blogmark.png
   favicon: assets/favicon.ico
   gravatar: # Email MD5 hash
-  description: "developer blog" # used by search engines
+  description: "mingzzi's blog" # used by search engines
 
   # Header and footer text
   header_text: >
-     <p>Intelligent System Lab Researcher</p>
+     <p>Cyber Security Consultant / Researcher</p>
 
   header_text_feature_image:
   footer_text: >
    Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
 
   # Icons
-  rss: true
-  email_address: "soaka94@naver.com" # Full email address, e.g. "sam@example.com"
+  rss:
+  email_address: "mingzzi87@gmail.com" # Full email address, e.g. "sam@example.com"
   behance:
   bitbucket:
   dribbble:
   facebook:
   flickr:
   gitlab:
-  github: "devYurim"
+  github: "mingzz1"
   google_plus:
   instagram:
-  linkedin:  # Full URL
+  linkedin:  https://www.linkedin.com/in/minji-kim-12986a145/
   pinterest:
   reddit:
   soundcloud:
@@ -43,8 +43,8 @@ theme_settings:
   youtube:
 
   # Scripts
-  google_analytics: UA-111748939-1 # Tracking ID, e.g. "UA-000000-01"
-  disqus_shortname: devYurim
+  google_analytics: UA-130304424-1 # Tracking ID, e.g. "UA-000000-01"
+  disqus_shortname: mingzzis-blog
   katex: true # Enable if using math markup
   search: true # Enable the search feature
 

@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[Pwnable.kr] Toddler's Bottle - fd 문제풀이 | mingzzi</title>
+	<meta name="description" content="Pwnable을 공부하기 위해 Pwnable.kr 의 문제를 풀기 시작했다.먼저 첫 단계인 Toddler's Bottle 의 문제를 풀어보았다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/wargame/pwnable.kr/2018/02/15/pwnable.kr-fd.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[Pwnable.kr] Toddler's Bottle - fd 문제풀이</h1>
+    
+    <p class="meta">
+      February 15, 2018
+      
+    </p>
+  </header>
+  <section class="post-content"><p><code class="highlighter-rouge">Pwnable</code>을 공부하기 위해 Pwnable.kr 의 문제를 풀기 시작했다.</p>
+
+<p>먼저 첫 단계인 <code class="highlighter-rouge">Toddler's Bottle</code> 의 문제를 풀어보았다.</p>
+
+<!--more-->
+
+<p>문제 접속 정보는 아래와 같다.</p>
+
+<ul>
+  <li>ssh fd@pwnable.kr -p2222 (pw:guest)</li>
+</ul>
+
+<p>문제에 접속하면 3개의 파일을 확인할 수 있다.</p>
+
+<blockquote>
+  <p>-r-sr-x—  1 fd_pwn fd   7322 Jun 11  2014 <code class="highlighter-rouge">fd</code><br />
+-rw-r–r–  1 root   root  418 Jun 11  2014 <code class="highlighter-rouge">fd.c</code><br />
+-r–r—–  1 fd_pwn root   50 Jun 11  2014 <code class="highlighter-rouge">flag</code></p>
+</blockquote>
+
+<p><code class="highlighter-rouge">fd</code> 라는 이름의 실행파일, <code class="highlighter-rouge">fd.c</code> 라는 소스코드 파일, <code class="highlighter-rouge">flag</code> 파일이 있다.</p>
+
+<p>파일의 권한에 대한 설명은 <a href="https://cc0ma.github.io/linux-permission/">여기</a>를 참조하면 된다.</p>
+
+<p>즉, <code class="highlighter-rouge">fd</code> 문제에서, 현재 내 계정은 <code class="highlighter-rouge">fd</code> 이기 때문에, <code class="highlighter-rouge">fd</code> 실행파일은 읽거나 실행시킬 수 있고, <code class="highlighter-rouge">fd.c</code> 파일은 읽을 수만 있다.</p>
+
+<p>또한 <code class="highlighter-rouge">flag</code> 파일에는 아무런 권한을 가지고 있지 않다.</p>
+
+<p>따라서, <code class="highlighter-rouge">setuid</code>가 걸려 있는 <code class="highlighter-rouge">fd</code> 실행 파일을 이용 해, 파일 소유자인 <code class="highlighter-rouge">fd_pwn</code> 의 권한을 얻어 <code class="highlighter-rouge">flag</code> 파일을 읽어야 한다.</p>
+
+<p><code class="highlighter-rouge">fd.c</code> 파일의 내용을 읽어 보면 다음과 같다.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+</span><span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[],</span> <span class="kt">char</span><span class="o">*</span> <span class="n">envp</span><span class="p">[]){</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">argc</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">){</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"pass argv[1] a number</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span> <span class="o">-</span> <span class="mh">0x1234</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="n">len</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="mi">32</span><span class="p">);</span>
+	<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="s">"LETMEWIN</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">buf</span><span class="p">)){</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"good job :)</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="n">system</span><span class="p">(</span><span class="s">"/bin/cat flag"</span><span class="p">);</span>
+		<span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"learn about Linux file IO</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>만약 <code class="highlighter-rouge">argc</code>가 2개 이하인 경우에는 “pass argv[1] a number”을 출력하고 프로그램을 종료한다.</p>
+
+<ul>
+  <li>argc : arguments count. 프로그램 실행 시 main 함수로 전달 된 인자의 갯수</li>
+  <li>argv : arguments vector. 프로그램 실행 시 main 함수로 전달 된 인자<br />
+<em>ex) ./fd 1111 : argc는 2, argv[0]은 ./fd, argv[1]은 1111</em></li>
+</ul>
+
+<p>이 후, <code class="highlighter-rouge">fd</code>라는 변수를 선언 해 <code class="highlighter-rouge">argv[1]</code>의 값을 숫자로 변환한 후 <code class="highlighter-rouge">0x1234</code>를 뺀 값을 저장한다.</p>
+
+<ul>
+  <li>atoi 함수
+    <ul>
+      <li>함수 원형 : int atoi(const char * str)</li>
+      <li>문자열을 정수로 변환하는 함수</li>
+    </ul>
+  </li>
+</ul>
+
+<p><code class="highlighter-rouge">len</code> 변수를 선언한 후에는 <code class="highlighter-rouge">read</code> 함수를 사용 해 미리 선언 해 두었던 <code class="highlighter-rouge">buf</code> 라는 전역 변수에 32 byte 만큼 값을 읽어 온다.</p>
+
+<ul>
+  <li>read 함수
+    <ul>
+      <li>함수 원형 : read(int fd, void *buf, size_t nbytes)</li>
+      <li>fd(File Descriptor)가 참조하는 파일의 오프셋에서 nbytes 만큼 읽어 buf에 저장하는 함수</li>
+    </ul>
+  </li>
+  <li>File Discriptor
+    <ul>
+      <li>운영체제에서 파일을 관리하기 위해 각 파일마다 부여한 번호</li>
+      <li>파일을 열게 되면 번호가 파일에 부여되고 디스크립터 테이블에 저장</li>
+      <li>0 ~ 2번은 이미 할당되어 있기 때문에 파일에 부여하는 번호는 3번부터 시작</li>
+    </ul>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"><center>번호</center></th>
+      <th style="text-align: center"><center>설명</center></th>
+      <th style="text-align: right"><center>이름</center></th>
+      <th style="text-align: right"><center>파일스트림</center></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><center>0</center></td>
+      <td style="text-align: center"><center>표준 입력(Standard Input)</center></td>
+      <td style="text-align: right"><center>STDIN_FILENO</center></td>
+      <td style="text-align: right"><center>stdin</center></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><center>1</center></td>
+      <td style="text-align: center"><center>표준 출력(Standard Output)</center></td>
+      <td style="text-align: right"><center>STDOUT_FILENO</center></td>
+      <td style="text-align: right"><center>stdout</center></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><center>2</center></td>
+      <td style="text-align: center"><center>표준 에러(Standard Error)</center></td>
+      <td style="text-align: right"><center>STDERR_FILENO</center></td>
+      <td style="text-align: right"><center>stderr</center></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code class="highlighter-rouge">read</code> 함수를 통해 <code class="highlighter-rouge">buf</code>에 값을 저장 한 이후에는 해당 값과 <code class="highlighter-rouge">LETMEWIN</code> 을 비교한다.</p>
+
+<p>만약 그 값이 같을 경우에는 <code class="highlighter-rouge">good job :)</code> 을 출력하고 <code class="highlighter-rouge">system</code> 함수를 통해 <code class="highlighter-rouge">/bin/cat flag</code> 명령어를 실행 해, <code class="highlighter-rouge">flag</code> 파일을 읽을 수 있게 된다.</p>
+
+<p>즉, 이 문제에서 조작할 수 있는 부분은 <code class="highlighter-rouge">fd</code> 변수이다.</p>
+
+<p><code class="highlighter-rouge">fd</code> 변수는 <code class="highlighter-rouge">read</code> 함수의 <code class="highlighter-rouge">File Discriptor</code>로 사용되므로, <code class="highlighter-rouge">fd</code>의 값을 0으로 만들어 표준 입력을 받도록 하고, 표준 입력을 통해 <code class="highlighter-rouge">LETMEWIN</code>을 입력한다면 <code class="highlighter-rouge">buf</code>에 입력 값이 저장되며 <code class="highlighter-rouge">strncmp</code>가 있는 조건문을 통과할 수 있을 것이다.</p>
+
+<p><code class="highlighter-rouge">fd</code> 변수에는 <code class="highlighter-rouge">argv[1]</code>의 값에서 <code class="highlighter-rouge">0x1234</code>를 뺀 값이 저장된다.</p>
+
+<p><code class="highlighter-rouge">0x1234</code>는 16진수 값 이므로 이를 10진수로 바꾸면 <code class="highlighter-rouge">4660</code>이 된다.</p>
+
+<p>따라서 <code class="highlighter-rouge">fd</code> 파일을 실행하며 인자로 <code class="highlighter-rouge">4660</code>을 주면, 변수 <code class="highlighter-rouge">fd</code>에는 인자로 받아 온 <code class="highlighter-rouge">4660 - 0x1234</code>의 값인 0이 저장된다.</p>
+
+<p>이 후, <code class="highlighter-rouge">read</code> 함수의 <code class="highlighter-rouge">fd</code> 변수 자리에는 <code class="highlighter-rouge">0</code>이 되며 표준 입력 값을 받아오게 된다.</p>
+
+<p>이를 수행한 결과 다음과 같다.</p>
+
+<p><img src="/images/pwnable.kr/fd/fd_01.PNG" alt="" /></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fd@ubuntu:~$ ./fd 4660
+LETMEWIN
+good job :)
+mommy! I think I know what a file descriptor is!!
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FLAG : mommy! I think I know what a file descriptor is!!
+</code></pre></div></div>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#Pwnable.kr">#Pwnable.kr</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/wargame/pwnable.kr/2018/02/15/pwnable.kr-fd.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/development/basic/2018/02/15/linux-permission.html">
+        [Linux] 소유권(Ownership) / 허가권(Permission)
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/wargame/pwnable.kr/2018/02/17/pwnable.kr-col.html">
+        [Pwnable.kr] Toddler's Bottle - col 문제풀이
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

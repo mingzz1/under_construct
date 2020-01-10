@@ -1,6 +1,10 @@
 .post-content > :last-child {
   margin-bottom: 0;
 }
+img {
+  border: 1px solid $border-color;
+}
+
 article,
 .comments {
   @extend %padding-regular;
@@ -23,6 +27,9 @@ article {
   }
   .footnotes {
     font-size: 0.9em;
+  }
+  .highlighter-rouge {
+    
   }
 }
 header {

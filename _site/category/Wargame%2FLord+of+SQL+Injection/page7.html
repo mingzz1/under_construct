@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>Wargame/Lord of SQL Injection | mingzzi</title>
+	<meta name="description" content="mingzzi's blog">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/category/Wargame%252FLord+of+SQL+Injection/page7.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <ul class="category-title"><h1>Wargame/Lord of SQL Injection</h1></ul>
+<ul class="posts-list">
+  
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2019/08/07/los-incubus.html">
+          [Lord of SQL Injection] LoS - incubus 문제풀이
+        </a>
+        <small>07 Aug 2019</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2019/08/06/los-siren.html">
+          [Lord of SQL Injection] LoS - siren 문제풀이
+        </a>
+        <small>06 Aug 2019</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2019/08/05/los-cerberus.html">
+          [Lord of SQL Injection] LoS - cerberus 문제풀이
+        </a>
+        <small>05 Aug 2019</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2019/08/04/los-kraken.html">
+          [Lord of SQL Injection] LoS - kraken 문제풀이
+        </a>
+        <small>04 Aug 2019</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2019/08/03/los-mummy.html">
+          [Lord of SQL Injection] LoS - mummy 문제풀이
+        </a>
+        <small>03 Aug 2019</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2019/07/29/los-yeti.html">
+          [Lord of SQL Injection] LoS - yeti 문제풀이
+        </a>
+        <small>29 Jul 2019</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2019/07/27/los-revenant.html">
+          [Lord of SQL Injection] LoS - revenant 문제풀이
+        </a>
+        <small>27 Jul 2019</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2019/07/05/los-nessie.html">
+          [Lord of SQL Injection] LoS - nessie 문제풀이
+        </a>
+        <small>05 Jul 2019</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2019/07/04/los-poltergeist.html">
+          [Lord of SQL Injection] LoS - poltergeist 문제풀이
+        </a>
+        <small>04 Jul 2019</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2019/07/03/los-banshee.html">
+          [Lord of SQL Injection] LoS - banshee 문제풀이
+        </a>
+        <small>03 Jul 2019</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2019/06/19/los-manticore.html">
+          [Lord of SQL Injection] LoS - manticore 문제풀이
+        </a>
+        <small>19 Jun 2019</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2019/06/18/los-chupacabra.html">
+          [Lord of SQL Injection] LoS - chupacabra 문제풀이
+        </a>
+        <small>18 Jun 2019</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2019/06/17/los-cyclops.html">
+          [Lord of SQL Injection] LoS - cyclops 문제풀이
+        </a>
+        <small>17 Jun 2019</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2019/06/14/los-godzilla.html">
+          [Lord of SQL Injection] LoS - godzilla 문제풀이
+        </a>
+        <small>14 Jun 2019</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2019/06/13/los-death.html">
+          [Lord of SQL Injection] LoS - death 문제풀이
+        </a>
+        <small>13 Jun 2019</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2019/06/12/los-cthulhu.html">
+          [Lord of SQL Injection] LoS - cthulhu 문제풀이
+        </a>
+        <small>12 Jun 2019</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/09/19/los-alien.html">
+          [Lord of SQL Injection] LoS - alien 문제풀이
+        </a>
+        <small>19 Sep 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/09/18/los-zombie.html">
+          [Lord of SQL Injection] LoS - zombie 문제풀이
+        </a>
+        <small>18 Sep 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/09/17/los-ouroboros.html">
+          [Lord of SQL Injection] LoS - ouroboros 문제풀이
+        </a>
+        <small>17 Sep 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/09/16/los-phantom.html">
+          [Lord of SQL Injection] LoS - phantom 문제풀이
+        </a>
+        <small>16 Sep 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/09/14/los-frankenstein.html">
+          [Lord of SQL Injection] LoS - frankenstein 문제풀이
+        </a>
+        <small>14 Sep 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/09/09/los-blue_dragon.html">
+          [Lord of SQL Injection] LoS - blue_dragon 문제풀이
+        </a>
+        <small>09 Sep 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/09/08/los-red_dragon.html">
+          [Lord of SQL Injection] LoS - red_dragon 문제풀이
+        </a>
+        <small>08 Sep 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/08/25/los-green_dragon.html">
+          [Lord of SQL Injection] LoS - green_dragon 문제풀이
+        </a>
+        <small>25 Aug 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/08/24/los-umaru.html">
+          [Lord of SQL Injection : eagle-jump] LoS - umaru 문제풀이
+        </a>
+        <small>24 Aug 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/08/24/los-evil_wizard.html">
+          [Lord of SQL Injection] LoS - evil_wizard 문제풀이
+        </a>
+        <small>24 Aug 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/08/23/los-hell_fire.html">
+          [Lord of SQL Injection] LoS - hell_fire 문제풀이
+        </a>
+        <small>23 Aug 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/08/22/los-dark_eyes.html">
+          [Lord of SQL Injection] LoS - dark_eyes 문제풀이
+        </a>
+        <small>22 Aug 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/08/16/los-iron_golem.html">
+          [Lord of SQL Injection] LoS - iron_golem 문제풀이
+        </a>
+        <small>16 Aug 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/08/15/los-dragon.html">
+          [Lord of SQL Injection] LoS - dragon 문제풀이
+        </a>
+        <small>15 Aug 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/08/14/los-xavis.html">
+          [Lord of SQL Injection] LoS - xavis 문제풀이
+        </a>
+        <small>14 Aug 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/08/06/los-nightmare.html">
+          [Lord of SQL Injection] LoS - nightmare 문제풀이
+        </a>
+        <small>06 Aug 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/08/05/los-succubus.html">
+          [Lord of SQL Injection] LoS - succubus 문제풀이
+        </a>
+        <small>05 Aug 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/08/04/los-zombie_assassin.html">
+          [Lord of SQL Injection] LoS - zombie_assassin 문제풀이
+        </a>
+        <small>04 Aug 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/08/03/los-assassin.html">
+          [Lord of SQL Injection] LoS - assassin 문제풀이
+        </a>
+        <small>03 Aug 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/08/02/los-giant.html">
+          [Lord of SQL Injection] LoS - giant 문제풀이
+        </a>
+        <small>02 Aug 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/08/01/los-bugbear.html">
+          [Lord of SQL Injection] LoS - bugbear 문제풀이
+        </a>
+        <small>01 Aug 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/07/31/los-darkknight.html">
+          [Lord of SQL Injection] LoS - darkknight 문제풀이
+        </a>
+        <small>31 Jul 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/07/30/los-golem.html">
+          [Lord of SQL Injection] LoS - golem 문제풀이
+        </a>
+        <small>30 Jul 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/07/29/los-skeleton.html">
+          [Lord of SQL Injection] LoS - skeleton 문제풀이
+        </a>
+        <small>29 Jul 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/07/28/los-vampire.html">
+          [Lord of SQL Injection] LoS - vampire 문제풀이
+        </a>
+        <small>28 Jul 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/07/27/los-troll.html">
+          [Lord of SQL Injection] LoS - troll 문제풀이
+        </a>
+        <small>27 Jul 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/07/26/los-orge.html">
+          [Lord of SQL Injection] LoS - orge 문제풀이
+        </a>
+        <small>26 Jul 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/07/25/los-darkelf.html">
+          [Lord of SQL Injection] LoS - darkelf 문제풀이
+        </a>
+        <small>25 Jul 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/07/24/los-wolfman.html">
+          [Lord of SQL Injection] LoS - wolfman 문제풀이
+        </a>
+        <small>24 Jul 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/07/23/los-orc.html">
+          [Lord of SQL Injection] LoS - orc 문제풀이
+        </a>
+        <small>23 Jul 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/07/22/los-goblin.html">
+          [Lord of SQL Injection] LoS - goblin 문제풀이
+        </a>
+        <small>22 Jul 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/07/21/los-cobolt.html">
+          [Lord of SQL Injection] LoS - cobolt 문제풀이
+        </a>
+        <small>21 Jul 2018</small>
+      </h3>
+    </li>
+  
+    <li>
+      <h3>
+        <a href="/wargame/lord%20of%20sql%20injection/2018/07/20/los-gremlin.html">
+          [Lord of SQL Injection] LoS - gremlin 문제풀이
+        </a>
+        <small>20 Jul 2018</small>
+      </h3>
+    </li>
+  
+</ul>
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

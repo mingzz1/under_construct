@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[Pwnable.kr] Toddler's Bottle - blukat 문제풀이 | mingzzi</title>
+	<meta name="description" content="요즘에 계속 los만 풀고 있었는데, 주변에서 갑자기 pwnable.kr에 새로운 문제가 추가됬다며 꼭 풀어보라고 자꾸 추천해줬다.문제를 풀어 본 사람들이 다 재미있는 문제라고 하길래 한번 풀어보게 되었다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/wargame/pwnable.kr/2018/08/25/pwnable.kr-blukat.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-130304424-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/about/">
+									About
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+							<li>
+								<a class="page-link" href="/tags.html">
+									tags
+								</a>
+							</li>
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+						
+					
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Pentesting</a>
+					<ul>
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Wargame</a>
+					<ul>
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">CTF</a>
+					<ul>
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Error</a>
+					<ul>
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="/">Development</a>
+					<ul>
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[Pwnable.kr] Toddler's Bottle - blukat 문제풀이</h1>
+    
+    <p class="meta">
+      August 25, 2018
+      
+    </p>
+  </header>
+  <section class="post-content"><p>요즘에 계속 <code class="highlighter-rouge">los</code>만 풀고 있었는데, 주변에서 갑자기 <code class="highlighter-rouge">pwnable.kr</code>에 새로운 문제가 추가됬다며 꼭 풀어보라고 자꾸 추천해줬다.</p>
+
+<p>문제를 풀어 본 사람들이 다 재미있는 문제라고 하길래 한번 풀어보게 되었다.</p>
+
+<!--more-->
+
+<p>문제 접속 정보는 아래와 같다.</p>
+
+<ul>
+  <li>ssh blukat@pwnable.kr -p2222 (pw: guest)</li>
+</ul>
+
+<p>문제에 접속하면 4개의 파일을 확인할 수 있다.</p>
+
+<blockquote>
+  <p>-r-xr-sr-x  1 root blukat_pwn 9144 Aug  8 06:44 blukat<br />
+-rw-r–r–  1 root root        645 Aug  8 06:43 blukat.c<br />
+-rw-r—–  1 root blukat_pwn   33 Jan  6  2017 password</p>
+</blockquote>
+
+<p>바이너리가 있고, 소스코드와 <code class="highlighter-rouge">password</code> 파일이 있다.</p>
+
+<p>일단 소스코들 확인 해 보았다.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;fcntl.h&gt;
+</span><span class="kt">char</span> <span class="n">flag</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+<span class="kt">char</span> <span class="n">password</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+<span class="kt">char</span><span class="o">*</span> <span class="n">key</span> <span class="o">=</span> <span class="s">"3</span><span class="se">\r</span><span class="s">G[S/%</span><span class="se">\x1c\x1d</span><span class="s">#0?</span><span class="se">\r</span><span class="s">IS</span><span class="se">\x0f\x1c\x1d\x18</span><span class="s">;,4</span><span class="se">\x1b\x00\x1b</span><span class="s">p;5</span><span class="se">\x0b\x1b\x08\x45</span><span class="s">+"</span><span class="p">;</span>
+<span class="kt">void</span> <span class="n">calc_flag</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">s</span><span class="p">){</span>
+	<span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+	<span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">strlen</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+		<span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">^</span> <span class="n">key</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+	<span class="p">}</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">flag</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+	<span class="kt">FILE</span><span class="o">*</span> <span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">"/home/blukat/password"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">);</span>
+	<span class="n">fgets</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">fp</span><span class="p">);</span>
+	<span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"guess the password!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="n">fgets</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
+	<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="n">buf</span><span class="p">)){</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"congrats! here is your flag: "</span><span class="p">);</span>
+		<span class="n">calc_flag</span><span class="p">(</span><span class="n">password</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">else</span><span class="p">{</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"wrong guess!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">main</code> 함수에서 <code class="highlighter-rouge">password</code> 파일을 읽고, 사용자에게 입력 값을 받는다.</p>
+
+<p>만약 이 입력값과 <code class="highlighter-rouge">password</code> 내의 값이 같다면 <code class="highlighter-rouge">calc_flag(password)</code> 함수를 통해 <code class="highlighter-rouge">flag</code>를 출력 해 준다.</p>
+
+<p>혹시 몰라 <code class="highlighter-rouge">cat</code> 명령어를 통해 읽었더니 아래와 같이 출력됬다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>blukat@ubuntu:~$ cat password 
+cat: password: Permission denied
+</code></pre></div></div>
+
+<p>그래서 무슨 방법이 있을까 고민하다가 그냥 아래처럼 입력했더니 문제가 갑자기 풀렸다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>blukat@ubuntu:~$ cat password | ./blukat 
+guess the password!
+congrats! here is your flag: Pl3as_DonT_Miss_youR_GrouP_Perm!!
+</code></pre></div></div>
+
+<p>???</p>
+
+<p>flag의 내용이 뭔가 이상해서 <code class="highlighter-rouge">id</code> 명령어로 권한을 확인 해 보았다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>blukat@ubuntu:~$ id
+uid=1104(blukat) gid=1104(blukat) groups=1104(blukat),1105(blukat_pwn)
+</code></pre></div></div>
+
+<p>그랬더니 그룹 권한이 부여된 것을 알 수 있었다.</p>
+
+<p>그런데 <code class="highlighter-rouge">cat password</code>를 하면 계속 <code class="highlighter-rouge">Permission denied</code>가 나며 읽을 수 없다고 했다.</p>
+
+<p>그룹 권한이 주어졌다면 읽을 수 있어야 하는게 맞는데 뭔가 이상해서 다른 방법으로 <code class="highlighter-rouge">password</code>의 내용을 읽어 보았다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>blukat@ubuntu:~$ hd password 
+00000000  63 61 74 3a 20 70 61 73  73 77 6f 72 64 3a 20 50  |cat: password: P|
+00000010  65 72 6d 69 73 73 69 6f  6e 20 64 65 6e 69 65 64  |ermission denied|
+00000020  0a                                                |.|
+00000021
+</code></pre></div></div>
+
+<p>ㅂㄷㅂㄷ</p>
+
+<p>그랬더니 <code class="highlighter-rouge">cat: password: Permission denied</code> 자체가 <code class="highlighter-rouge">password</code>의 내용이라는 것을 알 수 있었다.</p>
+
+<p>낚임…ㅋㅋㅋㅋㅋ</p>
+
+<p>다시 <code class="highlighter-rouge">blukat</code>을 실행해서 위의 내용을 입력 했더니 문제가 정상적으로 풀렸다.</p>
+
+<p><img src="/images/pwnable.kr/blukat/blukat_01.PNG" alt="" /></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>blukat@ubuntu:~$ ./blukat 
+guess the password!
+cat: password: Permission denied
+congrats! here is your flag: Pl3as_DonT_Miss_youR_GrouP_Perm!!
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FLAG : Pl3as_DonT_Miss_youR_GrouP_Perm!!
+</code></pre></div></div>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#Pwnable.kr">#Pwnable.kr</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://devYurim.github.io/wargame/pwnable.kr/2018/08/25/pwnable.kr-blukat.html#disqus_thread"></a>
+
+<div class="comments">
+  
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-devyurim-github-io-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2018/08/25/los-green_dragon.html">
+        [Lord of SQL Injection] LoS - green_dragon 문제풀이
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/wargame/lord%20of%20sql%20injection/2018/09/08/los-red_dragon.html">
+        [Lord of SQL Injection] LoS - red_dragon 문제풀이
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

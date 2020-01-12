@@ -1,6 +1,6 @@
 // Header text feature
 .selfie{
-  padding-top:200px;
+  padding-top:100px;
   display: inline-block;
   width: 100%;
   text-align: center;
@@ -10,22 +10,6 @@
   object-fit: cover;
   object-position: center;
   border-radius: 50%;
-}
-.social{
-  list-style: none;
-  display: block;
-  text-align: center;
-}
-.social li{
-  border: 0;
-  display: inline-block;
-  font-size: 1.5em;
-}
-.social li i {
-  margin-right: 10px;
-  margin-left: 10px;
-  margin-bottom: 150px;
-  color: #000000;
 }
 .call-out {
   @extend %padding-small;
@@ -47,6 +31,7 @@
 // Post listing
 .posts {
   .post-title{
+	margin-top: 70px;
   	display: inline-block;
   	width: 100%;
   	background-color:$header-desc-background-color;
@@ -56,10 +41,13 @@
   	color: $header-desc-text-color;
   }
   .post-teaser {
-    @extend %padding-regular;
+   @extend %padding-regular;
     width: 100%;
     display: inline-block;
     border-bottom: 1px solid $border-color;
+  }
+  .post-teaser h2 {
+    margin: 0px;
   }
 }
 // Pagination

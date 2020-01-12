@@ -1,12 +1,12 @@
-// External
-@import 'external/reset';
-@import 'external/syntax';
-@import 'external/highlights';
-
 // Base
 @import 'base/variables';
 @import 'base/global';
 @import 'base/utility';
+
+// External
+@import 'external/reset';
+@import 'external/syntax';
+@import 'external/highlights';
 
 // Posts
 @import 'layouts/posts';

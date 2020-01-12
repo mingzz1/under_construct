@@ -14,15 +14,9 @@
 		</h1>
 		<nav class="site-nav">
 				<ul>
-					{% for page in site.pages %}
-						{% if (page.title == 'About' or page.title =='tags') and page.hide != true %}
-							<li>
-								<a class="page-link" href="{{ page.url | relative_url }}">
-									{{ page.title }}
-								</a>
-							</li>
-						{% endif %}
-					{% endfor %}
+					<li> <a class="page-link" href="/about">About</a> </li>					
+					<li> <a class="page-link" href="/archive">Archive</a> </li>
+					<li> <a class="page-link" href="/tags">Tags</a> </li>
 
 					<!-- Search bar -->
 					{% if site.theme_settings.search %}

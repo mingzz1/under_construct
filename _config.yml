@@ -6,7 +6,7 @@ url: "https://mingzz1.github.io"
 theme_settings:
   # Meta
   title: mingzzi
-  avatar: assets/img/blogmark.jpg
+  avatar: assets/img/blogmark.png
   favicon: assets/favicon.ico
   gravatar: # Email MD5 hash
   description: "mingzzi's blog" # used by search engines

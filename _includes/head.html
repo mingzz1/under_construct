@@ -2,7 +2,8 @@
 	<meta charset="utf-8">
 	<title>{% if page.title %}{{ page.title }} |{% endif %} {{ site.theme_settings.title }}</title>
 	<meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.theme_settings.description }}{% endif %}">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" /> 
 
 	<!-- CSS -->
 	<link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
@@ -30,6 +31,9 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
 	{% endif %}
 
+	<!-- jquery -->
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130304424-1"></script>
 	<script>
@@ -42,4 +46,21 @@
 	
 	<!-- Google AdSense -->
 	<script data-ad-client="ca-pub-1587587893565234" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+		var flag = false;
+		$(function() {
+			$(".menu_btn").click(function() {
+				$(this).toggleClass("on")
+				if(flag) {
+					console.log(flag);
+					$(".cat1").css("display", "none");
+					flag = false;
+				} else {
+					console.log(flag);
+					$(".cat1").css("display", "block");
+					flag = true;
+				}
+			})
+		})
+	</script>
 </head>

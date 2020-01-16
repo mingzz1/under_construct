@@ -1,5 +1,4 @@
 .site-header {
-  //@extend %padding-small;
   background: $brand-color;
   display: inline-block;
   float: left;
@@ -130,7 +129,6 @@
       text-decoration: none;
     }
     .site-category li ul {
-      /*background: rgb(109, 109, 109);*/
       display: none;
       /* 평상시에는 드랍메뉴가 안보이게 하기 */
       padding: 0px;
@@ -141,10 +139,6 @@
       top: 0;
       width: 200px;
       z-index: 200;
-    }
-    .site-category li:hover ul {
-      display: block;
-      /* 마우스 커서 올리면 드랍메뉴 보이게 하기*/
     }
     .site-category li li {
       background: $brand-color;

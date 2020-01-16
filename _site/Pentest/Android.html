@@ -54,16 +54,22 @@
 			$(".menu_btn").click(function() {
 				$(this).toggleClass("on")
 				if(flag) {
-					console.log(flag);
 					$(".cat1").css("display", "none");
 					flag = false;
 				} else {
-					console.log(flag);
 					$(".cat1").css("display", "block");
 					flag = true;
+		
 				}
 			})
 		})
+		$(document).ready(function() {
+			$(".cat1 li").click(function() {
+				$(".sub").hide();
+				$("ul", this).slideToggle("fast");
+			});
+		});
+
 	</script>
 </head>
 
@@ -107,16 +113,16 @@
 	<div class="site-category">
 			<ul class='cat1'>
 				<li><a href="/">Home</a></li>
-				<li><a href="/">Pentesting</a>
-					<ul>
+				<li><a href="#">Pentesting</a>
+					<ul class="sub">
 						<li><a href="/Pentest/iOS">iOS</a></li>
 						<li><a href="/Pentest/Android">Android</a></li>
 						<li><a href="/Pentest/PWeb">Web</a></li>
 					</ul>
 				</li>
 
-				<li><a href="/">Wargame</a>
-					<ul>
+				<li><a href="#">Wargame</a>
+					<ul class="sub">
 						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
 						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
 						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
@@ -124,22 +130,22 @@
 					</ul>
 				</li>
 
-				<li><a href="/">CTF</a>
-					<ul>
+				<li><a href="#">CTF</a>
+					<ul class="sub">
 						<li><a href="/CTF/2018">2018</a></li>
 						<li><a href="/CTF/2019">2019</a></li>
 					</ul>
 				</li>
 
-				<li><a href="/">Error</a>
-					<ul>
+				<li><a href="#">Error</a>
+					<ul class="sub">
 						<li><a href="/Error/Linux">Linux</a></li>
 						<li><a href="/Error/Python">Python</a></li>
 					</ul>
 				</li>
 
-				<li><a href="/">Development</a>
-					<ul>
+				<li><a href="#">Development</a>
+					<ul class="sub">
 						<li><a href="/Develop/Database">Database</a></li>
 						<li><a href="/Develop/Blog">Github Blog</a></li>
 						<li><a href="/Develop/DWeb">Web</a></li>

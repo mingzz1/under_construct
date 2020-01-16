@@ -52,15 +52,21 @@
 			$(".menu_btn").click(function() {
 				$(this).toggleClass("on")
 				if(flag) {
-					console.log(flag);
 					$(".cat1").css("display", "none");
 					flag = false;
 				} else {
-					console.log(flag);
 					$(".cat1").css("display", "block");
 					flag = true;
+		
 				}
 			})
 		})
+		$(document).ready(function() {
+			$(".cat1 li").click(function() {
+				$(".sub").hide();
+				$("ul", this).slideToggle("fast");
+			});
+		});
+
 	</script>
 </head>

@@ -5,9 +5,9 @@ excerpt_separator: <!--more-->
 comments : true
 categories : [Development/Database]
 tags:
-  - database
-  - db2
-  - docker
+  - Database
+  - DB2
+  - Docker
 ---
 
 회사에서 갑자기 `DB2`를 쓸 일이 생겼다.  

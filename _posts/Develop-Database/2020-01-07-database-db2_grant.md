@@ -5,7 +5,7 @@ excerpt_separator: <!--more-->
 comments : true
 categories : [Development/Database]
 tags:
-  - database
+  - Database
   - DB2
 ---
 

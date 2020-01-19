@@ -5,8 +5,8 @@ excerpt_separator: <!--more-->
 comments : true
 categories : [Development/Database]
 tags:
-  - databse
-  - db2
+  - Database
+  - DB2
 ---
 
 DB2의 데이터베이스 및 테이블을 생성하고, 데이터를 추출하는 쿼리는 다음과 같다.  

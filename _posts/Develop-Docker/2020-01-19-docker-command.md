@@ -41,7 +41,7 @@ docker run -d -it -p [hostPort]:[ContainerPort] --name [Name] [Name]
 
 ## 3. Manange  
 
-### 3-1. Execute Command  
+`* Execute Command`  
 ```
 docker exec -i -t [Name] [Command]
 ```
@@ -51,32 +51,32 @@ ex)
 docker exec -i -t [Name] /bin/bash
 ```
 
-### 3-2. Stop Running  
+`* Stop Running`  
 ```
 docker stop [Name]
 ```
 
-### 3-3. Remove Container  
+`* Remove Container`  
 ```
 docker rm [Name]
 ```
 
-### 3-4. Restart Container  
+`* Restart Container`  
 ```
 docker restart [Name]
 ```
 
-### 3-5. Check Docker Images  
+`* Check Docker Images`  
 ```
 docker images
 ```
 
-### 3-6. Check Docker Process  
+`* Check Docker Process`  
 ```
 docker ps -a
 ```
 
-### 3-7. Remove Cache  
+`* Remove Cache`  
 ```
 docker system prune -a
 ```

@@ -22,23 +22,23 @@ E: Unable to lock the administration directory (/var/lib/dpkg/), is another proc
 
 아래의 2가지 방법 중 하나를 사용하면 거의 해결된다.
 
-1. lock 삭제
+### 1. lock 삭제
 
 ```
 rm -rf /var/lib/dpkg/lock
 ```
 
-2. clear cache
+### 2. clear cache
 
 ```
 apt-get autoclean $$ apt-get clear cache
 ```
 
-3. lock 삭제 후 apt update
+### 3. lock 삭제 후 apt update
 ```
 rm /var/lib/apt/lists/lock
 rm /var/cache/apt/archives/lock
 rm /var/lib/dpkg/lock*
-sudo dpkg --configure 0a
+sudo dpkg --configure -a
 apt update
 ```

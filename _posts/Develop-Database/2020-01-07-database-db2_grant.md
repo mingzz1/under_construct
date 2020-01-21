@@ -43,12 +43,12 @@ tags:
 
 계정 생성이 완료 된 후에는 `db2inst1` 계정으로 로그인 해 새로 생성한 사용자에게 권한을 부여한다.  
 
-#### db2inst1 계정으로 로그인
+#### 1. db2inst1 계정으로 로그인
 ```
 # su - db2inst1
 ```
-
-#### 권한 부여
+  
+#### 2. 권한 부여
 #### Ex1)
 ```
 # db2 grant connect on database to user [USERNAME]

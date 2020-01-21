@@ -25,6 +25,8 @@ tags:
 
 먼저 일반 계정이 필요할 경우, OS에서 `root`로 로그인 후 아래의 명령어를 입력 해 새로운 계정을 생성한다.  
 
+`Docker`로 만들었을 경우, `Docker의 Shell`을 실행시켜 `Docker` 내에서 작업을 해야 한다.  
+
 ```
 # useradd [USERNAME]
 # passwd [USERNAME]
@@ -39,25 +41,26 @@ tags:
 
 * 참고 : [IBM Db2 데이터베이스 설치를 위한 그룹 및 사용자 ID 작성(Linux 및 Unix)](https://www.ibm.com/support/knowledgecenter/ko/SSEPGG_11.1.0/com.ibm.db2.luw.qb.server.doc/doc/t0006742.html)
 
-계정 생성이 완료 된 후에는 이제 `Docker의 Shell`을 실행 시켜 `db2inst1` 계정으로 로그인 해 새로 생성한 사용자에게 권한을 부여한다.  
+계정 생성이 완료 된 후에는 `db2inst1` 계정으로 로그인 해 새로 생성한 사용자에게 권한을 부여한다.  
 
+#### db2inst1 계정으로 로그인
 ```
-// Docker Shell 실행
-# docker exec -it db2 /bin/bash
-
-// db2inst1 계정으로 로그인
 # su - db2inst1
+```
 
-// 권한 부여
-// Ex1
+#### 권한 부여
+#### Ex1)
+```
 # db2 grant connect on database to user [USERNAME]
 DB20000I  The SQL command completed successfully.
-
-// Ex2
+```
+#### Ex2)
+```
 # db2 grant dbadm on database to user [USERNAME]
 DB20000I  The SQL command completed successfully.
-
-// Ex3
+```
+#### Ex3)
+```
 # db2 grant ACCESSCTRL, BINDADD, CONNECT, CREATETAB, CREATE_EXTERNAL_ROUTINE, CREATE_NOT_FENCED_ROUTINE, CREATE_SECURE_OBJECT, DATAACCESS, DBADM, EXPLAIN, IMPLICIT_SCHEMA, LOAD, QUIESCE_CONNECT, SECADM, SQLADM, WLMADM on database to user [USERNAME] 
 DB20000I  The SQL command completed successfully.
 ```
@@ -105,7 +108,7 @@ SQL1092N "The requested command or operation failed because the user ID does not
 # vi .bash_profile
 ```
 
-```
+```bash
 if [ -f /database/config/db2inst1/sqllib/db2profile ]; then
 . /database/config/db2inst1/sqllib/db2profile
 fi
@@ -117,7 +120,7 @@ fi
 
 그럼 수정 완료 한 `.bash_profile`의 내용은 다음과 같을 것이다.  
 
-```
+```bash
 # .bash_profile
 
 # Get the aliases and functions

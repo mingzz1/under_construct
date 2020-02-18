@@ -154,13 +154,13 @@ tags:
 
 그럼 아래와 같은 창이 뜨는데, 여기에서 `Spring > Spring Legacy Project`를 선택하고 `Next`를 눌러준다.  
 
-![](/images/spring_board/setting/setting_24.PNG){: width="80%"}  
+![](/images/spring_board/setting/setting_24.PNG){: width="70%"}  
 
 다음 화면에서는 `Project name`과 `Templates`를 선택해야 한다.  
 
 나는 `Project name`은 `Board`로 했으며, `Persistence`는 `Spring MVC Project`로 설정 해 주면 된다.  
 
-![](/images/spring_board/setting/setting_25.PNG){: width="80%"}  
+![](/images/spring_board/setting/setting_25.PNG){: width="70%"}  
 
 다음 창에서는 `top-level package`를 설정 해 주어야 한다. `com.mycompany.myapp`과 같은 형태면 된다.  
 

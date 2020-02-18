@@ -34,15 +34,15 @@ tags:
 
 다운받은 설치파일을 실행하면 아래와 같은 창이 뜰텐데, 이 중 나는 두 번째에 있는 `Eclipse IDE for Enterprise Java Developers`를 선택했다.  
 
-![](/images/spring_board/setting/setting_03.PNG)  
+![](/images/spring_board/setting/setting_03.PNG){: width="70%"}  
 
 설치 할 `Eclipse`를 선택하면 설치 창이 뜬다. 경로를 확인한 후 `INSTALL` 버튼을 클릭한다.  
 
-![](/images/spring_board/setting/setting_04.PNG)  
+![](/images/spring_board/setting/setting_04.PNG){: width="70%"}  
 
 모든 설치가 끝나면 아래와 같이 `LAUNCH` 버튼이 나타날 것이다.  
 
-![](/images/spring_board/setting/setting_05.PNG)  
+![](/images/spring_board/setting/setting_05.PNG){: width="70%"}  
 
 해당 버튼을 누르면 `Eclipse`가 실행 될 것이다.  
 
@@ -154,13 +154,13 @@ tags:
 
 그럼 아래와 같은 창이 뜨는데, 여기에서 `Spring > Spring Legacy Project`를 선택하고 `Next`를 눌러준다.  
 
-![](/images/spring_board/setting/setting_24.PNG)  
+![](/images/spring_board/setting/setting_24.PNG){: width="80%"}  
 
 다음 화면에서는 `Project name`과 `Templates`를 선택해야 한다.  
 
 나는 `Project name`은 `Board`로 했으며, `Persistence`는 `Spring MVC Project`로 설정 해 주면 된다.  
 
-![](/images/spring_board/setting/setting_25.PNG)  
+![](/images/spring_board/setting/setting_25.PNG){: width="80%"}  
 
 다음 창에서는 `top-level package`를 설정 해 주어야 한다. `com.mycompany.myapp`과 같은 형태면 된다.  
 

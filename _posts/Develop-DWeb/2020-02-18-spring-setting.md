@@ -18,7 +18,7 @@ tags:
 오늘은 게시판을 만들기 위하여 `Spring`을 구축하는 방법을 정리한다.  
 
 <!--more-->
-### 1. Eclipse 설치  
+## 1. Eclipse 설치  
 
 먼저 `Spring`으로 웹 페이지를 개발하기 위해서는 `Eclipse`가 필요하다.  
 
@@ -48,7 +48,7 @@ tags:
 
 만약 정상적으로 실행된다면 `3. Spring Tools 설치`로 넘어가면 되지만, 오류가 난다면 `2. JAVA 설치`를 해야 한다.  
 
-### 2. JAVA 설치
+## 2. JAVA 설치  
 
 `JAVA`는 아래의 사이트에서 설치한다.  
 
@@ -60,7 +60,7 @@ tags:
 
 ![](/images/spring_board/setting/setting_07.PNG)  
 
-### 3. Spring Tools 설치  
+## 3. Spring Tools 설치  
 
 `Eclipse`를 실행하면 아래와 같이 `workspace`의 경로를 정할 수 있다.  
 
@@ -90,7 +90,7 @@ tags:
 
 그럼 `Spring Tools`의 설치가 끝난다.  
 
-### 4. Tomcat 설치  
+## 4. Tomcat 설치  
 
 이제 웹 어플리케이션을 구동하기 위한 `WAS(Web Application Server)`를 설치 해 주어야 한다.  
 
@@ -116,7 +116,7 @@ tags:
 
 ![](/images/spring_board/setting/setting_17.PNG)  
 
-### 5. Eclipse 설정  
+## 5. Eclipse 설정  
 
 `Tomcat`까지 설치가 완료 됬으면, `Eclipse`에서 구현한 웹 소스코드를 `Tomcat`을 통해 구동하기 위해 설정을 해주어야 한다.  
 
@@ -142,7 +142,7 @@ tags:
 
 그럼 `Apply and Close`를 눌러 적용 해 준다.  
 
-### 6. 프로젝트 생성하기  
+## 6. 프로젝트 생성하기  
 
 드디어 모든 환경 설정이 끝났다.  
 
@@ -174,7 +174,7 @@ tags:
 
 ![](/images/spring_board/setting/setting_28.PNG)  
 
-### 7. 실행  
+## 7. 실행  
 
 이제 실행을 해 `Spring` 첫 페이지가 나오면 성공이다.  
 

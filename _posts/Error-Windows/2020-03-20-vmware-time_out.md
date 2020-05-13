@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ! "[Vmware]] EFI Network / Timeout Error"
+title: ! "[Vmware] EFI Network / Timeout Error"
 excerpt_separator: <!--more-->
 comments: true
 categories : [Error/Windows]

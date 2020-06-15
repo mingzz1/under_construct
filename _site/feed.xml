@@ -5,7 +5,53 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://192.168.171.137:4000/</link>
     <description>mingzzi's blog</description>
-    <pubDate>Mon, 15 Jun 2020 21:29:04 +0900</pubDate>
+    <pubDate>Mon, 15 Jun 2020 22:29:07 +0900</pubDate>
+    
+      <item>
+        <title>[Jekyll] rougify 테스트</title>
+        <link>/development/github%20blog/2020/06/15/test.html</link>
+        <guid isPermaLink="true">/development/github%20blog/2020/06/15/test.html</guid>
+        <description>&lt;ul&gt;
+  &lt;li&gt;Text&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Hello World!
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;C&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#incluide &amp;lt;stdio.h&amp;gt;
+&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello World!&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Python&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;system&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Hello World!&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;PHP&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+	&lt;span class=&quot;nv&quot;&gt;$a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hello World!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;?&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Mon, 15 Jun 2020 00:00:00 +0900</pubDate>
+      </item>
     
       <item>
         <title>[Android] 안드로이드 Burp Suite 사용 설정</title>
@@ -1772,90 +1818,6 @@ db2 =&amp;gt; select * from table;
 
 &lt;p&gt;이렇게 하면 각 테이블의 &lt;code class=&quot;highlighter-rouge&quot;&gt;첫 행부터 NUM개의 행&lt;/code&gt;을 &lt;code class=&quot;highlighter-rouge&quot;&gt;select&lt;/code&gt; 한다. 만약 &lt;code class=&quot;highlighter-rouge&quot;&gt;마지막 행부터 특정 개수의 행을 추출&lt;/code&gt;하고 싶다면, 특정 column을 기준으로 &lt;code class=&quot;highlighter-rouge&quot;&gt;order by desc&lt;/code&gt;한 후 &lt;code class=&quot;highlighter-rouge&quot;&gt;fetch first NUM rows only&lt;/code&gt;를 사용해야 한다.&lt;br /&gt;
 (IBM 공식 답변에 따르면 테이블의 마지막 행부터 특정 개수의 행을 추출하는 쿼리는 따로 만들어져 있지 않다고 함)&lt;/p&gt;
-</description>
-        <pubDate>Mon, 06 Jan 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>[Jekyll] Local에 Github Blog 세팅하기</title>
-        <link>/development/github%20blog/2020/01/06/jekyll-local_blog_setting.html</link>
-        <guid isPermaLink="true">/development/github%20blog/2020/01/06/jekyll-local_blog_setting.html</guid>
-        <description>&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Github&lt;/code&gt; 블로그를 운영 중에 게시글이 많아지며 블로그 리뉴얼의 필요성을 느꼈다.&lt;/p&gt;
-
-&lt;p&gt;테마를 싹 바꾸는 대대적인 작업이기 때문에 먼저 로컬에서 작업 후, 완성본을 &lt;code class=&quot;highlighter-rouge&quot;&gt;Github&lt;/code&gt;에 &lt;code class=&quot;highlighter-rouge&quot;&gt;push&lt;/code&gt; 하기로 했다.&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;p&gt;나는 &lt;code class=&quot;highlighter-rouge&quot;&gt;Ubuntu 16.04 Server version&lt;/code&gt;에 세팅을 했다.&lt;/p&gt;
-
-&lt;p&gt;설치를 해야하는 항목은 다음과 같다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Nodejs&lt;/li&gt;
-  &lt;li&gt;RubyGems&lt;/li&gt;
-  &lt;li&gt;Ruby&lt;/li&gt;
-  &lt;li&gt;gcc / g++ / make&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;각각의 설치 방법은 다음과 같다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# apt-get install -y nodejs
-# apt-get install -y rubygems
-# apt-get install -y ruby
-# apt-get install -y ruby-dev
-# apt-get install -y gcc
-# apt-get install -y g++
-# apt-get install -y make
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;이제 &lt;code class=&quot;highlighter-rouge&quot;&gt;Jekyll&lt;/code&gt;을 설치해야 한다. 만약 &lt;code class=&quot;highlighter-rouge&quot;&gt;gem install jekyll&lt;/code&gt;을 하면 &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll 4.0.0&lt;/code&gt;이 설치되는데, 이 경우 해결해야 할 오류가 너무 많다. 그래서 나는 그냥 &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll 3.8.5&lt;/code&gt;를 설치했다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# gem install jekyll -v 3.8.5
-# gem install bundler
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;여기까지 하면 모든 준비가 완료된다.&lt;/p&gt;
-
-&lt;p&gt;이제 내 &lt;code class=&quot;highlighter-rouge&quot;&gt;Github&lt;/code&gt;에서 내 블로그 &lt;code class=&quot;highlighter-rouge&quot;&gt;Repository&lt;/code&gt;를 &lt;code class=&quot;highlighter-rouge&quot;&gt;Clone&lt;/code&gt; 한다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# git clone https://github.com/mingzz1/mingzz1.github.io.git
-# cd mingzz1.github.io
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Clone&lt;/code&gt;을 했으면 필요한 플러그인을 설치하고 &lt;code class=&quot;highlighter-rouge&quot;&gt;serve&lt;/code&gt;를 해야 한다. (내 경우, &lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt;을 다 지워두었어서 원래 테마의 &lt;code class=&quot;highlighter-rouge&quot;&gt;Github page&lt;/code&gt;에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt;과 &lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile.lock&lt;/code&gt;를 가져왔다.)&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# bundle install
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;만약 &lt;code class=&quot;highlighter-rouge&quot;&gt;bundle install&lt;/code&gt;을 하는 동안 오류가 난다면, 해당 오류를 잘 읽어보면 된다.&lt;/p&gt;
-
-&lt;p&gt;내 경우 아래와 같은 오류가 계속해서 발생했다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jekyll-4.0.0 requires ruby version &amp;gt;= 2.4.0, which is incompatible with the current version, ruby 2.3.1p112
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;이 경우, &lt;code class=&quot;highlighter-rouge&quot;&gt;ruby&lt;/code&gt; 버전을 2.4 이상을 설치하거나 &lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt; 혹은 &lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile.lock&lt;/code&gt;에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll&lt;/code&gt; 버전을 낮추면 된다.&lt;/p&gt;
-
-&lt;p&gt;이 후 만약 아래의 오류가 발생한다면 &lt;code class=&quot;highlighter-rouge&quot;&gt;bundle update jekyll&lt;/code&gt;을 하면 된다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Downloading jekyll-3.8.3 revealed dependencies not in the API or the lockfile (i18n (~&amp;gt;
-0.7), jekyll-sass-converter (~&amp;gt; 1.0), kramdown (~&amp;gt; 1.14), rouge (&amp;lt; 4, &amp;gt;= 1.7)).
-Either installing with `--full-index` or running `bundle update jekyll` should fix the
-problem.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;bundle install&lt;/code&gt;이 완료되었다면 이제 &lt;code class=&quot;highlighter-rouge&quot;&gt;serve&lt;/code&gt;를 하면 된다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;serve&lt;/code&gt; 시, 나는 &lt;code class=&quot;highlighter-rouge&quot;&gt;Server version&lt;/code&gt;의 &lt;code class=&quot;highlighter-rouge&quot;&gt;Ubuntu&lt;/code&gt;를 사용했기 때문에, 호스트에서 접속해야 해서, 따로 호스팅 주소를 넣어 주었다.&lt;/p&gt;
-
-&lt;p&gt;이 주소는 해당 가상머신 혹은 서버의 IP 주소를 넣어주면 된다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# bundle exec jekyll serve -H 192.168.222.144
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;웹 브라우저로 &lt;code class=&quot;highlighter-rouge&quot;&gt;http://192.168.222.144:4000&lt;/code&gt;에 접속하면 내 블로그가 떠 있는 것을 확인할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/development/blog/local_set/local_set_01.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Mon, 06 Jan 2020 00:00:00 +0900</pubDate>
       </item>

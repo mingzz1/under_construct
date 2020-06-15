@@ -118,6 +118,7 @@
 						<li><a href="/Pentest/iOS">iOS</a></li>
 						<li><a href="/Pentest/Android">Android</a></li>
 						<li><a href="/Pentest/PWeb">Web</a></li>
+                                                <li><a href="/Pentest/Cloud">Cloud</a></li>
 					</ul>
 				</li>
 
@@ -140,7 +141,8 @@
 				<li><a href="#">Error</a>
 					<ul class="sub">
 						<li><a href="/Error/Linux">Linux</a></li>
-						<li><a href="/Error/Python">Python</a></li>
+						<li><a href="/Error/Windows">Windows</a></li>
+                                                <li><a href="/Error/Python">Python</a></li>
 					</ul>
 				</li>
 
@@ -151,6 +153,7 @@
 						<li><a href="/Develop/DWeb">Web</a></li>
 						<li><a href="/Develop/Docker">Docker</a></li>
 						<li><a href="/Develop/Basic">Basic</a></li>
+						<li><a href="/Develop/SecureCoding">Secure Coding</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -181,30 +184,23 @@ E: Unable to lock the administration directory (/var/lib/dpkg/), is another proc
 
 <p>아래의 2가지 방법 중 하나를 사용하면 거의 해결된다.</p>
 
-<ol>
-  <li>lock 삭제</li>
-</ol>
+<h3 id="1-lock-삭제">1. lock 삭제</h3>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rm -rf /var/lib/dpkg/lock
 </code></pre></div></div>
 
-<ol>
-  <li>clear cache</li>
-</ol>
+<h3 id="2-clear-cache">2. clear cache</h3>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get autoclean $$ apt-get clear cache
 </code></pre></div></div>
 
-<ol>
-  <li>lock 삭제 후 apt update
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rm /var/lib/apt/lists/lock
+<h3 id="3-lock-삭제-후-apt-update">3. lock 삭제 후 apt update</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rm /var/lib/apt/lists/lock
 rm /var/cache/apt/archives/lock
 rm /var/lib/dpkg/lock*
-sudo dpkg --configure 0a
+sudo dpkg --configure -a
 apt update
-</code></pre></div>    </div>
-  </li>
-</ol>
+</code></pre></div></div>
 </section>
   
 <footer>

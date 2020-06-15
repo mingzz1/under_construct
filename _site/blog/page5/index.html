@@ -118,6 +118,7 @@
 						<li><a href="/Pentest/iOS">iOS</a></li>
 						<li><a href="/Pentest/Android">Android</a></li>
 						<li><a href="/Pentest/PWeb">Web</a></li>
+                                                <li><a href="/Pentest/Cloud">Cloud</a></li>
 					</ul>
 				</li>
 
@@ -140,7 +141,8 @@
 				<li><a href="#">Error</a>
 					<ul class="sub">
 						<li><a href="/Error/Linux">Linux</a></li>
-						<li><a href="/Error/Python">Python</a></li>
+						<li><a href="/Error/Windows">Windows</a></li>
+                                                <li><a href="/Error/Python">Python</a></li>
 					</ul>
 				</li>
 
@@ -151,6 +153,7 @@
 						<li><a href="/Develop/DWeb">Web</a></li>
 						<li><a href="/Develop/Docker">Docker</a></li>
 						<li><a href="/Develop/Basic">Basic</a></li>
+						<li><a href="/Develop/SecureCoding">Secure Coding</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -169,20 +172,22 @@
     <div class="post-teaser">
       <header>
         <h2>
-          <a class="post-link" href="/wargame/lord%20of%20sql%20injection/2019/06/19/los-manticore.html">
-            [Lord of SQL Injection] LoS - manticore 문제풀이
+          <a class="post-link" href="/pentesting/ios/2019/12/10/iOS-jailbreak.html">
+            [iOS] 3uTools 통해 12.1.4 탈옥하기(Without ignition, impactor)
           </a>
         </h2>
         <p class="meta">
-          June 19, 2019
+          December 10, 2019
         </p>
         <div class="excerpt">
-          <p><code class="highlighter-rouge">SQLite</code>의 두 번째 문제이다.</p>
+          <p><code class="highlighter-rouge">Android</code>에서 루팅이 필요하듯이, <code class="highlighter-rouge">iOS</code> 앱 분석을 위해서는 탈옥이 필요하다.</p>
 
-<p>이 번 문제도 간단한 편이다.</p>
+<p><code class="highlighter-rouge">12.1.4</code> 기준으로 <code class="highlighter-rouge">Unc0ver</code>만 폰에 설치할 수 있으면 그 뒤는 매우 쉽다.</p>
+
+<p>이 포스팅에서는 <code class="highlighter-rouge">3uTools</code>를 사용하여 <code class="highlighter-rouge">Unc0ver</code>를 설치하고 탈옥하는 방법을 정리한다.</p>
 
 
-          <a class="button" href="/wargame/lord%20of%20sql%20injection/2019/06/19/los-manticore.html">
+          <a class="button" href="/pentesting/ios/2019/12/10/iOS-jailbreak.html">
             Continue reading
           </a>
         </div>
@@ -192,22 +197,22 @@
     <div class="post-teaser">
       <header>
         <h2>
-          <a class="post-link" href="/wargame/lord%20of%20sql%20injection/2019/06/18/los-chupacabra.html">
-            [Lord of SQL Injection] LoS - chupacabra 문제풀이
+          <a class="post-link" href="/pentesting/ios/2019/12/10/iOS-initialize.html">
+            [iOS] 아이폰 초기화 하기(iTunes 없이 / iOS 업데이트 없이)
           </a>
         </h2>
         <p class="meta">
-          June 18, 2019
+          December 10, 2019
         </p>
         <div class="excerpt">
-          <p>오늘 부터는 두 번째 업데이트에 올라온 문제다.</p>
+          <p>나는 아이폰을 탈옥하기 전에 먼저 초기화를 했다.</p>
 
-<p>이 전까지는 <code class="highlighter-rouge">DBMS</code>가 <code class="highlighter-rouge">MySQL</code>만 있었는데, 두 번째에 업데이트 된 문제는 <code class="highlighter-rouge">SQLite</code>, <code class="highlighter-rouge">MSSQL</code>, <code class="highlighter-rouge">MongoDB</code>를 사용하는 문제였다.</p>
+<p>내가 사용하던 폰이라 지저분 했기 때문이다.</p>
 
-<p>먼저 <code class="highlighter-rouge">SQLite</code>의 첫 번째 문제이다.</p>
+<p>그런데 <code class="highlighter-rouge">iTunes</code>를 통해 공장초기화를 진행하면, <code class="highlighter-rouge">가장 최신 OS로 업데이트</code> 되기 때문에 <code class="highlighter-rouge">iTunes</code> 없이 초기화를 하는 방법을 사용했다.</p>
 
 
-          <a class="button" href="/wargame/lord%20of%20sql%20injection/2019/06/18/los-chupacabra.html">
+          <a class="button" href="/pentesting/ios/2019/12/10/iOS-initialize.html">
             Continue reading
           </a>
         </div>
@@ -217,20 +222,22 @@
     <div class="post-teaser">
       <header>
         <h2>
-          <a class="post-link" href="/wargame/lord%20of%20sql%20injection/2019/06/17/los-cyclops.html">
-            [Lord of SQL Injection] LoS - cyclops 문제풀이
+          <a class="post-link" href="/ctf/2019/2019/10/15/ctf-poxx2019-quals.html">
+            [POXX2019-Quals] magic2 / Clue Write up
           </a>
         </h2>
         <p class="meta">
-          June 17, 2019
+          October 15, 2019
         </p>
         <div class="excerpt">
-          <p>드디어 첫 번째 문제 업데이트의 마지막 문제인 <code class="highlighter-rouge">cyclops</code> 이다.</p>
+          <p>두 달만의 포스팅이다.</p>
 
-<p>이번 문제는 단순히 <code class="highlighter-rouge">admin</code>으로 로그인을 하는 문제가 아니었다.</p>
+<p>한동안 CTF를 안하다가 POXX 2019 예선에 참가하게 되었다.</p>
+
+<p>예선에서 내가 푼 문제를 정리 해 두려 한다.</p>
 
 
-          <a class="button" href="/wargame/lord%20of%20sql%20injection/2019/06/17/los-cyclops.html">
+          <a class="button" href="/ctf/2019/2019/10/15/ctf-poxx2019-quals.html">
             Continue reading
           </a>
         </div>
@@ -240,20 +247,20 @@
     <div class="post-teaser">
       <header>
         <h2>
-          <a class="post-link" href="/wargame/lord%20of%20sql%20injection/2019/06/14/los-godzilla.html">
-            [Lord of SQL Injection] LoS - godzilla 문제풀이
+          <a class="post-link" href="/ctf/2019/2019/10/15/ctf-cce2019.html">
+            [CCE2019] hwp Write up
           </a>
         </h2>
         <p class="meta">
-          June 14, 2019
+          October 15, 2019
         </p>
         <div class="excerpt">
-          <p>다음 문제는 <code class="highlighter-rouge">godzilla</code>이다.</p>
+          <p>POXX Write up을 정리하다 보니 몇 주 전에 했던 <code class="highlighter-rouge">CCE</code>도 생각이 났다.</p>
 
-<p>이번 문제는 <code class="highlighter-rouge">Blind SQL Injection</code>이다.</p>
+<p>그래서 걔도 정리 해 두려 한다 ㅎㅎ</p>
 
 
-          <a class="button" href="/wargame/lord%20of%20sql%20injection/2019/06/14/los-godzilla.html">
+          <a class="button" href="/ctf/2019/2019/10/15/ctf-cce2019.html">
             Continue reading
           </a>
         </div>
@@ -263,20 +270,20 @@
     <div class="post-teaser">
       <header>
         <h2>
-          <a class="post-link" href="/wargame/lord%20of%20sql%20injection/2019/06/13/los-death.html">
-            [Lord of SQL Injection] LoS - death 문제풀이
+          <a class="post-link" href="/wargame/lord%20of%20sql%20injection/2019/08/07/los-incubus.html">
+            [Lord of SQL Injection] LoS - incubus 문제풀이
           </a>
         </h2>
         <p class="meta">
-          June 13, 2019
+          August 7, 2019
         </p>
         <div class="excerpt">
-          <p>두 번째 문제는 <code class="highlighter-rouge">death</code>이다.</p>
+          <p>드디어!!! 마지막 문제인 <code class="highlighter-rouge">incubus</code>이다.</p>
 
-<p>이 전 문제와 비슷해서 쉽게 풀 수 있었다.</p>
+<p>문제를 푼 시간보다 풀이를 적는 시간이 더 오래 걸렸던 것 같다..</p>
 
 
-          <a class="button" href="/wargame/lord%20of%20sql%20injection/2019/06/13/los-death.html">
+          <a class="button" href="/wargame/lord%20of%20sql%20injection/2019/08/07/los-incubus.html">
             Continue reading
           </a>
         </div>

@@ -118,6 +118,7 @@
 						<li><a href="/Pentest/iOS">iOS</a></li>
 						<li><a href="/Pentest/Android">Android</a></li>
 						<li><a href="/Pentest/PWeb">Web</a></li>
+                                                <li><a href="/Pentest/Cloud">Cloud</a></li>
 					</ul>
 				</li>
 
@@ -140,7 +141,8 @@
 				<li><a href="#">Error</a>
 					<ul class="sub">
 						<li><a href="/Error/Linux">Linux</a></li>
-						<li><a href="/Error/Python">Python</a></li>
+						<li><a href="/Error/Windows">Windows</a></li>
+                                                <li><a href="/Error/Python">Python</a></li>
 					</ul>
 				</li>
 
@@ -151,6 +153,7 @@
 						<li><a href="/Develop/DWeb">Web</a></li>
 						<li><a href="/Develop/Docker">Docker</a></li>
 						<li><a href="/Develop/Basic">Basic</a></li>
+						<li><a href="/Develop/SecureCoding">Secure Coding</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -169,18 +172,20 @@
     <div class="post-teaser">
       <header>
         <h2>
-          <a class="post-link" href="/pentesting/ios/2019/12/12/iOS-setting.html">
-            [iOS] 아이폰 BurpSuite 및 Frida 사용 세팅하기
+          <a class="post-link" href="/development/secure%20coding/2020/03/29/sonarqube-install_and_testing.html">
+            [Secure Coding] SonarQube 설치 및 사용법
           </a>
         </h2>
         <p class="meta">
-          December 12, 2019
+          March 29, 2020
         </p>
         <div class="excerpt">
-          <p>이번에는 모의해킹을 하는데 필요한 <code class="highlighter-rouge">BurpSuite</code>와 <code class="highlighter-rouge">Frida</code>를 탈옥한 아이폰에 세팅하는 법을 정리한다.</p>
+          <p>많은 기업들에서 <code class="highlighter-rouge">Secure Coding</code>을 위해 정적 코드 분석 툴을 사용한다.</p>
+
+<p><code class="highlighter-rouge">SonarQube</code>는 그 중 하나인데, 커뮤니티 버전이 있어 무료로 사용할 수 있기에 설치 해 테스트 해 보았다.</p>
 
 
-          <a class="button" href="/pentesting/ios/2019/12/12/iOS-setting.html">
+          <a class="button" href="/development/secure%20coding/2020/03/29/sonarqube-install_and_testing.html">
             Continue reading
           </a>
         </div>
@@ -190,22 +195,20 @@
     <div class="post-teaser">
       <header>
         <h2>
-          <a class="post-link" href="/pentesting/ios/2019/12/10/iOS-jailbreak.html">
-            [iOS] 3uTools 통해 12.1.4 탈옥하기(Without ignition, impactor)
+          <a class="post-link" href="/error/windows/2020/03/20/vmware-time_out.html">
+            [Vmware] EFI Network / Timeout Error
           </a>
         </h2>
         <p class="meta">
-          December 10, 2019
+          March 20, 2020
         </p>
         <div class="excerpt">
-          <p><code class="highlighter-rouge">Android</code>에서 루팅이 필요하듯이, <code class="highlighter-rouge">iOS</code> 앱 분석을 위해서는 탈옥이 필요하다.</p>
+          <p>얼마 전 컴퓨터를 포맷했는데, 포맷 한 뒤로 <code class="highlighter-rouge">Vmware</code>에 <code class="highlighter-rouge">Windows</code>를 설치하려고 하면 자꾸 <code class="highlighter-rouge">Time out</code> 오류가 난다.</p>
 
-<p><code class="highlighter-rouge">12.1.4</code> 기준으로 <code class="highlighter-rouge">Unc0ver</code>만 폰에 설치할 수 있으면 그 뒤는 매우 쉽다.</p>
-
-<p>이 포스팅에서는 <code class="highlighter-rouge">3uTools</code>를 사용하여 <code class="highlighter-rouge">Unc0ver</code>를 설치하고 탈옥하는 방법을 정리한다.</p>
+<p>해당 오류 해결 방법은 아래와 같다.</p>
 
 
-          <a class="button" href="/pentesting/ios/2019/12/10/iOS-jailbreak.html">
+          <a class="button" href="/error/windows/2020/03/20/vmware-time_out.html">
             Continue reading
           </a>
         </div>
@@ -215,22 +218,22 @@
     <div class="post-teaser">
       <header>
         <h2>
-          <a class="post-link" href="/pentesting/ios/2019/12/10/iOS-initialize.html">
-            [iOS] 아이폰 초기화 하기(iTunes 없이 / iOS 업데이트 없이)
+          <a class="post-link" href="/pentesting/cloud/2020/03/07/aws_cli.html">
+            [AWS S3] AWS CLI로 S3 파일 업로드 및 다운로드 하기
           </a>
         </h2>
         <p class="meta">
-          December 10, 2019
+          March 7, 2020
         </p>
         <div class="excerpt">
-          <p>나는 아이폰을 탈옥하기 전에 먼저 초기화를 했다.</p>
+          <p><code class="highlighter-rouge">AWS</code>에는 <code class="highlighter-rouge">AWS CLI(Command Line Interface)</code>가 있어 로컬에서 <code class="highlighter-rouge">S3 bucket</code>를 동기화하여 사용할 수 있게 해 준다.</p>
 
-<p>내가 사용하던 폰이라 지저분 했기 때문이다.</p>
+<p>또한 리눅스 명령어와 같이 <code class="highlighter-rouge">ls, rm, cp</code> 등의 명령어를 사용할 수 있다.</p>
 
-<p>그런데 <code class="highlighter-rouge">iTunes</code>를 통해 공장초기화를 진행하면, <code class="highlighter-rouge">가장 최신 OS로 업데이트</code> 되기 때문에 <code class="highlighter-rouge">iTunes</code> 없이 초기화를 하는 방법을 사용했다.</p>
+<p>기본적인 사용방법은 다음과 같다.</p>
 
 
-          <a class="button" href="/pentesting/ios/2019/12/10/iOS-initialize.html">
+          <a class="button" href="/pentesting/cloud/2020/03/07/aws_cli.html">
             Continue reading
           </a>
         </div>
@@ -240,22 +243,24 @@
     <div class="post-teaser">
       <header>
         <h2>
-          <a class="post-link" href="/ctf/2019/2019/10/15/ctf-poxx2019-quals.html">
-            [POXX2019-Quals] magic2 / Clue Write up
+          <a class="post-link" href="/development/web/2020/02/18/spring-setting.html">
+            [Spring 게시판 만들기] Spring 개발 환경 구축하기
           </a>
         </h2>
         <p class="meta">
-          October 15, 2019
+          February 18, 2020
         </p>
         <div class="excerpt">
-          <p>두 달만의 포스팅이다.</p>
+          <p>많은 곳에서 <code class="highlighter-rouge">Spring</code>을 가지고 웹 개발을 한다고 한다.</p>
 
-<p>한동안 CTF를 안하다가 POXX 2019 예선에 참가하게 되었다.</p>
+<p>나는 웹 개발은 <code class="highlighter-rouge">PHP</code>나 <code class="highlighter-rouge">JSP</code>, 그것도 거의 학교 과제 수준밖에 안해봤기 때문에 <code class="highlighter-rouge">Spring</code>은 전혀 모른다.</p>
 
-<p>예선에서 내가 푼 문제를 정리 해 두려 한다.</p>
+<p>근데 구조 등을 알면 일할 때 편하지 않을까 싶어 게시판을 만들어 보려고 한다.</p>
+
+<p>오늘은 게시판을 만들기 위하여 <code class="highlighter-rouge">Spring</code>을 구축하는 방법을 정리한다.</p>
 
 
-          <a class="button" href="/ctf/2019/2019/10/15/ctf-poxx2019-quals.html">
+          <a class="button" href="/development/web/2020/02/18/spring-setting.html">
             Continue reading
           </a>
         </div>
@@ -265,20 +270,22 @@
     <div class="post-teaser">
       <header>
         <h2>
-          <a class="post-link" href="/ctf/2019/2019/10/15/ctf-cce2019.html">
-            [CCE2019] hwp Write up
+          <a class="post-link" href="/pentesting/web/2020/02/04/Web-httponly_cookie.html">
+            [Web] Secure 및 HttpOnly 쿠키 옵션
           </a>
         </h2>
         <p class="meta">
-          October 15, 2019
+          February 4, 2020
         </p>
         <div class="excerpt">
-          <p>POXX Write up을 정리하다 보니 몇 주 전에 했던 <code class="highlighter-rouge">CCE</code>도 생각이 났다.</p>
+          <p><code class="highlighter-rouge">XSS</code>는 수 년간 <code class="highlighter-rouge">OWASP Top 10</code>에서 사라지지 않는 취약점 중 하나이다.</p>
 
-<p>그래서 걔도 정리 해 두려 한다 ㅎㅎ</p>
+<p><code class="highlighter-rouge">XSS</code>의 주된 공격 타겟은 바로 <code class="highlighter-rouge">Session Cookies 탈취</code>라고 한다.</p>
+
+<p>그래서 오늘은 이에 대응할 수 있는 <code class="highlighter-rouge">Secure</code> 와 <code class="highlighter-rouge">HttpOnly</code> 옵션에 대해 정리하려 한다.</p>
 
 
-          <a class="button" href="/ctf/2019/2019/10/15/ctf-cce2019.html">
+          <a class="button" href="/pentesting/web/2020/02/04/Web-httponly_cookie.html">
             Continue reading
           </a>
         </div>

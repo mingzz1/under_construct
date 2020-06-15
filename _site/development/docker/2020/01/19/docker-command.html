@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[Docker] Docker 명령어 | mingzzi</title>
+	<meta name="description" content="예전에는 문제 출제때문에라도 Docker를 자주 썼었는데, 이제는 사용 할 일이 별로 없다.그러다 보니 명령어를 자꾸 까먹어서 정리한다.">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" /> 
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/development/docker/2020/01/19/docker-command.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- jquery -->
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130304424-1"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'UA-130304424-1');
+	</script>
+	
+	<!-- Google AdSense -->
+	<script data-ad-client="ca-pub-1587587893565234" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+		var flag = false;
+		$(function() {
+			$(".menu_btn").click(function() {
+				$(this).toggleClass("on")
+				if(flag) {
+					$(".cat1").css("display", "none");
+					flag = false;
+				} else {
+					$(".cat1").css("display", "block");
+					flag = true;
+		
+				}
+			})
+		})
+		$(document).ready(function() {
+			$(".cat1 li").click(function() {
+				$(".sub").hide();
+				$("ul", this).slideToggle("fast");
+			});
+		});
+
+	</script>
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					<li> <a class="page-link" href="/about">About</a> </li>					
+					<li> <a class="page-link" href="/archive">Archive</a> </li>
+					<li> <a class="page-link" href="/tags">Tags</a> </li>
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+	
+	<div class="menu_btn">
+		<span></span>
+		<span></span>
+		<span></span>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="#">Pentesting</a>
+					<ul class="sub">
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+                                                <li><a href="/Pentest/Cloud">Cloud</a></li>
+					</ul>
+				</li>
+
+				<li><a href="#">Wargame</a>
+					<ul class="sub">
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="#">CTF</a>
+					<ul class="sub">
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="#">Error</a>
+					<ul class="sub">
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Windows">Windows</a></li>
+                                                <li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="#">Development</a>
+					<ul class="sub">
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+						<li><a href="/Develop/SecureCoding">Secure Coding</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[Docker] Docker 명령어</h1>
+    
+    <p class="meta">
+      January 19, 2020
+      
+    </p>
+  </header>
+  <section class="post-content"><p>예전에는 문제 출제때문에라도 <code class="highlighter-rouge">Docker</code>를 자주 썼었는데, 이제는 사용 할 일이 별로 없다.</p>
+
+<p>그러다 보니 명령어를 자꾸 까먹어서 정리한다.</p>
+
+<!--more-->
+
+<h2 id="1-build">1. Build</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker build -t [Name] .
+</code></pre></div></div>
+
+<h2 id="2-run">2. Run</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -d -it -p [hostPort]:[ContainerPort] --name [Name] [Name]
+</code></pre></div></div>
+
+<p>옵션 설명은 다음과 같다.</p>
+
+<ul>
+  <li>-d : <code class="highlighter-rouge">Detached mode</code>. run the container in the background</li>
+  <li>-i : <code class="highlighter-rouge">Interactive mode</code></li>
+  <li>-t : <code class="highlighter-rouge">Allocate a pseudo-TTY</code>
+    <ul>
+      <li>-it 혹은 -i -t 등으로 사용 할 경우 Docker Container 내에서 명령어 실행 가능</li>
+    </ul>
+  </li>
+  <li>-p : <code class="highlighter-rouge">Port</code>. ex) -p 80:80, -p 80:3123</li>
+  <li>–name : <code class="highlighter-rouge">Container name</code>. 아래의 3가지 방법으로 사용할 수 있으며, <code class="highlighter-rouge">docker images</code> 명령어를 통해 <code class="highlighter-rouge">Container Name</code>을 확인할 수 있음</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Identifier type</th>
+      <th>Example value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>UUID long identifier</td>
+      <td>“f78375b1c487e03c9438c729345e54db9d20cfa2ac1fc3494b6eb60872e74778”</td>
+    </tr>
+    <tr>
+      <td>UUID short identifier</td>
+      <td>“f78375b1c487”</td>
+    </tr>
+    <tr>
+      <td>Name</td>
+      <td>“Container Name”</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="3-manange">3. Manange</h2>
+
+<p><code class="highlighter-rouge">* Execute Command</code></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker exec -i -t [Name] [Command]
+</code></pre></div></div>
+
+<p>ex)</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker exec -i -t [Name] /bin/bash
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">* Stop Running</code></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker stop [Name]
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">* Remove Container</code></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker rm [Name]
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">* Restart Container</code></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker restart [Name]
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">* Check Docker Images</code></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker images
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">* Check Docker Process</code></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker ps -a
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">* Remove Cache</code></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker system prune -a
+</code></pre></div></div>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Docker">#Docker</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://mingzz1.github.io/development/docker/2020/01/19/docker-command.html#disqus_thread"></a>
+
+<div class="comments">
+    
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'mingzzis-blog';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/development/database/2020/01/07/database-db2_grant.html">
+        [Database-DB2] 새로운 User 생성 및 권한 부여하기
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/error/python/2020/01/20/Error-pip_install.html">
+        [Python 오류] command errored out with exit status 1 python setup.py egg_info 오류
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    <!-- Social icons from Font Awesome, if enabled  -->
+
+<ul class='social'>
+	
+
+	
+	<li>
+		<a href="mailto:mingzzi87@gmail.com" title="Email">
+			<i class="fa fa-fw fa-envelope"></i>
+		</a>
+	</li>
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+	<li>
+		<a href="https://github.com/mingzz1" title="Follow on GitHub">
+			<i class="fa fa-fw fa-github"></i>
+		</a>
+	</li>
+	
+
+	
+
+	
+
+	
+	<li>
+		<a href="https://www.linkedin.com/in/minji-kim-12986a145/" title="Follow on LinkedIn">
+			<i class="fa fa-fw fa-linkedin"></i>
+		</a>
+	</li>
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+</ul>
+
+
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

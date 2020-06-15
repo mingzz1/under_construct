@@ -5,7 +5,7 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://192.168.171.137:4000/</link>
     <description>mingzzi's blog</description>
-    <pubDate>Mon, 15 Jun 2020 22:56:25 +0900</pubDate>
+    <pubDate>Mon, 15 Jun 2020 23:26:22 +0900</pubDate>
     
       <item>
         <title>[Android] 안드로이드 Burp Suite 사용 설정</title>
@@ -24,10 +24,11 @@
 
 &lt;hr /&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;참고)&lt;br /&gt;
-설치 후 실행 한 다음에는 &lt;code class=&quot;highlighter-rouge&quot;&gt;Nox&lt;/code&gt; 상단의 &lt;code class=&quot;highlighter-rouge&quot;&gt;설정&lt;/code&gt;에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;ROOT켜기&lt;/code&gt;를 선택 해 주면 루팅 된 에뮬레이터를 사용할 수 있다.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;참고)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;설치 후 실행 한 다음에는 &lt;code class=&quot;highlighter-rouge&quot;&gt;Nox&lt;/code&gt; 상단의 &lt;code class=&quot;highlighter-rouge&quot;&gt;설정&lt;/code&gt;에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;ROOT켜기&lt;/code&gt;를 선택 해 주면 루팅 된 에뮬레이터를 사용할 수 있다.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/pen-testing/android/burp_setting/burp_setting_01.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
@@ -45,11 +46,12 @@
 
 &lt;p&gt;여기에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;네트워크 수정&lt;/code&gt;을 선택하고, 아래와 같이 설정 해 준다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;* 고급 옵션 체크
-* 프록시 : 수동
-* 프록시 호스트 이름 : Burp Suite를 실행 할 PC의 IP 주소. 같은 네트워크에 존재해야 함
-* 프록시 포트 : 프록시 서버의 포트. Burp Suite에도 같은 포트를 설정 해 주어야 함
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;고급 옵션 체크&lt;/li&gt;
+  &lt;li&gt;프록시 : 수동&lt;/li&gt;
+  &lt;li&gt;프록시 호스트 이름 : Burp Suite를 실행 할 PC의 IP 주소. 같은 네트워크에 존재해야 함&lt;/li&gt;
+  &lt;li&gt;프록시 포트 : 프록시 서버의 포트. Burp Suite에도 같은 포트를 설정 해 주어야 함&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/pen-testing/android/burp_setting/burp_setting_03.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
@@ -89,11 +91,12 @@
 
 &lt;p&gt;만약 접속할 수 없다면 아래 내용들을 확인 해 보면 된다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;* Wi-Fi 설정에서 프록시 설정을 했는가
-* Burp Suite가 켜져 있는가
-* Burp Suite에 Listener가 Running 상태인가
-* Proxy 메뉴에서 Intercept On으로 해 두었을 때 패킷이 잡히는가
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;Wi-Fi 설정에서 프록시 설정을 했는가&lt;/li&gt;
+  &lt;li&gt;Burp Suite가 켜져 있는가&lt;/li&gt;
+  &lt;li&gt;Burp Suite에 Listener가 Running 상태인가&lt;/li&gt;
+  &lt;li&gt;Proxy 메뉴에서 Intercept On으로 해 두었을 때 패킷이 잡히는가&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/pen-testing/android/burp_setting/burp_setting_08.png&quot; alt=&quot;&quot; width=&quot;50%&quot; /&gt;&lt;/p&gt;
 
@@ -113,9 +116,9 @@
 
 &lt;hr /&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;참고)&lt;/li&gt;
-&lt;/ul&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;참고)&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;p&gt;만약 &lt;code class=&quot;highlighter-rouge&quot;&gt;adb.exe&lt;/code&gt;가 있는 폴더가 아니라 다른 경로에서도 &lt;code class=&quot;highlighter-rouge&quot;&gt;adb&lt;/code&gt;를 실행하고 싶은 경우 &lt;code class=&quot;highlighter-rouge&quot;&gt;환경 변수&lt;/code&gt;에 등록 해 주면 된다.&lt;/p&gt;
 

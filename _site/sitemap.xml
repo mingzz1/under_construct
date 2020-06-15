@@ -2,22 +2,6 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
     <url>
-      <loc>http://192.168.171.137:4000/development/github%20blog/2020/06/15/test.html</loc>
-      
-        <lastmod>2020-06-15T00:00:00+09:00</lastmod>
-      
-
-      
-        <changefreq>weekly</changefreq>
-      
-
-      
-          <priority>0.5</priority>
-      
-
-    </url>
-  
-    <url>
       <loc>http://192.168.171.137:4000/pentesting/android/2020/06/08/Setting-Burp-Suite-for-Android.html</loc>
       
         <lastmod>2020-06-08T00:00:00+09:00</lastmod>

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title> mingzzi</title>
+	<meta name="description" content="mingzzi's blog">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" /> 
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/blog/page22/">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- jquery -->
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130304424-1"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'UA-130304424-1');
+	</script>
+	
+	<!-- Google AdSense -->
+	<script data-ad-client="ca-pub-1587587893565234" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+		var flag = false;
+		$(function() {
+			$(".menu_btn").click(function() {
+				$(this).toggleClass("on")
+				if(flag) {
+					$(".cat1").css("display", "none");
+					flag = false;
+				} else {
+					$(".cat1").css("display", "block");
+					flag = true;
+		
+				}
+			})
+		})
+		$(document).ready(function() {
+			$(".cat1 li").click(function() {
+				$(".sub").hide();
+				$("ul", this).slideToggle("fast");
+			});
+		});
+
+	</script>
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					<li> <a class="page-link" href="/about">About</a> </li>					
+					<li> <a class="page-link" href="/archive">Archive</a> </li>
+					<li> <a class="page-link" href="/tags">Tags</a> </li>
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+	
+	<div class="menu_btn">
+		<span></span>
+		<span></span>
+		<span></span>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="#">Pentesting</a>
+					<ul class="sub">
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+                                                <li><a href="/Pentest/Cloud">Cloud</a></li>
+					</ul>
+				</li>
+
+				<li><a href="#">Wargame</a>
+					<ul class="sub">
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="#">CTF</a>
+					<ul class="sub">
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="#">Error</a>
+					<ul class="sub">
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Windows">Windows</a></li>
+                                                <li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="#">Development</a>
+					<ul class="sub">
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+						<li><a href="/Develop/SecureCoding">Secure Coding</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <div class="home">
+
+  <hr>
+  <div class="posts">
+  	<h2 class="post-title">Recent Post</h2>
+    
+    <div class="post-teaser">
+      <header>
+        <h2>
+          <a class="post-link" href="/ctf/2018/2018/05/27/ctf-rctf2018-rblog.html">
+            [RCTF2018] rblog Write up
+          </a>
+        </h2>
+        <p class="meta">
+          May 27, 2018
+        </p>
+        <div class="excerpt">
+          <p><code class="highlighter-rouge">rblog</code>는 <code class="highlighter-rouge">RCTF 2018</code>에 출제되었던 XSS 문제인데, 대회 기간에는 풀이하지 못했다가 Write-up이 올라온 후 풀어보게 되었다.</p>
+
+<p>문제 정보는 아래와 같다.</p>
+
+
+          <a class="button" href="/ctf/2018/2018/05/27/ctf-rctf2018-rblog.html">
+            Continue reading
+          </a>
+        </div>
+      </header>
+    </div>
+    
+    <div class="post-teaser">
+      <header>
+        <h2>
+          <a class="post-link" href="/ctf/2018/2018/05/23/ctf-rctf2018-amp.html">
+            [RCTF2018] amp Write up
+          </a>
+        </h2>
+        <p class="meta">
+          May 23, 2018
+        </p>
+        <div class="excerpt">
+          <p>2018년 5월 19일부터 5월 21일까지 RCTF가 있었다.</p>
+
+<p>비록 대회 도중에는 문제를 못풀었지만, 대회 종료 후 amp 문제를 풀게되어 Write-up을 작성하게 되었다.</p>
+
+
+          <a class="button" href="/ctf/2018/2018/05/23/ctf-rctf2018-amp.html">
+            Continue reading
+          </a>
+        </div>
+      </header>
+    </div>
+    
+    <div class="post-teaser">
+      <header>
+        <h2>
+          <a class="post-link" href="/error/linux/2018/04/23/linux-dpkg_error.html">
+            [Linux 오류] Could not get lock 오류
+          </a>
+        </h2>
+        <p class="meta">
+          April 23, 2018
+        </p>
+        <div class="excerpt">
+          <p>Ubuntu에서 <code class="highlighter-rouge">apt-get</code>을 사용하다보면 아래의 오류를 자주 볼 수 있다.</p>
+
+<p>요즘들어 특히 자주보여 블로그에 정리하려 한다.</p>
+
+
+          <a class="button" href="/error/linux/2018/04/23/linux-dpkg_error.html">
+            Continue reading
+          </a>
+        </div>
+      </header>
+    </div>
+    
+    <div class="post-teaser">
+      <header>
+        <h2>
+          <a class="post-link" href="/wargame/pwnable.kr/2018/02/21/pwnable.kr-flag.html">
+            [Pwnable.kr] Toddler's Bottle - flag 문제풀이
+          </a>
+        </h2>
+        <p class="meta">
+          February 21, 2018
+        </p>
+        <div class="excerpt">
+          <p>이번에는 <code class="highlighter-rouge">Pwnable.kr</code> 의 <code class="highlighter-rouge">flag</code> 문제를 풀어 보았다.</p>
+
+<p><code class="highlighter-rouge">flag</code> 문제는 pwnable 문제가 아니라 reversing 문제이다.</p>
+
+
+          <a class="button" href="/wargame/pwnable.kr/2018/02/21/pwnable.kr-flag.html">
+            Continue reading
+          </a>
+        </div>
+      </header>
+    </div>
+    
+    <div class="post-teaser">
+      <header>
+        <h2>
+          <a class="post-link" href="/wargame/pwnable.kr/2018/02/19/pwnable.kr-bof.html">
+            [Pwnable.kr] Toddler's Bottle - bof 문제풀이
+          </a>
+        </h2>
+        <p class="meta">
+          February 19, 2018
+        </p>
+        <div class="excerpt">
+          <p><code class="highlighter-rouge">Pwnable.kr</code> 문제에서 3번째 문제인 <code class="highlighter-rouge">bof</code> 문제를 풀어보았다.</p>
+
+<p>이번 문제는 로컬 문제가 아니라 리모트로 접속 해 풀어야 하는 문제이다.</p>
+
+
+          <a class="button" href="/wargame/pwnable.kr/2018/02/19/pwnable.kr-bof.html">
+            Continue reading
+          </a>
+        </div>
+      </header>
+    </div>
+    
+
+  </div>
+
+  
+  <div class="pagination">
+    
+    <a href="/blog/page21" class="button" >
+      <i class="fa fa-chevron-left"></i>
+      Prev
+    </a>
+    
+    
+    <a href="/blog/page23" class="button" >
+      Next
+      <i class="fa fa-chevron-right"></i>
+    </a>
+    
+  </div>
+  
+</div>
+
+    </div>
+    <!-- Social icons from Font Awesome, if enabled  -->
+
+<ul class='social'>
+	
+
+	
+	<li>
+		<a href="mailto:mingzzi87@gmail.com" title="Email">
+			<i class="fa fa-fw fa-envelope"></i>
+		</a>
+	</li>
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+	<li>
+		<a href="https://github.com/mingzz1" title="Follow on GitHub">
+			<i class="fa fa-fw fa-github"></i>
+		</a>
+	</li>
+	
+
+	
+
+	
+
+	
+	<li>
+		<a href="https://www.linkedin.com/in/minji-kim-12986a145/" title="Follow on LinkedIn">
+			<i class="fa fa-fw fa-linkedin"></i>
+		</a>
+	</li>
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+</ul>
+
+
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

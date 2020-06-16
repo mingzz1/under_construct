@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[Vmware] EFI Network / Timeout Error | mingzzi</title>
+	<meta name="description" content="얼마 전 컴퓨터를 포맷했는데, 포맷 한 뒤로 Vmware에 Windows를 설치하려고 하면 자꾸 Time out 오류가 난다.해당 오류 해결 방법은 아래와 같다.">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" /> 
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/error/windows/2020/03/20/vmware-time_out.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- jquery -->
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130304424-1"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'UA-130304424-1');
+	</script>
+	
+	<!-- Google AdSense -->
+	<script data-ad-client="ca-pub-1587587893565234" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+		var flag = false;
+		$(function() {
+			$(".menu_btn").click(function() {
+				$(this).toggleClass("on")
+				if(flag) {
+					$(".cat1").css("display", "none");
+					flag = false;
+				} else {
+					$(".cat1").css("display", "block");
+					flag = true;
+		
+				}
+			})
+		})
+		$(document).ready(function() {
+			$(".cat1 li").click(function() {
+				$(".sub").hide();
+				$("ul", this).slideToggle("fast");
+			});
+		});
+
+	</script>
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					<li> <a class="page-link" href="/about">About</a> </li>					
+					<li> <a class="page-link" href="/archive">Archive</a> </li>
+					<li> <a class="page-link" href="/tags">Tags</a> </li>
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+	
+	<div class="menu_btn">
+		<span></span>
+		<span></span>
+		<span></span>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="#">Pentesting</a>
+					<ul class="sub">
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+                                                <li><a href="/Pentest/Cloud">Cloud</a></li>
+					</ul>
+				</li>
+
+				<li><a href="#">Wargame</a>
+					<ul class="sub">
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="#">CTF</a>
+					<ul class="sub">
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="#">Error</a>
+					<ul class="sub">
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Windows">Windows</a></li>
+                                                <li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="#">Development</a>
+					<ul class="sub">
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+						<li><a href="/Develop/SecureCoding">Secure Coding</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[Vmware] EFI Network / Timeout Error</h1>
+    
+    <p class="meta">
+      March 20, 2020
+      
+    </p>
+  </header>
+  <section class="post-content"><p>얼마 전 컴퓨터를 포맷했는데, 포맷 한 뒤로 <code class="highlighter-rouge">Vmware</code>에 <code class="highlighter-rouge">Windows</code>를 설치하려고 하면 자꾸 <code class="highlighter-rouge">Time out</code> 오류가 난다.</p>
+
+<p>해당 오류 해결 방법은 아래와 같다.</p>
+
+<!--more-->
+
+<p>일단 오류 상황은 아래와 같다.</p>
+
+<p><img src="/images/error/vm/timeout/vm_timeout_01.png" alt="" /></p>
+
+<p><img src="/images/error/vm/timeout/vm_timeout_02.png" alt="" /></p>
+
+<p>어떨 때는 첫 번째 사진과 같이 <code class="highlighter-rouge">EFI Network</code>라고 뜨며 <code class="highlighter-rouge">Time out</code>이 나오고, 또 어떨 때는 두 번째 사진과 같이 <code class="highlighter-rouge">Press any key to boot from CD or DVD</code>라는 오류가 나온다.</p>
+
+<p>일반적으로 두 번째 오류가 나오면 <code class="highlighter-rouge">Setting</code>에서 <code class="highlighter-rouge">CD/DVD(SATA)</code> 탭에 <code class="highlighter-rouge">ISO</code> 파일은 안 넣어 준 경우일텐데, 나는 아래와 같이 정확하게 <code class="highlighter-rouge">Windows 10</code>용 <code class="highlighter-rouge">ISO</code> 파일의 경로를 넣어 준 상태였다.</p>
+
+<p><img src="/images/error/vm/timeout/vm_timeout_03.png" alt="" width="75%" /></p>
+
+<p>이 오류의 해결 방법은 다음과 같다.</p>
+
+<p><code class="highlighter-rouge">VM 종료 후 해당 VM 마우스 오른쪽 버튼 &gt; Settings &gt; 상단 Options 탭으로 이동 &gt; 아래의 Advanced 메뉴 &gt; Firmware type</code>을 확인 해 보면 아래와 같이 <code class="highlighter-rouge">UEFI</code>라고 설정되어 있을 것이다.</p>
+
+<p><img src="/images/error/vm/timeout/vm_timeout_04.png" alt="" width="75%" /></p>
+
+<p>그럼 이 설정을 아래와 같이 <code class="highlighter-rouge">BIOS</code>로 변경하고 <code class="highlighter-rouge">OK</code>를 클릭 한다.</p>
+
+<p><img src="/images/error/vm/timeout/vm_timeout_05.png" alt="" width="75%" /></p>
+
+<p>그리고 다시 부팅을 해 보면 정상적으로 되는 것을 확인할 수 있다.</p>
+
+<p><img src="/images/error/vm/timeout/vm_timeout_06.png" alt="" /></p>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Error">#Error</a>
+    
+    <a class="tag" href="/tags#Windows">#Windows</a>
+    
+    <a class="tag" href="/tags#VMware">#VMware</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+<a href="https://mingzz1.github.io/error/windows/2020/03/20/vmware-time_out.html#disqus_thread"></a>
+
+<div class="comments">
+    
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'mingzzis-blog';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/pentesting/cloud/2020/03/07/aws_cli.html">
+        [AWS S3] AWS CLI로 S3 파일 업로드 및 다운로드 하기
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/development/secure%20coding/2020/03/29/sonarqube-install_and_testing.html">
+        [Secure Coding] SonarQube 설치 및 사용법
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    <!-- Social icons from Font Awesome, if enabled  -->
+
+<ul class='social'>
+	
+
+	
+	<li>
+		<a href="mailto:mingzzi87@gmail.com" title="Email">
+			<i class="fa fa-fw fa-envelope"></i>
+		</a>
+	</li>
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+	<li>
+		<a href="https://github.com/mingzz1" title="Follow on GitHub">
+			<i class="fa fa-fw fa-github"></i>
+		</a>
+	</li>
+	
+
+	
+
+	
+
+	
+	<li>
+		<a href="https://www.linkedin.com/in/minji-kim-12986a145/" title="Follow on LinkedIn">
+			<i class="fa fa-fw fa-linkedin"></i>
+		</a>
+	</li>
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+</ul>
+
+
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

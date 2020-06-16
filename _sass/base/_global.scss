@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  line-height: 2;
+  line-height: 1.5;
 }
 figure {
   margin: 0;
@@ -50,8 +50,10 @@ h4 {
   font-size: 1em;
 }
 blockquote {
-    border-left: 2px solid;
-    padding: 1em 1em;
+    background: #f3f3f3;
+    border-left: 7px solid #4080f0;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
 }
 blockquote p:last-child,
 footer p:last-child {

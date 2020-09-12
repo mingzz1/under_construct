@@ -24,7 +24,7 @@ tags:
 
 `Eclipse`는 아래 사이트에서 다운받을 수 있다.  
 
-[https://www.eclipse.org/downloads/packages/](https://www.eclipse.org/downloads/packages/)
+> [https://www.eclipse.org/downloads/packages/](https://www.eclipse.org/downloads/packages/)
 
 사이트에 접속한 후, 아래와 같이 자신의 운영체제에 맞는 설치파일을 다운 받는다.  
 
@@ -52,7 +52,7 @@ tags:
 
 `JAVA`는 아래의 사이트에서 설치한다.  
 
-[https://java.com/ko/download/](https://java.com/ko/download/)
+> [https://java.com/ko/download/](https://java.com/ko/download/)
 
 위의 사이트에 접속 해 아래와 같이 빨간색 버튼을 클릭하여 설치한다.  
 
@@ -98,7 +98,7 @@ tags:
 
 설치 파일은 아래 링크에서 다운받을 수 있다.  
 
-[http://tomcat.apache.org/](http://tomcat.apache.org/)
+> [http://tomcat.apache.org/](http://tomcat.apache.org/)
 
 해당 사이트에 접속하면 아래와 같을 것이다.  
 

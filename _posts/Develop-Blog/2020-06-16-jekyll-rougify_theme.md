@@ -23,7 +23,7 @@ tags:
 
 내 경우, 예전에 아래 포스팅을 쓸 때 로컬에 블로그를 세팅해 둔 가상머신에 이미 설치가 되어 있는 상태였다.  
 
-[[Jekyll] Local에 Github Blog 세팅하기](https://mingzz1.github.io/development/github%20blog/2020/01/06/jekyll-local_blog_setting.html)
+> [[Jekyll] Local에 Github Blog 세팅하기](https://mingzz1.github.io/development/github%20blog/2020/01/06/jekyll-local_blog_setting.html)
 
 만약 `gem`이 설치되어 있지 않다면 위의 글을 참고해 설치하면 된다.  
 

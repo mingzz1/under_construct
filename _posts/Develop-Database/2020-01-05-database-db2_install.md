@@ -20,7 +20,7 @@ tags:
 
 나는 아래의 블로그 글을 참고했기 때문에 `Ubuntu 16.04 Desktop version`을 사용 했다.  
 
-[https://medium.com/@shanikanishadhi1992/configure-database-postgresql-with-docker-and-use-postgresql-as-the-db-type-with-wso2-identity-a43e9cf7322a](https://medium.com/@shanikanishadhi1992/configure-database-postgresql-with-docker-and-use-postgresql-as-the-db-type-with-wso2-identity-a43e9cf7322a)  
+> [https://medium.com/@shanikanishadhi1992/configure-database-postgresql-with-docker-and-use-postgresql-as-the-db-type-with-wso2-identity-a43e9cf7322a](https://medium.com/@shanikanishadhi1992/configure-database-postgresql-with-docker-and-use-postgresql-as-the-db-type-with-wso2-identity-a43e9cf7322a)  
 
 우선 `Docker`를 설치하기 위해 아래의 명령어를 순서대로 입력한다.  
 

@@ -26,7 +26,7 @@ xss-game 내에서는 URL을 조작하려 하니 자꾸 `setImmediate`로 바뀌
 
 문제 사이트는 아래와 같다.  
 
-[http://xss-game.appspot.com/](http://xss-game.appspot.com/)
+> [http://xss-game.appspot.com/](http://xss-game.appspot.com/)
 
 
 문제에 처음 접속하면 다음과 같이 화면이 뜨는데, 초록색 버튼을 누르면 첫 번째 단계를 시작할 수 있다.  

@@ -125,6 +125,7 @@
 				<li><a href="#">Wargame</a>
 					<ul class="sub">
 						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/OWASP">OWASP-MSTG Crackmes</a></li>
 						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
 						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
 						<li><a href="/Wargame/XG">XSS Game</a></li>
@@ -230,7 +231,9 @@ Stats:
 
 <p>그래서 구글에 <code class="highlighter-rouge">cgi-bin/stats exploit</code>라고 검색 해 보았는데 깃허브에서 이와 관련 된 <code class="highlighter-rouge">CVE</code>를 찾을 수 있었다.</p>
 
-<p><a href="https://github.com/hmlio/vaas-cve-2014-6271">CVE-2014-6271</a></p>
+<blockquote>
+  <p><a href="https://github.com/hmlio/vaas-cve-2014-6271">CVE-2014-6271</a></p>
+</blockquote>
 
 <p>해당 취약점을 가지고 있는 <code class="highlighter-rouge">Debian Linux system</code>에서 <code class="highlighter-rouge">curl -H "user-agent: () { :; }; echo; echo; /bin/bash -c 'cat /etc/passwd;'" http://your-ip:8080/cgi-bin/stats</code>와 같은 코드를 사용 해 임의의 코드를 실행할 수 있다.</p>
 
@@ -309,7 +312,6 @@ RITSEC{sh3ll_sh0cked_w0wz3rs}
 
 </article>
 <!-- Disqus -->
-<a href="https://mingzz1.github.io/ctf/2018/2018/11/19/ctf-ritsec2018-What-a-cute-dog.html#disqus_thread"></a>
 
 <div class="comments">
     
@@ -426,7 +428,7 @@ RITSEC{sh3ll_sh0cked_w0wz3rs}
 </footer>
 
 
-    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+    <script id="dsq-count-scr" src="//mingzzis-blog.disqus.com/count.js" async></script>
 
     <!-- Google Analytics Tracking code -->
 <script type="text/javascript">

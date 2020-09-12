@@ -45,7 +45,7 @@ ImportError: DLL load failed: 지정된 모듈을 찾을 수 없습니다.
 
 해결 방법은 `python 3.7 버전 설치`이다.  
 
-[Python 3.7.5](https://www.python.org/downloads/release/python-375/)  
+> [Python 3.7.5](https://www.python.org/downloads/release/python-375/)  
 
 위의 사이트에서 다시 `3.7`대 `python`을 설치하고 아래의 명령어를 통해 다시 `frida`를 재설치 하면 정상적으로 동작한다.  
 

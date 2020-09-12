@@ -272,7 +272,7 @@ php_value zend.script_encoding "UTF-7"
 
 그래서 인터넷을 뒤지다 한 가지 방법을 찾았는데, 바로 `mail()` 함수와 `putenv()` 함수를 이용 해 `.so` 파일을 업로드 하여 실행시키는 것이다.  
 
-[How to bypass disable_functions and open_basedir](https://www.tarlogic.com/en/blog/how-to-bypass-disable_functions-and-open_basedir/)  
+> [How to bypass disable_functions and open_basedir](https://www.tarlogic.com/en/blog/how-to-bypass-disable_functions-and-open_basedir/)  
 
 같은 내용인데 중국어로 적힌 [블로그 글](https://www.freebuf.com/articles/web/192052.html)도 있었다. 여기가 소스코드는 더 깔끔하게 있는 것 같다.  
 

@@ -27,7 +27,7 @@ tags:
 
 ---  
 
-[code-server Github Repository](https://github.com/cdr/code-server)에서 `code-server`를 다운받을 수 있다.  
+> > > > > > > > > [code-server Github Repository](https://github.com/cdr/code-server)에서 `code-server`를 다운받을 수 있다.  
 
 링크에 접속해서 아래를 확인 해 보면 아래와 같이 `Releases`가 있다.  
 

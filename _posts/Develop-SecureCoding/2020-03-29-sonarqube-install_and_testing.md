@@ -15,7 +15,9 @@ tags:
 
 <!--more-->
 
-`SonarQube`는 [ttps://www.sonarqube.org/](https://www.sonarqube.org/)에서 다운받을 수 있다.  
+`SonarQube`는 아래 사이트에서 다운받을 수 있다.  
+
+> [https://www.sonarqube.org/](https://www.sonarqube.org/)
 
 ![](/images/development/secure/sonarqube/sonar_install_01.png)  
 
@@ -31,7 +33,7 @@ tags:
 
 JDK는 아래의 사이트에서 다운받을 수 있다.  
 
-[https://www.oracle.com/java/technologies/javase-downloads.html](https://www.oracle.com/java/technologies/javase-downloads.html)
+> [https://www.oracle.com/java/technologies/javase-downloads.html](https://www.oracle.com/java/technologies/javase-downloads.html)
 
 ---  
 

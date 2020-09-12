@@ -53,7 +53,7 @@ query : {"id":null,"pw":null}
 
 아래 블로그에서 NoSQL과 일반 SQL DB 사이의 차이점을 쉽게 설명 해 주었다.  
 
-[NOSQL Injection from MongoDB](https://tribal1012.tistory.com/138)
+> [NOSQL Injection from MongoDB](https://tribal1012.tistory.com/138)
 
 위의 블로그를 읽은 후, 문제의 소스코드를 보면 문제에서는 `find($query)`를 이용하여 `select * from prob_cerberus where id=$_GET['id'] and pw=$_GET['pw']` 형태의 쿼리를 실행했다는 것을 알 수 있었다.  
 

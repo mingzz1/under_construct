@@ -53,7 +53,8 @@ query : {"$where":"function(){return obj.id==''&&obj.pw=='';}"}
 일단 공격을 수행하기 위해서는 내가 의도한 코드를 실행시켜야 하는데, 여기에서는 `소스코드를 이어서 적는 방법`으로 함수의 흐름을 변경할 수 있다.  
 
 `소스코드를 이어서 적는 방법`이라고 하니 뭔가 이상한데, 예를 들면 이런 것이다.  
-[Testing for NoSQL injection](https://www.owasp.org/index.php/Testing_for_NoSQL_injection#Example_1)
+
+> [Testing for NoSQL injection](https://www.owasp.org/index.php/Testing_for_NoSQL_injection#Example_1)
 
 여기의 예시를 보면, 아래와 같은 코드가 있다.  
 

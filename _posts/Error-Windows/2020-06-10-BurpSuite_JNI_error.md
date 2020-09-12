@@ -34,7 +34,7 @@ tags:
 
 오류 메세지가 나와서 이를 찾아보니, `Portswigger Forum`에서 아래와 같은 답변을 찾을 수 있었다.  
 
-[Can't open Burp Suite -- "Error: A JNI error occured, please check your installation and try again"](https://forum.portswigger.net/thread/can-t-open-burp-suite-error-a-jni-error-occured-please-check-your-installation-and-try-again-c9e1c4ea )
+> [Can't open Burp Suite -- "Error: A JNI error occured, please check your installation and try again"](https://forum.portswigger.net/thread/can-t-open-burp-suite-error-a-jni-error-occured-please-check-your-installation-and-try-again-c9e1c4ea )
 
 답변 내용은 아래와 같다.  
 
@@ -49,4 +49,4 @@ tags:
 
 `JDK 14.0.1`은 아래에서 다운받을 수 있다.  
 
-[Java SE Development Kit 14 Downloads](https://www.oracle.com/java/technologies/javase-jdk14-downloads.html)
+> [Java SE Development Kit 14 Downloads](https://www.oracle.com/java/technologies/javase-jdk14-downloads.html)

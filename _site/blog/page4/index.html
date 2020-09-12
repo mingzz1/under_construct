@@ -125,6 +125,7 @@
 				<li><a href="#">Wargame</a>
 					<ul class="sub">
 						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/OWASP">OWASP-MSTG Crackmes</a></li>
 						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
 						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
 						<li><a href="/Wargame/XG">XSS Game</a></li>
@@ -172,20 +173,24 @@
     <div class="post-teaser">
       <header>
         <h2>
-          <a class="post-link" href="/development/database/2020/01/05/database-db2_install.html">
-            [Database-DB2] Docker로 IBM DB2 설치하기
+          <a class="post-link" href="/development/web/2020/02/18/spring-setting.html">
+            [Spring 게시판 만들기] Spring 개발 환경 구축하기
           </a>
         </h2>
         <p class="meta">
-          January 5, 2020
+          February 18, 2020
         </p>
         <div class="excerpt">
-          <p>회사에서 갑자기 <code class="highlighter-rouge">DB2</code>를 쓸 일이 생겼다.</p>
+          <p>많은 곳에서 <code class="highlighter-rouge">Spring</code>을 가지고 웹 개발을 한다고 한다.</p>
 
-<p>그래서 <code class="highlighter-rouge">Docker</code>를 사용 해 <code class="highlighter-rouge">DB2</code>를 설치하는 방법에 대해 정리한다.</p>
+<p>나는 웹 개발은 <code class="highlighter-rouge">PHP</code>나 <code class="highlighter-rouge">JSP</code>, 그것도 거의 학교 과제 수준밖에 안해봤기 때문에 <code class="highlighter-rouge">Spring</code>은 전혀 모른다.</p>
+
+<p>근데 구조 등을 알면 일할 때 편하지 않을까 싶어 게시판을 만들어 보려고 한다.</p>
+
+<p>오늘은 게시판을 만들기 위하여 <code class="highlighter-rouge">Spring</code>을 구축하는 방법을 정리한다.</p>
 
 
-          <a class="button" href="/development/database/2020/01/05/database-db2_install.html">
+          <a class="button" href="/development/web/2020/02/18/spring-setting.html">
             Continue reading
           </a>
         </div>
@@ -195,20 +200,22 @@
     <div class="post-teaser">
       <header>
         <h2>
-          <a class="post-link" href="/pentesting/ios/2020/01/02/iOS-ssh_ftp.html">
-            [iOS] SSH 및 SFTP 사용하기
+          <a class="post-link" href="/pentesting/web/2020/02/04/Web-httponly_cookie.html">
+            [Web] Secure 및 HttpOnly 쿠키 옵션
           </a>
         </h2>
         <p class="meta">
-          January 2, 2020
+          February 4, 2020
         </p>
         <div class="excerpt">
-          <p>아이폰 탈옥 후 <code class="highlighter-rouge">SSH</code>와 <code class="highlighter-rouge">FTP</code>를 사용할 수 있다면 분석이 조금 더 쉬워진다.</p>
+          <p><code class="highlighter-rouge">XSS</code>는 수 년간 <code class="highlighter-rouge">OWASP Top 10</code>에서 사라지지 않는 취약점 중 하나이다.</p>
 
-<p>이를 한 번에 사용하기 위해서 <code class="highlighter-rouge">OpenSSH</code>를 설치하면 된다.</p>
+<p><code class="highlighter-rouge">XSS</code>의 주된 공격 타겟은 바로 <code class="highlighter-rouge">Session Cookies 탈취</code>라고 한다.</p>
+
+<p>그래서 오늘은 이에 대응할 수 있는 <code class="highlighter-rouge">Secure</code> 와 <code class="highlighter-rouge">HttpOnly</code> 옵션에 대해 정리하려 한다.</p>
 
 
-          <a class="button" href="/pentesting/ios/2020/01/02/iOS-ssh_ftp.html">
+          <a class="button" href="/pentesting/web/2020/02/04/Web-httponly_cookie.html">
             Continue reading
           </a>
         </div>
@@ -218,20 +225,20 @@
     <div class="post-teaser">
       <header>
         <h2>
-          <a class="post-link" href="/pentesting/ios/2020/01/02/iOS-app_decrypt.html">
-            [iOS] 어플리케이션 Decrypt 및 분석
+          <a class="post-link" href="/error/python/2020/01/20/Error-pip_install.html">
+            [Python 오류] command errored out with exit status 1 python setup.py egg_info 오류
           </a>
         </h2>
         <p class="meta">
-          January 2, 2020
+          January 20, 2020
         </p>
         <div class="excerpt">
-          <p><code class="highlighter-rouge">iOS</code> 어플리케이션은 안드로이드 어플리케이션과 달리 어플리케이션을 <code class="highlighter-rouge">Decrypt</code>해야 분석을 할 수 있다.</p>
+          <p><code class="highlighter-rouge">Linux</code> 서버에서 <code class="highlighter-rouge">pip install</code>로 <code class="highlighter-rouge">Python</code> 모듈을 설치하려고 하니까 계속 오류가 났다.</p>
 
-<p>어플리케이션을 <code class="highlighter-rouge">Decrypt</code> 하는 방법은 다음과 같다.</p>
+<p>오류 해결 방법은 다음과 같다.</p>
 
 
-          <a class="button" href="/pentesting/ios/2020/01/02/iOS-app_decrypt.html">
+          <a class="button" href="/error/python/2020/01/20/Error-pip_install.html">
             Continue reading
           </a>
         </div>
@@ -241,20 +248,20 @@
     <div class="post-teaser">
       <header>
         <h2>
-          <a class="post-link" href="/error/python/2019/12/15/frida-error.html">
-            [Frida 오류] Frida - Failed to load the Frida native extension
+          <a class="post-link" href="/development/docker/2020/01/19/docker-command.html">
+            [Docker] Docker 명령어
           </a>
         </h2>
         <p class="meta">
-          December 15, 2019
+          January 19, 2020
         </p>
         <div class="excerpt">
-          <p>모바일 어플리케이션을 진단할 때 <code class="highlighter-rouge">Frida</code>는 거의 필수다.</p>
+          <p>예전에는 문제 출제때문에라도 <code class="highlighter-rouge">Docker</code>를 자주 썼었는데, 이제는 사용 할 일이 별로 없다.</p>
 
-<p>근데 이번에 새로 <code class="highlighter-rouge">Frida</code>를 설치했는데, 계속 <code class="highlighter-rouge">Failed to load the Frida native extension</code> 이라면서 오류가 나서 해결 방법을 적는다.</p>
+<p>그러다 보니 명령어를 자꾸 까먹어서 정리한다.</p>
 
 
-          <a class="button" href="/error/python/2019/12/15/frida-error.html">
+          <a class="button" href="/development/docker/2020/01/19/docker-command.html">
             Continue reading
           </a>
         </div>
@@ -264,18 +271,18 @@
     <div class="post-teaser">
       <header>
         <h2>
-          <a class="post-link" href="/pentesting/ios/2019/12/12/iOS-setting.html">
-            [iOS] 아이폰 BurpSuite 및 Frida 사용 세팅하기
+          <a class="post-link" href="/development/database/2020/01/07/database-db2_grant.html">
+            [Database-DB2] 새로운 User 생성 및 권한 부여하기
           </a>
         </h2>
         <p class="meta">
-          December 12, 2019
+          January 7, 2020
         </p>
         <div class="excerpt">
-          <p>이번에는 모의해킹을 하는데 필요한 <code class="highlighter-rouge">BurpSuite</code>와 <code class="highlighter-rouge">Frida</code>를 탈옥한 아이폰에 세팅하는 법을 정리한다.</p>
+          <p>이번엔 <code class="highlighter-rouge">DB2</code>에서 새로운 사용자를 생성하고, 해당 사용자에게 권한을 부여하는 방법에 대해 정리한다.</p>
 
 
-          <a class="button" href="/pentesting/ios/2019/12/12/iOS-setting.html">
+          <a class="button" href="/development/database/2020/01/07/database-db2_grant.html">
             Continue reading
           </a>
         </div>
@@ -379,7 +386,7 @@
 </footer>
 
 
-    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+    <script id="dsq-count-scr" src="//mingzzis-blog.disqus.com/count.js" async></script>
 
     <!-- Google Analytics Tracking code -->
 <script type="text/javascript">

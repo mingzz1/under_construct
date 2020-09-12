@@ -125,6 +125,7 @@
 				<li><a href="#">Wargame</a>
 					<ul class="sub">
 						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/OWASP">OWASP-MSTG Crackmes</a></li>
 						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
 						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
 						<li><a href="/Wargame/XG">XSS Game</a></li>
@@ -218,7 +219,9 @@ query : select id from prob_cthulhu where id='' and pw=''
 
 <p>그러다 아래와 같은 사이트를 찾았다.</p>
 
-<p><a href="https://github.com/SpiderLabs/owasp-modsecurity-crs/issues/1181">https://github.com/SpiderLabs/owasp-modsecurity-crs/issues/1181</a></p>
+<blockquote>
+  <p><a href="https://github.com/SpiderLabs/owasp-modsecurity-crs/issues/1181">https://github.com/SpiderLabs/owasp-modsecurity-crs/issues/1181</a></p>
+</blockquote>
 
 <p>여기에 적힌 방법 중 아래의 방법으로 문제를 풀 수 있었다.</p>
 
@@ -236,7 +239,9 @@ query : select id from prob_cthulhu where id='' and pw=''
 
 <p>아마도 아래의 이유 때문인 것 같은데, 정확하지 않아서 연구를 더 해봐야 알 것 같다.</p>
 
-<p><a href="https://dev.mysql.com/doc/refman/5.7/en/expressions.html">https://dev.mysql.com/doc/refman/5.7/en/expressions.html</a></p>
+<blockquote>
+  <p><a href="https://dev.mysql.com/doc/refman/5.7/en/expressions.html">https://dev.mysql.com/doc/refman/5.7/en/expressions.html</a></p>
+</blockquote>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{identifier expr} is ODBC escape syntax and is accepted for ODBC compatibility. The value is expr. The { and } curly braces in the syntax should be written literally; they are not metasyntax as used elsewhere in syntax descriptions.
 </code></pre></div></div>
@@ -295,7 +300,6 @@ query : select id from prob_cthulhu where id='-1'<span class="nt">&lt;</span><sp
 
 </article>
 <!-- Disqus -->
-<a href="https://mingzz1.github.io/wargame/lord%20of%20sql%20injection/2019/06/12/los-cthulhu.html#disqus_thread"></a>
 
 <div class="comments">
     
@@ -412,7 +416,7 @@ query : select id from prob_cthulhu where id='-1'<span class="nt">&lt;</span><sp
 </footer>
 
 
-    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+    <script id="dsq-count-scr" src="//mingzzis-blog.disqus.com/count.js" async></script>
 
     <!-- Google Analytics Tracking code -->
 <script type="text/javascript">

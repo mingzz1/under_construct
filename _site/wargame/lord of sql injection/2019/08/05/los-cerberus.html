@@ -125,6 +125,7 @@
 				<li><a href="#">Wargame</a>
 					<ul class="sub">
 						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/OWASP">OWASP-MSTG Crackmes</a></li>
 						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
 						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
 						<li><a href="/Wargame/XG">XSS Game</a></li>
@@ -219,7 +220,9 @@ query : {"id":null,"pw":null}
 
 <p>아래 블로그에서 NoSQL과 일반 SQL DB 사이의 차이점을 쉽게 설명 해 주었다.</p>
 
-<p><a href="https://tribal1012.tistory.com/138">NOSQL Injection from MongoDB</a></p>
+<blockquote>
+  <p><a href="https://tribal1012.tistory.com/138">NOSQL Injection from MongoDB</a></p>
+</blockquote>
 
 <p>위의 블로그를 읽은 후, 문제의 소스코드를 보면 문제에서는 <code class="highlighter-rouge">find($query)</code>를 이용하여 <code class="highlighter-rouge">select * from prob_cerberus where id=$_GET['id'] and pw=$_GET['pw']</code> 형태의 쿼리를 실행했다는 것을 알 수 있었다.</p>
 
@@ -285,7 +288,6 @@ query : {"id":null,"pw":null}
 
 </article>
 <!-- Disqus -->
-<a href="https://mingzz1.github.io/wargame/lord%20of%20sql%20injection/2019/08/05/los-cerberus.html#disqus_thread"></a>
 
 <div class="comments">
     
@@ -402,7 +404,7 @@ query : {"id":null,"pw":null}
 </footer>
 
 
-    <script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+    <script id="dsq-count-scr" src="//mingzzis-blog.disqus.com/count.js" async></script>
 
     <!-- Google Analytics Tracking code -->
 <script type="text/javascript">

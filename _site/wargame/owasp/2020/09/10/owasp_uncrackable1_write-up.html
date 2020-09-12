@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>[OWASP-MSTG] Crackmes - Uncrackable level 1 Write-up | mingzzi</title>
+	<meta name="description" content="OWASP에 모바일 어플리케이션 Crackme가 있다고 해서 풀어보았다.첫 번째로 Android Uncrackable level 1	이다.">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" /> 
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/wargame/owasp/2020/09/10/owasp_uncrackable1_write-up.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="mingzzi" href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700" rel="stylesheet">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script>
+	
+
+	<!-- jquery -->
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130304424-1"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'UA-130304424-1');
+	</script>
+	
+	<!-- Google AdSense -->
+	<script data-ad-client="ca-pub-1587587893565234" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+		var flag = false;
+		$(function() {
+			$(".menu_btn").click(function() {
+				$(this).toggleClass("on")
+				if(flag) {
+					$(".cat1").css("display", "none");
+					flag = false;
+				} else {
+					$(".cat1").css("display", "block");
+					flag = true;
+		
+				}
+			})
+		})
+		$(document).ready(function() {
+			$(".cat1 li").click(function() {
+				$(".sub").hide();
+				$("ul", this).slideToggle("fast");
+			});
+		});
+
+	</script>
+</head>
+
+  <header class="site-header">
+	<div class="branding">
+		
+		<a href="/">
+			<img class="avatar" src="/assets/img/blogmark.png" alt=""/>
+		</a>
+		
+		<h1 class="site-title">
+			<a href="/">mingzzi</a>
+		</h1>
+		<nav class="site-nav">
+				<ul>
+					<li> <a class="page-link" href="/about">About</a> </li>					
+					<li> <a class="page-link" href="/archive">Archive</a> </li>
+					<li> <a class="page-link" href="/tags">Tags</a> </li>
+
+					<!-- Search bar -->
+					
+					<li>
+					<form action="/search.html" method="get">
+						<input type="text" id="search-box" name="query" placeholder="Search" class="">
+						<button type="submit" class="">
+							<i class="fa fa-fw fa-search"></i>
+						</button>
+					</form>
+					</li>
+					
+				</ul>
+		</nav>
+	</div>
+	
+	<div class="menu_btn">
+		<span></span>
+		<span></span>
+		<span></span>
+	</div>
+
+	<div class="site-category">
+			<ul class='cat1'>
+				<li><a href="/">Home</a></li>
+				<li><a href="#">Pentesting</a>
+					<ul class="sub">
+						<li><a href="/Pentest/iOS">iOS</a></li>
+						<li><a href="/Pentest/Android">Android</a></li>
+						<li><a href="/Pentest/PWeb">Web</a></li>
+                                                <li><a href="/Pentest/Cloud">Cloud</a></li>
+					</ul>
+				</li>
+
+				<li><a href="#">Wargame</a>
+					<ul class="sub">
+						<li><a href="/Wargame/LoS">Load of SQL Injection</a></li>
+						<li><a href="/Wargame/OWASP">OWASP-MSTG Crackmes</a></li>
+						<li><a href="/Wargame/Pwnkr">Pwnable.kr</a></li>
+						<li><a href="/Wargame/Warkr">Wargame.kr</a></li>
+						<li><a href="/Wargame/XG">XSS Game</a></li>
+					</ul>
+				</li>
+
+				<li><a href="#">CTF</a>
+					<ul class="sub">
+						<li><a href="/CTF/2018">2018</a></li>
+						<li><a href="/CTF/2019">2019</a></li>
+					</ul>
+				</li>
+
+				<li><a href="#">Error</a>
+					<ul class="sub">
+						<li><a href="/Error/Linux">Linux</a></li>
+						<li><a href="/Error/Windows">Windows</a></li>
+                                                <li><a href="/Error/Python">Python</a></li>
+					</ul>
+				</li>
+
+				<li><a href="#">Development</a>
+					<ul class="sub">
+						<li><a href="/Develop/Database">Database</a></li>
+						<li><a href="/Develop/Blog">Github Blog</a></li>
+						<li><a href="/Develop/DWeb">Web</a></li>
+						<li><a href="/Develop/Docker">Docker</a></li>
+						<li><a href="/Develop/Basic">Basic</a></li>
+						<li><a href="/Develop/SecureCoding">Secure Coding</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+</header>
+
+  <body>
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">[OWASP-MSTG] Crackmes - Uncrackable level 1 Write-up</h1>
+    
+    <p class="meta">
+      September 10, 2020
+      
+    </p>
+  </header>
+  <section class="post-content"><p><code class="highlighter-rouge">OWASP</code>에 모바일 어플리케이션 <code class="highlighter-rouge">Crackme</code>가 있다고 해서 풀어보았다.</p>
+
+<p>첫 번째로 <code class="highlighter-rouge">Android Uncrackable level 1</code>	이다.</p>
+
+<!--more-->
+
+<p>문제는 아래 링크에서 다운받을 수 있다.</p>
+
+<blockquote>
+  <p><a href="https://github.com/OWASP/owasp-mstg/tree/master/Crackmes">OWASP-MSTG</a></p>
+</blockquote>
+
+<p><code class="highlighter-rouge">Android/Level_01</code> 폴더에서 <code class="highlighter-rouge">UnCrackable-Level1.apk</code>를 다운받아 <code class="highlighter-rouge">Nox Player</code>로 열어 보았다. (apk 파일을 Drag&amp;Drop로 에뮬레이터에 넣으면 설치할 수 있다.)</p>
+
+<p>열어 보니, <code class="highlighter-rouge">Root detected!</code> 라는 알림창이 뜬다.</p>
+
+<p><img src="/images/owasp-mstg/android/level1/01.png" alt="" width="50%" /></p>
+
+<p>루팅 탐지가 있는 것 같아 먼저 <code class="highlighter-rouge">jadx-gui</code>로 <code class="highlighter-rouge">apk</code> 파일을 열어보았다.</p>
+
+<p><code class="highlighter-rouge">Uncrackable1</code> 패키지의 <code class="highlighter-rouge">MainActivity</code> 코드는 아래와 같다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">sg</span><span class="o">.</span><span class="na">vantagepoint</span><span class="o">.</span><span class="na">uncrackable1</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">android.app.Activity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.app.AlertDialog</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.content.DialogInterface</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.os.Bundle</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.view.View</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.widget.EditText</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">owasp.mstg.uncrackable1.R</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">sg.vantagepoint.a.b</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">sg.vantagepoint.a.c</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">a</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">AlertDialog</span> <span class="n">create</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AlertDialog</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="k">this</span><span class="o">).</span><span class="na">create</span><span class="o">();</span>
+        <span class="n">create</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="n">str</span><span class="o">);</span>
+        <span class="n">create</span><span class="o">.</span><span class="na">setMessage</span><span class="o">(</span><span class="s">"This is unacceptable. The app is now going to exit."</span><span class="o">);</span>
+        <span class="n">create</span><span class="o">.</span><span class="na">setButton</span><span class="o">(-</span><span class="mi">3</span><span class="o">,</span> <span class="s">"OK"</span><span class="o">,</span> <span class="k">new</span> <span class="n">DialogInterface</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">DialogInterface</span> <span class="n">dialogInterface</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+        <span class="n">create</span><span class="o">.</span><span class="na">setCancelable</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+        <span class="n">create</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="cm">/* access modifiers changed from: protected */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">bundle</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">c</span><span class="o">.</span><span class="na">a</span><span class="o">()</span> <span class="o">||</span> <span class="n">c</span><span class="o">.</span><span class="na">b</span><span class="o">()</span> <span class="o">||</span> <span class="n">c</span><span class="o">.</span><span class="na">c</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">a</span><span class="o">(</span><span class="s">"Root detected!"</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">b</span><span class="o">.</span><span class="na">a</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">()))</span> <span class="o">{</span>
+            <span class="n">a</span><span class="o">(</span><span class="s">"App is debuggable!"</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">bundle</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">verify</span><span class="o">(</span><span class="n">View</span> <span class="n">view</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">str</span><span class="o">;</span>
+        <span class="n">String</span> <span class="n">obj</span> <span class="o">=</span> <span class="o">((</span><span class="n">EditText</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">edit_text</span><span class="o">)).</span><span class="na">getText</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
+        <span class="n">AlertDialog</span> <span class="n">create</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AlertDialog</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="k">this</span><span class="o">).</span><span class="na">create</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="na">a</span><span class="o">(</span><span class="n">obj</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">create</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="s">"Success!"</span><span class="o">);</span>
+            <span class="n">str</span> <span class="o">=</span> <span class="s">"This is the correct secret."</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">create</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="s">"Nope..."</span><span class="o">);</span>
+            <span class="n">str</span> <span class="o">=</span> <span class="s">"That's not it. Try again."</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">create</span><span class="o">.</span><span class="na">setMessage</span><span class="o">(</span><span class="n">str</span><span class="o">);</span>
+        <span class="n">create</span><span class="o">.</span><span class="na">setButton</span><span class="o">(-</span><span class="mi">3</span><span class="o">,</span> <span class="s">"OK"</span><span class="o">,</span> <span class="k">new</span> <span class="n">DialogInterface</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">DialogInterface</span> <span class="n">dialogInterface</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">dialogInterface</span><span class="o">.</span><span class="na">dismiss</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+        <span class="n">create</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>맨 위의 <code class="highlighter-rouge">a()</code> 메소드는 제목에 인자인 <code class="highlighter-rouge">str</code>을, 본문에 <code class="highlighter-rouge">This is unacceptable. The app is now going to exit.</code>이 있는 알림창을 띄우고, 해당 알림창에서 <code class="highlighter-rouge">OK</code> 클릭 시 <code class="highlighter-rouge">System.exit(0)</code>를 호출 해 어플리케이션을 종료시킨다.</p>
+
+<p><code class="highlighter-rouge">onCreate</code>를 보면 <code class="highlighter-rouge">c.a()</code>, <code class="highlighter-rouge">c.b()</code>, <code class="highlighter-rouge">c.c()</code> 메소드 호출 후 하나라도 참이라면 <code class="highlighter-rouge">Root detected!</code>를 인자로 앞서 확인한 <code class="highlighter-rouge">a()</code> 메소드를 호출한다.</p>
+
+<p>또한 <code class="highlighter-rouge">b.a()</code> 메소드 호출 결과가 참일 경우에는 <code class="highlighter-rouge">App is debuggable!</code>를 인자로 <code class="highlighter-rouge">a()</code> 메소드를 호출하기 때문에 해당 함수들을 확인하여 우회해야 앱을 실행시킬 수 있다.</p>
+
+<p>먼저 <code class="highlighter-rouge">b.a()</code> 메소드의 코드부터 확인 해 보면 아래와 같다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">sg</span><span class="o">.</span><span class="na">vantagepoint</span><span class="o">.</span><span class="na">a</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">android.content.Context</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">b</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">a</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">(</span><span class="n">context</span><span class="o">.</span><span class="na">getApplicationContext</span><span class="o">().</span><span class="na">getApplicationInfo</span><span class="o">().</span><span class="na">flags</span> <span class="o">&amp;</span> <span class="mi">2</span><span class="o">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">context.getApplicationContext().getApplicationInfo().flags</code>는 어플리케이션의 <code class="highlighter-rouge">디버깅 모드 여부</code>를 가져오는 코드이며, <code class="highlighter-rouge">2</code>는 <code class="highlighter-rouge">디버깅 모드</code>를 의미한다.</p>
+
+<p>즉, 어플리케이션이 디버깅 모드일 경우 어플리케이션을 종료한다.</p>
+
+<p><code class="highlighter-rouge">c.a()</code>, <code class="highlighter-rouge">c.b()</code>, <code class="highlighter-rouge">c.c()</code>의 코드는 아래와 같다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">sg</span><span class="o">.</span><span class="na">vantagepoint</span><span class="o">.</span><span class="na">a</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">android.os.Build</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">c</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">a</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">file</span> <span class="o">:</span> <span class="n">System</span><span class="o">.</span><span class="na">getenv</span><span class="o">(</span><span class="s">"PATH"</span><span class="o">).</span><span class="na">split</span><span class="o">(</span><span class="s">":"</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">file</span><span class="o">,</span> <span class="s">"su"</span><span class="o">).</span><span class="na">exists</span><span class="o">())</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">b</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="n">Build</span><span class="o">.</span><span class="na">TAGS</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">str</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">str</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">"test-keys"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">c</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">file</span> <span class="o">:</span> <span class="k">new</span> <span class="n">String</span><span class="o">[]{</span><span class="s">"/system/app/Superuser.apk"</span><span class="o">,</span> <span class="s">"/system/xbin/daemonsu"</span><span class="o">,</span> <span class="s">"/system/etc/init.d/99SuperSUDaemon"</span><span class="o">,</span> <span class="s">"/system/bin/.ext/.su"</span><span class="o">,</span> <span class="s">"/system/etc/.has_su_daemon"</span><span class="o">,</span> <span class="s">"/system/etc/.installed_su_daemon"</span><span class="o">,</span> <span class="s">"/dev/com.koushikdutta.superuser.daemon/"</span><span class="o">})</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">file</span><span class="o">).</span><span class="na">exists</span><span class="o">())</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>위의 코드는 기기의 루팅 여부를 확인하는 코드이다.</p>
+
+<p>기기가 루팅이 되어있을 경우 어플리케이션을 종료하기 때문에 <code class="highlighter-rouge">Frida</code>를 사용하여 <code class="highlighter-rouge">루팅 탐지 우회</code>를 해야한다.</p>
+
+<p>루팅 탐지 우회를 위한 <code class="highlighter-rouge">Frida</code> 코드는 아래와 같다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">frida</span><span class="p">,</span> <span class="n">sys</span>
+
+<span class="k">def</span> <span class="nf">on_message</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+	<span class="k">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+<span class="n">PACKAGE_NAME</span> <span class="o">=</span> <span class="s">"owasp.mstg.uncrackable1"</span>
+
+<span class="n">jscode</span> <span class="o">=</span> <span class="s">"""
+console.log("[+] Start Script");
+
+	Java.perform(function() {
+		console.log("[+] Hooking System.exit");
+		var exitClass = Java.use("java.lang.System");
+		exitClass.exit.implementation = function() {
+			console.log("[+] System.exit called");
+		}
+	});
+"""</span>
+
+<span class="n">process</span> <span class="o">=</span> <span class="n">frida</span><span class="o">.</span><span class="n">get_usb_device</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">PACKAGE_NAME</span><span class="p">)</span>
+<span class="n">script</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">create_script</span><span class="p">(</span><span class="n">jscode</span><span class="p">)</span>
+<span class="n">script</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s">'message'</span><span class="p">,</span> <span class="n">on_message</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'[+] Running Hook'</span><span class="p">)</span>
+<span class="n">script</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">Frida 사용법</code>은 아래 링크에서 확인할 수 있다.</p>
+
+<blockquote>
+  <p><a href="https://mingzz1.github.io/pentesting/android/2020/09/09/frida_install_for_android.html">[Android] Frida 사용 및 Hooking 방법</a></p>
+</blockquote>
+
+<p>어플리케이션 종료는 알림창의 <code class="highlighter-rouge">OK</code> 버튼을 눌러야 실행되므로, 어플리케이션 실행 후 <code class="highlighter-rouge">Frida</code> 코드를 실행시키고, <code class="highlighter-rouge">OK</code> 버튼을 누르면 우회를 할 수 있다.</p>
+
+<p><img src="/images/owasp-mstg/android/level1/02.png" alt="" /></p>
+
+<p><img src="/images/owasp-mstg/android/level1/03.png" alt="" width="50%" /></p>
+
+<p>루팅 탐지 우회를 하고 확인 해 보면 어떤 입력 창이 나타난다.</p>
+
+<p>해당 입력창에 값을 입력하면 아래와 같이 알림창이 나타난다.</p>
+
+<p><img src="/images/owasp-mstg/android/level1/04.png" alt="" width="50%" /></p>
+
+<p>앞서 확인했던 <code class="highlighter-rouge">MainActivity</code>의 <code class="highlighter-rouge">verify()</code> 메소드가 실행 된 것이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">verify</span><span class="o">(</span><span class="n">View</span> <span class="n">view</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">str</span><span class="o">;</span>
+        <span class="n">String</span> <span class="n">obj</span> <span class="o">=</span> <span class="o">((</span><span class="n">EditText</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">edit_text</span><span class="o">)).</span><span class="na">getText</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
+        <span class="n">AlertDialog</span> <span class="n">create</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AlertDialog</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="k">this</span><span class="o">).</span><span class="na">create</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="na">a</span><span class="o">(</span><span class="n">obj</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">create</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="s">"Success!"</span><span class="o">);</span>
+            <span class="n">str</span> <span class="o">=</span> <span class="s">"This is the correct secret."</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">create</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="s">"Nope..."</span><span class="o">);</span>
+            <span class="n">str</span> <span class="o">=</span> <span class="s">"That's not it. Try again."</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">create</span><span class="o">.</span><span class="na">setMessage</span><span class="o">(</span><span class="n">str</span><span class="o">);</span>
+        <span class="n">create</span><span class="o">.</span><span class="na">setButton</span><span class="o">(-</span><span class="mi">3</span><span class="o">,</span> <span class="s">"OK"</span><span class="o">,</span> <span class="k">new</span> <span class="n">DialogInterface</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">DialogInterface</span> <span class="n">dialogInterface</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">dialogInterface</span><span class="o">.</span><span class="na">dismiss</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+        <span class="n">create</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">verify()</code> 메소드는 입력 값을 받은 뒤, 입력받은 값을 인자로 <code class="highlighter-rouge">a.a()</code> 메소드를 호출하여 반환값이 참일 경우 <code class="highlighter-rouge">Success</code>를 제목으로, <code class="highlighter-rouge">This is the correct secret.</code>를 본문으로 하는 알림창을, 반환값이 거짓 일 경우에는 <code class="highlighter-rouge">Nope...</code>을 제목으로, <code class="highlighter-rouge">That's not it. Try again.</code>를 본문으로 하는 알림창을 띄운다.</p>
+
+<p>즉, <code class="highlighter-rouge">Success</code>를 나타나게 하는 <code class="highlighter-rouge">어떠한 입력 값을 찾아야 하는 문제</code>이다.</p>
+
+<p>어떻게 비교를 하는지 알기 위해 <code class="highlighter-rouge">a.a()</code> 메소드를 확인 해 보았다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">sg</span><span class="o">.</span><span class="na">vantagepoint</span><span class="o">.</span><span class="na">uncrackable1</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">android.util.Base64</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.util.Log</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">a</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">a</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">bArr</span><span class="o">;</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">bArr2</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">bArr</span> <span class="o">=</span> <span class="n">sg</span><span class="o">.</span><span class="na">vantagepoint</span><span class="o">.</span><span class="na">a</span><span class="o">.</span><span class="na">a</span><span class="o">.</span><span class="na">a</span><span class="o">(</span><span class="n">b</span><span class="o">(</span><span class="s">"8d127684cbc37c17616d806cf50473cc"</span><span class="o">),</span> <span class="n">Base64</span><span class="o">.</span><span class="na">decode</span><span class="o">(</span><span class="s">"5UJiFctbmgbDoLXmpL12mkno8HT4Lv8dlat8FxR2GOc="</span><span class="o">,</span> <span class="mi">0</span><span class="o">));</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">"CodeCheck"</span><span class="o">,</span> <span class="s">"AES error:"</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+            <span class="n">bArr</span> <span class="o">=</span> <span class="n">bArr2</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">str</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">bArr</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">b</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">bArr</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[(</span><span class="n">length</span> <span class="o">/</span> <span class="mi">2</span><span class="o">)];</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">;</span> <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">bArr</span><span class="o">[</span><span class="n">i</span> <span class="o">/</span> <span class="mi">2</span><span class="o">]</span> <span class="o">=</span> <span class="o">(</span><span class="kt">byte</span><span class="o">)</span> <span class="o">((</span><span class="n">Character</span><span class="o">.</span><span class="na">digit</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">),</span> <span class="mi">16</span><span class="o">)</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="o">)</span> <span class="o">+</span> <span class="n">Character</span><span class="o">.</span><span class="na">digit</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">),</span> <span class="mi">16</span><span class="o">));</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">bArr</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">8d127684cbc37c17616d806cf50473cc</code>를 <code class="highlighter-rouge">b()</code> 메소드에 넣은 반환값과 <code class="highlighter-rouge">5UJiFctbmgbDoLXmpL12mkno8HT4Lv8dlat8FxR2GOc=</code>를 Base64 Decode한 값을 인자로 <code class="highlighter-rouge">sg.vantagepoint.a.a.a()</code> 메소드를 호출하여 <code class="highlighter-rouge">bArr</code>에 저장한다.</p>
+
+<p>그 후 아래에서 <code class="highlighter-rouge">bArr</code>과 입력한 값을 <code class="highlighter-rouge">equals()</code>를 통해 비교한 결과값을 반환한다.</p>
+
+<p><code class="highlighter-rouge">sg.vantagepoint.a.a.a()</code> 메소드는 아래와 같다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">sg</span><span class="o">.</span><span class="na">vantagepoint</span><span class="o">.</span><span class="na">a</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.crypto.Cipher</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.crypto.spec.SecretKeySpec</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">a</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">a</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">bArr</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">bArr2</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">SecretKeySpec</span> <span class="n">secretKeySpec</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SecretKeySpec</span><span class="o">(</span><span class="n">bArr</span><span class="o">,</span> <span class="s">"AES/ECB/PKCS7Padding"</span><span class="o">);</span>
+        <span class="n">Cipher</span> <span class="n">instance</span> <span class="o">=</span> <span class="n">Cipher</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"AES"</span><span class="o">);</span>
+        <span class="n">instance</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="n">secretKeySpec</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">instance</span><span class="o">.</span><span class="na">doFinal</span><span class="o">(</span><span class="n">bArr2</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>이는 <code class="highlighter-rouge">AES Decrypt</code>를 하는 함수이다.(<code class="highlighter-rouge">instance.init(2, secretKeySpec)</code>의 <code class="highlighter-rouge">2</code>가 <code class="highlighter-rouge">DECRYPT_MODE</code>를 의미함)</p>
+
+<p><img src="/images/owasp-mstg/android/level1/05.png" alt="" /></p>
+
+<p>문제를 풀기 위해서는 Hooking을 통해 반환값을 확인해야 할 것 같다.</p>
+
+<p>나는 두 가지 방법으로 풀었다.</p>
+
+<p>처음에는 <code class="highlighter-rouge">equals()</code>를 Hooking 해 값을 확인했으나, 너무 많은 값이 나와 <code class="highlighter-rouge">정확한 secret</code>이 무엇인지 알아내기가 힘들었다.</p>
+
+<p>그래서 그 다음에는 <code class="highlighter-rouge">sg.vantagepoint.a.a.a()</code>를 Hooking 하여 비교 대상의 값이 무엇인지를 확인했다.</p>
+
+<p>먼저 <code class="highlighter-rouge">equals()</code>를 Hooking하는 코드는 아래와 같다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">frida</span><span class="p">,</span> <span class="n">sys</span>
+
+<span class="k">def</span> <span class="nf">on_message</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+	<span class="k">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+<span class="n">PACKAGE_NAME</span> <span class="o">=</span> <span class="s">"owasp.mstg.uncrackable1"</span>
+
+<span class="n">jscode</span> <span class="o">=</span> <span class="s">"""
+console.log("[+] Start Script");
+
+	Java.perform(function() {
+		console.log("[+] Hooking System.exit");
+		var exitClass = Java.use("java.lang.System");
+		exitClass.exit.implementation = function() {
+			console.log("[+] System.exit called");
+		}
+	});
+
+	Java.perform(function() {
+		console.log("[+] Hooking str.equals");
+		var equalClass = Java.use("java.lang.String");
+		equalClass.equals.implementation = function(arg1) {
+			console.log(arg1);
+			return true;
+		}
+	});
+"""</span>
+
+<span class="n">process</span> <span class="o">=</span> <span class="n">frida</span><span class="o">.</span><span class="n">get_usb_device</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">PACKAGE_NAME</span><span class="p">)</span>
+<span class="n">script</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">create_script</span><span class="p">(</span><span class="n">jscode</span><span class="p">)</span>
+<span class="n">script</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s">'message'</span><span class="p">,</span> <span class="n">on_message</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'[+] Running Hook'</span><span class="p">)</span>
+<span class="n">script</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>위의 코드 실행 결과 아래와 같이 여러 값을 확인할 수 있었다.</p>
+
+<p><img src="/images/owasp-mstg/android/level1/06.png" alt="" /></p>
+
+<p>그런데 정확히 어떤 값이 <code class="highlighter-rouge">secret</code>인지 알기 힘들어 <del>하나하나 입력 해 보면 되겠지만</del> 이번에는 <code class="highlighter-rouge">sg.vantagepoint.a.a.a()</code>를 Hooking하도록 구현했다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">frida</span><span class="p">,</span> <span class="n">sys</span>
+
+<span class="k">def</span> <span class="nf">on_message</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+	<span class="k">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+<span class="n">PACKAGE_NAME</span> <span class="o">=</span> <span class="s">"owasp.mstg.uncrackable1"</span>
+
+<span class="n">jscode</span> <span class="o">=</span> <span class="s">"""
+console.log("[+] Start Script");
+
+	Java.perform(function() {
+		console.log("[+] Hooking System.exit");
+		var exitClass = Java.use("java.lang.System");
+		exitClass.exit.implementation = function() {
+			console.log("[+] System.exit called");
+		}
+	});
+
+	Java.perform(function() {
+		console.log("[+] Hooking sg.vantagepoint.a.a");
+		var aClass = Java.use("sg.vantagepoint.a.a");
+		aClass.a.implementation = function(arg1, arg2) {
+			var retval = this.a(arg1, arg2);
+			var flag = "";
+
+			for(var i = 0; i &lt; retval.length; i ++) {
+				flag += String.fromCharCode(retval[i]);
+			}
+
+			console.log(flag);
+			return retval;
+		}
+	});
+"""</span>
+
+<span class="n">process</span> <span class="o">=</span> <span class="n">frida</span><span class="o">.</span><span class="n">get_usb_device</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">PACKAGE_NAME</span><span class="p">)</span>
+<span class="n">script</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">create_script</span><span class="p">(</span><span class="n">jscode</span><span class="p">)</span>
+<span class="n">script</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s">'message'</span><span class="p">,</span> <span class="n">on_message</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'[+] Running Hook'</span><span class="p">)</span>
+<span class="n">script</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>위의 코드 실행 결과 아래와 같이 <code class="highlighter-rouge">secret</code>값을 확인할 수 있었다.</p>
+
+<p><img src="/images/owasp-mstg/android/level1/07.png" alt="" /></p>
+
+<p><img src="/images/owasp-mstg/android/level1/08.png" alt="" width="50%" /></p>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Write-up">#Write-up</a>
+    
+    <a class="tag" href="/tags#OWASP-MSTG">#OWASP-MSTG</a>
+    
+  </div>
+</footer>
+
+
+</article>
+<!-- Disqus -->
+
+<div class="comments">
+    
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'mingzzis-blog';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/pentesting/android/2020/09/09/frida_install_for_android.html">
+        [Android] Frida 사용 및 Hooking 방법
+      </a>
+  </div>
+  
+  
+</div>
+
+
+
+    </div>
+    <!-- Social icons from Font Awesome, if enabled  -->
+
+<ul class='social'>
+	
+
+	
+	<li>
+		<a href="mailto:mingzzi87@gmail.com" title="Email">
+			<i class="fa fa-fw fa-envelope"></i>
+		</a>
+	</li>
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+	<li>
+		<a href="https://github.com/mingzz1" title="Follow on GitHub">
+			<i class="fa fa-fw fa-github"></i>
+		</a>
+	</li>
+	
+
+	
+
+	
+
+	
+	<li>
+		<a href="https://www.linkedin.com/in/minji-kim-12986a145/" title="Follow on LinkedIn">
+			<i class="fa fa-fw fa-linkedin"></i>
+		</a>
+	</li>
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+</ul>
+
+
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+</p>
+</footer>
+
+
+    <script id="dsq-count-scr" src="//mingzzis-blog.disqus.com/count.js" async></script>
+
+    <!-- Google Analytics Tracking code -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+  </body>
+</html>

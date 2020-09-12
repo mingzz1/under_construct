@@ -56,7 +56,7 @@ query : select id from prob_cthulhu where id='' and pw=''
 
 그러다 아래와 같은 사이트를 찾았다.  
 
-[https://github.com/SpiderLabs/owasp-modsecurity-crs/issues/1181](https://github.com/SpiderLabs/owasp-modsecurity-crs/issues/1181)
+> [https://github.com/SpiderLabs/owasp-modsecurity-crs/issues/1181](https://github.com/SpiderLabs/owasp-modsecurity-crs/issues/1181)
 
 여기에 적힌 방법 중 아래의 방법으로 문제를 풀 수 있었다.  
 
@@ -76,7 +76,7 @@ id=-1'<@=1 OR 1=1 OR '&pw=a
 
 아마도 아래의 이유 때문인 것 같은데, 정확하지 않아서 연구를 더 해봐야 알 것 같다.  
 
-[https://dev.mysql.com/doc/refman/5.7/en/expressions.html](https://dev.mysql.com/doc/refman/5.7/en/expressions.html)
+> [https://dev.mysql.com/doc/refman/5.7/en/expressions.html](https://dev.mysql.com/doc/refman/5.7/en/expressions.html)
 
 ```
 {identifier expr} is ODBC escape syntax and is accepted for ODBC compatibility. The value is expr. The { and } curly braces in the syntax should be written literally; they are not metasyntax as used elsewhere in syntax descriptions.

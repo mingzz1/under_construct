@@ -21,7 +21,9 @@
   display: inline-block;
   margin: 1em 0;
   padding: 0.5em 0.75em;
+  color: $link-color;
 }
+
 a.button {
   @extend .button-link;
 }

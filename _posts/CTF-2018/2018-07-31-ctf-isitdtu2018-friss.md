@@ -210,7 +210,7 @@ function initdb($conn)
 
 페이로드 작성은 친절하게도 이미 누군가가 파이썬 코드를 작성 해 올려두었다.  
 
-[https://github.com/tarunkant/Automation/blob/master/SSRF-through-Gopher.py](https://github.com/tarunkant/Automation/blob/master/SSRF-through-Gopher.py)
+> [https://github.com/tarunkant/Automation/blob/master/SSRF-through-Gopher.py](https://github.com/tarunkant/Automation/blob/master/SSRF-through-Gopher.py)
 
 ```python
 dump = raw_input("Give connection packet of mysql: ")

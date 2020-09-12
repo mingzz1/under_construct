@@ -54,9 +54,9 @@ query : select pw from prob_ouroboros where pw=''
 
 그랬더니 힌트로 `Quine`라는 것을 알려 주었다.  
 
-[위키백과 - Quine](https://en.wikipedia.org/wiki/Quine_(computing))  
+> [위키백과 - Quine](https://en.wikipedia.org/wiki/Quine_(computing))  
 
-[SQLi Quine](https://www.shysecurity.com/post/20140705-SQLi-Quine)
+> [SQLi Quine](https://www.shysecurity.com/post/20140705-SQLi-Quine)
 
 인터넷 찾아보니 이 두 가지가 제일 도움이 되었다.  
 

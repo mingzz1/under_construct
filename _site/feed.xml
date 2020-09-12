@@ -5,7 +5,7 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://192.168.64.129:4000/</link>
     <description>mingzzi's blog</description>
-    <pubDate>Sat, 12 Sep 2020 17:49:10 +0900</pubDate>
+    <pubDate>Sat, 12 Sep 2020 18:15:13 +0900</pubDate>
     
       <item>
         <title>[OWASP-MSTG] Crackmes - Uncrackable level 1 Write-up</title>

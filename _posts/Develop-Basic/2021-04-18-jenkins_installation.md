@@ -25,7 +25,7 @@ tags:
 
 `Github`와 연동하는 방법은 아래 두 글을 확인하면 된다.  
 
-[[Jenkins] Jenkins와 Github 연동하기 - 2. Public Repository](#)  
+[[Jenkins] Jenkins와 Github 연동하기 - 2. Public Repository](https://mingzz1.github.io/development/basic/2021/04/18/jenkins_with_public_repo.html)  
 
 [[Jenkins] Jenkins와 Github 연동하기 - 3. Private Repository](#)  
 

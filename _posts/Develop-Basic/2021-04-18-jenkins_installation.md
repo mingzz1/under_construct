@@ -31,8 +31,6 @@ tags:
 
 `Linux` 환경에서도 구축은 가능하지만 나는 `Windows` 환경이 필요했기에 `Windows`를 기준으로 설명한다.  
 
-### 1. Jenkins 설치하기  
-
 [https://www.jenkins.io/](https://www.jenkins.io/)에 접속하면 아래와 같은 화면이 있다.  
 
 ![](/images/development/jenkins/install/install_01.png)  

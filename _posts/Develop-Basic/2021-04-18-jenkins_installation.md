@@ -27,7 +27,7 @@ tags:
 
 [[Jenkins] Jenkins와 Github 연동하기 - 2. Public Repository](https://mingzz1.github.io/development/basic/2021/04/18/jenkins_with_public_repo.html)  
 
-[[Jenkins] Jenkins와 Github 연동하기 - 3. Private Repository](#)  
+[[Jenkins] Jenkins와 Github 연동하기 - 3. Private Repository](https://mingzz1.github.io/development/basic/2021/04/19/jenkins_with_private_repo.html)  
 
 `Linux` 환경에서도 구축은 가능하지만 나는 `Windows` 환경이 필요했기에 `Windows`를 기준으로 설명한다.  
 

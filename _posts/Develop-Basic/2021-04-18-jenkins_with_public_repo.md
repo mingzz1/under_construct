@@ -17,7 +17,7 @@ tags:
 
 [[Jenkins] Jenkins와 Github 연동하기 - 1. Jenkins 설치](https://mingzz1.github.io/development/basic/2021/04/18/jenkins_installation.html)  
 
-[[Jenkins] Jenkins와 Github 연동하기 - 3. Private Repository](#)  
+[[Jenkins] Jenkins와 Github 연동하기 - 3. Private Repository](https://mingzz1.github.io/development/basic/2021/04/19/jenkins_with_private_repo.html)  
 
 `Public Repository`와 연동하기 위해 아래와 같이 `Test Repository`를 생성했다.  
 

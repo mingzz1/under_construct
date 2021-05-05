@@ -44,6 +44,8 @@ v14.16.1
 
 `chocolatey`를 설치하기 위해서는 `Powershell`을 실행 시키고 아래의 명령어를 실행시키면 된다.  
 
+만약 오류가 날 경우 `Powershell`을 `관리자 권한`으로 실행시키면 되며, `cmd`에서는 설치 및 `choco` 명령어 사용이 불가능하기 때문에 꼭 `Powershell`을 사용해야 하는 것 같다.  
+
 ```
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 ```

@@ -145,6 +145,8 @@ Android Studio는 아래의 사이트에서 다운받을 수 있다.
 
 ![](/images/development/react-native/install/04.png)  
 
+아래의 `OK` 클릭 후 새 창이 뜨면 `Accept`를 선택하여 설치하면 된다.  
+
 ### 6. 환경변수 등록
 
 이번에는 환경변수를 등록해야 한다.  
@@ -157,7 +159,7 @@ Android Studio는 아래의 사이트에서 다운받을 수 있다.
 
 ![](/images/development/react-native/install/06.png)  
 
-`Path`에서 `platform-tools`의 경로를 입력 해 준다.  
+`Path`에서 `SDK` 경로 아래의 `platform-tools`의 경로를 입력 해 준다.  
 
 ![](/images/development/react-native/install/07.png)  
 
@@ -202,6 +204,8 @@ Android Studio 메인 페이지에서 `Configure` > `AVD Manager`를 선택한�
 
 프로젝트를 생성 할 경로로 가 `cmd` 창에서 아래와 같이 입력한다.  
 
+이 때는 `cmd`를 `관리자 권한`으로 실행시킨 후 명령어를 입력해야 한다.  
+
 ```
 > react-native init testApp
 ```
@@ -222,7 +226,6 @@ Android Studio 메인 페이지에서 `Configure` > `AVD Manager`를 선택한�
 ```
 > cd testApp
 > npx react-native run-android
-
 ```
 
 그 결과 아래와 같이 앱이 정상적으로 실행 된 것을 확인할 수 있다.  
